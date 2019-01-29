@@ -68,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
         fit: BoxFit.contain,
         animation: "Sushi Bounce"),
     ),
+      //
       backgroundColor: Colors.indigo,
     );
   }
