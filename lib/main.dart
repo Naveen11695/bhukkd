@@ -25,20 +25,29 @@ class Bhukkd extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return new SplashScreen(
-      seconds: 15,
+      seconds: 5,
       backgroundColor: Colors.indigo,
-      image: Image.asset("assets/images/logo.png"),
+      image: Image.asset("assets/images/logo.png",),
+      photoSize: 100,
       navigateAfterSeconds: new HomePage(),
     );
   }
 }
 
 class HomePage extends StatelessWidget{
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
       drawer: Drawer(),
       body: new TrendingPage(),
+      bottomNavigationBar: BottomNavigationBar(
+        fixedColor: Colors.white24,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.trending_up), title: new Text("Trending")),
+
+        ],
+      ),
     );
   }
 }*/
