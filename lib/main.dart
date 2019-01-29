@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget{
       bottomNavigationBar: BottomNavigationBar(
         fixedColor: Colors.white24,
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.trending_up), title: new Text("")),
+          BottomNavigationBarItem(icon: Icon(Icons.trending_up), title: new Text("Trending")),
 
         ],
       ),
