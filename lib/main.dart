@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 import './Pages/TrendingPage.dart';
@@ -14,7 +15,7 @@ class Bhukkd extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SlashPage(),
+      home: MyHomePage(),
     );
   }
 }
@@ -48,5 +49,21 @@ class HomePage extends StatelessWidget{
         ],
       ),
     );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => new _MyHomePageState();
+}
+//this
+
+class _MyHomePageState extends State<MyHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return new FlareActor("assets/animations/sushi/Sushi.flr",
+        alignment: Alignment.center,
+        fit: BoxFit.contain,
+        animation: "rotate_scale_color");
   }
 }
