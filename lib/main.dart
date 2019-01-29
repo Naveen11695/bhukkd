@@ -21,7 +21,7 @@ class Bhukkd extends StatelessWidget {
 }
 
 
-class SlashPage extends StatelessWidget{
+/*class SlashPage extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return new SplashScreen(
@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget{
       ),
     );
   }
-}
+}*/
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -61,7 +61,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return new FlareActor("assets/animations/sushi/Sushi.flr",
+    return new FlareActor("assets/animations/sushi/sushi.flr2d",
         alignment: Alignment.center,
         fit: BoxFit.contain,
         animation: "rotate_scale_color");
