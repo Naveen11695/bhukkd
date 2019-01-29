@@ -61,9 +61,15 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return new FlareActor("assets/animations/sushi/sushi.flr2d",
+    return Scaffold(
+      body: Center(
+      child: new FlareActor("assets/animations/sushi/Sushi.flr",
         alignment: Alignment.center,
         fit: BoxFit.contain,
-        animation: "rotate_scale_color");
+        animation: "Sushi Bounce"),
+    ),
+      backgroundColor: Colors.indigo,
+    );
   }
+
 }
