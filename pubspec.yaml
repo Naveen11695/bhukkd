@@ -17,7 +17,8 @@ dependencies:
   flutter:
     sdk: flutter
   flare_dart: ^1.2.0
-  flare_flutter: ^1.0.2
+  flare_flutter: 1.0.2
+  percent_indicator: ^1.0.13
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -43,12 +44,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
   - assets/logo.png
-<<<<<<< HEAD
-  - assets/animations/
-  #  - images/a_dot_ham.jpeg
-=======
-  - assets/animations/sushi/
->>>>>>> 8c9b494710ce4b22fa0231fc6b241a293cd0d70c
+  - assets/animations/loading/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.

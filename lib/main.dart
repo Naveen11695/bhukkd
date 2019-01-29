@@ -21,7 +21,7 @@ class Bhukkd extends StatelessWidget {
 }
 
 
-/*class SlashPage extends StatelessWidget{
+class SlashPage extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return new SplashScreen(
@@ -29,7 +29,7 @@ class Bhukkd extends StatelessWidget {
       backgroundColor: Colors.indigo,
       image: Image.asset("assets/images/logo.png",),
       photoSize: 100,
-      navigateAfterSeconds: new HomePage(),
+
     );
   }
 }
@@ -50,20 +50,37 @@ class HomePage extends StatelessWidget{
       ),
     );
   }
-}*/
+}
 
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => new _MyHomePageState();
 }
-//this
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return new FlareActor("assets/animations/sushi/sushi.flr2d",
-        alignment: Alignment.center,
-        fit: BoxFit.contain,
-        animation: "rotate_scale_color");
+    return Scaffold(
+        body: Center(
+            child: Container(
+              constraints: BoxConstraints.expand(
+                height: Theme.of(context).textTheme.display1.fontSize * 1.1 + 200.0,
+              ),
+              padding: const EdgeInsets.all(8.0),
+              alignment: Alignment.center,
+              child:new FlareActor("assets/animations/loading/sushi.flr",
+                        alignment: Alignment.center,
+                        fit: BoxFit.contain,
+                        animation: "Sushi Bounce"),
+            ),
+        ),
+            backgroundColor: Colors.indigo,
+            bottomNavigationBar: BottomAppBar(
+            child: Container(child: Text("Loading"),
+            ),
+
+      )
+    );
   }
 }
+
