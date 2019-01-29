@@ -9,6 +9,8 @@ class TrendingPage extends StatefulWidget{
 class _TrendingPageState extends State<TrendingPage>{
   @override
   Widget build(BuildContext context){
-    return Container();
+    return Container(
+      child: new Text("Welcome"),
+    );
   }
 }
