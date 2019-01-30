@@ -66,4 +66,3 @@ void requestRestaurant(requestUrl,res_id) async{
     print(response.body);
   }
 }
-
