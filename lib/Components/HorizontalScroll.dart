@@ -11,7 +11,7 @@ class _HorizontalScrollState extends State<HorizontalScroll> {
     return Row(
       children: <Widget>[
         new Container(
-          width: 200.0,
+          width: 160.0,
           child: new Container(
             child: Card(
               child: Column(
@@ -25,7 +25,7 @@ class _HorizontalScrollState extends State<HorizontalScroll> {
                   ),
                     new Text("Food Name"),
                     new Text("Description", style: new TextStyle(
-                    fontSize: 12.0,
+                    fontSize: 10.0,
                     color: Theme.of(context).textTheme.subtitle.color
                   ),)
                 ],
