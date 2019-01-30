@@ -1,6 +1,9 @@
+// flutter
 import 'package:flutter/material.dart';
-import '../Components/HorizontalScroll.dart';
 
+// custom
+import '../Components/HorizontalScroll.dart';
+import '../api/HttpRequest.dart';
 
 class TrendingPage extends StatefulWidget {
   _TrendingPageState createState() => new _TrendingPageState();
@@ -17,6 +20,12 @@ class _TrendingPageState extends State<TrendingPage> {
         children: <Widget>[
           HorizontalScroll(),
           HorizontalScroll(),
+          new FlatButton(
+            onPressed: (){
+              jsonRequest();
+            },
+            child: new Text("Click"),
+          )
         ],
       ),
     );
