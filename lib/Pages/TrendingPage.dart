@@ -22,7 +22,7 @@ class _TrendingPageState extends State<TrendingPage> {
           HorizontalScroll(),
           new FlatButton(
             onPressed: (){
-              jsonRequest();
+              getjsonResponse();
             },
             child: new Text("Click"),
           )
