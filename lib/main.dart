@@ -69,26 +69,23 @@ class HomePage extends StatelessWidget {
                 Icons.trending_up,
                 color: Color(0xFFD35400),
               ),
-              title: new Text("Trending")),
+              title: new Text("Trending")
+          ),
           BottomNavigationBarItem(
               icon: Icon(Icons.search, color: Color(0xFFD35400)),
-              title: new Text("Explore")),
+              title: new Text("Explore")
+          ),
           BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart, color: Color(0xFFD35400)),
-              title: new Text("Wagon")),
+              title: new Text("Wagon")
+          ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: Color(0xFFD35400)),
-              title: new Text(
-                "Account",
-                style: new TextStyle(color: Color(0xFFD35400)),
-              ),
-              ),
-              BottomNavigationBarItem(
-              icon: Icon(
-                Icons.trending_up,
-                color: Color(0xFFD35400),
-              ),
-              title: new Text("Hello"))
+            icon: Icon(Icons.home, color: Color(0xFFD35400)),
+            title: new Text(
+              "Account",
+              style: new TextStyle(color: Color(0xFFD35400)),
+            ),
+          ),
         ],
       ),
     );
