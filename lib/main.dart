@@ -34,12 +34,17 @@ class SlashPage extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
-  final int _selectedIndex = 0;
+class HomePage extends StatefulWidget {
+  @override
+  _HomePage createState() => new _HomePage(); 
+}
+
+class _HomePage extends State<HomePage>{
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new Scaffold(
       appBar: new AppBar(
         elevation: 0.0,
         backgroundColor: Colors.transparent,
@@ -58,17 +63,19 @@ class HomePage extends StatelessWidget {
               fontFamily: "roboto",
             )),
       ),
-      drawer: Drawer(),
+      drawer: new Drawer(),
       body: new TrendingPage(),
       bottomNavigationBar: BottomNavigationBar(
-        fixedColor: Color.fromRGBO(255, 111, 0, 0),
-        // currentIndex: _selectedIndex,
+        type: BottomNavigationBarType.fixed,
+        onTap: (int index){
+          setState((){this._selectedIndex = index;});
+        },
+        fixedColor: Colors.deepOrange,
+        currentIndex: _selectedIndex,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(
-                Icons.trending_up,
-                color: Color(0xFFD35400),
-              ),
+                Icons.trending_up, color: Color(0xFFD35400),),
               title: new Text("Trending")
           ),
           BottomNavigationBarItem(
@@ -80,11 +87,8 @@ class HomePage extends StatelessWidget {
               title: new Text("Wagon")
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home, color: Color(0xFFD35400)),
-            title: new Text(
-              "Account",
-              style: new TextStyle(color: Color(0xFFD35400)),
-            ),
+            icon: Icon(Icons.person, color: Color(0xFFD35400)),
+            title: new Text("Account"),
           ),
         ],
       ),

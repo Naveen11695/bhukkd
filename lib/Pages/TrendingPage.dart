@@ -13,7 +13,9 @@ class _TrendingPageState extends State<TrendingPage> {
       width: double.infinity,
       height: 300.0,
       child: ListView(
+        scrollDirection: Axis.horizontal,
         children: <Widget>[
+          HorizontalScroll(),
           HorizontalScroll(),
         ],
       ),
