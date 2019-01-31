@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 import './Pages/TrendingPage.dart';
+import './Pages/LoginPage.dart';
 
 void main() {
   runApp(new Bhukkd());
@@ -41,7 +42,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage>{
-  int _selectedIndex = 0;
+  int selectedIndex = 0;
+
+  List<Widget> bottomNavigation = [
+    new TrendingPage(),
+    new TrendingPage(),
+    new TrendingPage(),
+    new LoginPage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -65,14 +73,14 @@ class _HomePage extends State<HomePage>{
             )),
       ),
       drawer: new Drawer(),
-      body: new TrendingPage(),
+      body: bottomNavigation[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         onTap: (int index){
-          setState((){this._selectedIndex = index;});
+          setState((){this.selectedIndex = index;});
         },
         fixedColor: Colors.deepOrange,
-        currentIndex: _selectedIndex,
+        currentIndex: selectedIndex,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(
