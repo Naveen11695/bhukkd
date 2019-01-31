@@ -18,8 +18,9 @@ dependencies:
     sdk: flutter
   flare_dart: ^1.2.0
   flare_flutter: ^1.0.2
-  cloud_firestore: ^0.8.2
   http: any
+  geolocator: '^2.1.1'
+  scoped_model: ^1.0.1
 
   # Api- key :0bc8d74fdefd3601d84a0d52ffa01901
 
