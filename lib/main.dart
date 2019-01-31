@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 import './Pages/TrendingPage.dart';
 import './Pages/LoginPage.dart';
+import './Pages/WagonPage.dart';
 
 void main() {
   runApp(new Bhukkd());
@@ -47,7 +48,7 @@ class _HomePage extends State<HomePage>{
   List<Widget> bottomNavigation = [
     new TrendingPage(),
     new TrendingPage(),
-    new TrendingPage(),
+    new WagonPage(),
     new LoginPage(),
   ];
 
@@ -55,6 +56,7 @@ class _HomePage extends State<HomePage>{
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        title: new Text("${bottomNavigation[selectedIndex]}"),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
         iconTheme: IconThemeData(color: Colors.deepOrange),
