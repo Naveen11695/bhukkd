@@ -54,6 +54,10 @@ class _UserInput extends State<UserInput> {
                 ),
               ),
             ),
+            new MaterialButton(onPressed: (){}, color:Colors.deepOrange,
+              child:new Text("Login", style:new TextStyle()),
+              shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(25))
+              ,)
           ],
         ),
       ),

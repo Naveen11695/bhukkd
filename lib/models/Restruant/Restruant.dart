@@ -52,15 +52,15 @@ class Restaurant extends Model{
 
         if(loc != null){
             l = location.fromJson(loc);
-            l.location_print();
+            //l.location_print();
         }
         if(ur != null){
             u = UserRating.fromJson(ur);
-            u.urprint();
+            //u.urprint();
         }
         if(photos != null){
             p = Photos.fromJson(ur);
-            p.photo_print();
+            //p.photo_print();
         }
 
         return Restaurant(

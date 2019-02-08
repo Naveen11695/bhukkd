@@ -39,7 +39,7 @@ import 'package:http/http.dart' as http;
     }
   }
 
-  void requestGeoCode(requestUrl, latitude, longitude) async {
+  Future requestGeoCode(requestUrl, latitude, longitude) async {
     getKey();
     final response = await http.get(Uri.encodeFull(requestUrl),
         headers: {
@@ -56,28 +56,31 @@ import 'package:http/http.dart' as http;
   }
 
 
-void requestRestaurant(requestUrl, res_id) async {
-    getKey();
-    final response = await http.get(Uri.encodeFull(
-        requestUrl),
-        headers: {
-          "user-key": api_key,
-          "res_id": res_id,
-        });
-    if (response.statusCode == 200) {
-      parseRestaurant(response.body);
-    }
-    else {
-      print(response.statusCode);
-      print(response.body);
-    }
+  Future requestRestaurant(requestUrl, res_id) async {
+      getKey();
+      final response = await http.get(Uri.encodeFull(
+          requestUrl),
+          headers: {
+            "user-key": api_key,
+            "res_id": res_id,
+          });
+      if (response.statusCode == 200) {
+        Restaurant r =parseRestaurant(response.body);
+        return r;
+      }
+      else {
+        print(response.statusCode);
+        print(response.body);
+      }
   }
 
 // A function that will convert a response body into a List<Restaurant>
-void parseRestaurant(String responseBody) {
+Restaurant parseRestaurant(String responseBody) {
   final parsed = json.decode(responseBody);
   Restaurant r = Restaurant.fromJson(parsed);
-  r.print_res();
+  return r;
+
+  //r.print_res();
 }
 
 
