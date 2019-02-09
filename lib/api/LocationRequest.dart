@@ -2,25 +2,31 @@ import 'package:geolocator/geolocator.dart';
 
 Position position;
 
-void getCurrentPosition() async {
+Future getCurrentPosition() async {
   position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-  printPostion();
+  return position;
 }
 
-void getLastKnownPosition() async {
+Future getLastKnownPosition() async {
   position = await Geolocator().getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
+  return position;
 }
 
-void onPositionChanged() async {
+Future onPositionChanged() async {
   var geolocator = Geolocator();
   var locationOptions = LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
 
   geolocator.getPositionStream(locationOptions).listen(
           (Position position) {
-        print(position == null ? 'Unknown' : position.latitude.toString() + ', ' + position.longitude.toString());
+        if(position == null){
+          return "Unknown";
+        }
+        else{
+          return position.latitude + position.longitude;
+        }
       });
 }
 
-void printPostion() {
-  print("Postion:$position");
-}
+//void printPostion() {
+//  print("Postion:$position");
+//}
