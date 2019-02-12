@@ -22,6 +22,7 @@ dependencies:
   geolocator: '^2.1.1'
   scoped_model: ^1.0.1
   shared_preferences: ^0.5.0
+  html: any
 
   # Api- key :0bc8d74fdefd3601d84a0d52ffa01901
 
