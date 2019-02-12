@@ -80,8 +80,8 @@ class _TrendingPageState extends State<TrendingPage> {
           // bug solved(first time this function is giving a null error, second time it is executing fine)
           new FlatButton(
             onPressed: 
-              //_fetchRestaurant,
-              _fetchRestByGeoCode,
+              _fetchRestaurant,
+              //_fetchRestByGeoCode,
               //getCurrentPosition();
                //requestCategories("https://developers.zomato.com/api/v2.1/categories");
                // requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=28.7041&lon=77.1025", "28.7041", "77.1025");
