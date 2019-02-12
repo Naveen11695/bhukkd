@@ -12,6 +12,6 @@ class StoreUserLocation{
   }
   static getLocation() async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.getStringList("location");
+    return preferences.getStringList("location");
   }
 }

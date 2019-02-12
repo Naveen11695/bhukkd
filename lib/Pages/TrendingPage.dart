@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../Components/HorizontalScroll.dart';
 import '../api/HttpRequest.dart';
 import 'package:http/http.dart';
+import '../models/SharedPreferance/SharedPreference.dart';
 import '../api/LocationRequest.dart';
 import '../models/Restruant/Restruant.dart';
 import 'package:html/parser.dart';
@@ -12,6 +13,16 @@ import 'package:html/parser.dart';
 
 class TrendingPage extends StatefulWidget {
   _TrendingPageState createState() => new _TrendingPageState();
+}
+// temp variable
+String latitude;
+String longitude;
+void _fetchRestByGeoCode(){
+  StoreUserLocation.getLocation().then((loc){
+    latitude = loc[0].toString();
+    longitude = loc[1].toString();
+  });
+  requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude", latitude, longitude); 
 }
 
 //Restaurant restaurant; 
@@ -67,12 +78,13 @@ class _TrendingPageState extends State<TrendingPage> {
           HorizontalScroll(),
           HorizontalScroll(),
           new FlatButton(
-            onPressed: (){
-              _fetchRestaurant();
+            onPressed: 
+              //_fetchRestaurant();
+              _fetchRestByGeoCode
               //getCurrentPosition();
                //requestCategories("https://developers.zomato.com/api/v2.1/categories");
                // requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=28.7041&lon=77.1025", "28.7041", "77.1025");
-            },
+            ,
             child: new Text("Click"),
           )
         ],
