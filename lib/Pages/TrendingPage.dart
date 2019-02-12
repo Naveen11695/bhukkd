@@ -26,7 +26,6 @@ void _fetchRestByGeoCode(){
 }
 
 //Restaurant restaurant; 
-// first time this function is giving a null error, second time it is executing fine
 void _fetchRestaurant(){
   requestRestaurant("https://developers.zomato.com/api/v2.1/restaurant?res_id=1806", "1806").then((rest){
     print(rest.restruant_Name);
@@ -77,14 +76,15 @@ class _TrendingPageState extends State<TrendingPage> {
         children: <Widget>[
           HorizontalScroll(),
           HorizontalScroll(),
+          // never call the the fuction in onPressed method only pass the reference
+          // bug solved(first time this function is giving a null error, second time it is executing fine)
           new FlatButton(
             onPressed: 
-              //_fetchRestaurant();
-              _fetchRestByGeoCode
+              //_fetchRestaurant,
+              _fetchRestByGeoCode,
               //getCurrentPosition();
                //requestCategories("https://developers.zomato.com/api/v2.1/categories");
                // requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=28.7041&lon=77.1025", "28.7041", "77.1025");
-            ,
             child: new Text("Click"),
           )
         ],
