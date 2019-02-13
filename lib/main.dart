@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
 import './Pages/LocationServicePage.dart';
+import 'models/SharedPreferance/SharedPreference.dart';
+import './Pages/HomePage.dart';
 
 void main() {
   runApp(new Bhukkd());
@@ -30,7 +32,8 @@ class SlashPage extends StatelessWidget {
         "assets/images/logo.png",
       ),
       photoSize: 100,
-      navigateAfterSeconds: new LocationServicePage(),
+
+      navigateAfterSeconds:(StoreUserLocation.getLocation() ==null) ? new LocationServicePage() : new HomePage(),
     );
   }
 }

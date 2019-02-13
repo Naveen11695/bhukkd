@@ -13,16 +13,15 @@ class _LocationServicePage extends State<LocationServicePage>{
 
   void _saveLocation(){
     getCurrentPosition().then((position){
-      setState((){
         StoreUserLocation.location=position;
         StoreUserLocation.setLocation();
-      });
     });
+
+    Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context)=>new HomePage()));
   }
 
   @override
   Widget build(BuildContext context){
-    if(StoreUserLocation.location==null){
       return Scaffold(
         appBar: new AppBar(
           elevation: 0.0,
@@ -50,11 +49,5 @@ class _LocationServicePage extends State<LocationServicePage>{
             ],
         ),
       ),);
-    }
-    else if(StoreUserLocation.location!=null){
-      StoreUserLocation.getLocation();
-
-      return HomePage();
-    }
   }
 }
