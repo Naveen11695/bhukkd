@@ -35,6 +35,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_launcher_icons: any
+  progress_indicators: ^0.1.2
 
 flutter_icons:
   image_path: "assets/images/icon.png"
@@ -60,6 +61,8 @@ flutter:
   - assets/animations/sushi/
   - assets/images/food.png
   - assets/api/config.json
+  - assets/images/
+
   
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
@@ -86,3 +89,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.io/custom-fonts/#from-packages
+font:
+  - family: Raleway
+    fonts:
+    - assets: assets/fonts/Raleway/Raleway-Bold.ttf

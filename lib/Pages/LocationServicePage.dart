@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:geolocator/geolocator.dart';
 import '../api/LocationRequest.dart';
 import '../models/SharedPreferance/SharedPreference.dart';
 import '../Pages/HomePage.dart';
