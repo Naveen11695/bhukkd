@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:async';
 import 'package:splashscreen/splashscreen.dart';
 import './Pages/LocationServicePage.dart';
 import 'models/SharedPreferance/SharedPreference.dart';
@@ -11,13 +12,6 @@ import 'package:progress_indicators/progress_indicators.dart';
 void main() {
   runApp(new Bhukkd());
 }
-
-
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
 
 const TextStyle textStyle = TextStyle(
   color: Color(0xFFFFFFFF),
@@ -35,10 +29,18 @@ class Bhukkd extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'SplashScreen',
       home: SplashScreen(),
+      routes: <String, WidgetBuilder>{
+        '/LocationService':(BuildContext context) => new LocationServicePage(),
+        '/HomePage':(BuildContext context) => new HomePage(),
+
+      },
     );
   }
 }
-
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
@@ -46,6 +48,19 @@ class _SplashScreenState extends State<SplashScreen>
   AnimationController controller;
   Animation<double> animation;
 
+  Future delayTimer() async {
+    Duration duration = new Duration(seconds: 8);
+    return new Timer(duration, navigateTo);
+  }
+
+  void navigateTo() async{
+    if(await StoreUserLocation.getLocation()==null){
+      Navigator.of(context).pushReplacementNamed('/LocationService');
+    }
+    else{
+      Navigator.of(context).pushReplacementNamed('/HomePage');
+    }
+  }
 
   @override
   void initState() {
@@ -61,8 +76,7 @@ class _SplashScreenState extends State<SplashScreen>
         setState(() {});
       });
     controller.forward();
-    descriptionMethod("Loading Assets");
-    new Timer(const Duration(seconds: 5), onClose);
+    delayTimer();
   }
 
   @override
@@ -107,7 +121,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     return Scaffold(
       body: Stack(
-        fit: StackFit.expand,
+        fit: StackFit.passthrough,
         children: <Widget>[
           background,
           orangeOpacity,
@@ -121,7 +135,7 @@ class _SplashScreenState extends State<SplashScreen>
               ),
 
               Padding(
-                padding: const EdgeInsets.fromLTRB(100,300,100,30),
+                padding: const EdgeInsets.fromLTRB(100,150,100,30),
                 child: description,
               ),
               Padding(
