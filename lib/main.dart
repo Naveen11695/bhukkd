@@ -73,7 +73,23 @@ class _SplashScreenState extends State<SplashScreen>
       Navigator.of(context).pushReplacement(route);
     }
     else{
-      Navigator.of(context).pushReplacementNamed('/HomePage');
+      Navigator.pushReplacement(context, PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (BuildContext context, _, __) {
+          return new HomePage();
+        },
+        transitionDuration: const Duration(seconds: 3),
+        transitionsBuilder: (___, Animation<double> animation, ____, Widget child) {
+          return FadeTransition(
+            opacity: animation,
+            child: RotationTransition(
+            turns: Tween<double>(begin: 0.5, end: 1.0).animate(animation),
+            child: child,
+            ),
+          );
+        }
+      ));
+      
     }
   }
 
