@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
@@ -12,9 +14,13 @@ void main() {
 }
 
 const TextStyle textStyle = TextStyle(
-  color: Colors.deepOrangeAccent,
+  color: Color(0xFFFFFFFF),
   fontFamily: 'Raleway',
 );
+
+
+
+var description;
 
 class Bhukkd extends StatelessWidget {
   @override
@@ -69,7 +75,6 @@ class _SplashScreenState extends State<SplashScreen>
       ..addListener(() {
         setState(() {});
       });
-
     controller.forward();
     delayTimer();
   }
@@ -91,8 +96,10 @@ class _SplashScreenState extends State<SplashScreen>
   );
 
   final orangeOpacity = Container(
-    color: Color(0xAAAA1222),
+    color: Color(0xAAAF1222),
   );
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +107,6 @@ class _SplashScreenState extends State<SplashScreen>
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-
 
     final logo = new ScaleTransition(
       scale: animation,
@@ -111,11 +117,6 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
 
-    final description = Text(
-          'Loading Assets',
-          textAlign: TextAlign.center,
-          style: textStyle.copyWith(fontSize: 24.0,),
-    );
 
 
     return Scaffold(
@@ -137,14 +138,13 @@ class _SplashScreenState extends State<SplashScreen>
                 padding: const EdgeInsets.fromLTRB(100,150,100,30),
                 child: description,
               ),
-
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: CollectionScaleTransition(
                   children: <Widget>[
-                    Icon(Icons.face, color: Colors.white,),
-                    Icon(Icons.fastfood, color: Colors.white),
-                    Icon(Icons.favorite, color: Colors.white),
+                    Icon(Icons.face, color: Color(0xFFFFFFFF),),
+                    Icon(Icons.fastfood, color: Color(0xFFFFFFFF),),
+                    Icon(Icons.favorite, color: Color(0xFFFFFFFF),),
                   ],
                 ),
               ),
@@ -155,13 +155,34 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
   }
+
+
+  //....................................version 2.0.1 (Updated shared preference check not working).................................//
+  void onClose() {
+    Navigator.of(context).pushReplacement(new PageRouteBuilder(
+        maintainState: true,
+        opaque: true,
+        pageBuilder: (context, _, __) => ((StoreUserLocation.getLocation() ==null) ? new LocationServicePage() : new HomePage()),
+        transitionDuration: const Duration(seconds: 2),
+        transitionsBuilder: (context, anim1, anim2, child) {
+          return new FadeTransition(
+            child: child,
+            opacity: anim1,
+          );
+        }));
+  }
+
+
+  //....................................version 2.0.1 (Updated shared preference check not working).................................//
+
+  Widget descriptionMethod(var text) {
+    description = Text(
+    text,
+    textAlign: TextAlign.center,
+    style: textStyle.copyWith(fontSize: 24.0,),
+    );
+  }
 }
-
-
-
-
-
-
 
 
 
