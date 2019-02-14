@@ -172,7 +172,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   //....................................version 2.0.1 (Updated shared preference check not working).................................//
 
-  Widget descriptionMethod(var text) {
+  static Widget descriptionMethod(var text) {
     description = Text(
     text,
     textAlign: TextAlign.center,
@@ -189,36 +189,3 @@ class _SplashScreenState extends State<SplashScreen>
 
 
 
-
-/*
-class Bhukkd extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Bhukkd',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
-      home: new SlashPage(),
-    );
-  }
-}
-
-class SlashPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new SplashScreen(
-      seconds: 5,
-      backgroundColor: Colors.indigo,
-      image: Image.asset(
-        "assets/images/icon.png",
-      ),
-      photoSize: 100,
-
-      navigateAfterSeconds:(StoreUserLocation.getLocation() ==null) ? new LocationServicePage() : new HomePage(),
-    );
-  }
-}
-
-*/
