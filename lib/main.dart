@@ -8,6 +8,7 @@ import './Pages/LocationServicePage.dart';
 import 'models/SharedPreferance/SharedPreference.dart';
 import './Pages/HomePage.dart';
 import 'package:progress_indicators/progress_indicators.dart';
+import 'Components/CustomTransition.dart';
 
 void main() {
   runApp(new Bhukkd());
@@ -68,7 +69,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   void navigateTo() async{
     if(await StoreUserLocation.getLocation()==null){
-      Navigator.of(context).pushReplacementNamed('/LocationService');
+      Route route = HorizontalTransition(builder:(BuildContext context) => new LocationServicePage());
+      Navigator.of(context).pushReplacement(route);
     }
     else{
       Navigator.of(context).pushReplacementNamed('/HomePage');
@@ -77,7 +79,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller = AnimationController(
       duration: Duration(milliseconds: 2000),
