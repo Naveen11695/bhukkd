@@ -79,7 +79,7 @@ class _TrendingPageState extends State<TrendingPage> {
           // never call the the fuction in onPressed method only pass the reference
           // bug solved(first time this function is giving a null error, second time it is executing fine)
           new FlatButton(
-            onPressed: 
+            onPressed:
               _fetchRestaurant,
               //_fetchRestByGeoCode,
               //getCurrentPosition();

@@ -10,27 +10,30 @@ class _HorizontalScrollState extends State<HorizontalScroll> {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        new Container(
-          width: 160.0,
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0,25,0,0),
           child: new Container(
-            child: Card(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  new Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                    new Image.asset("assets/images/food.png", fit: BoxFit.cover, width: 150,),
-                    ],
-                  ),
-                    new Text("Food Name"),
-                    new Text("Description", style: new TextStyle(
-                    fontSize: 10.0,
-                    color: Theme.of(context).textTheme.subtitle.color
-                  ),)
-                ],
+            width: 160.0,
+            child: new Container(
+              child: Card(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                      new Image.asset("assets/images/food.png", fit: BoxFit.cover, width: 150,),
+                      ],
+                    ),
+                      new Text("Food Name"),
+                      new Text("Description", style: new TextStyle(
+                      fontSize: 10.0,
+                      color: Theme.of(context).textTheme.subtitle.color
+                    ),)
+                  ],
+                ),
               ),
-            ), 
+            ),
           ),
         ),
       ],
