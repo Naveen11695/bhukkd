@@ -170,18 +170,18 @@ class LoginPage extends StatelessWidget {
                     new Stack(
                       children: <Widget>[
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                           child: new OutlineButton(
-                            child: new Text('Sign in With Google',style: textStyle.copyWith(fontSize: 20.0),),
+                            child: new Text('Sign in With Google',style: textStyle.copyWith(fontSize: 15.0),),
                             borderSide: BorderSide(color: Colors.black),
                             onPressed:null ,
                           ),
                         ),
 
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(240, 0, 0, 0),
+                          padding: const EdgeInsets.fromLTRB(200, 0, 0, 0),
                           child: new OutlineButton(
-                            child: new Text('Sign in With Facebook',style: textStyle.copyWith(fontSize: 20.0),),
+                            child: new Text('Sign in With Facebook',style: textStyle.copyWith(fontSize: 15.0),),
                             borderSide: BorderSide(color: Colors.black),
                             onPressed:null ,
                           ),

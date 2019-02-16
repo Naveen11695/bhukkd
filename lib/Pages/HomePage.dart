@@ -1,3 +1,4 @@
+import 'package:bhukkd/Pages/ExplorePage.dart';
 import 'package:flutter/material.dart';
 import './TrendingPage.dart';
 import './LoginPage.dart';
@@ -13,7 +14,7 @@ class _HomePage extends State<HomePage>{
 
   List<Widget> bottomNavigation = [
     new TrendingPage(),
-    new TrendingPage(),
+    new ExplorePage(),
     new WagonPage(),
     new LoginPage(),
   ];
