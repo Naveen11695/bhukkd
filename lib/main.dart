@@ -8,6 +8,7 @@ import './Pages/LocationServicePage.dart';
 import 'models/SharedPreferance/SharedPreference.dart';
 import './Pages/HomePage.dart';
 import 'package:progress_indicators/progress_indicators.dart';
+import 'Components/CustomTransition.dart';
 
 void main() {
   runApp(new Bhukkd());
@@ -32,7 +33,6 @@ class Bhukkd extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         '/LocationService':(BuildContext context) => new LocationServicePage(),
         '/HomePage':(BuildContext context) => new HomePage(),
-
       },
     );
   }
@@ -52,19 +52,49 @@ class _SplashScreenState extends State<SplashScreen>
     Duration duration = new Duration(seconds: 8);
     return new Timer(duration, navigateTo);
   }
+  //....................................version 2.0.1 (Updated shared preference check not working).................................//
+  // void onClose() async{
+  //   Navigator.of(context).pushReplacement(new PageRouteBuilder(
+  //       maintainState: true,
+  //       opaque: true,
+  //       pageBuilder: (context, _, __) => StoreUserLocation.getLocation() ==null ? new LocationServicePage() : new HomePage(),
+  //       transitionDuration: const Duration(seconds: 2),
+  //       transitionsBuilder: (context, anim1, anim2, child) {
+  //         return new FadeTransition(
+  //           child: child,
+  //           opacity: anim1,
+  //         );
+  //       }));
+  // }
 
   void navigateTo() async{
     if(await StoreUserLocation.getLocation()==null){
-      Navigator.of(context).pushReplacementNamed('/LocationService');
+      Route route = HorizontalTransition(builder:(BuildContext context) => new LocationServicePage());
+      Navigator.of(context).pushReplacement(route);
     }
     else{
-      Navigator.of(context).pushReplacementNamed('/HomePage');
+      Navigator.pushReplacement(context, PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (BuildContext context, _, __) {
+          return new HomePage();
+        },
+        transitionDuration: const Duration(seconds: 3),
+        transitionsBuilder: (___, Animation<double> animation, ____, Widget child) {
+          return FadeTransition(
+            opacity: animation,
+            child: RotationTransition(
+            turns: Tween<double>(begin: 0.5, end: 1.0).animate(animation),
+            child: child,
+            ),
+          );
+        }
+      ));
+      
     }
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller = AnimationController(
       duration: Duration(milliseconds: 2000),
@@ -98,8 +128,6 @@ class _SplashScreenState extends State<SplashScreen>
   final orangeOpacity = Container(
     color: Color(0xAAAF1222),
   );
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -157,21 +185,7 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
 
-  //....................................version 2.0.1 (Updated shared preference check not working).................................//
-  void onClose() {
-    Navigator.of(context).pushReplacement(new PageRouteBuilder(
-        maintainState: true,
-        opaque: true,
-        pageBuilder: (context, _, __) => ((StoreUserLocation.getLocation() ==null) ? new LocationServicePage() : new HomePage()),
-        transitionDuration: const Duration(seconds: 2),
-        transitionsBuilder: (context, anim1, anim2, child) {
-          return new FadeTransition(
-            child: child,
-            opacity: anim1,
-          );
-        }));
-  }
-
+  
 
   //....................................version 2.0.1 (Updated shared preference check not working).................................//
 
