@@ -1,8 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
- import 'dart:convert';
- import 'dart:async';
- import '../models/Restruant/Restruant.dart';
+import 'dart:convert';
+import 'dart:async';
+import '../models/Restruant/Restruant.dart';
+import 'package:html/parser.dart';
 
 //String url = "https://developers.zomato.com/api/v2.1/categories";
 
@@ -48,7 +49,9 @@ import 'package:http/http.dart' as http;
           "lon": longitude,
         });
     if (response.statusCode == 200) {
-      print(response.body);
+      // print(response.body);
+      var requestData = parse(response.body);
+      
     }
     else {
       print(response.statusCode);

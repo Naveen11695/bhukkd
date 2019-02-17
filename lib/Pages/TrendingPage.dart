@@ -49,8 +49,13 @@ Future fetchPhotos(String url) async{
     print(link.attributes['href']);
   }
   print("----------Photo links------------");
+  List<String> restarauntPhotos = new List<String>(); 
   for(var photoLink in photoLinks){
-    print(photoLink.attributes['data-original'].replaceAll("?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A", ""));
+    restarauntPhotos.add(photoLink.attributes['data-original'].replaceAll("?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A", ""));
+  }
+
+  for(var link in restarauntPhotos){
+    print(link);
   }
 }
 
@@ -66,6 +71,13 @@ Future fetchMenu(String url) async{
 }
 
 class _TrendingPageState extends State<TrendingPage> {
+
+  @override
+  void initState() {
+    super.initState();
+    //_fetchRestaurant();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -80,8 +92,8 @@ class _TrendingPageState extends State<TrendingPage> {
           // bug solved(first time this function is giving a null error, second time it is executing fine)
           new FlatButton(
             onPressed: 
-              _fetchRestaurant,
-              //_fetchRestByGeoCode,
+              //_fetchRestaurant,
+              _fetchRestByGeoCode,
               //getCurrentPosition();
                //requestCategories("https://developers.zomato.com/api/v2.1/categories");
                // requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=28.7041&lon=77.1025", "28.7041", "77.1025");
