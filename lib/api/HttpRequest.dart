@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import '../models/Restruant/Restruant.dart';
-import 'package:html/parser.dart';
+import '../models/GeoCodeInfo/GeoCode.dart';
 
 //String url = "https://developers.zomato.com/api/v2.1/categories";
 
@@ -50,8 +50,8 @@ import 'package:html/parser.dart';
         });
     if (response.statusCode == 200) {
       // print(response.body);
-      var requestData = parse(response.body);
-      
+      GeoCode geo = parseGeoCode(response.body);
+      return geo;
     }
     else {
       print(response.statusCode);
@@ -84,6 +84,13 @@ Restaurant parseRestaurant(String responseBody) {
   return r;
 
   //r.print_res();
+}
+
+// This function will convert a respose body into a List<GeoCode>
+GeoCode parseGeoCode(String responseBody) {
+  final parsed = json.decode(responseBody);
+  GeoCode geo = GeoCode.fromJson(parsed);
+  return geo;
 }
 
 
