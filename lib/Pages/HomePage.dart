@@ -1,3 +1,4 @@
+import 'package:bhukkd/Pages/ExplorePage.dart';
 import 'package:flutter/material.dart';
 import './TrendingPage.dart';
 import './LoginPage.dart';
@@ -13,7 +14,7 @@ class _HomePage extends State<HomePage>{
 
   List<Widget> bottomNavigation = [
     new TrendingPage(),
-    new TrendingPage(),
+    new ExplorePage(),
     new WagonPage(),
     new LoginPage(),
   ];
@@ -21,7 +22,7 @@ class _HomePage extends State<HomePage>{
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
+      /*appBar: new AppBar(
         title: new Text("${bottomNavigation[selectedIndex]}"),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
@@ -39,7 +40,7 @@ class _HomePage extends State<HomePage>{
               fontWeight: FontWeight.w300,
               fontFamily: "roboto",
             )),
-      ),
+      ),*/
       drawer: new Drawer(),
       body: bottomNavigation[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -73,25 +74,3 @@ class _HomePage extends State<HomePage>{
   }
 }
 
-// class MyHomePage extends StatefulWidget {
-//   @override
-//   _MyHomePageState createState() => new _MyHomePageState();
-// }
-// //this
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//       child: new FlareActor("assets/animations/sushi/Sushi.flr",
-//         alignment: Alignment.center,
-//         fit: BoxFit.contain,
-//         animation: "Sushi Bounce"),
-//     ),
-//       //
-//       backgroundColor: Colors.indigo,
-//     );
-//   }
-
-// }

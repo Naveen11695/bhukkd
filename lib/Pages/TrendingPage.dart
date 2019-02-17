@@ -91,9 +91,15 @@ class _TrendingPageState extends State<TrendingPage> {
           // never call the the fuction in onPressed method only pass the reference
           // bug solved(first time this function is giving a null error, second time it is executing fine)
           new FlatButton(
+<<<<<<< HEAD
             onPressed: 
               //_fetchRestaurant,
               _fetchRestByGeoCode,
+=======
+            onPressed:
+              _fetchRestaurant,
+              //_fetchRestByGeoCode,
+>>>>>>> db3312faff4d80c931ab169f08f0a2a2f20b5d8b
               //getCurrentPosition();
                //requestCategories("https://developers.zomato.com/api/v2.1/categories");
                // requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=28.7041&lon=77.1025", "28.7041", "77.1025");
