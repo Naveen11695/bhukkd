@@ -47,7 +47,7 @@ class ZomatoEvents{
 
     return ZomatoEvents(
       event_id:jsonParsed['event_id'],
-      friendly_start_date:jsonParsed[''],
+      friendly_start_date:jsonParsed['friendly_start_date'],
       friendly_end_date:jsonParsed[''],
       friendly_timing_str:jsonParsed[],
       start_date:jsonParsed[''],
