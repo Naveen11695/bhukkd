@@ -65,7 +65,8 @@
 //         "price_range": 4,
 //         "currency": "Rs.",
 //         "offers": [],
-//         "zomato_events": [
+//         "zomato_events":
+//          [
 //           {
 //             "event": {
 //               "event_id": 314888,
@@ -870,7 +871,7 @@
 import 'package:scoped_model/scoped_model.dart';
 import '../Restruant/location/location.dart';
 import '../Popularity/Popularity.dart';
-import '../NearByRestaurants/NearByRestaurants.dart';
+import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 
 class GeoCode extends Model {
   List<dynamic> restaraunt_location;
@@ -902,9 +903,16 @@ class GeoCode extends Model {
     if (p != null) {
       p = Popularity.fromJson(pop);
     }
+    if( near_res != null) {
+      nbr = NearByRestaurants.fromJson(near_res);
+    }
+
 
     return GeoCode(
       link: json['link']
     );
   }
+
+
+
 }

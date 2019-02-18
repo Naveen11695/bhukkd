@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
   Animation<double> animation;
 
   Future delayTimer() async {
-    Duration duration = new Duration(seconds: 8);
+    Duration duration = new Duration(seconds: 2);
     return new Timer(duration, navigateTo);
   }
   //....................................version 2.0.1 (Updated shared preference check not working).................................//
@@ -97,7 +97,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     controller = AnimationController(
-      duration: Duration(milliseconds: 2000),
+      duration: Duration(milliseconds: 50),
       vsync: this,
     );
 
