@@ -154,7 +154,7 @@ class _TrendingPageState extends State<TrendingPage> {
               Padding(
                 padding: EdgeInsets.fromLTRB(15.0, 15.0, 0.0, 0.0),
                 child: Text(
-                  "Offers",
+                  "Latest Offers",
                   style: TextStyle(
                     color: Colors.deepOrange,
                     fontSize: 20.0,
