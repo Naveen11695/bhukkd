@@ -194,7 +194,7 @@ class _TrendingPageState extends State<TrendingPage> {
             child: Row(
               children: <Widget>[
                 Text(
-                  "Resturaunts",
+                  "Resturaunt",
                   style: TextStyle(
                       color: Colors.grey,
                       fontSize: 15.0,
