@@ -11,7 +11,7 @@ class _HorizontalScrollState extends State<HorizontalScroll> {
     return Row(
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.fromLTRB(0,25,0,0),
+          padding: const EdgeInsets.fromLTRB(0.0,0.0,0.0,0.0),
           child: new Container(
             width: 160.0,
             child: new Container(
@@ -22,7 +22,10 @@ class _HorizontalScrollState extends State<HorizontalScroll> {
                     new Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                      new Image.asset("assets/images/food.png", fit: BoxFit.cover, width: 150,),
+                        Expanded(
+                     child: new Image.asset("assets/images/food.png", fit: BoxFit.cover, width: 150,
+                      ),
+                        ),
                       ],
                     ),
                       new Text("Food Name"),
@@ -30,6 +33,7 @@ class _HorizontalScrollState extends State<HorizontalScroll> {
                       fontSize: 10.0,
                       color: Theme.of(context).textTheme.subtitle.color
                     ),)
+
                   ],
                 ),
               ),

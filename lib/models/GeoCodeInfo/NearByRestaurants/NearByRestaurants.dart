@@ -1,5 +1,6 @@
 // nearby restaurants provided by geocode
 
+/*
 import 'package:bhukkd/models/Restruant/location/location.dart';
 import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/ZomatoEvents/ZomatoEvents.dart';
 
@@ -63,7 +64,10 @@ class NearByRestaurants{
     }
 
     return NearByRestaurants(
-      id:json['id'],
+  */
+/*   *//*
+*/
+/* id:json['id'],
       name:json['name'],
       cuisines:json[''],
       average_cost_for_two:json[''],
@@ -72,7 +76,10 @@ class NearByRestaurants{
       //offers:json[''],
 
 
-    );
-  }
+    );*//*
+*/
+/*
+  }*//*
 
-}
+
+}*/

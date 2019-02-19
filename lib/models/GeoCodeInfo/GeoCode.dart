@@ -868,6 +868,7 @@
 //   ]
 // } */
 
+/*
 import 'package:scoped_model/scoped_model.dart';
 import '../Restruant/location/location.dart';
 import '../Popularity/Popularity.dart';
@@ -916,3 +917,4 @@ class GeoCode extends Model {
 
 
 }
+*/

@@ -1,3 +1,4 @@
+/*
 import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/ZomatoEvents/Photos/Photos.dart';
 
 class ZomatoEvents{
@@ -46,21 +47,21 @@ class ZomatoEvents{
     }
 
     return ZomatoEvents(
-      event_id:jsonParsed['event_id'],
-      friendly_start_date:jsonParsed['friendly_start_date'],
-      friendly_end_date:jsonParsed[''],
-      friendly_timing_str:jsonParsed[],
-      start_date:jsonParsed[''],
-      end_date:jsonParsed[''],
-      start_time:jsonParsed[''],
-      isActive:jsonParsed[''],
-      is_valid:jsonParsed[''],
-      share_url:jsonParsed[''],
-      show_share_url:jsonParsed[''],
-      title:jsonParsed[''],
+    //  event_id:jsonParsed['event_id'],
+      //friendly_start_date:jsonParsed['friendly_start_date'],
+    //  friendly_end_date:jsonParsed[''],
+    //  friendly_timing_str:jsonParsed[],
+    //  start_date:jsonParsed[''],
+    //  end_date:jsonParsed[''],
+    //  start_time:jsonParsed[''],
+     // isActive:jsonParsed[''],
+     // is_valid:jsonParsed[''],
+     // share_url:jsonParsed[''],
+     // show_share_url:jsonParsed[''],
+     // title:jsonParsed[''],
 
 
 
-    );
-  }
-}
+    //);
+//  }
+//}*/
