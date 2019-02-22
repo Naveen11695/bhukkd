@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+
+final Opacity = Container(
+  color: Color(0xAAAF2222),
+);
+
+
+
+TextStyle Raleway = TextStyle(
+  color: Color(0xAAAF2222),
+  fontFamily: 'Raleway',
+);
+
+final background = Container(
+    decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/9.jpeg'),
+          fit: BoxFit.cover,
+        )
+    )
+);
+
+
 class ExplorePage extends StatelessWidget{
 
-  final Opacity = Container(
-    color: Color(0xAAAF2222),
-  );
-
-
-
-  TextStyle Raleway = TextStyle(
-    color: Color(0xAAAF2222),
-    fontFamily: 'Raleway',
-  );
-
-  final background = Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/9.jpeg'),
-            fit: BoxFit.cover,
-          )
-      )
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +74,8 @@ var result = [
 ];
 class DataSearch extends SearchDelegate<String> {
 
+
+
   final resturaunt = [
     "Barcos",
     "foodHub",
@@ -113,10 +118,12 @@ class DataSearch extends SearchDelegate<String> {
   Widget buildResults(BuildContext context) {
     // show some result based on selection
     List cards = new List.generate(result.length, (i)=>new CustomCard(result[i])).toList();
-    return Container(
-      child: new ListView(
-            children : cards,
-      ),
+    return Stack(
+      children: <Widget>[
+        new ListView(
+              children : cards,
+        ),
+      ],
     );
   }
 

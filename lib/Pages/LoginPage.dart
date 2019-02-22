@@ -1,3 +1,4 @@
+import 'package:bhukkd/Pages/TrendingPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../Components/userInput.dart';
@@ -174,7 +175,11 @@ class LoginPage extends StatelessWidget {
                           child: new OutlineButton(
                             child: new Text('Sign in With Google',style: textStyle.copyWith(fontSize: 15.0),),
                             borderSide: BorderSide(color: Colors.black),
-                            onPressed:null ,
+                            onPressed:(){
+                              print("tt");
+                            TrendingPage o =new TrendingPage();
+                            o.fetchRestByGeoCode();
+                            } ,
                           ),
                         ),
 
