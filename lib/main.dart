@@ -160,16 +160,16 @@ class _SplashScreenState extends State<SplashScreen>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(100.0),
+                padding: EdgeInsets.all(120.0),
                 child: logo,
               ),
 
               Padding(
-                padding: const EdgeInsets.fromLTRB(100,150,100,30),
+                padding: EdgeInsets.all(120.0),
                 child: description,
               ),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(20.0),
                 child: CollectionScaleTransition(
                   children: <Widget>[
                     Icon(Icons.face, color: Color(0xFFFFFFFF),),

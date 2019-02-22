@@ -24,14 +24,14 @@ class LoginPage extends StatelessWidget {
     final background = Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/images/3.jpeg'),
+              image: AssetImage('assets/images/7.jpeg'),
               fit: BoxFit.cover,
             )
         )
     );
 
     final orangeOpacity = Container(
-      color: Color(0xAAAF1222),
+      color: Color(0xAAAF2222),
     );
 
     const TextStyle textStyle = TextStyle(
