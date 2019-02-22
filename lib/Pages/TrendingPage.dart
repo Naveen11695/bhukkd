@@ -221,7 +221,7 @@ class _TrendingPageState extends State<TrendingPage> {
           ),
           SizedBox(height: 20.0),
           Padding(
-            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+            padding: EdgeInsets.all(20.0),
             child: Column(
               children: <Widget>[
                 ListTile(

@@ -30,42 +30,50 @@ class ExplorePage extends StatelessWidget{
   Widget build(BuildContext context) {
 
     return new Scaffold(
-      /*appBar: new AppBar(
-        title: Text("Search",textAlign: TextAlign.center,),
-        backgroundColor: Colors.white70,
-        iconTheme: IconThemeData(color: Colors.deepOrange),
-        textTheme: TextTheme(
-            title: TextStyle(
-              letterSpacing: 5.0,
-              color: Colors.black54,
-              wordSpacing: 2.0,
-              fontWeight: FontWeight.bold,
-              fontFamily: "Raleway",
-            ),
-          ),
-
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.search),
-            onPressed:() {
-            showSearch(context: context, delegate: DataSearch());
-            },)
-        ],
-//      ),*/
-//      drawer: Drawer(),
-      floatingActionButton: FloatingActionButton.extended(
-        elevation: 20.0,
-        backgroundColor: Colors.white,
-          label: Text("Search",style: Raleway.copyWith(fontSize: 20.0),),
-          icon : Icon(Icons.search,color: Color(0xAAAF2222),),
-        onPressed: () {showSearch(context: context, delegate: DataSearch());},
-      ),
       body: Stack(
-        fit: StackFit.expand,
         children: <Widget>[
           background,
           Opacity,
+          new CustomScrollView(
+            slivers: <Widget>[
+              new SliverAppBar(
+                backgroundColor: Color.fromRGBO(255, 255, 255, 50),
+                expandedHeight: 200.0,
+                pinned: true,
+                flexibleSpace: new FlexibleSpaceBar(
+                  title: new Text("Explorer",textAlign: TextAlign.center,style: Raleway,),
+                ),
+              ),
+              SliverGrid(
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 300.0,
+                  mainAxisSpacing: 20.0,
+                  crossAxisSpacing: 20.0,
+                  childAspectRatio: 1.0,
+                ),
+                delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                    return Container(
+                      alignment: Alignment.center,
+                      color: Colors.teal[100 * (index % 9)],
+                      child: Text('grid item $index'),
+                    );
+                  },
+                  childCount: 50,
+                ),
+              ),
+            ],
+          ),
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        elevation: 20.0,
+        backgroundColor: Color.fromRGBO(255, 255, 255, 50),
+        label: Text("Search",style: Raleway.copyWith(fontSize: 20.0),),
+        icon : Icon(Icons.search,color: Color(0xAAAF2222),),
+        onPressed: () {showSearch(context: context, delegate: DataSearch());},
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
@@ -130,12 +138,11 @@ class DataSearch extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     // show when someone searches for something
-    final suggestionList = query.isEmpty ? recentResturaunt:resturaunt.where((p)=>p.startsWith(query)).toList();
+    final suggestionList = query.isEmpty ? recentResturaunt:resturaunt.where((p)=>p.toLowerCase().startsWith(query)).toList();
 
 
     return ListView.builder(
       itemBuilder: (context,index)=>ListTile(
-
         onTap: (){
           print("query:" +recentResturaunt[index]);
           result.add(suggestionList[index]);
