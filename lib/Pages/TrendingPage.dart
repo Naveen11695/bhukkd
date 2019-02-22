@@ -9,6 +9,7 @@ import '../models/SharedPreferance/SharedPreference.dart';
 import '../api/LocationRequest.dart';
 import '../models/Restruant/Restruant.dart';
 import 'package:html/parser.dart';
+import '../models/GeoCodeInfo/GeoCode.dart';
 
 class TrendingPage extends StatefulWidget {
   _TrendingPageState createState() => new _TrendingPageState();
@@ -18,24 +19,30 @@ class TrendingPage extends StatefulWidget {
 String latitude;
 String longitude;
 
-void _fetchRestByGeoCode() {
-  StoreUserLocation.getLocation().then((loc) {
+Future _fetchRestByGeoCode() async {
+    await StoreUserLocation.getLocation().then((loc) {
     latitude = loc[0].toString();
     longitude = loc[1].toString();
+    print("$longitude, $latitude");
   });
-  //requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude", latitude, longitude);
+   Future dataFromGeoCode=await requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude", latitude, longitude);
+   return dataFromGeoCode;
+   // await dataFromGeoCode.then((data){
+  //   print(data.link);
+  // });
+
 }
 
 //Restaurant restaurant;
-void _fetchRestaurant() {
-  // requestRestaurant("https://developers.zomato.com/api/v2.1/restaurant?res_id=1806", "1806").then((rest){
-  //  print(rest.restruant_Name);
-  //print(rest.restruant_Menu);
-  //fetchPhotos(rest.restruant_Photo_url);
-  //fetchMenu(rest.restruant_Menu);
+void _fetchRestaurant() async {
+  await requestRestaurant("https://developers.zomato.com/api/v2.1/restaurant?res_id=1806", "1806").then((rest){
+  print(rest.restruant_Name);
+  print(rest.restruant_Menu);
+  fetchPhotos(rest.restruant_Photo_url);
+  fetchMenu(rest.restruant_Menu);
   //rest=restaurant;
-} //);
-//}
+});
+}
 
 Future fetchPhotos(String url) async {
   var client = new Client();
@@ -78,7 +85,7 @@ class _TrendingPageState extends State<TrendingPage> {
   @override
   void initState() {
     super.initState();
-    //_fetchRestaurant();
+    _fetchRestByGeoCode();
   }
 
   @override
@@ -138,7 +145,7 @@ class _TrendingPageState extends State<TrendingPage> {
               ),
               SizedBox(height: 5.0),
               Text(
-                "------------------------------------------------------------------------------",
+                "                                                                      ",
                 style: TextStyle(color: Colors.black, fontSize: 15.0),
               ),
             ],
@@ -164,21 +171,15 @@ class _TrendingPageState extends State<TrendingPage> {
               )
             ],
           ),
-          SizedBox(height: 0.5),
+          SizedBox(height: 1),
           Padding(
             padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 10.0),
             child: Column(
               children: <Widget>[
                new Container(width: double.infinity,
-                height: 260,
+                height: 275,
 
                 child: new ListView.builder(
-//                      children: <Widget>[
-//                        HorizontalScroll(),
-//                        HorizontalScroll(),
-//                        HorizontalScroll(),
-//                        HorizontalScroll(),
-//                      ]
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
                 itemBuilder: (context, index){
@@ -219,9 +220,7 @@ class _TrendingPageState extends State<TrendingPage> {
           SizedBox(height: 20.0),
           Padding(
             padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-            child: ListView(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
+            child: Column(
               children: <Widget>[
                 ListTile(
                   leading: Container(
@@ -246,6 +245,139 @@ class _TrendingPageState extends State<TrendingPage> {
                     ],
                   ),
                 ),
+                ListTile(
+                  leading: Container(
+                    height: 75.0,
+                    width: 75.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    child:
+                    Image.asset("assets/images/food.png", fit: BoxFit.fill),
+                  ),
+                  subtitle: Column(
+                    children: <Widget>[
+                      Text(
+                        "haldirams",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                ListTile(
+                  leading: Container(
+                    height: 75.0,
+                    width: 75.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    child:
+                    Image.asset("assets/images/food.png", fit: BoxFit.fill),
+                  ),
+                  subtitle: Column(
+                    children: <Widget>[
+                      Text(
+                        "haldirams",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                ListTile(
+                  leading: Container(
+                    height: 75.0,
+                    width: 75.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    child:
+                    Image.asset("assets/images/food.png", fit: BoxFit.fill),
+                  ),
+                  subtitle: Column(
+                    children: <Widget>[
+                      Text(
+                        "haldirams",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                ListTile(
+                  leading: Container(
+                    height: 75.0,
+                    width: 75.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    child:
+                    Image.asset("assets/images/food.png", fit: BoxFit.fill),
+                  ),
+                  subtitle: Column(
+                    children: <Widget>[
+                      Text(
+                        "haldirams",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                ListTile(
+                  leading: Container(
+                    height: 75.0,
+                    width: 75.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                    child:
+                    Image.asset("assets/images/food.png", fit: BoxFit.fill),
+                  ),
+                  subtitle: Column(
+                    children: <Widget>[
+                      Text(
+                        "haldirams",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                // Padding(
+                //   padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 10.0),
+                //   child: Column(
+                //     children: <Widget>[
+                //     new Container(width: double.infinity,
+                //       height: 275,
+
+                //       child: new ListView.builder(
+                //       scrollDirection: Axis.horizontal,
+                //       itemCount: 5,
+                //       itemBuilder: (context, index){
+                //         return HorizontalScroll();
+                //       },
+                //       ),
+                //     ),
+                //     ],
+                //   ),
+                // )
               ],
             ),
           ),

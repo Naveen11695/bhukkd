@@ -53,7 +53,7 @@ class Popularity{
 
   factory Popularity.fromJson(Map<String,dynamic> jsonParsed){
     var json_nearby_rest =jsonParsed['nearby_res'];
-    List<String> near_by_res = json_nearby_rest..cast<String>();
+    List<String> near_by_res = json_nearby_rest.cast<String>();
 
     var json_top_cuisines =jsonParsed['top_cuisines'];
     List<String> top_cuisines_info = json_top_cuisines.cast<String>();
@@ -67,7 +67,7 @@ class Popularity{
       subzone_id:jsonParsed['subzone_id'],
       city:jsonParsed['city'],
       nearby_res: near_by_res,
-      top_cuisines: top_cuisines_info
+      top_cuisines: top_cuisines_info,
     );
   }
 }

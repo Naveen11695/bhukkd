@@ -1,4 +1,3 @@
-/*
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -50,12 +49,12 @@ import '../models/GeoCodeInfo/GeoCode.dart';
           "lon": longitude,
         });
     if (response.statusCode == 200) {
-      // print(response.body);
-      GeoCode geo = parseGeoCode(response.body);
-      return geo;
+       print(response.body);
+//      GeoCode geo = parseGeoCode(response.body);
+//      return geo;
     }
     else {
-      print(response.statusCode);
+      print("Error: ${response.statusCode}");
     }
   }
 
@@ -93,10 +92,3 @@ GeoCode parseGeoCode(String responseBody) {
   GeoCode geo = GeoCode.fromJson(parsed);
   return geo;
 }
-
-
-
-
-
-
-*/

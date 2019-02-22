@@ -1,8 +1,8 @@
 
 
-/*photos": [
-//                 {
-//                   "photo": {
+//photos": [
+//          {
+//          "photo": {
 //                     "url": "https://b.zmtcdn.com/data/zomato_events/photos/9a1/b65cecf6328bb25b304de2132e9c59a1_1550326402.png",
 //                     "thumb_url": "https://b.zmtcdn.com/data/zomato_events/photos/9a1/b65cecf6328bb25b304de2132e9c59a1_1550326402.png?fit=around%7C100%3A100&crop=100%3A100%3B%2A%2C%2A",
 //                     "order": 0,
@@ -13,7 +13,7 @@
 //                     "type": "NORMAL"
 //                   }
 //                 }
-//               ],*/
+//          ],
 class Photos {
   String url;
   String thumb_url;
@@ -29,14 +29,14 @@ class Photos {
 
   factory Photos.fromJson(Map<String, dynamic> jsonParsed){
     return Photos(
-      url:jsonParsed[''],
-      thumb_url:jsonParsed[''],
-      order:jsonParsed[''],
-      md5sum:jsonParsed[''],
-      id:jsonParsed[''],
-      photos_id:jsonParsed[''],
-      uuid:jsonParsed[''],
-      type:jsonParsed[''],
+      url:jsonParsed['url'],
+      thumb_url:jsonParsed['thumb_url'],
+      order:jsonParsed['order'],
+      md5sum:jsonParsed['md5sum'],
+      id:jsonParsed['id'],
+      photos_id:jsonParsed['photo_id'],
+      uuid:jsonParsed['uuid'],
+      type:jsonParsed['type'],
     );
 
   }
