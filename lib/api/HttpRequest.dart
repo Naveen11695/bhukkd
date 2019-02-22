@@ -55,6 +55,7 @@ import '../models/GeoCodeInfo/GeoCode.dart';
     }
     else {
       print("Error: ${response.statusCode}");
+      print("Error: ${response.body}");
     }
   }
 

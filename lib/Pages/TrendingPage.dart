@@ -13,25 +13,27 @@ import '../models/GeoCodeInfo/GeoCode.dart';
 
 class TrendingPage extends StatefulWidget {
   _TrendingPageState createState() => new _TrendingPageState();
+
+  void fetchRestByGeoCode() {
+    StoreUserLocation.getLocation().then((loc) {
+      latitude = loc[0].toString();
+      longitude = loc[1].toString();
+      print("$longitude, $latitude");
+    });
+    requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=28.7367039&lon=77.1346744", latitude, longitude);
+    //return dataFromGeoCode;
+    // await dataFromGeoCode.then((data){
+    //   print(data.link);
+    // });
+
+  }
 }
 
 // temp variable
 String latitude;
 String longitude;
 
-Future _fetchRestByGeoCode() {
-    StoreUserLocation.getLocation().then((loc) {
-    latitude = loc[0].toString();
-    longitude = loc[1].toString();
-    print("$longitude, $latitude");
-  });
-   Future dataFromGeoCode= requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude", latitude, longitude);
-   //return dataFromGeoCode;
-   // await dataFromGeoCode.then((data){
-  //   print(data.link);
-  // });
 
-}
 
 //Restaurant restaurant;
 // void _fetchRestaurant() {
@@ -85,7 +87,7 @@ class _TrendingPageState extends State<TrendingPage> {
   @override
   void initState() {
     super.initState();
-    _fetchRestByGeoCode();
+    //fetchRestByGeoCode();
   }
 
   @override
