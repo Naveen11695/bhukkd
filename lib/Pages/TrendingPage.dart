@@ -28,7 +28,7 @@ void _fetchRestByGeoCode() {
 
 //Restaurant restaurant;
 void _fetchRestaurant() {
-  // requestRestaurant("https://developers.zomato.com/api/v2.1/restaurant?res_id=1806", "1806").then((rest){
+   //requestRestaurant("https://developers.zomato.com/api/v2.1/restaurant?res_id=1806", "1806").then((rest){
   //  print(rest.restruant_Name);
   //print(rest.restruant_Menu);
   //fetchPhotos(rest.restruant_Photo_url);
