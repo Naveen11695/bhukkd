@@ -19,13 +19,13 @@ class TrendingPage extends StatefulWidget {
 String latitude;
 String longitude;
 
-void _fetchRestByGeoCode() {
+void _fetchRestByGeoCode() async{
     StoreUserLocation.getLocation().then((loc) {
     latitude = loc[0].toString();
     longitude = loc[1].toString();
     print("$longitude, $latitude");
   });
-   Future dataFromGeoCode= requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude", latitude, longitude);
+  await requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude", latitude, longitude);
    
    // await dataFromGeoCode.then((data){
   //   print(data.link);
@@ -85,7 +85,6 @@ class _TrendingPageState extends State<TrendingPage> {
   @override
   void initState() {
     super.initState();
-    _fetchRestByGeoCode();
   }
 
   @override
@@ -145,7 +144,7 @@ class _TrendingPageState extends State<TrendingPage> {
               ),
               SizedBox(height: 5.0),
               Text(
-                "                                                                      ",
+                "                                                                     ",
                 style: TextStyle(color: Colors.black, fontSize: 15.0),
               ),
             ],
@@ -177,7 +176,7 @@ class _TrendingPageState extends State<TrendingPage> {
             child: Column(
               children: <Widget>[
                new Container(width: double.infinity,
-                height: 275,
+                height: MediaQuery.of(context).size.height * 0.40,
 
                 child: new ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -356,62 +355,34 @@ class _TrendingPageState extends State<TrendingPage> {
                           fontSize: 15.0,
                           fontWeight: FontWeight.bold,
                         ),
-                      )
+                      ), 
+                      
                     ],
                   ),
                 ),
-                // Padding(
-                //   padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 10.0),
-                //   child: Column(
-                //     children: <Widget>[
-                //     new Container(width: double.infinity,
-                //       height: 275,
+                Padding(
+                  padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 10.0),
+                  child: Column(
+                    children: <Widget>[
+                    new Container(width: double.infinity,
+                      height: 275,
 
-                //       child: new ListView.builder(
-                //       scrollDirection: Axis.horizontal,
-                //       itemCount: 5,
-                //       itemBuilder: (context, index){
-                //         return HorizontalScroll();
-                //       },
-                //       ),
-                //     ),
-                //     ],
-                //   ),
-                // )
+                      child: new ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 5,
+                      itemBuilder: (context, index){
+                        return HorizontalScroll();
+                      },
+                      ),
+                    ),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
         ],
       ),
     );
-//    ]
-//    ,
-//    )
-//    ,
-//    )
-//    ,
-
-//    return Container(
-//      width: double.infinity,
-//      height: 300.0,
-//      child: ListView(
-//        scrollDirection: Axis.horizontal,
-//        children: <Widget>[
-//          HorizontalScroll(),
-//          HorizontalScroll(),
-//          // never call the the fuction in onPressed method only pass the reference
-//          // bug solved(first time this function is giving a null error, second time it is executing fine)
-//          new FlatButton(
-//            onPressed:
-//              //_fetchRestaurant,
-//              _fetchRestByGeoCode,
-//              //getCurrentPosition();
-//               //requestCategories("https://developers.zomato.com/api/v2.1/categories");
-//               // requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=28.7041&lon=77.1025", "28.7041", "77.1025");
-//            child: new Text("Click"),
-//          )
-//        ],
-//      ),
-//    );
   }
 }
