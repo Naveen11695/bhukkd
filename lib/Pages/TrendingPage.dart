@@ -19,14 +19,14 @@ class TrendingPage extends StatefulWidget {
 String latitude;
 String longitude;
 
-Future _fetchRestByGeoCode() async {
-    await StoreUserLocation.getLocation().then((loc) {
+Future _fetchRestByGeoCode() {
+    StoreUserLocation.getLocation().then((loc) {
     latitude = loc[0].toString();
     longitude = loc[1].toString();
     print("$longitude, $latitude");
   });
-   Future dataFromGeoCode=await requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude", latitude, longitude);
-   return dataFromGeoCode;
+   Future dataFromGeoCode= requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude", latitude, longitude);
+   //return dataFromGeoCode;
    // await dataFromGeoCode.then((data){
   //   print(data.link);
   // });
@@ -34,15 +34,15 @@ Future _fetchRestByGeoCode() async {
 }
 
 //Restaurant restaurant;
-void _fetchRestaurant() async {
-  await requestRestaurant("https://developers.zomato.com/api/v2.1/restaurant?res_id=1806", "1806").then((rest){
-  print(rest.restruant_Name);
-  print(rest.restruant_Menu);
-  fetchPhotos(rest.restruant_Photo_url);
-  fetchMenu(rest.restruant_Menu);
-  //rest=restaurant;
-});
-}
+// void _fetchRestaurant() {
+//    //requestRestaurant("https://developers.zomato.com/api/v2.1/restaurant?res_id=1806", "1806").then((rest){
+//   //  print(rest.restruant_Name);
+//   //print(rest.restruant_Menu);
+//   //fetchPhotos(rest.restruant_Photo_url);
+//   //fetchMenu(rest.restruant_Menu);
+//   //rest=restaurant;
+// });
+// }
 
 Future fetchPhotos(String url) async {
   var client = new Client();

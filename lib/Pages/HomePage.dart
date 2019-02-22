@@ -41,7 +41,6 @@ class _HomePage extends State<HomePage>{
               fontFamily: "roboto",
             )),
       ),*/
-      drawer: new Drawer(),
       body: bottomNavigation[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
