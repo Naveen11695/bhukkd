@@ -19,14 +19,14 @@ class TrendingPage extends StatefulWidget {
 String latitude;
 String longitude;
 
-Future _fetchRestByGeoCode() {
+void _fetchRestByGeoCode() {
     StoreUserLocation.getLocation().then((loc) {
     latitude = loc[0].toString();
     longitude = loc[1].toString();
     print("$longitude, $latitude");
   });
    Future dataFromGeoCode= requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude", latitude, longitude);
-   //return dataFromGeoCode;
+   
    // await dataFromGeoCode.then((data){
   //   print(data.link);
   // });
