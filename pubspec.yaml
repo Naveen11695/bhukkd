@@ -23,6 +23,8 @@ dependencies:
   scoped_model: ^1.0.1
   shared_preferences: ^0.5.0
   html: any
+  sqflite: any
+  path_provider: ^0.4.1
 
   # Api- key :0bc8d74fdefd3601d84a0d52ffa01901
 

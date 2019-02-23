@@ -49,9 +49,9 @@ import '../models/GeoCodeInfo/GeoCode.dart';
           "lon": longitude,
         });
     if (response.statusCode == 200) {
-       print(response.body);
-//      GeoCode geo = parseGeoCode(response.body);
-//      return geo;
+    //  print(response.body);
+      /*GeoCode geo =*/ parseGeoCode(response.body);
+      //return geo;
     }
     else {
       print("Error: ${response.statusCode}");
@@ -88,8 +88,9 @@ Restaurant parseRestaurant(String responseBody) {
 }
 
 // This function will convert a respose body into a List<GeoCode>
-GeoCode parseGeoCode(String responseBody) {
+void parseGeoCode(dynamic responseBody) {
   final parsed = json.decode(responseBody);
-  GeoCode geo = GeoCode.fromJson(parsed);
-  return geo;
+  print(GeoCode.fromJson(parsed));
+  //print(geo);
+  //return geo;
 }

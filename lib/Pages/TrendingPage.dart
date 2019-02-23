@@ -20,7 +20,9 @@ class TrendingPage extends StatefulWidget {
       longitude = loc[1].toString();
       print("$longitude, $latitude");
     });
-    requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=28.7367039&lon=77.1346744", latitude, longitude);
+    requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude", latitude, longitude).then((geoCode){
+      print(geoCode);
+    });
     //return dataFromGeoCode;
     // await dataFromGeoCode.then((data){
     //   print(data.link);
@@ -36,15 +38,15 @@ String longitude;
 
 
 //Restaurant restaurant;
-// void _fetchRestaurant() {
-//    //requestRestaurant("https://developers.zomato.com/api/v2.1/restaurant?res_id=1806", "1806").then((rest){
-//   //  print(rest.restruant_Name);
-//   //print(rest.restruant_Menu);
-//   //fetchPhotos(rest.restruant_Photo_url);
-//   //fetchMenu(rest.restruant_Menu);
-//   //rest=restaurant;
-// });
-// }
+void _fetchRestaurant() {
+  requestRestaurant("https://developers.zomato.com/api/v2.1/restaurant?res_id=1806", "1806").then((rest){
+    print(rest.restruant_Name);
+    print(rest.restruant_Menu);
+    fetchPhotos(rest.restruant_Photo_url);
+    fetchMenu(rest.restruant_Menu);
+  //rest=restaurant;
+});
+}
 
 Future fetchPhotos(String url) async {
   var client = new Client();

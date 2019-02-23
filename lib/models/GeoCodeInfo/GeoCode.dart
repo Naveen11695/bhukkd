@@ -877,21 +877,21 @@ import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.da
 class GeoCode extends Model{
   List<dynamic> restaraunt_location;
   List<dynamic> popularity;
-  List<dynamic> nearby_restaurants;
+  List<NearByRestaurants> nearby_restaurants;
   String link;
   List<dynamic> all_reviews;
 
-  GeoCode({this.link});
+  GeoCode({this.link, this.all_reviews, this.nearby_restaurants, this.popularity, this.restaraunt_location});
 
   factory GeoCode.fromJson(Map<String, dynamic> json) {
     Map<String, dynamic> loc = json['location'];
     Map<String, dynamic> pop = json['popularity'];
-    Map<String, dynamic> near_res = json['nearby_restaurants'];
-    Map<String, dynamic> reviews = json['all_reviews'];
+    var near_res = json['nearby_restaurants'] as List;
+    //Map<String, dynamic> reviews = json['all_reviews'];
 
     location l;
     Popularity p;
-    NearByRestaurants nbr;
+    List<NearByRestaurants> restrauntList;
 
     if (loc != null) {
       l = location.fromJson(loc);
@@ -900,17 +900,19 @@ class GeoCode extends Model{
       p = Popularity.fromJson(pop);
     }
     if( near_res != null) {
-      nbr = NearByRestaurants.fromJson(near_res);
+      restrauntList = near_res.map((i){NearByRestaurants.fromJson(i);}).toList();
     }else{
       print("Error in Geocode in nearbyrestaurants");
     }
-    if(reviews!=null){
-      print("Pass data into Review class");
-    }
+    // if(reviews!=null){
+    //   print("Pass data into Review class");
+    // }
 
 
     return GeoCode(
-      link: json['link']
+      link: json['link'],
+      nearby_restaurants:restrauntList,
+
     );
   }
 
