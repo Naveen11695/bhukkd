@@ -875,13 +875,12 @@ import '../Popularity/Popularity.dart';
 import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 
 class GeoCode extends Model{
-  List<dynamic> restaraunt_location;
-  List<dynamic> popularity;
+  location restaraunt_location;
+  Popularity popularity;
   List<NearByRestaurants> nearby_restaurants;
   String link;
-  List<dynamic> all_reviews;
 
-  GeoCode({this.link, this.all_reviews, this.nearby_restaurants, this.popularity, this.restaraunt_location});
+  GeoCode({this.link, this.nearby_restaurants, this.popularity, this.restaraunt_location});
 
   factory GeoCode.fromJson(Map<String, dynamic> json) {
     Map<String, dynamic> loc = json['location'];
@@ -900,7 +899,7 @@ class GeoCode extends Model{
       p = Popularity.fromJson(pop);
     }
     if( near_res != null) {
-      restrauntList = near_res.map((i){NearByRestaurants.fromJson(i);}).toList();
+      restrauntList = near_res.map((i)=>NearByRestaurants.fromJson(i)).toList();
     }else{
       print("Error in Geocode in nearbyrestaurants");
     }
@@ -912,7 +911,8 @@ class GeoCode extends Model{
     return GeoCode(
       link: json['link'],
       nearby_restaurants:restrauntList,
-
+      popularity: p,
+      restaraunt_location: l
     );
   }
 

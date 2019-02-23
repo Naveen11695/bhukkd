@@ -40,7 +40,7 @@ import '../models/GeoCodeInfo/GeoCode.dart';
     }
   }
 
-  Future requestGeoCode(requestUrl, latitude, longitude) async {
+  Future<GeoCode> requestGeoCode(requestUrl, latitude, longitude) async {
     getKey();
     final response = await http.get(Uri.encodeFull(requestUrl),
         headers: {
@@ -50,8 +50,8 @@ import '../models/GeoCodeInfo/GeoCode.dart';
         });
     if (response.statusCode == 200) {
     //  print(response.body);
-      /*GeoCode geo =*/ parseGeoCode(response.body);
-      //return geo;
+      GeoCode geo = parseGeoCode(response.body);
+      return geo;
     }
     else {
       print("Error: ${response.statusCode}");
@@ -88,9 +88,9 @@ Restaurant parseRestaurant(String responseBody) {
 }
 
 // This function will convert a respose body into a List<GeoCode>
-void parseGeoCode(dynamic responseBody) {
+GeoCode parseGeoCode(String responseBody) {
   final parsed = json.decode(responseBody);
-  print(GeoCode.fromJson(parsed));
+  GeoCode geo= GeoCode.fromJson(parsed);
   //print(geo);
-  //return geo;
+  return geo;
 }

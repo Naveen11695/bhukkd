@@ -20,8 +20,11 @@ class TrendingPage extends StatefulWidget {
       longitude = loc[1].toString();
       print("$longitude, $latitude");
     });
-    requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude", latitude, longitude).then((geoCode){
-      print(geoCode);
+    requestGeoCode("https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude", latitude, longitude).then((GeoCode geoCode){
+      print("----List of nearby restaurants according to the location---------");
+      for(int i=0;i<geoCode.nearby_restaurants.length;i++){
+        print(geoCode.nearby_restaurants[i].name);
+      }
     });
     //return dataFromGeoCode;
     // await dataFromGeoCode.then((data){
@@ -194,198 +197,181 @@ class _TrendingPageState extends State<TrendingPage> {
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
-            child: Row(
-              children: <Widget>[
-                Text(
-                  "Resturaunt",
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 210.0),
-                Icon(
-                  Icons.sort,
-                  color: Colors.grey,
-                  size: 15.0,
-                ),
-                Text(
-                  "Sort/Filter",
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 20.0),
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  leading: Container(
-                    height: 75.0,
-                    width: 75.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child:
-                        Image.asset("assets/images/food.png", fit: BoxFit.fill),
-                  ),
-                  subtitle: Column(
-                    children: <Widget>[
-                      Text(
-                        "haldirams",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                ListTile(
-                  leading: Container(
-                    height: 75.0,
-                    width: 75.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child:
-                    Image.asset("assets/images/food.png", fit: BoxFit.fill),
-                  ),
-                  subtitle: Column(
-                    children: <Widget>[
-                      Text(
-                        "haldirams",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                ListTile(
-                  leading: Container(
-                    height: 75.0,
-                    width: 75.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child:
-                    Image.asset("assets/images/food.png", fit: BoxFit.fill),
-                  ),
-                  subtitle: Column(
-                    children: <Widget>[
-                      Text(
-                        "haldirams",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                ListTile(
-                  leading: Container(
-                    height: 75.0,
-                    width: 75.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child:
-                    Image.asset("assets/images/food.png", fit: BoxFit.fill),
-                  ),
-                  subtitle: Column(
-                    children: <Widget>[
-                      Text(
-                        "haldirams",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                ListTile(
-                  leading: Container(
-                    height: 75.0,
-                    width: 75.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child:
-                    Image.asset("assets/images/food.png", fit: BoxFit.fill),
-                  ),
-                  subtitle: Column(
-                    children: <Widget>[
-                      Text(
-                        "haldirams",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                ListTile(
-                  leading: Container(
-                    height: 75.0,
-                    width: 75.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child:
-                    Image.asset("assets/images/food.png", fit: BoxFit.fill),
-                  ),
-                  subtitle: Column(
-                    children: <Widget>[
-                      Text(
-                        "haldirams",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ), 
+          // Padding(
+          //   padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 0.0),
+          //   child: Row(
+          //     children: <Widget>[
+          //       Text(
+          //         "Resturaunt",
+          //         style: TextStyle(
+          //             color: Colors.grey,
+          //             fontSize: 15.0,
+          //             fontWeight: FontWeight.bold),
+          //       ),
+          //       SizedBox(width: 210.0),
+          //       Icon(
+          //         Icons.sort,
+          //         color: Colors.grey,
+          //         size: 15.0,
+          //       ),
+          //       Text(
+          //         "Sort/Filter",
+          //         style: TextStyle(
+          //             color: Colors.grey,
+          //             fontSize: 15.0,
+          //             fontWeight: FontWeight.bold),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // SizedBox(height: 20.0),
+          // Padding(
+          //   padding: EdgeInsets.all(20.0),
+          //   child: Column(
+          //     children: <Widget>[
+          //       ListTile(
+          //         leading: Container(
+          //           height: 75.0,
+          //           width: 75.0,
+          //           decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(5.0),
+          //           ),
+          //           child:
+          //               Image.asset("assets/images/food.png", fit: BoxFit.fill),
+          //         ),
+          //         subtitle: Column(
+          //           children: <Widget>[
+          //             Text(
+          //               "haldirams",
+          //               style: TextStyle(
+          //                 color: Colors.black,
+          //                 fontSize: 15.0,
+          //                 fontWeight: FontWeight.bold,
+          //               ),
+          //             )
+          //           ],
+          //         ),
+          //       ),
+          //       ListTile(
+          //         leading: Container(
+          //           height: 75.0,
+          //           width: 75.0,
+          //           decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(5.0),
+          //           ),
+          //           child:
+          //           Image.asset("assets/images/food.png", fit: BoxFit.fill),
+          //         ),
+          //         subtitle: Column(
+          //           children: <Widget>[
+          //             Text(
+          //               "haldirams",
+          //               style: TextStyle(
+          //                 color: Colors.black,
+          //                 fontSize: 15.0,
+          //                 fontWeight: FontWeight.bold,
+          //               ),
+          //             )
+          //           ],
+          //         ),
+          //       ),
+          //       ListTile(
+          //         leading: Container(
+          //           height: 75.0,
+          //           width: 75.0,
+          //           decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(5.0),
+          //           ),
+          //           child:
+          //           Image.asset("assets/images/food.png", fit: BoxFit.fill),
+          //         ),
+          //         subtitle: Column(
+          //           children: <Widget>[
+          //             Text(
+          //               "haldirams",
+          //               style: TextStyle(
+          //                 color: Colors.black,
+          //                 fontSize: 15.0,
+          //                 fontWeight: FontWeight.bold,
+          //               ),
+          //             )
+          //           ],
+          //         ),
+          //       ),
+          //       ListTile(
+          //         leading: Container(
+          //           height: 75.0,
+          //           width: 75.0,
+          //           decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(5.0),
+          //           ),
+          //           child:
+          //           Image.asset("assets/images/food.png", fit: BoxFit.fill),
+          //         ),
+          //         subtitle: Column(
+          //           children: <Widget>[
+          //             Text(
+          //               "haldirams",
+          //               style: TextStyle(
+          //                 color: Colors.black,
+          //                 fontSize: 15.0,
+          //                 fontWeight: FontWeight.bold,
+          //               ),
+          //             )
+          //           ],
+          //         ),
+          //       ),
+          //       ListTile(
+          //         leading: Container(
+          //           height: 75.0,
+          //           width: 75.0,
+          //           decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(5.0),
+          //           ),
+          //           child:
+          //           Image.asset("assets/images/food.png", fit: BoxFit.fill),
+          //         ),
+          //         subtitle: Column(
+          //           children: <Widget>[
+          //             Text(
+          //               "haldirams",
+          //               style: TextStyle(
+          //                 color: Colors.black,
+          //                 fontSize: 15.0,
+          //                 fontWeight: FontWeight.bold,
+          //               ),
+          //             )
+          //           ],
+          //         ),
+          //       ),
+          //       ListTile(
+          //         leading: Container(
+          //           height: 75.0,
+          //           width: 75.0,
+          //           decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(5.0),
+          //           ),
+          //           child:
+          //           Image.asset("assets/images/food.png", fit: BoxFit.fill),
+          //         ),
+          //         subtitle: Column(
+          //           children: <Widget>[
+          //             Text(
+          //               "haldirams",
+          //               style: TextStyle(
+          //                 color: Colors.black,
+          //                 fontSize: 15.0,
+          //                 fontWeight: FontWeight.bold,
+          //               ),
+          //             ), 
                       
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 10.0),
-                  child: Column(
-                    children: <Widget>[
-                    new Container(width: double.infinity,
-                      height: 275,
-
-                      child: new ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 5,
-                      itemBuilder: (context, index){
-                        return HorizontalScroll();
-                      },
-                      ),
-                    ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
+          //           ],
+          //         ),
+          //       ),
+                
+          //     ],
+          //   ),
+          // ),
         ],
       ),
     );
