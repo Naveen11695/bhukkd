@@ -116,15 +116,3 @@ class NearByRestaurants{
 
   }
 }
-  // factory NearByRestaurants.fromJson(Map<String, dynamic>jsonParsed){
-  //   Map<String, dynamic> rest=jsonParsed["restaurant"];
-  //   Restaurants res;
-  //   if(rest!=null){
-  //     res=Restaurants.fromJson(rest);
-  //   }
-
-
-  //   // return NearByRestaurants(
-  //   //   restaurants: 
-  //   // );
-  // }
