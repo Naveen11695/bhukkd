@@ -23,13 +23,17 @@ final background = Container(
 );
 
 
-class ExplorePage extends StatelessWidget{
+class ExplorePage extends StatefulWidget {
+  @override
+  _ExplorePage createState() => _ExplorePage();
+}
 
+
+class _ExplorePage extends State<ExplorePage>{
+  List cards = new List.generate(result.length, (i)=>new CustomCard(result[i])).toList();
 
   @override
-  Widget build(BuildContext context) {
-
-    return new Scaffold(
+  Widget build(BuildContext context) => new Scaffold(
       body: Stack(
         children: <Widget>[
           background,
@@ -40,8 +44,13 @@ class ExplorePage extends StatelessWidget{
                 backgroundColor: Color.fromRGBO(255, 255, 255, 50),
                 expandedHeight: 200.0,
                 pinned: true,
+                floating: true,
+                title: new Text("Explorer",textAlign: TextAlign.center,style: Raleway.copyWith(fontSize: 30, fontWeight: FontWeight.bold ),),
                 flexibleSpace: new FlexibleSpaceBar(
-                  title: new Text("Explorer",textAlign: TextAlign.center,style: Raleway,),
+                  title: new Text(
+                    "                     Local cuisine, Indian, Asian,\nVegetarian Friendly",
+                    textAlign: TextAlign.end,
+                    style: Raleway.copyWith(fontSize: 16,fontStyle: FontStyle.italic, fontWeight: FontWeight.w400),),
                 ),
               ),
               SliverGrid(
@@ -53,12 +62,36 @@ class ExplorePage extends StatelessWidget{
                 ),
                 delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
-                    return Container(
+                        return Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Container(
                       alignment: Alignment.center,
-                      color: Colors.teal[100 * (index % 9)],
-                      child: Text('grid item $index'),
-                    );
-                  },
+                      color: Colors.white,
+                      child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              new Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Expanded(
+                                    child: new Image.asset("assets/images/food.png", fit: BoxFit.fitWidth, height:150, width: 50,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              new Text("Resturaunt $index",style: Raleway.copyWith(fontSize: 20.0),),
+                              new Text("Description", style: new TextStyle(
+                                  fontSize: 10.0,
+                                  color: Theme.of(context).textTheme.subtitle.color
+                              ),)
+                            ],
+                          ),
+                      ),
+                    ),
+                        );
+                      },
                   childCount: 50,
                 ),
               ),
@@ -75,7 +108,6 @@ class ExplorePage extends StatelessWidget{
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
-  }
 
 }
 var result = [
@@ -89,6 +121,8 @@ class DataSearch extends SearchDelegate<String> {
     "foodHub",
     "Rock&Roll",
     "PiratesOfGrills",
+    "barloons",
+    "baryFeast",
   ];
   
   final recentResturaunt = [
@@ -118,18 +152,26 @@ class DataSearch extends SearchDelegate<String> {
             onPressed: ()
             {
               close(context,null);
-              result.clear();
             });
   }
 
   @override
   Widget buildResults(BuildContext context) {
     // show some result based on selection
-    List cards = new List.generate(result.length, (i)=>new CustomCard(result[i])).toList();
+    var nearList= resturaunt.where((p)=>p.toLowerCase().startsWith(query)).toList();
+    List cards = new List.generate(result.isEmpty?nearList.length:result.length, (i)=>new CustomCard((result.isEmpty?nearList[i]:result[i]))).toList();
     return Stack(
       children: <Widget>[
-        new ListView(
+        background,
+        Opacity,
+        new GridView(
               children : cards,
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          maxCrossAxisExtent: 300.0,
+          mainAxisSpacing: 20.0,
+          crossAxisSpacing: 20.0,
+          childAspectRatio: 1.0,
+    ),
         ),
       ],
     );
@@ -139,7 +181,7 @@ class DataSearch extends SearchDelegate<String> {
   Widget buildSuggestions(BuildContext context) {
     // show when someone searches for something
     final suggestionList = query.isEmpty ? recentResturaunt:resturaunt.where((p)=>p.toLowerCase().startsWith(query)).toList();
-
+    result.clear();
 
     return ListView.builder(
       itemBuilder: (context,index)=>ListTile(
@@ -179,18 +221,22 @@ class CustomCardState extends State<CustomCard> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return  new Card(
+      //shape: StadiumBorder(),
       elevation: 10.0,
       child: Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     children: <Widget>[
-    new Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-    Expanded(
-    child: new Image.asset("assets/images/food.png", fit: BoxFit.fitWidth, height:200, width: 100,
-    ),
-    ),
-    ],
+    Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: new Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+      Expanded(
+      child: new Image.asset("assets/images/food.png", fit: BoxFit.fitWidth, height:150, width: 50,
+      ),
+      ),
+      ],
+      ),
     ),
     new Text(widget.result1),
     new Text("Description", style: new TextStyle(
