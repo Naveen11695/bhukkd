@@ -170,28 +170,30 @@ class LoginPage extends StatelessWidget {
                   children: <Widget>[
                     new Stack(
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          child: new OutlineButton(
-                            child: new Text('Sign in With Google',style: textStyle.copyWith(fontSize: 15.0),),
-                            borderSide: BorderSide(color: Colors.black),
-                            onPressed:(){
-                              print("tt");
-                            TrendingPage o =new TrendingPage();
-                            o.fetchRestByGeoCode();
-                            } ,
-                          ),
+                        new Row(
+                          children : <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(30.0),
+                              child: new OutlineButton(
+                                child: new Text('Sign in With Google',style: textStyle.copyWith(fontSize: 15.0),),
+                                borderSide: BorderSide(color: Colors.white),
+                                onPressed:(){
+                                  print("tt");
+                                  TrendingPage o =new TrendingPage();
+                                  o.fetchRestByGeoCode();
+                                } ,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: new OutlineButton(
+                                child: new Text('Sign in With Facebook',style: textStyle.copyWith(fontSize: 15.0),),
+                                borderSide: BorderSide(color: Colors.white),
+                                onPressed:null ,
+                              ),
+                            ),
+                          ],
                         ),
-
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(200, 0, 0, 0),
-                          child: new OutlineButton(
-                            child: new Text('Sign in With Facebook',style: textStyle.copyWith(fontSize: 15.0),),
-                            borderSide: BorderSide(color: Colors.black),
-                            onPressed:null ,
-                          ),
-                        ),
-
                       ],
                     ),
                   ],
