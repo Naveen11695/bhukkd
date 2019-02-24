@@ -1,9 +1,7 @@
 import 'dart:async';
-
+import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'dart:async';
-import 'package:splashscreen/splashscreen.dart';
 import './Pages/LocationServicePage.dart';
 import 'models/SharedPreferance/SharedPreference.dart';
 import './Pages/HomePage.dart';
@@ -14,22 +12,12 @@ void main() {
   runApp(new Bhukkd());
 }
 
-const TextStyle textStyle = TextStyle(
-  color: Color(0xFFFFFFFF),
-  fontFamily: 'Raleway',
-);
-
-
-
-var description;
-
 class Bhukkd extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+  return MaterialApp(
       debugShowCheckedModeBanner: false,
-//      debugShowMaterialGrid: true,
-//      showSemanticsDebugger: true,
       title: 'SplashScreen',
       home: SplashScreen(),
       routes: <String, WidgetBuilder>{
@@ -91,9 +79,9 @@ class _SplashScreenState extends State<SplashScreen>
           );
         }
       ));
-      
     }
   }
+
 
   @override
   void initState() {
@@ -102,7 +90,6 @@ class _SplashScreenState extends State<SplashScreen>
       duration: Duration(milliseconds: 50),
       vsync: this,
     );
-
     animation = Tween(begin: 0.0, end: 1.0).animate(controller)
       ..addListener(() {
         setState(() {});
@@ -118,55 +105,29 @@ class _SplashScreenState extends State<SplashScreen>
     controller.dispose();
   }
 
-  final background = Container(
-    decoration : BoxDecoration(
-      image: DecorationImage(
-          image: AssetImage('assets/images/3.jpeg'),
-          fit: BoxFit.cover,
-      )
-    )
-  );
-
-  final orangeOpacity = Container(
-    color: Color(0xAAAF1222),
-  );
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-
-    final logo = new ScaleTransition(
-      scale: animation,
-      child: Image.asset(
-        'assets/images/icon.png',
-        width: 180.0,
-        height: 180.0,
-      ),
-    );
-
-
-
     return Scaffold(
       body: Stack(
         fit: StackFit.passthrough,
         children: <Widget>[
           background,
-          orangeOpacity,
+          opacity,
           new SafeArea(child:
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(120.0),
+                padding: EdgeInsets.all(150.0),
                 child: logo,
               ),
-
               Padding(
-                padding: EdgeInsets.all(120.0),
-                child: description,
+                padding: EdgeInsets.fromLTRB(20.0,150,20.0,20.0),
+                child: splash_description,
               ),
               Padding(
                 padding: EdgeInsets.all(20.0),
@@ -183,19 +144,6 @@ class _SplashScreenState extends State<SplashScreen>
           ),
         ],
       ),
-    );
-  }
-
-
-  
-
-  //....................................version 2.0.1 (Updated shared preference check not working).................................//
-
-  static Widget descriptionMethod(var text) {
-    description = Text(
-    text,
-    textAlign: TextAlign.center,
-    style: textStyle.copyWith(fontSize: 24.0,),
     );
   }
 }
