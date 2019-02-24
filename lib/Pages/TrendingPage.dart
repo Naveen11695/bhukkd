@@ -19,6 +19,7 @@ class _TrendingPageState extends State<TrendingPage> {
   @override
   void initState() {
     super.initState();
+    fetchRestByGeoCode();
   }
 
   @override
