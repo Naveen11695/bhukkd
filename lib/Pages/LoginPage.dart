@@ -1,5 +1,5 @@
 import 'package:bhukkd/Components/CustomComponets.dart';
-import 'package:bhukkd/api/HttpRequest.dart';
+import '../api/HttpRequest.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -105,7 +105,7 @@ class LoginPage extends StatelessWidget {
                                   borderSide: BorderSide(color: Colors.white),
                                   onPressed: () {
                                     print("Login button with Google fetching data from server....");
-                                    fetchRestByGeoCode();
+                                    // fetchRestByGeoCode();
                                   },
                                 ),
                               ),

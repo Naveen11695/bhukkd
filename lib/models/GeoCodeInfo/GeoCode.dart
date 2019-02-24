@@ -882,10 +882,6 @@ class GeoCode extends Model{
 
   GeoCode({this.link, this.nearby_restaurants, this.popularity, this.restaraunt_location});
 
-  List<NearByRestaurants> get getNearByRestaurants{
-    return nearby_restaurants;
-  }
-
   factory GeoCode.fromJson(Map<String, dynamic> json) {
     Map<String, dynamic> loc = json['location'];
     Map<String, dynamic> pop = json['popularity'];
