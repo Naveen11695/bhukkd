@@ -57,6 +57,11 @@ import '../models/GeoCodeInfo/GeoCode.dart';
       GeoCode geo = parseGeoCode(response.body);
       return geo;
     }
+    else if (response.statusCode == 403){
+    requestGeoCode(
+    "https://developers.zomato.com/api/v2.1/geocode?lat=28.7367039&lon=77.1346744",
+    latitude, longitude);
+    }
     else {
       print("Error: ${response.statusCode}");
       print("Error: ${response.body}");
