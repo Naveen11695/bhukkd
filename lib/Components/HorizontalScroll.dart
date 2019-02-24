@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import '../models/GeoCodeInfo/GeoCode.dart';
 import '../models/Restruant/Restruant.dart';
-class HorizontalScroll extends StatefulWidget {
-  @override
-  _HorizontalScrollState createState() => new _HorizontalScrollState();
-}
 
-class _HorizontalScrollState extends State<HorizontalScroll> {
+class HorizontalScroll extends StatelessWidget {
+  
+  // HorizontalScroll();
   @override
   Widget build(BuildContext context) {
     return Row(
