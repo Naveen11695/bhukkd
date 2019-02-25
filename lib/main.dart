@@ -123,7 +123,7 @@ class _SplashScreenState extends State<SplashScreen>
       body: Stack(
         fit: StackFit.passthrough,
         children: <Widget>[
-          background,
+          splash_background,
           opacity,
           new SafeArea(child:
           Column(

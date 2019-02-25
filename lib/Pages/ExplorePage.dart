@@ -49,7 +49,7 @@ class _ExplorePage extends State<ExplorePage> {
     return new Scaffold(
       body: Stack(
         children: <Widget>[
-          background,
+          explore_background,
           opacity,
           new CustomScrollView(
             slivers: <Widget>[
