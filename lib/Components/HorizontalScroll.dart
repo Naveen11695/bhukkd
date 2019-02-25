@@ -35,7 +35,9 @@ class HorizontalScroll extends StatelessWidget {
                       children: <Widget>[
                         Expanded(
                           flex: 1,
-                          child: new Image.network(
+                          child: (thumb[index] == "")?new Image.asset("assets/images/5.jpg", fit: BoxFit.cover,
+                            width: 150, height: 125,):
+                            new Image.network(
                             thumb[index],
                             fit: BoxFit.cover,
                             width: 150,
