@@ -36,7 +36,7 @@ class DataSearch extends SearchDelegate<String> {
         .toList();
     return Stack(
       children: <Widget>[
-        background,
+        splash_background,
         opacity,
         new GridView(
           children: cards,

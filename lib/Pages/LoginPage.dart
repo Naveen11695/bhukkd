@@ -16,7 +16,7 @@ class LoginPage extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          background,
+          login_background,
           opacity,
           new SafeArea(
             child: ListView(
@@ -96,7 +96,7 @@ class LoginPage extends StatelessWidget {
                           new Row(
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.all(30.0),
+                                padding: const EdgeInsets.all(25.0),
                                 child: new OutlineButton(
                                   child: new Text(
                                     'Sign in With Google',
@@ -110,7 +110,7 @@ class LoginPage extends StatelessWidget {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(20.0),
+                                padding: const EdgeInsets.all(15.0),
                                 child: new OutlineButton(
                                   child: new Text(
                                     'Sign in With Facebook',

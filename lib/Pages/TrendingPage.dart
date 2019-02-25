@@ -44,7 +44,7 @@ class _TrendingPageState extends State<TrendingPage> {
               new Stack(
                 children: <Widget>[
                   new Container(
-                    height: MediaQuery.of(context).size.height * 0.13,
+                    height: MediaQuery.of(context).size.height * 0.15,
                     color: Color.fromRGBO(249, 129, 42, 1), //249 129 42
                     child: new Row(
                       children: <Widget>[
@@ -57,7 +57,7 @@ class _TrendingPageState extends State<TrendingPage> {
                           ),
                         ),
                         new Container(
-                          margin: EdgeInsets.only(top: 30),
+                          margin: EdgeInsets.only(top: 50),
                           child: new Column(
                             children: <Widget>[
                               new Text(
@@ -85,7 +85,7 @@ class _TrendingPageState extends State<TrendingPage> {
                     ),
                   ),
                   new Container(
-                    padding: EdgeInsets.fromLTRB(15.0, 65.0, 15.0, 10.0),
+                    padding: EdgeInsets.fromLTRB(15.0, 100.0, 15.0, 10.0),
                     child: Material(
                       type: MaterialType.canvas,
                       elevation: 10.0,

@@ -4,7 +4,6 @@ final opacity = Container(
   color: Color(0xAAAF2222),
 );
 
-
 final logo = Image.asset(
   'assets/images/icon.png',
   width: 120.0,
@@ -16,8 +15,6 @@ const TextStyle textStyle = TextStyle(
   fontFamily: 'Raleway',
 );
 
-
-
 final login_description = Text(
   "Spot the right place to find your favorite food.",
   textAlign: TextAlign.center,
@@ -25,7 +22,6 @@ final login_description = Text(
     fontSize: 20.0,
   ),
 );
-
 
 Widget semi_circlar_button(String label, Function onTap) {
   return Material(
@@ -35,11 +31,13 @@ Widget semi_circlar_button(String label, Function onTap) {
       onTap: onTap,
       splashColor: Colors.white24,
       highlightColor: Colors.white10,
-
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10.0),
         child: Center(
-          child: Text(label, style: textStyle.copyWith(fontSize: 20.0),),
+          child: Text(
+            label,
+            style: textStyle.copyWith(fontSize: 20.0),
+          ),
         ),
       ),
     ),
@@ -49,24 +47,31 @@ Widget semi_circlar_button(String label, Function onTap) {
 final splash_description = new RichText(
   text: TextSpan(
     text: 'Loading Assests',
-    style: TextStyle(color: Colors.white,fontSize: 25.0,fontWeight: FontWeight.bold,),
+    style: TextStyle(
+      color: Colors.white,
+      fontSize: 25.0,
+      fontWeight: FontWeight.bold,
+    ),
   ),
 );
-
-
 
 TextStyle Raleway = TextStyle(
   color: Color(0xAAAF2222),
   fontFamily: 'Raleway',
 );
 
-final background = Container(
+final login_background = Image.asset('assets/images/2.png', fit: BoxFit.fill);
+
+final explore_background = Container(
+  decoration: BoxDecoration(color: Colors.black),
+);
+
+final splash_background = Container(
     decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/images/9.jpeg'),
-          fit: BoxFit.cover,
-        )));
-
+  image: AssetImage('assets/images/2.png'),
+  fit: BoxFit.fill,
+)));
 
 final separator = Row(
   mainAxisAlignment: MainAxisAlignment.center,
@@ -90,6 +95,3 @@ final separator = Row(
     ),
   ],
 );
-
-
-
