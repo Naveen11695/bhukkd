@@ -22,12 +22,10 @@ class TrendingPage extends StatefulWidget {
 
 class _TrendingPageState extends State<TrendingPage> {
 
-  GeoCode geo;
-
   @override
   void initState() {
     super.initState();
-    geo=fetchRestByGeoCode();
+    fetchRestByGeoCode();
   }
 
   @override
@@ -147,7 +145,7 @@ class _TrendingPageState extends State<TrendingPage> {
                               scrollDirection: Axis.horizontal,
                               itemCount: 5,
                               itemBuilder: (BuildContext context, index) {
-                                return HorizontalScroll(geo:geo, index:index);
+                                return HorizontalScroll();
                               },
                             ),
                           ),
