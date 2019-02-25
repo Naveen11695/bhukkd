@@ -142,7 +142,7 @@ class _TrendingPageState extends State<TrendingPage> {
                             height: 200,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: 5,
+                              itemCount: nearByrestaurants.length,
                               itemBuilder: (BuildContext context, index) {
                                 return HorizontalScroll(index,nearByrestaurants,cuisines,thumb);
                               },
