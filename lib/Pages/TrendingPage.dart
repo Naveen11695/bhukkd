@@ -20,11 +20,11 @@ class TrendingPage extends StatefulWidget {
   _TrendingPageState createState() => new _TrendingPageState();
 }
 
+
 class _TrendingPageState extends State<TrendingPage> {
   @override
   void initState() {
     super.initState();
-    fetchRestByGeoCode();
   }
 
   @override
@@ -144,7 +144,7 @@ class _TrendingPageState extends State<TrendingPage> {
                               scrollDirection: Axis.horizontal,
                               itemCount: 5,
                               itemBuilder: (BuildContext context, index) {
-                                return HorizontalScroll();
+                                return HorizontalScroll(index,nearByrestaurants);
                               },
                             ),
                           ),

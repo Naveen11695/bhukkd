@@ -13,6 +13,7 @@ class _HomePage extends State<HomePage> {
 
   int selectedIndex = 0;
 
+
   List<Widget> bottomNavigation = [
     new TrendingPage(),
     new ExplorePage(),
@@ -20,6 +21,12 @@ class _HomePage extends State<HomePage> {
     new LoginPage(),
   ];
 
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final bottomNavColor = Theme.of(context).bottomAppBarColor;

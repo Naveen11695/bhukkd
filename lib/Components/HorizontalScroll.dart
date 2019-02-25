@@ -3,6 +3,9 @@ import '../models/GeoCodeInfo/GeoCode.dart';
 import '../models/Restruant/Restruant.dart';
 
 class HorizontalScroll extends StatelessWidget {
+  final index;
+  final List nearby_restaurants;
+  HorizontalScroll(this.index, this.nearby_restaurants);
   // HorizontalScroll();
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,7 @@ class HorizontalScroll extends StatelessWidget {
                         ),
                       ],
                     ),
-                    new Text("Food Name"),
+                    new Text(nearby_restaurants[index]),
                     new Text(
                       "Description",
                       style: new TextStyle(
