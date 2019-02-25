@@ -30,6 +30,13 @@ class _TrendingPageState extends State<TrendingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size.zero,
+        child: AppBar(
+          backgroundColor: Color.fromRGBO(249, 129, 42, 0.9),
+        ),
+      ),
+      backgroundColor: Colors.white,
       body: new ListView(
         children: <Widget>[
           new Column(
