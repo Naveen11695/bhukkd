@@ -57,6 +57,13 @@ flutter:
       fonts:
         - asset: assets/fonts/Raleway/Raleway-Bold.ttf
           weight: 700
+    - family: Montserrat-Bold
+      fonts:
+        - asset: assets/fonts/Montserrat/Montserrat-Bold.ttf
+          weight: 700
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf   
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -72,6 +79,7 @@ flutter:
   - assets/api/config.json
   - assets/images/Breakfast.png
   - assets/images/5.jpg
+  - assets/images/
 
 
   
