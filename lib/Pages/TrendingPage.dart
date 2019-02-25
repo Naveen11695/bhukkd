@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../Components/HorizontalScroll.dart';
 import '../api/HttpRequest.dart';
 import '../Components/CustomHorizontalScroll.dart';
+import '../Components/CategoriesComponent.dart';
 import 'package:http/http.dart';
 import '../models/SharedPreferance/SharedPreference.dart';
 import '../api/LocationRequest.dart';
@@ -169,6 +170,26 @@ class _TrendingPageState extends State<TrendingPage> {
                   child: CustomHorizontalScroll(),
                 ),
               ),
+              Container(
+                width: MediaQuery.of(context).size.height * 0.92,
+                alignment: AlignmentDirectional.topStart,
+                padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                child: new Text(
+                  "Categories",
+                  textAlign: TextAlign.start,
+                  style: new TextStyle(
+                    fontSize: 20.0,
+                    fontFamily: "Raleway",
+                    // fontWeight: FontWeight.w700,
+                    letterSpacing: 0.8,
+                    wordSpacing: 0.0,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(15),
+                child: CategoriesComponent(),
+              )
             ],
           ),
         ],

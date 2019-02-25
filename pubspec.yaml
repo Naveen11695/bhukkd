@@ -70,7 +70,9 @@ flutter:
   - assets/animations/sushi/
   - assets/images/food.png
   - assets/api/config.json
-  - assets/images/
+  - assets/images/Breakfast.png
+  - assets/images/5.jpg
+
 
   
   # An image asset can refer to one or more resolution-specific "variants", see

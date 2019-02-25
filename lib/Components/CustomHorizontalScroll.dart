@@ -5,7 +5,7 @@ class CustomHorizontalScroll extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:EdgeInsets.only(top:2, left:2, bottom: 2),
+      padding:EdgeInsets.only(top:2, left:2, bottom: 2, right: 10),
       height: 110,
       child: ListView.builder(
         shrinkWrap: true,
