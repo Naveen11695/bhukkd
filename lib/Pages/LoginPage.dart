@@ -2,7 +2,7 @@ import 'package:bhukkd/Components/CustomComponets.dart';
 import '../api/HttpRequest.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import '../Pages/otpPage.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -79,7 +79,10 @@ class LoginPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 5, 20, 30),
                   child: semi_circlar_button('Create an account', () {
-                    print("create an account");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => otpPage()),
+                    );
                   }),
                 ),
                 Padding(

@@ -65,7 +65,14 @@ final login_background = Image.asset('assets/images/2.png', fit: BoxFit.fill);
 final explore_background = Container(
   decoration: BoxDecoration(color: Colors.black),
 );
-
+final background=new
+Container(
+  decoration: BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage('assets/images/11.jpeg'),
+        fit: BoxFit.fill,
+      )),
+  );
 final splash_background = Container(
     decoration: BoxDecoration(
         image: DecorationImage(
