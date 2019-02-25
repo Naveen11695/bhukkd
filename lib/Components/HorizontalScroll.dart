@@ -5,7 +5,8 @@ import '../models/Restruant/Restruant.dart';
 class HorizontalScroll extends StatelessWidget {
   final index;
   final List nearby_restaurants;
-  HorizontalScroll(this.index, this.nearby_restaurants);
+  final List cuisines;
+  HorizontalScroll({this.index, this.nearby_restaurants, this.cuisines});
   // HorizontalScroll();
   @override
   Widget build(BuildContext context) {
@@ -42,7 +43,7 @@ class HorizontalScroll extends StatelessWidget {
                     ),
                     new Text(nearby_restaurants[index]),
                     new Text(
-                      "Description",
+                      cuisines[index],
                       style: new TextStyle(
                           fontSize: 10.0,
                           color: Theme.of(context).textTheme.subtitle.color),
