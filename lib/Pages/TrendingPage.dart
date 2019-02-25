@@ -144,7 +144,7 @@ class _TrendingPageState extends State<TrendingPage> {
                               scrollDirection: Axis.horizontal,
                               itemCount: 5,
                               itemBuilder: (BuildContext context, index) {
-                                return HorizontalScroll(index:index,nearby_restaurants:nearByrestaurants);
+                                return HorizontalScroll(index,nearByrestaurants,cuisines);
                               },
                             ),
                           ),

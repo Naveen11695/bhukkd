@@ -71,6 +71,7 @@ String latitude;
 String longitude;
 
  var  nearByrestaurants = [];
+ var  cuisines = [];
 
 GeoCode fetchRestByGeoCode() {
   StoreUserLocation.getLocation().then((loc) {
@@ -89,6 +90,7 @@ GeoCode fetchRestByGeoCode() {
       for (int i = 0; i < geoCode.nearby_restaurants.length; i++) {
         print(geoCode.nearby_restaurants[i].name);
         nearByrestaurants.add(geoCode.nearby_restaurants[i].name);
+        cuisines.add(geoCode.nearby_restaurants[i].cuisines);
       }
       return geoCode;
     }
