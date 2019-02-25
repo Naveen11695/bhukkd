@@ -3,7 +3,10 @@ import '../models/GeoCodeInfo/GeoCode.dart';
 import '../models/Restruant/Restruant.dart';
 
 class HorizontalScroll extends StatelessWidget {
-  // HorizontalScroll();
+  final GeoCode geo; 
+  final int index;
+
+  HorizontalScroll({this.index, this.geo});
   @override
   Widget build(BuildContext context) {
     return Row(
