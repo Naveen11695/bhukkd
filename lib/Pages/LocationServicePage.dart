@@ -16,7 +16,27 @@ class _LocationServicePage extends State<LocationServicePage>{
         StoreUserLocation.setLocation();
     });
 
-    Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context)=>new HomePage()));
+    Navigator.pushReplacement(context, PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (BuildContext context, _, __) {
+          return new HomePage();
+        },
+        transitionDuration: const Duration(milliseconds: 1500),
+        transitionsBuilder: (___, Animation<double> animation, ____, Widget child) {
+          return SlideTransition(
+            position: Tween<Offset>(begin: Offset(0.0,1.0), end: Offset(0.0, 0.0)).animate(CurvedAnimation(
+                  parent: animation,
+                  curve: Interval(
+                    0.00,
+                    1.00,
+                    curve: Curves.ease,
+                  ),
+                ),),
+            transformHitTests: false,
+            child: child,
+          );
+        }
+      ));
   }
 
   @override
@@ -31,7 +51,8 @@ class _LocationServicePage extends State<LocationServicePage>{
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new Text("Please Enable Your Location", style: new TextStyle(
-                fontSize: 30,
+                fontSize: 24,
+                fontFamily: "Montserrat-Bold"
               ),),
               new SizedBox(height: 50,),
               new MaterialButton(

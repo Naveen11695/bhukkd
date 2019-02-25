@@ -24,6 +24,9 @@ class Bhukkd extends StatelessWidget {
         '/LocationService':(BuildContext context) => new LocationServicePage(),
         '/HomePage':(BuildContext context) => new HomePage(),
       },
+      theme: new ThemeData(
+        bottomAppBarColor: Color.fromRGBO(249, 129, 42, 1)
+      ),
     );
   }
 }
@@ -39,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
   Animation<double> animation;
 
   Future delayTimer() async {
-    Duration duration = new Duration(seconds: 2);
+    Duration duration = new Duration(seconds:3);
     return new Timer(duration, navigateTo);
   }
   //....................................version 2.0.1 (Updated shared preference check not working).................................//
@@ -127,7 +130,7 @@ class _SplashScreenState extends State<SplashScreen>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.all(150.0),
+                padding: EdgeInsets.all(130.0),
                 child: logo,
               ),
               Padding(

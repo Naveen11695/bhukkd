@@ -10,6 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+
   int selectedIndex = 0;
 
   List<Widget> bottomNavigation = [
@@ -21,6 +22,7 @@ class _HomePage extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final bottomNavColor = Theme.of(context).bottomAppBarColor;
     return new Scaffold(
       body: bottomNavigation[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -30,24 +32,32 @@ class _HomePage extends State<HomePage> {
             this.selectedIndex = index;
           });
         },
-        fixedColor: Colors.deepOrange,
+        fixedColor: Colors.grey,
         currentIndex: selectedIndex,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.trending_up,
-                color: Color(0xFFD35400),
+                color: bottomNavColor,
               ),
-              title: new Text("Trending")),
+              title: new Text("Trending", textAlign: TextAlign.center,style: new TextStyle(
+                color: bottomNavColor
+              ),),),
           BottomNavigationBarItem(
-              icon: Icon(Icons.search, color: Color(0xFFD35400)),
-              title: new Text("Explore")),
+              icon: Icon(Icons.search, color:bottomNavColor),
+              title: new Text("Explore",textAlign: TextAlign.center,style: new TextStyle(
+                color: bottomNavColor
+              ),),),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart, color: Color(0xFFD35400)),
-              title: new Text("Wagon")),
+              icon: Icon(Icons.shopping_cart, color:bottomNavColor),
+              title: new Text("Wagon",textAlign: TextAlign.center,style: new TextStyle(
+                color: bottomNavColor
+              ),),),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: Color(0xFFD35400)),
-            title: new Text("Account"),
+            icon: Icon(Icons.person, color: bottomNavColor),
+            title: new Text("Account", textAlign: TextAlign.center,style: new TextStyle(
+                color: bottomNavColor
+              ),),
           ),
         ],
       ),
