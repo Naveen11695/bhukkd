@@ -6,7 +6,8 @@ class HorizontalScroll extends StatelessWidget {
   final index;
   final List nearby_restaurants;
   final List cuisines;
-  HorizontalScroll(this.index, this.nearby_restaurants, this.cuisines);
+  final List thumb;
+  HorizontalScroll(this.index, this.nearby_restaurants, this.cuisines, this.thumb);
   // HorizontalScroll();
   @override
   Widget build(BuildContext context) {
@@ -33,8 +34,8 @@ class HorizontalScroll extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
-                          child: new Image.asset(
-                            "assets/images/pizza.jpg",
+                          child: new Image.network(
+                            thumb[index],
                             fit: BoxFit.cover,
                             width: 150,
                           ),
