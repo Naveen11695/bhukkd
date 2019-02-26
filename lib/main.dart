@@ -19,7 +19,8 @@ class Bhukkd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
   return MaterialApp(
-      debugShowCheckedModeBanner: true,
+    // showSemanticsDebugger: true,
+      debugShowCheckedModeBanner: false,
       title: 'SplashScreen',
       home: SplashScreen(),
       routes: <String, WidgetBuilder>{
