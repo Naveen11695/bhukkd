@@ -57,7 +57,7 @@ class DataSearch extends SearchDelegate<String> {
     update();
     final suggestionList = query.isEmpty
         ? recentResturaunt
-        : resturaunt.where((p) => p.toLowerCase().contains(query)).toList();
+        : resturaunt.where((p) => p.toLowerCase().startsWith(query)).toList();
     result.clear();
 
     return ListView.builder(
