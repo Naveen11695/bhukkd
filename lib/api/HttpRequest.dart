@@ -1,3 +1,5 @@
+import 'package:bhukkd/Pages/ExplorePage.dart';
+import 'package:bhukkd/models/Search/SearchRestaurant.dart';
 import 'package:bhukkd/models/SharedPreferance/SharedPreference.dart';
 import 'package:flutter/services.dart';
 import 'package:html/parser.dart';
@@ -28,6 +30,63 @@ Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
 }
 
 //.........................................<End>.....getting Api-key from assets.........................................
+
+
+String query;
+List fetchSearchRestraunts(String _query) {
+  List res;
+  query = _query;
+  StoreUserLocation.getLocation().then((loc) {
+    latitude = loc[0].toString();
+    longitude = loc[1].toString();
+    print("$longitude, $latitude");
+  });
+  RequestSearchRestraunts(
+      "https://developers.zomato.com/api/v2.1/search?q=$query&lat=$latitude&lon=$longitude&radius=100000&order=asc")
+      .then((SearchRestraunts searchRestraunts) {
+    if (searchRestraunts != null) {
+      print(
+          "----List of nearby restaurants according to the location---------");
+      for (int i = 0; i < searchRestraunts.restaurants.length; i++) {
+        print(searchRestraunts.restaurants[i].name);
+        resturaunt.add(searchRestraunts.restaurants[i].name);
+      }
+      Set<String> set = new Set<String>.from(resturaunt);
+
+      resturaunt.clear();
+      List<String> l2= new List<String>.from(set);
+      resturaunt = l2;
+
+      return res;
+    }
+    //print("asasas:"+searchRestraunts.results_shown.toString());
+  });
+
+}
+
+Future<SearchRestraunts> RequestSearchRestraunts (requestUrl) async {
+  getKey();
+  final response = await http
+      .get(Uri.encodeFull(requestUrl), headers: {"user-key": api_key});
+  if (response.statusCode == 200) {
+    print(response.body);
+    SearchRestraunts searchRestraunts =parseSearchRestraunts(response.body);
+    return searchRestraunts;
+  }
+  else if (response.statusCode == 403) {
+    fetchSearchRestraunts (requestUrl);
+  }
+  else {
+    print(response.statusCode);
+  }
+}
+
+
+SearchRestraunts parseSearchRestraunts(String responseBody) {
+  final parsed = json.decode(responseBody);
+  SearchRestraunts Result = SearchRestraunts.fromJson(parsed);
+  return Result;
+}
 
 void requestCategories(requestUrl) async {
   getKey();
@@ -74,6 +133,9 @@ String longitude;
  var  cuisines = [];
  var thumb = [];
 
+
+
+
 GeoCode fetchRestByGeoCode() {
   StoreUserLocation.getLocation().then((loc) {
     latitude = loc[0].toString();
@@ -92,7 +154,12 @@ GeoCode fetchRestByGeoCode() {
         print(geoCode.nearby_restaurants[i].name);
         nearByrestaurants.add(geoCode.nearby_restaurants[i].name);
         cuisines.add(geoCode.nearby_restaurants[i].cuisines);
-        thumb.add(geoCode.nearby_restaurants[i].thumb);
+        if(geoCode.nearby_restaurants[i].thumb != ""){
+          thumb.add(geoCode.nearby_restaurants[i].thumb);
+        }
+        else {
+          thumb.add(geoCode.nearby_restaurants[i%2].thumb);
+        }
       }
       return geoCode;
     }

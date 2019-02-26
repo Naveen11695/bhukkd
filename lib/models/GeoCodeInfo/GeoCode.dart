@@ -908,6 +908,8 @@ class GeoCode extends Model{
     // }
 
 
+
+
     return GeoCode(
       link: json['link'],
       nearby_restaurants:restrauntList,

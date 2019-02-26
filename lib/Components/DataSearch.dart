@@ -2,6 +2,7 @@
 import 'package:bhukkd/Components/CustomCardState.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Pages/ExplorePage.dart';
+import 'package:bhukkd/Pages/TrendingPage.dart';
 import 'package:flutter/material.dart';
 
 class DataSearch extends SearchDelegate<String> {
@@ -53,6 +54,7 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    update();
     final suggestionList = query.isEmpty
         ? recentResturaunt
         : resturaunt.where((p) => p.toLowerCase().startsWith(query)).toList();
@@ -80,4 +82,9 @@ class DataSearch extends SearchDelegate<String> {
       itemCount: suggestionList.length,
     );
   }
+
+  void update() {
+      print("query" + query);
+      showSuggestion(query);
+    }
 }
