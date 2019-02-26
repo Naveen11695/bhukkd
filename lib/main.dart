@@ -19,6 +19,7 @@ class Bhukkd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
   return MaterialApp(
+    // showSemanticsDebugger: true,
       debugShowCheckedModeBanner: false,
       title: 'SplashScreen',
       home: SplashScreen(),
@@ -140,7 +141,7 @@ class _SplashScreenState extends State<SplashScreen>
                 child: splash_description,
               ),
               Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: EdgeInsets.all(10.0),
                 child: CollectionScaleTransition(
                   children: <Widget>[
                     Icon(Icons.face, color: Color(0xFFFFFFFF),),

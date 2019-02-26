@@ -17,7 +17,7 @@ class HorizontalScroll extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
           child: new Container(
             constraints: BoxConstraints.expand(
-              width: 160.0,
+              width: 130.0,
             ),
             // decoration: BoxDecoration(
             //   borderRadius: BorderRadius.circular(0.6),
@@ -34,7 +34,10 @@ class HorizontalScroll extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
-                          child: new Image.network(
+                          flex: 1,
+                          child: (thumb[index] == "")?new Image.asset("assets/images/5.jpg", fit: BoxFit.cover,
+                            width: 150, height: 125,):
+                            new Image.network(
                             thumb[index],
                             fit: BoxFit.cover,
                             width: 150,
@@ -42,14 +45,15 @@ class HorizontalScroll extends StatelessWidget {
                         ),
                       ],
                     ),
-                    new Text(nearby_restaurants[index]),
-                    new Text(
+                    new Text(nearby_restaurants[index], textDirection: TextDirection.ltr, textAlign: TextAlign.start,style: new TextStyle(),softWrap: true,),
+                    new Text(    
                       cuisines[index],
                       textAlign: TextAlign.center,
                       style: new TextStyle(
                           fontSize: 10.0,
                           color: Theme.of(context).textTheme.subtitle.color),
-                    )
+                    ),
+                    
                   ],
                 ),
               ),
