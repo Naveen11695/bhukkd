@@ -85,6 +85,6 @@ class DataSearch extends SearchDelegate<String> {
 
   void update() {
       print("query" + query);
-      show(query);
+      showSuggestion(query);
     }
 }
