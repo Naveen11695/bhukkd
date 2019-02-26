@@ -1,5 +1,6 @@
 // flutter
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 // custom
 import '../Components/HorizontalScroll.dart';
@@ -164,7 +165,8 @@ class _TrendingPageState extends State<TrendingPage> {
               elevation: 10.0,
               borderRadius: BorderRadius.circular(25.0),
               child: TextFormField(
-                scrollPadding: EdgeInsets.all(1),
+                focusNode: FocusNode(),
+                scrollPadding: EdgeInsets.all(100),
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     prefixIcon: Icon(Icons.search, color: Colors.deepOrange),
