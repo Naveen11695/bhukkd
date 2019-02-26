@@ -1,4 +1,5 @@
 // flutter
+import 'package:bhukkd/Components/DataSearch.dart';
 import 'package:flutter/material.dart';
 
 // custom
@@ -16,8 +17,16 @@ import '../models/GeoCodeInfo/GeoCode.dart';
 /*------------------------------DISCLAIMER----------------------------------- */
 // font used is OpenSans and Montserrat, please dont use any other font.
 
+
+ int count=0;
+
 class TrendingPage extends StatefulWidget {
   _TrendingPageState createState() => new _TrendingPageState();
+}
+
+
+void show(var q) async{
+  fetchSearchRestraunts(q);
 }
 
 
@@ -90,25 +99,47 @@ class _TrendingPageState extends State<TrendingPage> {
                       type: MaterialType.canvas,
                       elevation: 10.0,
                       borderRadius: BorderRadius.circular(25.0),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            prefixIcon:
-                                Icon(Icons.search, color: Colors.deepOrange),
-                            contentPadding: EdgeInsets.all(15),
-                            hasFloatingPlaceholder: false,
-                            hintText: "Search for trending restraunts nearby",
-                            hintStyle: new TextStyle(
-                                fontFamily: "Montserrat",
-                                fontWeight: FontWeight.w300,
-                                color: Colors.deepOrange,
-                                shadows: [
-                                  Shadow(
-                                      offset: Offset(0.3, 0.1),
-                                      color: Colors.grey),
-                                ])),
-                        keyboardType: TextInputType.text,
-                        keyboardAppearance: Brightness.light,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Material(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30.0),
+                          child: InkWell(
+                            onTap: () {
+                              print("Search");
+                              //fetchSearchRestraunts("bar");
+                              showSearch(context: context, delegate: DataSearch());
+                            },
+                            splashColor: Colors.white24,
+                            highlightColor: Colors.white10,
+                            child: Container(
+                              child: new Row(
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Icon(Icons.search,
+                                        color: Colors.deepOrange),
+                                  ),
+                                  Center(
+                                    child: Text(
+                                      "Search for trending restraunts nearby",
+                                      style: new TextStyle(
+                                          fontFamily: "Montserrat",
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 16.0,
+                                          color: Colors.deepOrange,
+                                          shadows: [
+                                            Shadow(
+                                                offset: Offset(0.3, 0.1),
+                                                color: Colors.grey),
+                                          ]),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -144,7 +175,8 @@ class _TrendingPageState extends State<TrendingPage> {
                               scrollDirection: Axis.horizontal,
                               itemCount: nearByrestaurants.length,
                               itemBuilder: (BuildContext context, index) {
-                                return HorizontalScroll(index,nearByrestaurants,cuisines,thumb);
+                                return HorizontalScroll(
+                                    index, nearByrestaurants, cuisines, thumb);
                               },
                             ),
                           ),
