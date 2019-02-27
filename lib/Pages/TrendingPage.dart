@@ -99,7 +99,7 @@ class _TrendingPageState extends State<TrendingPage> {
                       textAlign: TextAlign.start,
                       style: new TextStyle(
                         fontSize: 20.0,
-                        fontFamily: "Raleway",
+                        fontFamily: "Montserrat-Bold",
                         // fontWeight: FontWeight.w700,
                         letterSpacing: 0.8,
                         wordSpacing: 0.0,
@@ -127,7 +127,7 @@ class _TrendingPageState extends State<TrendingPage> {
                       textAlign: TextAlign.start,
                       style: new TextStyle(
                         fontSize: 20.0,
-                        fontFamily: "Raleway",
+                        fontFamily: "Monserrat-Bold",
                         // fontWeight: FontWeight.w700,
                         letterSpacing: 0.8,
                         wordSpacing: 0.0,
@@ -150,7 +150,7 @@ class _TrendingPageState extends State<TrendingPage> {
                       textAlign: TextAlign.start,
                       style: new TextStyle(
                         fontSize: 20.0,
-                        fontFamily: "Raleway",
+                        fontFamily: "Montserrat-Bold",
                         // fontWeight: FontWeight.w700,
                         letterSpacing: 0.8,
                         wordSpacing: 0.0,
