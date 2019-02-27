@@ -7,12 +7,18 @@ class otpPage extends StatefulWidget {
 }
 
 class _otpPageState extends State<otpPage> {
-  @override
+
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new Scaffold(
-      body: new Container(
-        child: new Form(child: Otp()),
+      body: new Stack(
+        children: <Widget>[
+          background,
+          Container(
+            height: MediaQuery.of(context).size.height,
+            color: Color.fromRGBO(0, 0, 0, 245),
+          ),
+          ListView(children: <Widget>[new Form(child: Otp()),],),
+        ],
       ),
     );
   }
@@ -20,20 +26,13 @@ class _otpPageState extends State<otpPage> {
   Widget Otp() {
     return new Stack(
       children: <Widget>[
-        background,
-        Container(
-          color: Color.fromRGBO(255, 255, 255, 150),
-        ),
-
-
-
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 80, 20, 0),
           child: new Text(
             "Find Resturaunts!",
             style: TextStyle(
-              fontFamily: 'Raleway-Italic',
-              fontWeight: FontWeight.bold,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w700,
               fontSize: 50.0,
               color: Colors.deepOrangeAccent,
             ),
@@ -55,43 +54,46 @@ class _otpPageState extends State<otpPage> {
           child: new Text(
             "Be a bhukkd",
             style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontStyle: FontStyle.italic,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w700,
               fontSize: 20.0,
               color: Colors.deepOrangeAccent,
             ),
           ),
         ),
-
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 400, 20, 0),
           child: new TextField(
             keyboardType: TextInputType.phone,
-            style: new TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black),
+            style: new TextStyle(
+                fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black),
             decoration: new InputDecoration(
-                border: new OutlineInputBorder(
-                    borderSide: new BorderSide(color: Colors.deepOrangeAccent)),
+                focusedBorder: new OutlineInputBorder(
+                    borderSide: new BorderSide(color: Colors.deepOrangeAccent),
+                    borderRadius: BorderRadius.circular(30.0)),
                 hintText: 'Enter your mobile number',
                 helperText: 'Should be 10 digit number',
                 labelText: 'Phone no.',
+                labelStyle: new TextStyle(
+                  color: Color.fromRGBO(249, 129, 42, 1),
+                ),
                 prefixIcon: const Icon(
                   Icons.phone_android,
                   color: Colors.deepOrangeAccent,
                 ),
-                prefixText: ' +91 '
-            ),
+                prefixText: ' +91 '),
             maxLength: 10,
           ),
         ),
-
         Padding(
           padding: const EdgeInsets.fromLTRB(180, 600, 0, 0),
           child: new InkWell(
             child: new Container(
               padding: const EdgeInsets.all(20.0),
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.deepOrange),
-                  shape: BoxShape.circle, color: Colors.deepOrangeAccent),
+                  border: Border.all(color: Colors.deepOrange),
+                  shape: BoxShape.circle,
+                  color: Colors.deepOrangeAccent),
               child: new Icon(
                 Icons.arrow_forward,
                 size: 20.0,
@@ -108,5 +110,9 @@ class _otpPageState extends State<otpPage> {
         ),
       ],
     );
+  }
+
+  smsCodeDialog(BuildContext context) {
+    Text("Your Varification code is");
   }
 }

@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import '../Components/CustomComponets.dart';
 
@@ -138,3 +139,4 @@ class _DetailsState extends State<Details> {
     );
   }
 }
+*/

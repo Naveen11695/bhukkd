@@ -79,6 +79,8 @@ flutter:
   - assets/api/config.json
   - assets/images/Breakfast.png
   - assets/images/5.jpg
+  - assets/images/food1.png
+  - assets/images/chowmien.png
   - assets/images/
 
 

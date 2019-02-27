@@ -62,15 +62,18 @@ TextStyle Raleway = TextStyle(
 
 final login_background = Image.asset('assets/images/2.png', fit: BoxFit.fill);
 
+final otp_background = Positioned(
+  child: Image.asset('assets/images/food1.png', fit: BoxFit.fill),
+  left: 80,
+  top: 470,
+);
 final explore_background = Container(
   decoration: BoxDecoration(color: Colors.black),
 );
-final background = new Container(
-  decoration: BoxDecoration(
-      image: DecorationImage(
-    image: AssetImage('assets/images/11.jpeg'),
-    fit: BoxFit.fill,
-  )),
+final background = new Positioned(
+  child: Image.asset('assets/images/chowmien.png', fit: BoxFit.scaleDown),
+  left: 170,
+  top: 30,
 );
 final splash_background = Container(
     decoration: BoxDecoration(

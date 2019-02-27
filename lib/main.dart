@@ -20,6 +20,7 @@ class Bhukkd extends StatelessWidget {
   Widget build(BuildContext context) {
   return MaterialApp(
       debugShowCheckedModeBanner: false,
+//      showSemanticsDebugger: true,
       title: 'SplashScreen',
       home: SplashScreen(),
       routes: <String, WidgetBuilder>{
