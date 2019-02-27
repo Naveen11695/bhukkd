@@ -27,7 +27,7 @@ class NearByRestaurants{
   String menu_url;
   String photo_url;
   String featured_image;
-  int medio_provider;
+  String medio_provider;
   int has_online_delivery;
   int is_delivery_now;
   bool include_bogo_offers;
@@ -51,7 +51,7 @@ class NearByRestaurants{
 
   factory NearByRestaurants.fromJson(Map<String, dynamic> json) {
     Map<String, dynamic> loc = json["restaurant"]["location"];
-    Map<String, dynamic> event = json["restaurant"]['zomato_events'];
+    //Map<String, dynamic> event = json["restaurant"]['zomato_events'];
     Map<String, dynamic> user_rate = json["restaurant"]['user_rating'];
    
     location l;
@@ -67,6 +67,8 @@ class NearByRestaurants{
     }else{
       print("error in location in NearByrest:$l");
     }
+
+    print("restaurants:"+json['restaurants'].toString());
 
     // error in zomatoEvents
 
@@ -107,7 +109,7 @@ class NearByRestaurants{
       is_delivery_now: json["restaurant"]['is_delivery_now'],
       is_table_reservation_supported: json["restaurant"]['is_table_reservation_supported'],
       is_zomato_book_res: json["restaurant"]['is_zomato_book_res'],
-      medio_provider: json["restaurant"]['medio_provider'],
+      medio_provider: json["restaurant"]['medio_provider'].toString(),
       menu_url: json["restaurant"]['menu_url'],
       mezzo_provider: json["restaurant"]['mezzo_provider'],
       opentable_support: json["restaurant"]['opentable_support'],

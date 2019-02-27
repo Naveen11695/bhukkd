@@ -6,9 +6,10 @@ import 'package:flutter/material.dart';
 
 //.................................data to be render..........................//
 
-final resturaunt = [
+var resturaunt = [
   "Barcos",
   "foodHub",
+  "BB",
 ];
 final resturaunt_thumb = [];
 
@@ -140,22 +141,6 @@ class _ExplorePage extends State<ExplorePage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        elevation: 20.0,
-        backgroundColor: Color.fromRGBO(255, 255, 255, 50),
-        label: Text(
-          "Search",
-          style: Raleway.copyWith(fontSize: 20.0),
-        ),
-        icon: Icon(
-          Icons.search,
-          color: Color(0xAAAF2222),
-        ),
-        onPressed: () {
-          showSearch(context: context, delegate: DataSearch());
-        },
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
