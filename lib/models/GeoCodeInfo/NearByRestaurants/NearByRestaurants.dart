@@ -10,7 +10,7 @@ import '../../Restruant/UserRating/UserRating.dart';
 class NearByRestaurants{
   String id;
   String name;
-  List<dynamic> near_by_restaurants_location;
+  Map<String, dynamic> near_by_restaurants_location;
   String cuisines;
   int average_cost_for_two;
   int price_range;
@@ -39,6 +39,7 @@ class NearByRestaurants{
   List<dynamic> all_reviews;
 
   NearByRestaurants({this.id, this.name,
+    this.near_by_restaurants_location,
       this.cuisines, this.average_cost_for_two, this.price_range, this.currency,
       this.offers, this.opentable_support,
       this.is_zomato_book_res, this.mezzo_provider, this.book_form_web_view_url,
@@ -92,6 +93,7 @@ class NearByRestaurants{
     return NearByRestaurants(
       id:json["restaurant"]['id'],
       name:json["restaurant"]['name'],
+      near_by_restaurants_location: loc,
       cuisines:json["restaurant"]['cuisines'],
       average_cost_for_two:json["restaurant"]['average_cost_for_two'],
       price_range:json["restaurant"]['price_range'],
