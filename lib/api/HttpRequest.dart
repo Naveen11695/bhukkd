@@ -31,10 +31,10 @@ Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
 
 //.........................................<End>.....getting Api-key from assets.........................................
 
-
 String query;
-List fetchSearchRestraunts(String _query) {
-  List res;
+
+void fetchSearchRestraunts(String _query) {
+
   query = _query;
   StoreUserLocation.getLocation().then((loc) {
     latitude = loc[0].toString();
@@ -42,45 +42,57 @@ List fetchSearchRestraunts(String _query) {
     print("$longitude, $latitude");
   });
   RequestSearchRestraunts(
-      "https://developers.zomato.com/api/v2.1/search?q=$query&lat=$latitude&lon=$longitude&radius=100000&order=asc")
+          "https://developers.zomato.com/api/v2.1/search?q=$query&lat=$latitude&lon=$longitude&radius=100000&order=asc")
       .then((SearchRestraunts searchRestraunts) {
     if (searchRestraunts != null) {
+      clear();
       print(
           "----List of nearby restaurants according to the location---------");
       for (int i = 0; i < searchRestraunts.restaurants.length; i++) {
+        //print(searchRestraunts.restaurants[i].id);
+        // print(searchRestraunts.restaurants[i].thumb);
         print(searchRestraunts.restaurants[i].name);
-        resturaunt.add(searchRestraunts.restaurants[i].name);
+        print(searchRestraunts.restaurants[i].near_by_restaurants_location["address"]);
+
+        add_search_content(i,
+            searchRestraunts.restaurants[i].id,
+            searchRestraunts.restaurants[i].thumb,
+            searchRestraunts.restaurants[i].name,
+            searchRestraunts.restaurants[i]
+                .near_by_restaurants_location["address"]);
       }
-      Set<String> set = new Set<String>.from(resturaunt);
-
-      resturaunt.clear();
-      List<String> l2= new List<String>.from(set);
-      resturaunt = l2;
-
-      return res;
     }
-    //print("asasas:"+searchRestraunts.results_shown.toString());
   });
-
 }
 
-Future<SearchRestraunts> RequestSearchRestraunts (requestUrl) async {
+void clear() {
+ // Search_id.clear();
+ // Search_resturaunt_thumb.clear();
+  Search_resturaunt_name.clear();
+  Search_resturant_location.clear();
+}
+
+void add_search_content(int index, String id, String thumb, String name, near_by_restaurants_location) {
+  //  Search_id.add(id);
+  //  Search_resturaunt_thumb.add(thumb);
+    Search_resturaunt_name.add(name);
+    Search_resturant_location.add(near_by_restaurants_location);
+}
+
+Future<SearchRestraunts> RequestSearchRestraunts(requestUrl) async {
   getKey();
   final response = await http
       .get(Uri.encodeFull(requestUrl), headers: {"user-key": api_key});
   if (response.statusCode == 200) {
     print(response.body);
-    SearchRestraunts searchRestraunts =parseSearchRestraunts(response.body);
+    SearchRestraunts searchRestraunts = parseSearchRestraunts(response.body);
     return searchRestraunts;
-  }
-  else if (response.statusCode == 403) {
-    fetchSearchRestraunts (requestUrl);
-  }
-  else {
+  } else if (response.statusCode == 403) {
+    fetchSearchRestraunts(requestUrl);
+  } else {
     print(response.statusCode);
   }
 }
-
 
 SearchRestraunts parseSearchRestraunts(String responseBody) {
   final parsed = json.decode(responseBody);
@@ -129,12 +141,9 @@ GeoCode parseGeoCode(String responseBody) {
 String latitude;
 String longitude;
 
- var  nearByrestaurants = [];
- var  cuisines = [];
- var thumb = [];
-
-
-
+var nearByrestaurants = [];
+var cuisines = [];
+var thumb = [];
 
 GeoCode fetchRestByGeoCode() {
   StoreUserLocation.getLocation().then((loc) {
@@ -143,7 +152,7 @@ GeoCode fetchRestByGeoCode() {
     print("$longitude, $latitude");
   });
   requestGeoCode(
-      "https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude",
+          "https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude",
           latitude,
           longitude)
       .then((GeoCode geoCode) {
@@ -154,11 +163,10 @@ GeoCode fetchRestByGeoCode() {
         print(geoCode.nearby_restaurants[i].name);
         nearByrestaurants.add(geoCode.nearby_restaurants[i].name);
         cuisines.add(geoCode.nearby_restaurants[i].cuisines);
-        if(geoCode.nearby_restaurants[i].thumb != ""){
+        if (geoCode.nearby_restaurants[i].thumb != "") {
           thumb.add(geoCode.nearby_restaurants[i].thumb);
-        }
-        else {
-          thumb.add(geoCode.nearby_restaurants[i%2].thumb);
+        } else {
+          thumb.add(geoCode.nearby_restaurants[i % 2].thumb);
         }
       }
       return geoCode;

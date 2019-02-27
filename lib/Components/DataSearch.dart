@@ -30,7 +30,7 @@ class DataSearch extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     var nearList =
-    resturaunt.where((p) => p.toLowerCase().startsWith(query)).toList();
+    Search_resturaunt_name.where((p) => p.toLowerCase().startsWith(query)).toList();
     List cards = new List.generate(
         result.isEmpty ? nearList.length : result.length,
             (i) => new CustomCard((result.isEmpty ? nearList[i] : result[i])))
@@ -56,28 +56,29 @@ class DataSearch extends SearchDelegate<String> {
   Widget buildSuggestions(BuildContext context) {
     update();
     final suggestionList = query.isEmpty
-        ? recentResturaunt
-        : resturaunt.where((p) => p.toLowerCase().startsWith(query)).toList();
+        ? Search_recentResturaunt
+        : Search_resturaunt_name.where((p) => p.toLowerCase().contains(query)).toList();
     result.clear();
 
     return ListView.builder(
       itemBuilder: (context, index) => ListTile(
         onTap: () {
-          print("query:" + recentResturaunt[index]);
+          print("query:" + Search_recentResturaunt[index]);
           result.add(suggestionList[index]);
           showResults(context);
         },
         leading: Icon(Icons.fastfood),
         title: RichText(
             text: TextSpan(
-                text: suggestionList[index].substring(0, query.length),
+                text: suggestionList[index],
                 style: TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.bold),
+                    color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 16),
                 children: [
                   TextSpan(
-                      text: suggestionList[index].substring(query.length),
-                      style: TextStyle(color: Colors.grey)),
+                      text: "\n"+((query.length)>3?Search_resturant_location[index]:""),
+                      style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w300,fontSize: 11)),
                 ])),
+
       ),
       itemCount: suggestionList.length,
     );

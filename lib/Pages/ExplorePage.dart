@@ -6,19 +6,12 @@ import 'package:flutter/material.dart';
 
 //.................................data to be render..........................//
 
-var resturaunt = [
-  "Barcos",
-  "foodHub",
-  "BB",
-];
-final resturaunt_thumb = [];
-
-final recentResturaunt = [
-  "Barcos",
-  "foodHub",
-];
-
-final result = [];
+var Search_id = [];
+var Search_resturaunt_thumb = [];
+var Search_resturaunt_name = [];
+var Search_resturant_location = [];
+var Search_recentResturaunt = [];
+var result = [];
 
 //.................................data to be render..........................//
 
