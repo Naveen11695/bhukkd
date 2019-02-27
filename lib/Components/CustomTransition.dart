@@ -4,7 +4,7 @@ class HorizontalTransition extends MaterialPageRoute{
   HorizontalTransition({WidgetBuilder builder, RouteSettings settings}):super(builder:builder, settings:settings);
 
   @override
-  Duration get transitionDuration => const Duration(milliseconds: 600);
+  Duration get transitionDuration => const Duration(milliseconds: 550);
 
 
   @override
@@ -13,9 +13,6 @@ class HorizontalTransition extends MaterialPageRoute{
         begin: const Offset(-1.0, 0.0),
         end: Offset.zero,
       ).animate(animation);
-    return new SlideTransition(position: customAnimation,child: child,);
+    return new SlideTransition(child:new FadeTransition(opacity: animation,child: child,), position: customAnimation,);
   }
-
-
-
 }
