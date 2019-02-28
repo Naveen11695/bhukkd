@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen>
   Animation<double> animation;
 
   Future delayTimer() async {
-    Duration duration = new Duration(seconds:5);
+    Duration duration = new Duration(seconds:2);
     return new Timer(duration, navigateTo);
   }
   //....................................version 2.0.1 (Updated shared preference check not working).................................//
@@ -99,7 +99,7 @@ class _SplashScreenState extends State<SplashScreen>
     fetchRestByGeoCode();
     super.initState();
     controller = AnimationController(
-      duration: Duration(milliseconds: 50),
+      duration: Duration(milliseconds: 20),
       vsync: this,
     );
     animation = Tween(begin: 0.0, end: 1.0).animate(controller)

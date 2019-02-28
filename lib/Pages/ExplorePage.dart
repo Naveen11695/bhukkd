@@ -21,9 +21,9 @@ class ExplorePage extends StatefulWidget {
 }
 
 class _ExplorePage extends State<ExplorePage> {
-  List cards =
+  /*List cards =
       new List.generate(result.length, (i) => new CustomCard(result[i]))
-          .toList();
+          .toList();*/
   GeoCode geoCode;
 
   @override

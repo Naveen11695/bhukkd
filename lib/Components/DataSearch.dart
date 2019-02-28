@@ -29,11 +29,11 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    var nearList =
-    Search_resturaunt_name.where((p) => p.toLowerCase().startsWith(query)).toList();
+    /*var nearList =
+    Search_resturaunt_name.where((p) => p.toLowerCase().startsWith(query)).toList();*/
     List cards = new List.generate(
-        result.isEmpty ? nearList.length : result.length,
-            (i) => new CustomCard((result.isEmpty ? nearList[i] : result[i])))
+        result.isEmpty ? Search_resturaunt_name.length : result.length,
+            (i) => new CustomCard((result.isEmpty ? Search_resturaunt_name[i] : result[i]),Search_resturant_location[i]))
         .toList();
     return Stack(
       children: <Widget>[
@@ -63,7 +63,8 @@ class DataSearch extends SearchDelegate<String> {
     return ListView.builder(
       itemBuilder: (context, index) => ListTile(
         onTap: () {
-          print("query:" + Search_recentResturaunt[index]);
+          print("here");
+          print("query:" + suggestionList[index]);
           result.add(suggestionList[index]);
           showResults(context);
         },
