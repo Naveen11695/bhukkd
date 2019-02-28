@@ -1,6 +1,8 @@
 import 'package:bhukkd/Pages/ExplorePage.dart';
+import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:bhukkd/models/Search/SearchRestaurant.dart';
 import 'package:bhukkd/models/SharedPreferance/SharedPreference.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
@@ -152,7 +154,7 @@ GeoCode fetchRestByGeoCode() {
     print("$longitude, $latitude");
   });
   requestGeoCode(
-          "https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude",
+          "https://developers.zomato.com/api/v2.1/geocode?lat=28.5280&lon=77.2898",
           latitude,
           longitude)
       .then((GeoCode geoCode) {
@@ -168,9 +170,22 @@ GeoCode fetchRestByGeoCode() {
         } else {
           thumb.add(geoCode.nearby_restaurants[i % 2].thumb);
         }
+        send_data_to_firestore(geoCode.nearby_restaurants[i]);
       }
       return geoCode;
     }
+  });
+}
+
+void send_data_to_firestore(NearByRestaurants nearby_restaurants) {
+  DocumentReference documentReference = Firestore.instance.collection('NearByRestaurants').document(nearby_restaurants.id);
+  Firestore.instance.runTransaction((Transaction tx) async{
+    DocumentSnapshot postSnap = await tx.get(documentReference);
+      await tx.set(documentReference, {
+        "id": [nearby_restaurants.id],
+        "restaurant_name": [nearby_restaurants.name],
+      });
+
   });
 }
 

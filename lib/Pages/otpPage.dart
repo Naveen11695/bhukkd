@@ -34,7 +34,7 @@ class _otpPageState extends State<otpPage> {
               fontFamily: 'Montserrat',
               fontWeight: FontWeight.w700,
               fontSize: 50.0,
-              color: Colors.deepOrangeAccent,
+              color: Color.fromRGBO(249, 129, 42, 1),
             ),
           ),
         ),
@@ -57,34 +57,39 @@ class _otpPageState extends State<otpPage> {
               fontFamily: 'Montserrat',
               fontWeight: FontWeight.w700,
               fontSize: 20.0,
-              color: Colors.deepOrangeAccent,
+              color: Color.fromRGBO(249, 129, 42, 1),
             ),
           ),
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 400, 20, 0),
-          child: new TextField(
-            keyboardType: TextInputType.phone,
-            style: new TextStyle(
-                fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black),
-            decoration: new InputDecoration(
-                focusedBorder: new OutlineInputBorder(
-                    borderSide: new BorderSide(color: Colors.deepOrangeAccent),
-                    borderRadius: BorderRadius.circular(30.0)),
-                hintText: 'Enter your mobile number',
-                helperText: 'Should be 10 digit number',
-                labelText: 'Phone no.',
-                labelStyle: new TextStyle(
-                  color: Color.fromRGBO(249, 129, 42, 1),
-                ),
-                prefixIcon: const Icon(
-                  Icons.phone_android,
-                  color: Colors.deepOrangeAccent,
-                ),
-                prefixText: ' +91 '),
-            maxLength: 10,
+            child: DecoratedBox(
+              child: new TextField(
+                keyboardType: TextInputType.phone,
+
+                style: new TextStyle(
+                    fontSize: 20, fontWeight: FontWeight.w500, color: Color.fromRGBO(249, 129, 42, 1)),
+                decoration: new InputDecoration(
+                  fillColor: Color.fromRGBO(249, 129, 42, 1),
+                    focusedBorder: new OutlineInputBorder(
+                        borderSide: new BorderSide(color: Color.fromRGBO(249, 129, 42, 1)),
+                        borderRadius: BorderRadius.circular(30.0)),
+                    hintText: 'Enter your mobile number',
+                    helperText: 'Should be 10 digit number',
+                    labelText: 'Phone no.',
+                    labelStyle: new TextStyle(
+                      color: Color.fromRGBO(249, 129, 42, 1),
+                    ),
+                    prefixIcon: const Icon(
+                      Icons.phone_android,
+                      color: Color.fromRGBO(249, 129, 42, 1),
+                    ),
+                    prefixText: ' +91 '),
+                maxLength: 10,
+              ),
+            ),
           ),
-        ),
+
         Padding(
           padding: const EdgeInsets.fromLTRB(180, 600, 0, 0),
           child: new InkWell(
@@ -93,7 +98,7 @@ class _otpPageState extends State<otpPage> {
               decoration: BoxDecoration(
                   border: Border.all(color: Colors.deepOrange),
                   shape: BoxShape.circle,
-                  color: Colors.deepOrangeAccent),
+                  color: Color.fromRGBO(249, 129, 42, 1)),
               child: new Icon(
                 Icons.arrow_forward,
                 size: 20.0,

@@ -18,6 +18,7 @@ class Bhukkd extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
   return MaterialApp(
       debugShowCheckedModeBanner: false,
 //      showSemanticsDebugger: true,
@@ -158,6 +159,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
   }
 }
+
 
 
 
