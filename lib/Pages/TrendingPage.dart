@@ -49,6 +49,7 @@ class _TrendingPageState extends State<TrendingPage> {
             physics: ScrollPhysics(),
             slivers: <Widget>[
               new SliverAppBar(
+                floating: false,
                 title: Column(
                   children: <Widget>[
                     SizedBox(
@@ -82,7 +83,7 @@ class _TrendingPageState extends State<TrendingPage> {
                 ),
                 titleSpacing: 0.4,
                 expandedHeight: MediaQuery.of(context).size.height * 0.13,
-                pinned: false,
+                pinned: true,
                 primary: true,
               ),
               SliverList(
