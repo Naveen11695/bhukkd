@@ -166,7 +166,8 @@ class _TrendingPageState extends State<TrendingPage> {
             ],
           ),
           new Container(
-            padding: EdgeInsets.fromLTRB(15.0, 85.0, 15.0, 520.0),
+            height: 50,
+            margin: EdgeInsets.only(top:MediaQuery.of(context).size.height * 0.13, right: 15, left: 15),
             child: Material(
               type: MaterialType.canvas,
               elevation: 10.0,
