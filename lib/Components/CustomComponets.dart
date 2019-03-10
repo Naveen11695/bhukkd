@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 final opacity = Container(
-  color: Color(0xAAAF2222),
+  color: Color.fromRGBO(249, 129, 42, 150),
 );
 
 final logo = Image.asset(
@@ -18,15 +18,21 @@ const TextStyle textStyle = TextStyle(
 final login_description = Text(
   "Spot the right place to find your favorite food.",
   textAlign: TextAlign.center,
-  style: textStyle.copyWith(
-    fontSize: 20.0,
-  ),
+  style: new TextStyle(
+      fontSize: 20.0,
+      fontFamily: "Montserrat-Bold",
+      letterSpacing: 0.8,
+      wordSpacing: 0.0,
+      textBaseline: TextBaseline.ideographic,
+      color: Colors.white),
 );
 
 Widget semi_circlar_button(String label, Function onTap) {
   return Material(
-    color: Color.fromARGB(200, 255, 138, 128),
-    borderRadius: BorderRadius.circular(30.0),
+    color: Color.fromRGBO(249, 129, 42, 20),
+    borderRadius: BorderRadius.circular(
+      30.0,
+    ),
     child: InkWell(
       onTap: onTap,
       splashColor: Colors.white24,
@@ -36,7 +42,14 @@ Widget semi_circlar_button(String label, Function onTap) {
         child: Center(
           child: Text(
             label,
-            style: textStyle.copyWith(fontSize: 20.0),
+            style: new TextStyle(
+                fontSize: 20.0,
+                fontFamily: "Montserrat-Bold",
+                // fontWeight: FontWeight.w700,
+                letterSpacing: 0.8,
+                wordSpacing: 0.0,
+                textBaseline: TextBaseline.ideographic,
+                color: Colors.white),
           ),
         ),
       ),
@@ -60,7 +73,7 @@ TextStyle Raleway = TextStyle(
   fontFamily: 'Raleway',
 );
 
-final login_background = Image.asset('assets/images/2.png', fit: BoxFit.fill);
+final login_background = Image.asset('assets/images/2.png', fit: BoxFit.fill,);
 
 final otp_background = Positioned(
   child: Image.asset('assets/images/food1.png', fit: BoxFit.fill),

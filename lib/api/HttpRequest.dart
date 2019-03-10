@@ -170,7 +170,7 @@ GeoCode fetchRestByGeoCode() {
         } else {
           thumb.add(geoCode.nearby_restaurants[i % 2].thumb);
         }
-        send_data_to_firestore(geoCode.nearby_restaurants[i]);
+        //send_data_to_firestore(geoCode.nearby_restaurants[i]);
       }
       return geoCode;
     }

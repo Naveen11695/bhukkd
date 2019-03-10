@@ -4,7 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../Pages/otpPage.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  @override
+  _LoginPage createState() => _LoginPage();
+}
+
+class _LoginPage extends State<LoginPage> {
+
+  bool _passwordVisible;
+  @override
+  void initState() {
+    _passwordVisible = false;
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([
@@ -16,7 +28,9 @@ class LoginPage extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          login_background,
+          Positioned(top:0,
+            child: login_background,
+          ),
           opacity,
           new SafeArea(
             child: ListView(
@@ -37,14 +51,18 @@ class LoginPage extends StatelessWidget {
                       child: new Container(
                         padding: EdgeInsets.symmetric(vertical: 2.0),
                         decoration: new BoxDecoration(
-                          color: Color.fromARGB(200, 255, 255, 255),
+                          color: Color.fromRGBO(255, 255, 255, 20),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         child: new ListTile(
-                          leading: const Icon(Icons.person),
+                          leading: const Icon(Icons.person, color: Color.fromRGBO(249, 129, 42, 20),),
                           title: new TextField(
-                            decoration: new InputDecoration(
-                              hintText: "Email Id or Phone no.",
+                            keyboardType: TextInputType.emailAddress,
+                            decoration: InputDecoration(
+                              hasFloatingPlaceholder: true,
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0),
+                              labelText: "Email Id or Phone no.",
                             ),
                           ),
                         ),
@@ -55,14 +73,32 @@ class LoginPage extends StatelessWidget {
                       child: new Container(
                         padding: EdgeInsets.symmetric(vertical: 2.0),
                         decoration: new BoxDecoration(
-                          color: Color.fromARGB(200, 255, 255, 255),
+                          color: Color.fromRGBO(255, 255, 255, 20),
                           borderRadius: BorderRadius.circular(30.0),
                         ),
                         child: new ListTile(
-                          leading: const Icon(Icons.person),
-                          title: new TextField(
-                            decoration: new InputDecoration(
-                              hintText: "Password",
+                          leading: const Icon(Icons.enhanced_encryption , color: Color.fromRGBO(249, 129, 42, 20),),
+                          title: TextFormField(
+                            obscureText: !_passwordVisible,
+                            decoration: InputDecoration(
+                              hasFloatingPlaceholder: true,
+                              filled: true,
+                              fillColor: Colors.white.withOpacity(0),
+                              labelText: "Password",
+                              suffixIcon: GestureDetector(
+                                onLongPress: () {
+                                  setState(() {
+                                    _passwordVisible = true;
+                                  });
+                                },
+                                onLongPressUp: () {
+                                  setState(() {
+                                    _passwordVisible = false;
+                                  });
+                                },
+                                child: Icon(
+                                    _passwordVisible ? Icons.visibility : Icons.visibility_off),
+                              ),
                             ),
                           ),
                         ),

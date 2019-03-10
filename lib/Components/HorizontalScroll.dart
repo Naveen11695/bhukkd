@@ -34,45 +34,54 @@ class HorizontalScroll extends StatelessWidget {
                   margin: EdgeInsets.only(left: 5, top: 2, bottom: 2),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  elevation: 2,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: (thumb[index] == "")
-                                ? new Image.asset(
-                                    "assets/images/5.jpg",
-                                    fit: BoxFit.cover,
-                                    width: 150,
-                                    height: 125,
-                                  )
-                                : new Image.network(
-                                    thumb[index],
-                                    fit: BoxFit.cover,
-                                    width: 150,
-                                  ),
+                  elevation: 5,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        new Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Expanded(
+                              flex: 1,
+                              child: (thumb[index] == "")
+                                  ? new Image.asset(
+                                      "assets/images/5.jpg",
+                                      fit: BoxFit.cover,
+                                      width: 150,
+                                      height: 125,
+                                    )
+                                  : new Image.network(
+                                      thumb[index],
+                                      fit: BoxFit.cover,
+                                      width: 150,
+                                    ),
+                            ),
+                          ],
+                        ),
+                        new Text(
+                          nearby_restaurants[index],
+                          textDirection: TextDirection.ltr,
+                          textAlign: TextAlign.center,
+                          style: new TextStyle(
+                              shadows: [
+                                Shadow(
+                                    offset: Offset(0.3, 0.1),
+                                    color: Colors.grey),
+                              ]
                           ),
-                        ],
-                      ),
-                      new Text(
-                        nearby_restaurants[index],
-                        textDirection: TextDirection.ltr,
-                        textAlign: TextAlign.start,
-                        style: new TextStyle(),
-                        softWrap: true,
-                      ),
-                      new Text(
-                        cuisines[index],
-                        textAlign: TextAlign.center,
-                        style: new TextStyle(
-                            fontSize: 10.0,
-                            color: Theme.of(context).textTheme.subtitle.color),
-                      ),
-                    ],
+                          softWrap: true,
+                        ),
+                        new Text(
+                          cuisines[index],
+                          textAlign: TextAlign.center,
+                          style: new TextStyle(
+                              fontSize: 10.0,
+                              color: Theme.of(context).textTheme.subtitle.color),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

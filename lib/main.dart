@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:bhukkd/Components/CustomComponets.dart';
+import 'package:bhukkd/api/Firebase/Search_request.dart';
 import 'package:bhukkd/api/HttpRequest.dart';
 import 'package:bhukkd/models/GeoCodeInfo/GeoCode.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import './Pages/LocationServicePage.dart';
@@ -46,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen>
   Animation<double> animation;
 
   Future delayTimer() async {
-    Duration duration = new Duration(seconds:2);
+    Duration duration = new Duration(seconds:5);
     return new Timer(duration, navigateTo);
   }
   //....................................version 2.0.1 (Updated shared preference check not working).................................//
@@ -92,6 +94,19 @@ class _SplashScreenState extends State<SplashScreen>
         }
       ));
     }
+  }
+
+  showSuggestion(String q) {
+    Search_request().search_result(q).then((QuerySnapshot docs) {
+      if(!docs.documents.isEmpty) {
+        for (int i = 0; i < docs.documents.length; ++i) {
+          print(docs.documents[i].data);
+        }
+      }
+      else{
+        print("Empty");
+      }
+    });
   }
 
   @override

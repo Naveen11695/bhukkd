@@ -109,7 +109,7 @@ class _TrendingPageState extends State<TrendingPage> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.92,
-                    height: 200,
+                    height: 175,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: nearByrestaurants.length,
