@@ -109,6 +109,7 @@ class _LoginPage extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                   child: semi_circlar_button('Sign In', () {
+                    print(fetchRestByGeoCode());
                     print("SignIn");
                   }),
                 ),
