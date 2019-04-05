@@ -175,6 +175,7 @@ GeoCode fetchRestByGeoCode() {
       return geoCode;
     }
   });
+  return null;
 }
 
 Future requestRestaurant(requestUrl, res_id) async {

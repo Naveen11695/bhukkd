@@ -32,25 +32,14 @@ void showSuggestion(var q) async {
 
 List<Placemark> placemark;
 
-/*void getLocationName() async{
-  Geolocator geolocator = Geolocator()..forceAndroidLocationManager = true;
-  GeolocationStatus geolocationStatus  = await geolocator.checkGeolocationPermissionStatus();
+void getLocationName() async{
+  getCurrentPosition().then((Position pos) async{
+    placemark = await Geolocator().placemarkFromCoordinates(77.209, 28.6139);
+  });
 
-  if(geolocationStatus != null)
-    {
-      getCurrentPosition().then((Position pos) async{
-        if(pos==null){
-          print("null");
-        }
-          //placemark = await Geolocator().placemarkFromCoordinates(28.2165157, 78.9437819);
-      });
-    }
-    else {
-      print("Permission Denied");
-  }
   print("place_name: " + placemark.toString());
 
-}*/
+}
 
 //.......................................important........................................//
 
@@ -66,7 +55,7 @@ class _TrendingPageState extends State<TrendingPage> {
   Future<Null> refresh() async {
     getCurrentPosition();
     fetchRestByGeoCode();
-
+    await Future.delayed(Duration(seconds: 5));
     setState(() {
       listBuilder = ListView.builder(
           scrollDirection: Axis.horizontal,

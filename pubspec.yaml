@@ -25,7 +25,7 @@ dependencies:
   html: any
   sqflite: any
   path_provider: ^0.4.1
-  async_loader: ^0.1.1
+  async_loader: ^0.1.2
 
 
   # Api- key :0bc8d74fdefd3601d84a0d52ffa01901
