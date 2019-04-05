@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'package:bhukkd/Components/CustomComponets.dart';
-import 'package:bhukkd/api/Firebase/Search_request.dart';
 import 'package:bhukkd/api/HttpRequest.dart';
-import 'package:bhukkd/models/GeoCodeInfo/GeoCode.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import './Pages/LocationServicePage.dart';
@@ -17,25 +14,22 @@ void main() {
 }
 
 class Bhukkd extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
-  return MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
 //      showSemanticsDebugger: true,
       title: 'SplashScreen',
       home: SplashScreen(),
       routes: <String, WidgetBuilder>{
-        '/LocationService':(BuildContext context) => new LocationServicePage(),
-        '/HomePage':(BuildContext context) => new HomePage(),
+        '/LocationService': (BuildContext context) => new LocationServicePage(),
+        '/HomePage': (BuildContext context) => new HomePage(),
       },
-      theme: new ThemeData(
-        bottomAppBarColor: Color.fromRGBO(249, 129, 42, 1)
-      ),
+      theme: new ThemeData(bottomAppBarColor: Color.fromRGBO(249, 129, 42, 1)),
     );
   }
 }
+
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -43,14 +37,14 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
-
   AnimationController controller;
   Animation<double> animation;
 
   Future delayTimer() async {
-    Duration duration = new Duration(seconds:5);
+    Duration duration = new Duration(seconds: 5);
     return new Timer(duration, navigateTo);
   }
+
   //....................................version 2.0.1 (Updated shared preference check not working).................................//
   // void onClose() async{
   //   Navigator.of(context).pushReplacement(new PageRouteBuilder(
@@ -66,52 +60,46 @@ class _SplashScreenState extends State<SplashScreen>
   //       }));
   // }
 
-  void navigateTo() async{
-    if(await StoreUserLocation.getLocation()==null){
-      Route route = HorizontalTransition(builder:(BuildContext context) => new LocationServicePage());
+  void navigateTo() async {
+    if (await StoreUserLocation.get_CurrentLocation() == null) {
+      Route route = HorizontalTransition(
+          builder: (BuildContext context) => new LocationServicePage());
       Navigator.of(context).pushReplacement(route);
-    }
-    else{
-      Navigator.pushReplacement(context, PageRouteBuilder(
-        opaque: false,
-        pageBuilder: (BuildContext context, _, __) {
-          return new HomePage();
-        },
-        transitionDuration: const Duration(milliseconds: 1500),
-        transitionsBuilder: (___, Animation<double> animation, ____, Widget child) {
-          return SlideTransition(
-            position: Tween<Offset>(begin: Offset(0.0,1.0), end: Offset(0.0, 0.0)).animate(CurvedAnimation(
-                  parent: animation,
-                  curve: Interval(
-                    0.00,
-                    1.00,
-                    curve: Curves.ease,
+    } else {
+      Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+              opaque: false,
+              pageBuilder: (BuildContext context, _, __) {
+                return new HomePage();
+              },
+              transitionDuration: const Duration(milliseconds: 1500),
+              transitionsBuilder:
+                  (___, Animation<double> animation, ____, Widget child) {
+                return SlideTransition(
+                  position: Tween<Offset>(
+                          begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0))
+                      .animate(
+                    CurvedAnimation(
+                      parent: animation,
+                      curve: Interval(
+                        0.00,
+                        1.00,
+                        curve: Curves.ease,
+                      ),
+                    ),
                   ),
-                ),),
-            transformHitTests: false,
-            child: child,
-          );
-        }
-      ));
+                  transformHitTests: false,
+                  child: child,
+                );
+              }));
     }
   }
 
-  showSuggestion(String q) {
-    Search_request().search_result(q).then((QuerySnapshot docs) {
-      if(!docs.documents.isEmpty) {
-        for (int i = 0; i < docs.documents.length; ++i) {
-          print(docs.documents[i].data);
-        }
-      }
-      else{
-        print("Empty");
-      }
-    });
-  }
+
 
   @override
   void initState() {
-    fetchRestByGeoCode();
     super.initState();
     controller = AnimationController(
       duration: Duration(milliseconds: 20),
@@ -144,43 +132,44 @@ class _SplashScreenState extends State<SplashScreen>
         children: <Widget>[
           splash_background,
           opacity,
-          new SafeArea(child:
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.all(130.0),
-                child: logo,
-              ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(20.0,150,20.0,20.0),
-                child: splash_description,
-              ),
-              Padding(
-                padding: EdgeInsets.all(10.0),
-                child: CollectionScaleTransition(
-                  children: <Widget>[
-                    Icon(Icons.face, color: Color(0xFFFFFFFF),),
-                    Icon(Icons.fastfood, color: Color(0xFFFFFFFF),),
-                    Icon(Icons.favorite, color: Color(0xFFFFFFFF),),
-                  ],
+          new SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(130.0),
+                  child: logo,
                 ),
-              ),
-            ],
-          ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 200.0, 0.0, 0.0),
+                    child: splash_description,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: CollectionScaleTransition(
+                    children: <Widget>[
+                      Icon(
+                        Icons.face,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                      Icon(
+                        Icons.fastfood,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                      Icon(
+                        Icons.favorite,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-

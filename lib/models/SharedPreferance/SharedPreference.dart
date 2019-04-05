@@ -5,13 +5,13 @@ class StoreUserLocation{
   static Position location;
   static setLocation() async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.setStringList("location", [location.latitude.toString(), 
+    preferences.setStringList("Current_location", [location.latitude.toString(),
                                            location.longitude.toString(),
                                            location.timestamp.toString()]
                              );
   }
-  static getLocation() async{
+  static get_CurrentLocation() async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    return preferences.getStringList("location");
+    return preferences.getStringList("Current_location");
   }
 }

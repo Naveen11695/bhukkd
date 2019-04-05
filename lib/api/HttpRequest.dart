@@ -1,8 +1,6 @@
 import 'package:bhukkd/Pages/ExplorePage.dart';
-import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:bhukkd/models/Search/SearchRestaurant.dart';
 import 'package:bhukkd/models/SharedPreferance/SharedPreference.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
@@ -38,7 +36,7 @@ String query;
 void fetchSearchRestraunts(String _query) {
 
   query = _query;
-  StoreUserLocation.getLocation().then((loc) {
+  StoreUserLocation.get_CurrentLocation().then((loc) {
     latitude = loc[0].toString();
     longitude = loc[1].toString();
     print("$longitude, $latitude");
@@ -148,19 +146,22 @@ var cuisines = [];
 var thumb = [];
 
 GeoCode fetchRestByGeoCode() {
-  StoreUserLocation.getLocation().then((loc) {
+  StoreUserLocation.get_CurrentLocation().then((loc) {
     latitude = loc[0].toString();
     longitude = loc[1].toString();
     print("$longitude, $latitude");
   });
   requestGeoCode(
-          "https://developers.zomato.com/api/v2.1/geocode?lat=28.6276&lon=77.2784",
+          "https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude",
           latitude,
           longitude)
       .then((GeoCode geoCode) {
     if (geoCode != null) {
       print(
           "----List of nearby restaurants according to the location---------");
+      nearByrestaurants.clear();
+      cuisines.clear();
+      thumb.clear();
       for (int i = 0; i < geoCode.nearby_restaurants.length; i++) {
         print(geoCode.nearby_restaurants[i].name);
         nearByrestaurants.add(geoCode.nearby_restaurants[i].name);
@@ -170,54 +171,9 @@ GeoCode fetchRestByGeoCode() {
         } else {
           thumb.add(geoCode.nearby_restaurants[i % 2].thumb);
         }
-        //send_data_to_firestore(geoCode.nearby_restaurants[i]);
       }
       return geoCode;
     }
-  });
-}
-
-Future<void> send_data_to_firestore(NearByRestaurants nearby_restaurants) async {
-  DocumentReference documentReference = Firestore.instance.collection('NearByRestaurants').document(nearby_restaurants.id);
-  _fetchRestaurant(nearby_restaurants.id);
-  await Firestore.instance.runTransaction((Transaction tx) async{
-    DocumentSnapshot snapshot  = await tx.get(documentReference);
-    if(!snapshot.exists) {
-      await tx.set(documentReference, {
-        "id": [nearby_restaurants.id],
-        "restaurant_name": [nearby_restaurants.name],
-        "cuisines": [nearby_restaurants.cuisines],
-//        "near_by_restaurants_location":[nearby_restaurants.near_by_restaurants_location],
-        "average_cost_for_two": [nearby_restaurants.average_cost_for_two],
-        "price_range": [nearby_restaurants.price_range],
-        "currency": [nearby_restaurants.currency],
-//        "offers":[nearby_restaurants.offers],
-//        "zomato_events":[nearby_restaurants.zomato_events],
-        "opentable_support": [nearby_restaurants.opentable_support],
-        "is_zomato_book_res": [nearby_restaurants.is_zomato_book_res],
-        "mezzo_provider": [nearby_restaurants.medio_provider],
-        "book_form_web_view_url": [nearby_restaurants.book_form_web_view_url],
-        "book_again_url": [nearby_restaurants.book_again_url],
-        "thumb": [nearby_restaurants.thumb],
-//        "user_rating":[nearby_restaurants.user_rating],
-        "menu_url": [nearby_restaurants.menu_url],
-//        "photo_url":[nearby_restaurants.photo_url],
-        "featured_image": [nearby_restaurants.featured_image],
-        "medio_provider": [nearby_restaurants.medio_provider],
-        "has_online_delivery": [nearby_restaurants.has_online_delivery],
-        "is_delivery_now": [nearby_restaurants.is_delivery_now],
-        "include_bogo_offers": [nearby_restaurants.include_bogo_offers],
-        "deeplink": [nearby_restaurants.deeplink],
-        "is_table_reservation_supported": [
-          nearby_restaurants.is_table_reservation_supported],
-        "has_table_booking": [nearby_restaurants.has_table_booking],
-        "book_url": [nearby_restaurants.book_url],
-        "events_url": [nearby_restaurants.events_url],
-//        "all_reviews":[nearby_restaurants.all_reviews],
-      });
-//    Future f =fetchPhotos(nearby_restaurants);
-    }
-
   });
 }
 

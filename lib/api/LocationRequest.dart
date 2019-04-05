@@ -1,9 +1,17 @@
+import 'package:bhukkd/api/HttpRequest.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Position position;
 
-Future getCurrentPosition() async {
+Future<Position> getCurrentPosition() async {
   position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  print("Current Location : " + position.toString());
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  preferences.setStringList("Current_location", [position.latitude.toString(),
+  position.longitude.toString(),
+  position.timestamp.toString()]
+  );
   return position;
 }
 
