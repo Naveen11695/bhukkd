@@ -8,7 +8,8 @@ import 'models/SharedPreferance/SharedPreference.dart';
 import './Pages/HomePage.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'Components/CustomTransition.dart';
-
+import 'package:scoped_model/scoped_model.dart';
+import './models/GeoCodeInfo/GeoCode.dart';
 void main() {
   runApp(new Bhukkd());
 }
@@ -16,7 +17,8 @@ void main() {
 class Bhukkd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ScopedModel<GeoCode>(model: GeoCode(),
+    child: MaterialApp(
       debugShowCheckedModeBanner: false,
 //      showSemanticsDebugger: true,
       title: 'SplashScreen',
@@ -26,7 +28,7 @@ class Bhukkd extends StatelessWidget {
         '/HomePage': (BuildContext context) => new HomePage(),
       },
       theme: new ThemeData(bottomAppBarColor: Color.fromRGBO(249, 129, 42, 1)),
-    );
+    ));
   }
 }
 

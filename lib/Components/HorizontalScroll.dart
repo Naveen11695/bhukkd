@@ -9,9 +9,10 @@ class HorizontalScroll extends StatelessWidget {
   final List nearby_restaurants;
   final List cuisines;
   final List thumb;
-
+  final List restaurant_menu;
+  final List photo_Links;
   HorizontalScroll(
-      this.index, this.nearby_restaurants, this.cuisines, this.thumb);
+      this.index, this.nearby_restaurants, this.cuisines, this.thumb, this.restaurant_menu, this.photo_Links);
 
   // HorizontalScroll();
   @override
@@ -33,7 +34,7 @@ class HorizontalScroll extends StatelessWidget {
                     context,
                     HorizontalTransition(
                         builder: (BuildContext context) =>
-                            RestaurantDetailPage()));
+                            RestaurantDetailPage(productid:index, nearByrestaurants:nearby_restaurants, cuisines:cuisines, thumb:thumb, restaurant_menu: restaurant_menu,restaurant_photos: photo_Links,)));
               },
               child: new Container(
                 child: Card(

@@ -144,6 +144,11 @@ String longitude;
 var nearByrestaurants = [];
 var cuisines = [];
 var thumb = [];
+var costForTwo=[];
+var reviews=[];
+var hasOnlineDelivery=[];
+var popularity=[];
+var url=[];
 
 GeoCode fetchRestByGeoCode() {
   StoreUserLocation.get_CurrentLocation().then((loc) {
@@ -162,10 +167,18 @@ GeoCode fetchRestByGeoCode() {
       nearByrestaurants.clear();
       cuisines.clear();
       thumb.clear();
+      costForTwo.clear();
+      hasOnlineDelivery.clear();
+      reviews.clear();
+      url.clear();
       for (int i = 0; i < geoCode.nearby_restaurants.length; i++) {
         print(geoCode.nearby_restaurants[i].name);
         nearByrestaurants.add(geoCode.nearby_restaurants[i].name);
         cuisines.add(geoCode.nearby_restaurants[i].cuisines);
+        costForTwo.add(geoCode.nearby_restaurants[i].average_cost_for_two);
+        reviews.add(geoCode.nearby_restaurants[i].all_reviews);
+        hasOnlineDelivery.add(geoCode.nearby_restaurants[i].has_online_delivery);
+        _fetchRestaurant(geoCode.nearby_restaurants[i].id); 
         if (geoCode.nearby_restaurants[i].thumb != "") {
           thumb.add(geoCode.nearby_restaurants[i].thumb);
         } else {
@@ -215,7 +228,7 @@ void _fetchRestaurant(String res_id) {
     //rest=restaurant;
   });
 }
-
+var photo_Links=[];
 Future fetchPhotos(String url) async {
   var client = new Client();
   Response response = await client.get(url);
@@ -238,10 +251,10 @@ Future fetchPhotos(String url) async {
   }
 
   for (var link in restarauntPhotos) {
-    print(link);
+    photo_Links.add(link);
   }
 }
-
+var restaurant_menu=[];
 Future fetchMenu(String url) async {
   var client = new Client();
   Response response = await client.get(url);
@@ -249,6 +262,6 @@ Future fetchMenu(String url) async {
   List<dynamic> menuLink = menu.querySelectorAll('div#menu-image>img');
   print("----------Menu Image-------------");
   for (var link in menuLink) {
-    print(link.attributes['src']);
+    restaurant_menu.add(link.attributes['src']);
   }
 }

@@ -61,7 +61,7 @@ class _TrendingPageState extends State<TrendingPage> {
           scrollDirection: Axis.horizontal,
           itemCount: nearByrestaurants.length,
           itemBuilder: (BuildContext context, index) {
-            return HorizontalScroll(index, nearByrestaurants, cuisines, thumb);
+            return HorizontalScroll(index, nearByrestaurants, cuisines, thumb, restaurant_menu, photo_Links);
           });
     });
     return null;
@@ -118,7 +118,7 @@ class _TrendingPageState extends State<TrendingPage> {
                   pinned: true,
                   primary: true,
                 ),
-                 SliverList(
+                SliverList(
                   delegate: SliverChildListDelegate([
                     SizedBox(
                       height: 30,
@@ -143,7 +143,7 @@ class _TrendingPageState extends State<TrendingPage> {
                     Container(
                         width: MediaQuery.of(context).size.width * 0.92,
                         height: 175,
-                        child: listBuilder = listBuilder,
+                        child: listBuilder=listBuilder,
                       ),
                     Container(
                       width: MediaQuery.of(context).size.height * 0.92,

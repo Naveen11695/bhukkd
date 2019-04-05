@@ -10,6 +10,7 @@ import '../../Restruant/UserRating/UserRating.dart';
 class NearByRestaurants{
   String id;
   String name;
+  String url;
   Map<String, dynamic> near_by_restaurants_location;
   String cuisines;
   int average_cost_for_two;
@@ -47,14 +48,14 @@ class NearByRestaurants{
       this.photo_url, this.featured_image, this.medio_provider,
       this.has_online_delivery, this.is_delivery_now, this.include_bogo_offers,
       this.deeplink, this.is_table_reservation_supported,
-      this.has_table_booking, this.book_url, this.events_url});
+      this.has_table_booking, this.book_url, this.events_url, this.url, this.all_reviews, this.user_rating, this.zomato_events});
 
 
   factory NearByRestaurants.fromJson(Map<String, dynamic> json) {
     Map<String, dynamic> loc = json["restaurant"]["location"];
     //Map<String, dynamic> event = json["restaurant"]['zomato_events'];
     Map<String, dynamic> user_rate = json["restaurant"]['user_rating'];
-   
+  
     location l;
     ZomatoEvents zomatoEvents;
     UserRating rate;
@@ -93,6 +94,7 @@ class NearByRestaurants{
     return NearByRestaurants(
       id:json["restaurant"]['id'],
       name:json["restaurant"]['name'],
+      url:json["restaurant"]['url'],
       near_by_restaurants_location: loc,
       cuisines:json["restaurant"]['cuisines'],
       average_cost_for_two:json["restaurant"]['average_cost_for_two'],
