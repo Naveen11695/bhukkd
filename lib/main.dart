@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:bhukkd/Components/CustomComponets.dart';
+import 'package:bhukkd/Pages/TrendingPage.dart';
 import 'package:bhukkd/api/HttpRequest.dart';
+import 'package:bhukkd/api/LocationRequest.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import './Pages/LocationServicePage.dart';
@@ -101,6 +103,11 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
+
+    getCurrentPosition();
+    getLocationName();
+    fetchRestByGeoCode();
+
     controller = AnimationController(
       duration: Duration(milliseconds: 20),
       vsync: this,
