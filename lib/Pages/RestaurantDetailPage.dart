@@ -12,6 +12,9 @@ class RestaurantDetailPage extends StatelessWidget {
   var restaurant_menu=[];
 
   RestaurantDetailPage({this.productid, this.nearByrestaurants,this.cuisines,this.thumb, this.restaurant_photos, this.restaurant_menu});
+  // if we use scoped model it would be better as we can access all the data with the dot operator
+  // but scopedmodel is giving null error as we have passed data into lists.
+  
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant(builder: (BuildContext context, Widget child, GeoCode model){

@@ -262,6 +262,6 @@ Future fetchMenu(String url) async {
   List<dynamic> menuLink = menu.querySelectorAll('div#menu-image>img');
   print("----------Menu Image-------------");
   for (var link in menuLink) {
-    restaurant_menu.add(link.attributes['src']);
+    print(link.attributes['src']);
   }
 }
