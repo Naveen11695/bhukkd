@@ -34,18 +34,18 @@ void showSuggestion(var q) async {
 
 var loc_address = "";
 
-// void getLocationName() async{
-//   var addresses;
-//   var first;
-//   getCurrentPosition().then((Position pos) async{
-//     final coordinates = new Coordinates(pos.latitude,pos.longitude);
-//     addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
-//     first = addresses.first;
-//     var temp = first.addressLine.toString().split(",");
-//     loc_address = temp[temp.length-5] + temp[temp.length-4] + temp[temp.length-3]  + temp[temp.length-2] + "," + temp[temp.length-1];
-//     print(loc_address);
-//   });
-// }
+void getLocationName() async{
+  var addresses;
+  var first;
+  getCurrentPosition().then((Position pos) async{
+    final coordinates = new Coordinates(pos.latitude,pos.longitude);
+    addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    first = addresses.first;
+    var temp = first.addressLine.toString().split(",");
+    loc_address = temp[temp.length-5] + temp[temp.length-4] + temp[temp.length-3]  + temp[temp.length-2] + "," + temp[temp.length-1];
+    print(loc_address);
+  });
+}
 
 //.......................................important........................................//
 
