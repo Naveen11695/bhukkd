@@ -28,6 +28,8 @@ dependencies:
   path_provider: ^0.4.1
   async_loader: ^0.1.2
   loading_card: ^0.0.5
+  date_format: "^1.0.4"
+  url_launcher: "^3.0.1"
 
 
   # Api- key :0bc8d74fdefd3601d84a0d52ffa01901

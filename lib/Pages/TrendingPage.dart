@@ -1,5 +1,5 @@
 // flutter
-import 'package:bhukkd/Components/DataSearch.dart';
+import 'package:bhukkd/models/Search/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -28,9 +28,7 @@ class TrendingPage extends StatefulWidget {
 
 //.......................................important........................................//
 
-void showSuggestion(var q) async {
-  fetchSearchRestraunts(q);
-}
+
 
 var loc_address = "";
 
@@ -232,7 +230,11 @@ class _TrendingPageState extends State<TrendingPage> {
                     child: InkWell(
                       onTap: () {
                         print("Search");
-                        showSearch(context: context, delegate: DataSearch());
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SearchList(),
+                            ));
                       },
                       splashColor: Colors.white24,
                       highlightColor: Colors.white10,

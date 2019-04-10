@@ -1,5 +1,3 @@
-import 'package:bhukkd/Pages/ExplorePage.dart';
-import 'package:bhukkd/models/Search/SearchRestaurant.dart';
 import 'package:bhukkd/models/SharedPreferance/SharedPreference.dart';
 import 'package:flutter/services.dart';
 import 'package:html/parser.dart';
@@ -9,8 +7,6 @@ import 'dart:convert';
 import 'dart:async';
 import '../models/Restruant/Restruant.dart';
 import '../models/GeoCodeInfo/GeoCode.dart';
-
-//String url = "https://developers.zomato.com/api/v2.1/categories";
 
 String api_key = "";
 Restaurant restruant;
@@ -27,77 +23,6 @@ Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
   return rootBundle
       .loadString(assetsPath)
       .then((jsonStr) => jsonDecode(jsonStr));
-}
-
-//.........................................<End>.....getting Api-key from assets.........................................
-
-String query;
-
-void fetchSearchRestraunts(String _query) {
-
-  query = _query;
-  StoreUserLocation.get_CurrentLocation().then((loc) {
-    latitude = loc[0].toString();
-    longitude = loc[1].toString();
-    print("$longitude, $latitude");
-  });
-  RequestSearchRestraunts(
-          "https://developers.zomato.com/api/v2.1/search?q=$query&lat=$latitude&lon=$longitude&radius=100000&order=asc")
-      .then((SearchRestraunts searchRestraunts) {
-    if (searchRestraunts != null) {
-      clear();
-      print(
-          "----List of nearby restaurants according to the location---------");
-      for (int i = 0; i < searchRestraunts.restaurants.length; i++) {
-        //print(searchRestraunts.restaurants[i].id);
-        // print(searchRestraunts.restaurants[i].thumb);
-        print(searchRestraunts.restaurants[i].name);
-        print(searchRestraunts.restaurants[i].near_by_restaurants_location["address"]);
-
-        add_search_content(i,
-            searchRestraunts.restaurants[i].id,
-            searchRestraunts.restaurants[i].thumb,
-            searchRestraunts.restaurants[i].name,
-            searchRestraunts.restaurants[i]
-                .near_by_restaurants_location["address"]);
-      }
-    }
-  });
-}
-
-void clear() {
- // Search_id.clear();
- // Search_resturaunt_thumb.clear();
-  Search_resturaunt_name.clear();
-  Search_resturant_location.clear();
-}
-
-void add_search_content(int index, String id, String thumb, String name, near_by_restaurants_location) {
-  //  Search_id.add(id);
-  //  Search_resturaunt_thumb.add(thumb);
-    Search_resturaunt_name.add(name);
-    Search_resturant_location.add(near_by_restaurants_location);
-}
-
-Future<SearchRestraunts> RequestSearchRestraunts(requestUrl) async {
-  getKey();
-  final response = await http
-      .get(Uri.encodeFull(requestUrl), headers: {"user-key": api_key});
-  if (response.statusCode == 200) {
-    print(response.body);
-    SearchRestraunts searchRestraunts = parseSearchRestraunts(response.body);
-    return searchRestraunts;
-  } else if (response.statusCode == 403) {
-    fetchSearchRestraunts(requestUrl);
-  } else {
-    print(response.statusCode);
-  }
-}
-
-SearchRestraunts parseSearchRestraunts(String responseBody) {
-  final parsed = json.decode(responseBody);
-  SearchRestraunts Result = SearchRestraunts.fromJson(parsed);
-  return Result;
 }
 
 void requestCategories(requestUrl) async {

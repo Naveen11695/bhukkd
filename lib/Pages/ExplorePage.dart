@@ -1,17 +1,11 @@
 import 'package:bhukkd/Components/CustomCardState.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
-import 'package:bhukkd/Components/DataSearch.dart';
 import 'package:bhukkd/models/GeoCodeInfo/GeoCode.dart';
 import 'package:flutter/material.dart';
 
 //.................................data to be render..........................//
 
-var Search_id = [];
-var Search_resturaunt_thumb = [];
-var Search_resturaunt_name = [];
-var Search_resturant_location = [];
-var Search_recentResturaunt = [];
-var result = [];
+
 
 //.................................data to be render..........................//
 
@@ -21,9 +15,7 @@ class ExplorePage extends StatefulWidget {
 }
 
 class _ExplorePage extends State<ExplorePage> {
-  /*List cards =
-      new List.generate(result.length, (i) => new CustomCard(result[i]))
-          .toList();*/
+
   GeoCode geoCode;
 
   @override
