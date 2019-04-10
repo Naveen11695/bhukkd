@@ -150,7 +150,7 @@ var hasOnlineDelivery=[];
 var popularity=[];
 var url=[];
 
-GeoCode fetchRestByGeoCode() {
+Future<GeoCode> fetchRestByGeoCode() async{
   StoreUserLocation.get_CurrentLocation().then((loc) {
     latitude = loc[0].toString();
     longitude = loc[1].toString();
@@ -188,7 +188,6 @@ GeoCode fetchRestByGeoCode() {
       return geoCode;
     }
   });
-  return null;
 }
 
 Future requestRestaurant(requestUrl, res_id) async {

@@ -15,6 +15,8 @@ import '../models/Restruant/Restruant.dart';
 import 'package:html/parser.dart';
 import '../models/GeoCodeInfo/GeoCode.dart';
 import "package:geolocator/geolocator.dart";
+import 'package:loading_card/loading_card.dart';
+import 'package:geocoder/geocoder.dart';
 import 'dart:async';
 
 /*------------------------------DISCLAIMER----------------------------------- */
@@ -30,16 +32,20 @@ void showSuggestion(var q) async {
   fetchSearchRestraunts(q);
 }
 
-List<Placemark> placemark;
+var loc_address = "";
 
-void getLocationName() async{
-  getCurrentPosition().then((Position pos) async{
-    placemark = await Geolocator().placemarkFromCoordinates(77.209, 28.6139);
-  });
-
-  print("place_name: " + placemark.toString());
-
-}
+// void getLocationName() async{
+//   var addresses;
+//   var first;
+//   getCurrentPosition().then((Position pos) async{
+//     final coordinates = new Coordinates(pos.latitude,pos.longitude);
+//     addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
+//     first = addresses.first;
+//     var temp = first.addressLine.toString().split(",");
+//     loc_address = temp[temp.length-5] + temp[temp.length-4] + temp[temp.length-3]  + temp[temp.length-2] + "," + temp[temp.length-1];
+//     print(loc_address);
+//   });
+// }
 
 //.......................................important........................................//
 
@@ -47,13 +53,19 @@ class _TrendingPageState extends State<TrendingPage> {
   @override
   void initState() {
     super.initState();
-    refresh();
+    listBuilder = ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: nearByrestaurants.length,
+        itemBuilder: (BuildContext context, index) {
+          return HorizontalScroll(index ,nearByrestaurants, cuisines, thumb, restaurant_menu, photo_Links);
+        });
   }
 
   ListView listBuilder;
 
   Future<Null> refresh() async {
     getCurrentPosition();
+    getLocationName();
     fetchRestByGeoCode();
     await Future.delayed(Duration(seconds: 5));
     setState(() {
@@ -85,33 +97,41 @@ class _TrendingPageState extends State<TrendingPage> {
                   title: Column(
                     children: <Widget>[
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.017,
+                        height: MediaQuery.of(context).size.height * 0.020,
                       ),
                       new Text("Your Location",
                           style: new TextStyle(
+                            wordSpacing: 2.0,
                             color: Colors.white,
-                            fontWeight: FontWeight.w300,
+                            fontWeight: FontWeight.bold,
                             fontFamily: "Montserrat",
-                            fontSize: 12,
+                            fontSize: 20,
                           )),
-                      new Text(
-                        "Delhi, NCR",
-                        style: new TextStyle(
-                          color: Colors.white,
-                          fontFamily: "Montserrat-Bold",
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(40, 0,0,0),
+                        child: new Text(
+                          loc_address,
+                          style: new TextStyle(
+                            color: Colors.white,
+                            fontFamily: "Montserrat-Bold",
+                            fontSize: 10,
+                            fontWeight: FontWeight.w100,
+                          ),
                         ),
                       ),
                     ],
                   ),
                   backgroundColor: Color.fromRGBO(249, 129, 42, 1),
-                  leading: new Icon(
-                    Icons.location_on,
-                    semanticLabel: "Your Location",
-                    textDirection: TextDirection.ltr,
-                    color: Colors.white,
-                    size: 30,
+
+                  leading: Padding(
+                    padding: const EdgeInsets.fromLTRB(40,10,0,0),
+                    child: new Icon(
+                      Icons.location_on,
+                      semanticLabel: "Your Location",
+                      textDirection: TextDirection.ltr,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                   titleSpacing: 0.4,
                   expandedHeight: MediaQuery.of(context).size.height * 0.13,
@@ -143,7 +163,7 @@ class _TrendingPageState extends State<TrendingPage> {
                     Container(
                         width: MediaQuery.of(context).size.width * 0.92,
                         height: 175,
-                        child: listBuilder=listBuilder,
+                        child: listBuilder
                       ),
                     Container(
                       width: MediaQuery.of(context).size.height * 0.92,
