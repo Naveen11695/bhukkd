@@ -8,7 +8,7 @@ import '../Components/HorizontalScroll.dart';
 import '../api/HttpRequest.dart';
 import '../Components/CustomHorizontalScroll.dart';
 import '../Components/CategoriesComponent.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import '../models/SharedPreferance/SharedPreference.dart';
 import '../api/LocationRequest.dart';
 import '../models/Restruant/Restruant.dart';
@@ -18,6 +18,52 @@ import "package:geolocator/geolocator.dart";
 import 'package:loading_card/loading_card.dart';
 import 'package:geocoder/geocoder.dart';
 import 'dart:async';
+import '../models/Locations/Locations.dart';
+import 'dart:convert';
+
+Future getEntityFromLocations(String nameOfTheLocation) async{
+  getKey();
+  String url="https://developers.zomato.com/api/v2.1/locations?query=$nameOfTheLocation";
+  final response = await http.get(Uri.encodeFull(url), headers: {
+    "Accept":"application/json",
+    "user-key":api_key
+  });
+  print("----------Location entity--------------------------------------------------------------------");
+  if(response.statusCode == 200){
+    Map<String, dynamic> jsonParsed=json.decode(response.body);
+    List<dynamic> data=jsonParsed["location_suggestions"];
+    print(data[0]);
+    Map<String, dynamic> location_suggestion_data = data[0];
+    Locations loc = new Locations(entity_type: location_suggestion_data["entity_type"], entity_id: location_suggestion_data["entity_id"], city_id: location_suggestion_data['city_id'], city_name: location_suggestion_data['city_name'], country_id: location_suggestion_data['country_id'], country_name: location_suggestion_data['country_name'], latitude: location_suggestion_data['latitude'], longitude: location_suggestion_data['longitude'], title: location_suggestion_data['title']);
+    
+    getTopRestaurants(loc.entity_id.toString(), loc.entity_type);
+
+  }
+  else{
+    print("----------PROBLEM--------------------------------------------------------------------------");
+  }
+  print("---------------------------------------------------------------------------------------------");
+}
+
+Future getTopRestaurants(String entity_id, String entity_type) async{
+  getKey();
+  print("entity id: " + entity_id);
+  print("entity type: " + entity_type);
+  String url = "https://developers.zomato.com/api/v2.1/location_details?entity_id=$entity_id&entity_type=$entity_type";
+  final response=await http.get(Uri.encodeFull(url), headers: {
+    "Accept":"application/json",
+    "user-key":api_key
+  });
+  if(response.statusCode == 200){
+    print("----------------------top restaurant data according to the location----------------");
+    print(response.body);
+    print("--------------------------------------------------------------------------------------");
+  }
+  else{
+    print("------------------------------------------------error------------------------------");
+  }
+}
+
 
 /*------------------------------DISCLAIMER----------------------------------- */
 // font used is OpenSans and Montserrat, please dont use any other font.
@@ -42,6 +88,7 @@ void getLocationName() async{
     var temp = first.addressLine.toString().split(",");
     loc_address = temp[temp.length-5] + temp[temp.length-4] + temp[temp.length-3]  + temp[temp.length-2] + "," + temp[temp.length-1];
     print(loc_address);
+    getEntityFromLocations(loc_address);
   });
 }
 
@@ -174,7 +221,7 @@ class _TrendingPageState extends State<TrendingPage> {
                         style: new TextStyle(
                           fontSize: 20.0,
                           fontFamily: "Monserrat-Bold",
-                          // fontWeight: FontWeight.w700,
+                          fontWeight: FontWeight.w700,
                           letterSpacing: 0.8,
                           wordSpacing: 0.0,
                         ),
