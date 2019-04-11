@@ -107,7 +107,6 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
 
     getCurrentPosition();
-    getLocationName();
     fetchRestByGeoCode();
 
     controller = AnimationController(
