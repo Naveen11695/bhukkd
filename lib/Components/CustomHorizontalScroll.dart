@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Pages/TrendingPage.dart';
+import '../Pages/RestaurantDetailPage.dart';
 
 class CustomHorizontalScroll extends StatelessWidget {
   @override
@@ -18,7 +19,7 @@ class CustomHorizontalScroll extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return new Material(
+                    return GestureDetector(child:new Material(
                       elevation: 10.0,
                       child: Container(
                         margin: EdgeInsets.only(
@@ -81,6 +82,12 @@ class CustomHorizontalScroll extends StatelessWidget {
                           ),
                         ),
                       ),
+                    ),
+                    onTap: (){
+                      Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context){
+                        return new RestaurantDetailPage(nearByrestaurants: [], cuisines: [], productid: snapshot.data[index].id, restaurant_menu: [], restaurant_photos: [], thumb: snapshot.data[index].thumb,);
+                      }));
+                    },
                     );
                   },
                 );

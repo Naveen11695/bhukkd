@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../models/GeoCodeInfo/GeoCode.dart';
 
+/**
+ * Errors due to design fault
+ * fix it, dont pass lists in constructor
+ */
+
+
 class RestaurantDetailPage extends StatelessWidget {
   int i = 0;
   final productid;
