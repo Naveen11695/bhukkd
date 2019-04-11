@@ -1,9 +1,9 @@
 // flutter
-import 'package:bhukkd/models/Search/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 // custom
+import 'package:bhukkd/models/Search/search.dart';
 import '../Components/HorizontalScroll.dart';
 import '../api/HttpRequest.dart';
 import '../Components/CustomHorizontalScroll.dart';
@@ -20,6 +20,7 @@ import 'package:geocoder/geocoder.dart';
 import 'dart:async';
 import '../models/Locations/Locations.dart';
 import 'dart:convert';
+import '../models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 
 Future getEntityFromLocations(String nameOfTheLocation) async{
   getKey();
@@ -36,7 +37,7 @@ Future getEntityFromLocations(String nameOfTheLocation) async{
     Map<String, dynamic> location_suggestion_data = data[0];
     Locations loc = new Locations(entity_type: location_suggestion_data["entity_type"], entity_id: location_suggestion_data["entity_id"], city_id: location_suggestion_data['city_id'], city_name: location_suggestion_data['city_name'], country_id: location_suggestion_data['country_id'], country_name: location_suggestion_data['country_name'], latitude: location_suggestion_data['latitude'], longitude: location_suggestion_data['longitude'], title: location_suggestion_data['title']);
     
-    getTopRestaurants(loc.entity_id.toString(), loc.entity_type);
+    return getTopRestaurants(loc.entity_id.toString(), loc.entity_type);
 
   }
   else{
@@ -44,6 +45,8 @@ Future getEntityFromLocations(String nameOfTheLocation) async{
   }
   print("---------------------------------------------------------------------------------------------");
 }
+
+
 
 Future getTopRestaurants(String entity_id, String entity_type) async{
   getKey();
@@ -56,8 +59,19 @@ Future getTopRestaurants(String entity_id, String entity_type) async{
   });
   if(response.statusCode == 200){
     print("----------------------top restaurant data according to the location----------------");
-    print(response.body);
+    //print(response.body);
+    Map<String, dynamic> jsonParsed=json.decode(response.body);
+    List<dynamic> bestRestaurants=jsonParsed['best_rated_restaurant'];
+    List<NearByRestaurants> bestRest = [];
+    for(var r in bestRestaurants){
+      NearByRestaurants res =NearByRestaurants.fromJson(r);
+      bestRest.add(res);
+    }
+    for(var i in bestRest){
+      print(i.name);
+    }
     print("--------------------------------------------------------------------------------------");
+    return bestRest;
   }
   else{
     print("------------------------------------------------error------------------------------");
@@ -88,7 +102,6 @@ void getLocationName() async{
     var temp = first.addressLine.toString().split(",");
     loc_address = temp[temp.length-5] + temp[temp.length-4] + temp[temp.length-3]  + temp[temp.length-2] + "," + temp[temp.length-1];
     print(loc_address);
-    getEntityFromLocations(loc_address);
   });
 }
 

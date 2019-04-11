@@ -64,6 +64,9 @@ class _otpPageState extends State<otpPage> {
         Padding(
           padding: const EdgeInsets.fromLTRB(20, 400, 20, 0),
             child: DecoratedBox(
+              decoration: BoxDecoration(
+                
+              ),
               child: new TextField(
                 keyboardType: TextInputType.phone,
 
