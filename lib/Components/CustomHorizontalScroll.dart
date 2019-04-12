@@ -2,7 +2,6 @@ import 'package:bhukkd/flarecode/flare_actor.dart';
 import 'package:flutter/material.dart';
 import '../Pages/TrendingPage.dart';
 import '../Pages/RestaurantDetailPage.dart';
-import 'package:loading_card/loading_card.dart';
 
 class CustomHorizontalScroll extends StatelessWidget {
   @override
@@ -14,7 +13,7 @@ class CustomHorizontalScroll extends StatelessWidget {
         child: FutureBuilder(
           future: getEntityFromLocations(loc_address),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) {
+            if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
                 return ListView.builder(
                   shrinkWrap: true,
@@ -28,10 +27,6 @@ class CustomHorizontalScroll extends StatelessWidget {
                             left: 10, right: 10, top: 5, bottom: 5),
                         height: 100,
                         width: 300,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.black),
-                        ),
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
                           child: Row(
@@ -61,10 +56,19 @@ class CustomHorizontalScroll extends StatelessWidget {
                                         TextStyle(fontFamily: "", fontSize: 17),
                                   ),
                                   new Text(
-                                    "description about food",
+                                    snapshot.data[index].near_by_restaurants_location["locality"],
                                     style:
-                                        TextStyle(fontFamily: "", fontSize: 10),
+                                    TextStyle(fontFamily: "", fontSize: 10),
                                   ),
+                                  new Row (children: <Widget>[
+                                    Icon(Icons.star, color:Colors.deepOrange),
+                                    Icon(Icons.star, color:Colors.deepOrange),
+                                    Icon(Icons.star, color:Colors.deepOrange),
+                                    Icon(Icons.star, color:Colors.deepOrange),
+                                    Icon(Icons.star, color:Colors.deepOrange),
+                                  ],),
+
+
                                   new SizedBox(
                                     height: 8,
                                   ),
@@ -86,9 +90,9 @@ class CustomHorizontalScroll extends StatelessWidget {
                       ),
                     ),
                     onTap: (){
-                      Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context){
+                     /* Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context){
                         return new RestaurantDetailPage(nearByrestaurants: [], cuisines: [], productid: snapshot.data[index].id, restaurant_menu: [], restaurant_photos: [], thumb: snapshot.data[index].thumb,);
-                      }));
+                      }));*/
                     },
                     );
                   },
@@ -99,7 +103,7 @@ class CustomHorizontalScroll extends StatelessWidget {
               return ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                itemCount: snapshot.data.length,
+                itemCount: 10,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(child:new Material(
                     elevation: 10.0,
@@ -108,11 +112,7 @@ class CustomHorizontalScroll extends StatelessWidget {
                           left: 10, right: 10, top: 5, bottom: 5),
                       height: 100,
                       width: 300,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Colors.black),
-                      ),
-                        child: new FlareActor("assets/animations/sushi/Sushi.flr",animation: "Sushi Bounce",),
+                        child: new FlareActor("assets/animations/Loading animation.flr",animation: "loading 2",),
                       ),
                   ),
                   );
