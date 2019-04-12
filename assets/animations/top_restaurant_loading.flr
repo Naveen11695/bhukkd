@@ -1,0 +1,475 @@
+{
+	"version": 21,
+	"artboards": [
+		{
+			"name": "Artboard",
+			"translation": [
+				0,
+				0
+			],
+			"width": 1024,
+			"height": 768,
+			"origin": [
+				0,
+				0
+			],
+			"clipContents": true,
+			"color": [
+				0.364705890417099,
+				0.364705890417099,
+				0.364705890417099,
+				1
+			],
+			"nodes": [
+				{
+					"name": "Rectangle",
+					"translation": [
+						498.40704345703125,
+						358.0778503417969
+					],
+					"rotation": 0,
+					"scale": [
+						1.2999999523162842,
+						1.2000000476837158
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 1,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 0,
+					"opacity": 1,
+					"color": [
+						0.538095235824585,
+						0.5300238132476807,
+						0.5300238132476807,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 0,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"bones": [],
+					"isVisible": true,
+					"isClosed": true,
+					"points": [
+						{
+							"pointType": 0,
+							"translation": [
+								-350,
+								-175
+							],
+							"radius": 10
+						},
+						{
+							"pointType": 0,
+							"translation": [
+								350,
+								-175
+							],
+							"radius": 10
+						},
+						{
+							"pointType": 0,
+							"translation": [
+								350,
+								175
+							],
+							"radius": 10
+						},
+						{
+							"pointType": 0,
+							"translation": [
+								-350,
+								175
+							],
+							"radius": 10
+						}
+					],
+					"type": "path"
+				},
+				{
+					"name": "Rectangle",
+					"translation": [
+						660.291015625,
+						332.51763916015625
+					],
+					"rotation": 0,
+					"scale": [
+						1.3819606304168701,
+						1.1114628314971924
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 3,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 3,
+					"opacity": 1,
+					"color": [
+						0.4627451002597809,
+						0.4627451002597809,
+						0.4627451002597809,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 3,
+					"translation": [
+						0,
+						-23
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"bones": [],
+					"isVisible": true,
+					"isClosed": true,
+					"points": [
+						{
+							"pointType": 0,
+							"translation": [
+								-125,
+								-12.5
+							],
+							"radius": 10
+						},
+						{
+							"pointType": 0,
+							"translation": [
+								125,
+								-12.5
+							],
+							"radius": 10
+						},
+						{
+							"pointType": 0,
+							"translation": [
+								125,
+								12.5
+							],
+							"radius": 10
+						},
+						{
+							"pointType": 0,
+							"translation": [
+								-125,
+								12.5
+							],
+							"radius": 10
+						}
+					],
+					"type": "path"
+				},
+				{
+					"name": "Rectangle",
+					"translation": [
+						620.0574340820312,
+						372.0451354980469
+					],
+					"rotation": 0,
+					"scale": [
+						1.4567201137542725,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 2,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 6,
+					"opacity": 1,
+					"color": [
+						0.46190476417541504,
+						0.46190476417541504,
+						0.46190476417541504,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 6,
+					"translation": [
+						28,
+						23
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 300,
+					"height": 50,
+					"cornerRadius": 10,
+					"type": "rectangle"
+				},
+				{
+					"name": "Ellipse",
+					"translation": [
+						242.86013793945312,
+						356.3595275878906
+					],
+					"rotation": 0,
+					"scale": [
+						1.2916501760482788,
+						1.1765565872192383
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 4,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 9,
+					"opacity": 1,
+					"color": [
+						0.4627451002597809,
+						0.4627451002597809,
+						0.4627451002597809,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Ellipse Path",
+					"parent": 9,
+					"translation": [
+						-0.000018657701730262488,
+						0.000006705738996970467
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"bones": [],
+					"isVisible": true,
+					"isClosed": true,
+					"points": [
+						{
+							"pointType": 2,
+							"translation": [
+								0,
+								-125
+							],
+							"in": [
+								-69.03559112548828,
+								-125
+							],
+							"out": [
+								69.03559112548828,
+								-125
+							]
+						},
+						{
+							"pointType": 2,
+							"translation": [
+								125,
+								0
+							],
+							"in": [
+								125,
+								-69.03559112548828
+							],
+							"out": [
+								125,
+								69.03559112548828
+							]
+						},
+						{
+							"pointType": 2,
+							"translation": [
+								0,
+								125
+							],
+							"in": [
+								69.03559112548828,
+								125
+							],
+							"out": [
+								-69.03559112548828,
+								125
+							]
+						},
+						{
+							"pointType": 2,
+							"translation": [
+								-125,
+								0
+							],
+							"in": [
+								-125,
+								69.03559112548828
+							],
+							"out": [
+								-125,
+								-69.03559112548828
+							]
+						}
+					],
+					"type": "path"
+				}
+			],
+			"animations": [
+				{
+					"name": "circular_loading",
+					"fps": 60,
+					"duration": 1,
+					"isLooping": true,
+					"keyed": [
+						{
+							"component": 0,
+							"posX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 499.76629638671875
+									}
+								]
+							]
+						},
+						{
+							"component": 3,
+							"opacity": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1
+									},
+									{
+										"time": 0.5,
+										"interpolatorType": 1,
+										"value": 0
+									},
+									{
+										"time": 1,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							]
+						},
+						{
+							"component": 6,
+							"opacity": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1
+									},
+									{
+										"time": 0.5,
+										"interpolatorType": 1,
+										"value": 0
+									},
+									{
+										"time": 1,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							]
+						},
+						{
+							"component": 9,
+							"opacity": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1
+									},
+									{
+										"time": 0.5,
+										"interpolatorType": 1,
+										"value": 0
+									},
+									{
+										"time": 1,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"scaleX": [
+								[
+									{
+										"time": 0.5,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"scaleY": [
+								[
+									{
+										"time": 0.5,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							]
+						}
+					],
+					"animationStart": 0,
+					"animationEnd": 1,
+					"type": "animation"
+				}
+			],
+			"type": "artboard"
+		}
+	]
+}

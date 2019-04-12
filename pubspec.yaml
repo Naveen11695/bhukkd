@@ -77,7 +77,7 @@ flutter:
   assets:
   - assets/images/logo.png
   - assets/images/pizza.jpg
-  - assets/animations/
+  - assets/animations/top_restaurant_loading.flr
   - assets/animations/sushi/
   - assets/images/food.png
   - assets/api/config.json
