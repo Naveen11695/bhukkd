@@ -39,7 +39,7 @@ class CustomHorizontalScroll extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(50),
                                   image: DecorationImage(
                                     image:
-                                        NetworkImage(snapshot.data[index].thumb) !=null ? NetworkImage(snapshot.data[index].thumb) : AssetImage("assets/images/pizza.jpg"),
+                                        snapshot.data[index].thumb !="" ? NetworkImage(snapshot.data[index].thumb) : AssetImage("assets/images/pizza.jpg"),
                                     fit: BoxFit.cover,
                                   ),
                                 ),

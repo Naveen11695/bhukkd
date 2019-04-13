@@ -1,3 +1,4 @@
+import 'package:bhukkd/flarecode/flare_actor.dart';
 import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:bhukkd/models/Search/SearchRestaurant.dart';
 import 'package:bhukkd/models/Search/api.dart';
@@ -66,6 +67,7 @@ class _SearchState extends State<SearchList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomPadding:false,
         key: key,
         appBar: AppBar(
           backgroundColor: Theme.of(context).bottomAppBarColor,
@@ -82,7 +84,7 @@ class _SearchState extends State<SearchList> {
                       Icons.search,
                       color: Colors.white,
                     )),
-                hintText: "Search restaurant...",
+                hintText: "Search for restaurants, dishes...",
                 hintStyle: TextStyle(color: Colors.white)),
           ),
         ),
@@ -91,11 +93,17 @@ class _SearchState extends State<SearchList> {
 
   Widget buildBody(BuildContext context) {
     if (_isSearching) {
-      return CenterTitle('Searching...');
+      return  Padding(
+        padding: const EdgeInsets.all(50.0),
+        child: FlareActor("assets/animations/Search Loading.flr", fit:BoxFit.scaleDown,animation: "default",),
+      );
     } else if (_error != null) {
       return CenterTitle(_error);
     } else if (_searchQuery.text.isEmpty) {
-      return CenterTitle('Begin Search by typing on search bar');
+      return  Padding(
+        padding: const EdgeInsets.all(50.0),
+        child: FlareActor("assets/animations/Search Loading.flr", fit:BoxFit.scaleDown,animation: "default",),
+      );
     } else {
       return ListView.builder(
           padding: EdgeInsets.symmetric(vertical: 8.0),

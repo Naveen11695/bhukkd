@@ -111,15 +111,14 @@ class _TrendingPageState extends State<TrendingPage> {
   @override
   void initState() {
     super.initState();
-    listBuilder = ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: nearByrestaurants.length,
-        itemBuilder: (BuildContext context, index) {
-          return HorizontalScroll(index ,nearByrestaurants, cuisines, thumb, restaurant_menu, photo_Links);
-        });
   }
 
-  ListView listBuilder;
+  ListView listBuilder = ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: nearByrestaurants.length,
+      itemBuilder: (BuildContext context, index) {
+        return HorizontalScroll(index ,nearByrestaurants, cuisines, thumb, restaurant_menu, photo_Links);
+      });
 
   Future<Null> refresh() async {
     getCurrentPosition();

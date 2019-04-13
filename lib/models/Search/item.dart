@@ -1,85 +1,139 @@
 import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 class RestaurantData extends StatelessWidget {
   final NearByRestaurants repo;
+  final formatter = new NumberFormat("#,###");
+
   RestaurantData(this.repo);
 
   @override
   Widget build(BuildContext context) {
+    double c_width = MediaQuery.of(context).size.width * 0.5;
     return Card(
       child: InkWell(
-          onTap: () {
-           // _launchURL(repo.htmlUrl);
-          },
-          highlightColor: Colors.lightBlueAccent,
-          splashColor: Colors.red,
+        onTap: () {
+          // _launchURL(repo.htmlUrl);
+        },
+        highlightColor: Colors.lightBlueAccent,
+        splashColor: Colors.red,
+        child: Padding(
+          padding: const EdgeInsets.all(3.0),
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Color.fromRGBO(255, 200, 170, 50),
+            ),
+
+            padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
             child: Row(
-                      children: <Widget>[
-                        new Container(
-                          margin: EdgeInsets.only(left: 3),
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            image: DecorationImage(
-                              image: NetworkImage(repo.thumb) !=null ? NetworkImage(repo.thumb) : AssetImage("assets/images/food.png"),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+              children: <Widget>[
+                new Column(
+                  children: <Widget>[
+                    new Container(
+                      margin: EdgeInsets.only(left: 3),
+                      height: 80,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: repo.thumb != ""
+                              ? NetworkImage(repo.thumb)
+                              : AssetImage("assets/images/food.png"),
+                          fit: BoxFit.cover,
                         ),
-                        new SizedBox(
-                          width: 10,
-                        ),
-                        new Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: new Row(
+                        children: <Widget>[
+                          Icon(Icons.star, color: Colors.deepOrange),
+                          Icon(Icons.star, color: Colors.deepOrange),
+                          Icon(Icons.star, color: Colors.orange),
+                          Icon(Icons.star, color: Colors.orange),
+                          Icon(Icons.star, color: Colors.white),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(3, 10, 3, 10),
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      new Container(
+                        width: c_width,
+                        child: new Column(
                           children: <Widget>[
                             new Text(
                               repo.name,
-                              style:
-                              TextStyle(fontFamily: "", fontSize: 17),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             new Text(
-                              repo.near_by_restaurants_location["address"],
-                              style:
-                              TextStyle(fontFamily: "", fontSize: 9),
+                              repo.near_by_restaurants_location["locality_verbose"],
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w800),
                             ),
-                            new Row (children: <Widget>[
-                              Icon(Icons.star, color:Colors.deepOrange),
-                              Icon(Icons.star, color:Colors.deepOrange),
-                              Icon(Icons.star, color:Colors.deepOrange),
-                              Icon(Icons.star, color:Colors.deepOrange),
-                              Icon(Icons.star, color:Colors.deepOrange),
-                            ],),
-
-
-                            new SizedBox(
-                              height: 8,
+                            Padding(
+                              padding: const EdgeInsets.only(top:8.0),
+                              child: new Text(
+                                repo.cuisines,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontFamily: "Montserrat",
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w300),
+                              ),
                             ),
-                            new Container(
-                              height: 1,
-                              width: 60,
-                              color: Colors.deepOrange,
+                            new Text(
+                              " ₹ " + ((repo.average_cost_for_two <999)? repo.average_cost_for_two.toString():formatter.format(repo.average_cost_for_two))+ " for two person (approx.)",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w300),
                             ),
-                            new SizedBox(height: 8),
-                            new Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: <Widget>[],
-                            )
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+
+                      new SizedBox(
+                        height: 8,
+                      ),
+                      new Container(
+                        height: 1,
+                        width: 60,
+                        color: Colors.deepOrange,
+                      ),
+                      new SizedBox(height: 8),
+                      new Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[],
+                      )
+                    ],
                   ),
-                ),
-              );
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
-
-            /*Row(
+  /*Row(
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   (repo.thumb == "")

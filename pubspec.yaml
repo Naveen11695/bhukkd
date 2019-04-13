@@ -28,9 +28,11 @@ dependencies:
   loading_card: ^0.0.5
   date_format: "^1.0.4"
   url_launcher: "^3.0.1"
+  intl: ">=0.14.0"
 
 
-  # Api- key :0bc8d74fdefd3601d84a0d52ffa01901
+  # Api- key 1:0bc8d74fdefd3601d84a0d52ffa01901
+  # Api- key 2:021a533947da652345753f4825586fd4
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -75,6 +77,7 @@ flutter:
   assets:
   - assets/animations/sushi/Sushi.flr
   - assets/animations/loading.flr
+  - assets/animations/Search Loading.flr
   - assets/animations/Loading animation.flr
   - assets/animations/Pizza Slice.flr
   - assets/animations/Add to cart icon.flr
