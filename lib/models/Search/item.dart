@@ -17,8 +17,70 @@ class RestaurantData extends StatelessWidget {
           splashColor: Colors.red,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+                      children: <Widget>[
+                        new Container(
+                          margin: EdgeInsets.only(left: 3),
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            image: DecorationImage(
+                              image: NetworkImage(repo.thumb) !=null ? NetworkImage(repo.thumb) : AssetImage("assets/images/food.png"),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        new SizedBox(
+                          width: 10,
+                        ),
+                        new Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Text(
+                              repo.name,
+                              style:
+                              TextStyle(fontFamily: "", fontSize: 17),
+                            ),
+                            new Text(
+                              repo.near_by_restaurants_location["address"],
+                              style:
+                              TextStyle(fontFamily: "", fontSize: 9),
+                            ),
+                            new Row (children: <Widget>[
+                              Icon(Icons.star, color:Colors.deepOrange),
+                              Icon(Icons.star, color:Colors.deepOrange),
+                              Icon(Icons.star, color:Colors.deepOrange),
+                              Icon(Icons.star, color:Colors.deepOrange),
+                              Icon(Icons.star, color:Colors.deepOrange),
+                            ],),
+
+
+                            new SizedBox(
+                              height: 8,
+                            ),
+                            new Container(
+                              height: 1,
+                              width: 60,
+                              color: Colors.deepOrange,
+                            ),
+                            new SizedBox(height: 8),
+                            new Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[],
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+  }
+
+
+            /*Row(
+                //crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   (repo.thumb == "")
                       ? new Image.asset(
@@ -81,9 +143,7 @@ class RestaurantData extends StatelessWidget {
                     ),
                   ),
                 ]),
-          )),
-    );
-  }
+      */
 
   _launchURL(url) async {
     if (await canLaunch(url)) {

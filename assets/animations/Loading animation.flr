@@ -1,0 +1,368 @@
+{
+	"version": 21,
+	"artboards": [
+		{
+			"name": "Artboard",
+			"translation": [
+				0,
+				0
+			],
+			"width": 1024,
+			"height": 768,
+			"origin": [
+				0,
+				0
+			],
+			"clipContents": true,
+			"color": [
+				1,
+				1,
+				1,
+				1
+			],
+			"nodes": [
+				{
+					"name": "external_circle",
+					"translation": [
+						489.3365478515625,
+						354.6977233886719
+					],
+					"rotation": 0,
+					"scale": [
+						0.9419999718666077,
+						0.9419999718666077
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 1,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 0,
+					"opacity": 1,
+					"color": [
+						0.9238095283508301,
+						0.9238095283508301,
+						0.9238095283508301,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Ellipse Path",
+					"parent": 0,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 335,
+					"height": 335,
+					"type": "ellipse"
+				},
+				{
+					"name": "internal_circle",
+					"translation": [
+						489.3365478515625,
+						352.6977233886719
+					],
+					"rotation": 0,
+					"scale": [
+						0.7480000257492065,
+						0.753000020980835
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [
+						0
+					],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 1,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 3,
+					"opacity": 1,
+					"color": [
+						1,
+						1,
+						1,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Ellipse Path",
+					"parent": 3,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 335,
+					"height": 335,
+					"type": "ellipse"
+				},
+				{
+					"name": "loading_bar",
+					"translation": [
+						489.3365478515625,
+						352.6977233886719
+					],
+					"rotation": 0,
+					"scale": [
+						0.8450000286102295,
+						0.8479999899864197
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 1,
+					"type": "shape"
+				},
+				{
+					"name": "Ellipse Path",
+					"parent": 6,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 335,
+					"height": 335,
+					"type": "ellipse"
+				},
+				{
+					"name": "Color",
+					"parent": 6,
+					"opacity": 1,
+					"color": [
+						0.8523809313774109,
+						0.6347680687904358,
+						0.2642380893230438,
+						1
+					],
+					"width": 30,
+					"cap": 1,
+					"join": 0,
+					"trim": 1,
+					"start": 0.001,
+					"end": 0,
+					"offset": -1.5612511283791264e-17,
+					"type": "colorStroke"
+				}
+			],
+			"animations": [
+				{
+					"name": "loading 3",
+					"fps": 60,
+					"duration": 0.5,
+					"isLooping": true,
+					"keyed": [
+						{
+							"component": 6,
+							"rotation": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 0
+									},
+									{
+										"time": 0.5,
+										"interpolatorType": 1,
+										"value": 6.283185307179586
+									}
+								]
+							]
+						}
+					],
+					"animationStart": 0,
+					"animationEnd": 0.5,
+					"type": "animation"
+				},
+				{
+					"name": "loading 2",
+					"fps": 60,
+					"duration": 0.9333333333333333,
+					"isLooping": true,
+					"keyed": [
+						{
+							"component": 6,
+							"posX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 489.3365478515625
+									}
+								]
+							]
+						},
+						{
+							"component": 8,
+							"strokeStart": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 0.001
+									},
+									{
+										"time": 0.23333333333333334,
+										"interpolatorType": 1,
+										"value": 0.45
+									},
+									{
+										"time": 0.4666666666666667,
+										"interpolatorType": 1,
+										"value": 0.5
+									},
+									{
+										"time": 0.7,
+										"interpolatorType": 1,
+										"value": 0.9
+									},
+									{
+										"time": 0.9333333333333333,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"strokeEnd": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 0
+									},
+									{
+										"time": 0.23333333333333334,
+										"interpolatorType": 1,
+										"value": 0.1
+									},
+									{
+										"time": 0.4666666666666667,
+										"interpolatorType": 1,
+										"value": 0.499
+									},
+									{
+										"time": 0.7,
+										"interpolatorType": 1,
+										"value": 0.55
+									},
+									{
+										"time": 0.9333333333333333,
+										"interpolatorType": 1,
+										"value": 0.9990000000000001
+									}
+								]
+							]
+						}
+					],
+					"animationStart": 0,
+					"animationEnd": 0.9333333333333333,
+					"type": "animation"
+				},
+				{
+					"name": "loading 1",
+					"fps": 60,
+					"duration": 1,
+					"isLooping": true,
+					"keyed": [
+						{
+							"component": 6
+						},
+						{
+							"component": 8,
+							"strokeStart": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 0.001
+									},
+									{
+										"time": 0.3333333333333333,
+										"interpolatorType": 1,
+										"value": 0.5
+									},
+									{
+										"time": 0.6666666666666666,
+										"interpolatorType": 1,
+										"value": 0.82
+									},
+									{
+										"time": 1,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"strokeEnd": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 0
+									},
+									{
+										"time": 0.3333333333333333,
+										"interpolatorType": 1,
+										"value": 0.2700000000000001
+									},
+									{
+										"time": 0.6666666666666666,
+										"interpolatorType": 1,
+										"value": 0.5000000000000001
+									},
+									{
+										"time": 1,
+										"interpolatorType": 1,
+										"value": 0.9990000000000001
+									}
+								]
+							]
+						}
+					],
+					"animationStart": 0,
+					"animationEnd": 1,
+					"type": "animation"
+				}
+			],
+			"type": "artboard"
+		}
+	]
+}

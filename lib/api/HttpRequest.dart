@@ -7,6 +7,8 @@ import 'dart:convert';
 import 'dart:async';
 import '../models/Restruant/Restruant.dart';
 import '../models/GeoCodeInfo/GeoCode.dart';
+import 'dart:isolate';
+import 'package:flutter/foundation.dart';
 
 String api_key = "";
 Restaurant restruant;
@@ -103,7 +105,7 @@ Future<GeoCode> fetchRestByGeoCode() async{
         costForTwo.add(geoCode.nearby_restaurants[i].average_cost_for_two);
         reviews.add(geoCode.nearby_restaurants[i].all_reviews);
         hasOnlineDelivery.add(geoCode.nearby_restaurants[i].has_online_delivery);
-        _fetchRestaurant(geoCode.nearby_restaurants[i].id); 
+        compute(_fetchRestaurant, geoCode.nearby_restaurants[i].id); 
         if (geoCode.nearby_restaurants[i].thumb != "") {
           thumb.add(geoCode.nearby_restaurants[i].thumb);
         } else {
