@@ -17,7 +17,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: any
-  geolocator: '^2.1.1'
+  geolocator: '^3.0.1'
   geocoder: ^0.1.2
   scoped_model: ^1.0.1
   shared_preferences: any
@@ -30,9 +30,17 @@ dependencies:
   url_launcher: "^3.0.1"
   intl: ">=0.14.0"
 
+  # Firebase dependencies
+  firebase_auth: ^0.8.4
+
 
   # Api- key 1:0bc8d74fdefd3601d84a0d52ffa01901
   # Api- key 2:021a533947da652345753f4825586fd4
+
+  # Email: naveen.satyam.developers@gmail.com
+  # Password: bhukkd.satyam.naveen
+
+  # SHA1: 87:ED:D5:9E:68:84:07:AB:AA:B7:A0:CC:EB:70:E9:84:4E:B6:AA:91
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

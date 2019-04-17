@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 final opacity = Container(
   color: Color.fromRGBO(249, 129, 42, 150),
@@ -117,3 +120,8 @@ final separator = Row(
     ),
   ],
 );
+
+
+final formatter = new NumberFormat("#,###");
+var randomPhotoList = ['2.png','3.jpeg','4.jpeg','5.jpg','6.jpg','7.jpeg','8.jpeg','9.jpeg','10.jpeg','food.png'];
+final random = new Random();

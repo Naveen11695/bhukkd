@@ -1,40 +1,43 @@
+import 'dart:async';
 import 'package:bhukkd/api/HttpRequest.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 Position position;
 
 Future<Position> getCurrentPosition() async {
-  position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  Geolocator geolocator = Geolocator()..forceAndroidLocationManager = true;
+  GeolocationStatus geolocationStatus =
+      await geolocator.checkGeolocationPermissionStatus();
+  position = await Geolocator()
+      .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   print("Current Location : " + position.toString());
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  preferences.setStringList("Current_location", [position.latitude.toString(),
-  position.longitude.toString(),
-  position.timestamp.toString()]
-  );
+  preferences.setStringList("Current_location", [
+    position.latitude.toString(),
+    position.longitude.toString(),
+    position.timestamp.toString()
+  ]);
   return position;
 }
 
 Future getLastKnownPosition() async {
-  position = await Geolocator().getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
+  position = await Geolocator()
+      .getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
   return position;
 }
 
 Future onPositionChanged() async {
   var geolocator = Geolocator();
-  var locationOptions = LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
+  var locationOptions =
+      LocationOptions(accuracy: LocationAccuracy.high, distanceFilter: 10);
 
-  geolocator.getPositionStream(locationOptions).listen(
-          (Position position) {
-        if(position == null){
-          return "Unknown";
-        }
-        else{
-          return position.latitude + position.longitude;
-        }
-      });
+  geolocator.getPositionStream(locationOptions).listen((Position position) {
+    if (position == null) {
+      return "Unknown";
+    } else {
+      return position.latitude + position.longitude;
+    }
+  });
 }
-
-//void printPostion() {
-//  print("Postion:$position");
-//}

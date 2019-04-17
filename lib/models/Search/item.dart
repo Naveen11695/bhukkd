@@ -1,11 +1,10 @@
+import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:intl/intl.dart';
 
 class RestaurantData extends StatelessWidget {
   final NearByRestaurants repo;
-  final formatter = new NumberFormat("#,###");
 
   RestaurantData(this.repo);
 
@@ -41,7 +40,7 @@ class RestaurantData extends StatelessWidget {
                         image: DecorationImage(
                           image: repo.thumb != ""
                               ? NetworkImage(repo.thumb)
-                              : AssetImage("assets/images/food.png"),
+                              : AssetImage("assets/images/"+randomPhotoList[random.nextInt(randomPhotoList.length)]),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -61,7 +60,7 @@ class RestaurantData extends StatelessWidget {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(3, 10, 3, 10),
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: new Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[

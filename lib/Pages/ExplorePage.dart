@@ -1,4 +1,3 @@
-import 'package:bhukkd/Components/CustomCardState.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/models/GeoCodeInfo/GeoCode.dart';
 import 'package:flutter/material.dart';
@@ -35,30 +34,19 @@ class _ExplorePage extends State<ExplorePage> {
     return new Scaffold(
       body: Stack(
         children: <Widget>[
-          explore_background,
-          opacity,
+          //explore_background,
+          //opacity,
           new CustomScrollView(
             slivers: <Widget>[
               new SliverAppBar(
-                backgroundColor: Color.fromRGBO(255, 255, 255, 50),
-                expandedHeight: 200.0,
+                backgroundColor: Color.fromRGBO(255,120,0,30),
+                expandedHeight: 100.0,
                 pinned: true,
-                floating: true,
                 title: new Text(
                   "Explorer",
                   textAlign: TextAlign.center,
                   style: Raleway.copyWith(
-                      fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-                flexibleSpace: new FlexibleSpaceBar(
-                  title: new Text(
-                    "                     Local cuisine, Indian, Asian,\nVegetarian Friendly",
-                    textAlign: TextAlign.end,
-                    style: Raleway.copyWith(
-                        fontSize: 16,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w400),
-                  ),
+                      fontSize: 30, fontWeight: FontWeight.bold,fontFamily: "Montserrat",color: Colors.white),
                 ),
               ),
               SliverGrid(

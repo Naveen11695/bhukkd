@@ -1,3 +1,4 @@
+import 'package:bhukkd/flarecode/flare_actor.dart';
 import 'package:flutter/material.dart';
 
 class WagonPage extends StatefulWidget{
@@ -7,8 +8,10 @@ class WagonPage extends StatefulWidget{
 class _WagonPageState extends State<WagonPage>{
   @override
   Widget build(BuildContext context){
-    return Container(
-      child: new Text("Welcome to Wagon"),
+    return Center(
+      child: Container(
+        child: FlareActor("assets/animations/Add to cart icon.flr", fit:BoxFit.scaleDown,animation: "Untitled",),
+      ),
     );
   }
 }

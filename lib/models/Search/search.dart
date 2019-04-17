@@ -106,7 +106,6 @@ class _SearchState extends State<SearchList> {
       );
     } else {
       return ListView.builder(
-          padding: EdgeInsets.symmetric(vertical: 8.0),
           itemCount: _results.length,
           itemBuilder: (BuildContext context, int index) {
             return RestaurantData(_results[index]);

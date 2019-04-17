@@ -744,6 +744,26 @@
 					"isLooping": false,
 					"keyed": [
 						{
+							"component": 4
+						},
+						{
+							"component": 5,
+							"fillColor": [
+								[
+									{
+										"time": 2.866275000036694,
+										"interpolatorType": 1,
+										"value": [
+											1,
+											0.5490196347236633,
+											0,
+											1
+										]
+									}
+								]
+							]
+						},
+						{
 							"component": 6,
 							"posX": [
 								[
@@ -820,7 +840,7 @@
 						}
 					],
 					"animationStart": 0,
-					"animationEnd": 1.65,
+					"animationEnd": 2.866275000036694,
 					"type": "animation"
 				}
 			],

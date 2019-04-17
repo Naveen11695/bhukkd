@@ -101,9 +101,9 @@ void getLocationName() async{
     first = addresses.first;
     var temp = first.addressLine.split(",");
     print(temp);
-    loc_address = temp[0] + " " + temp[1] + " " + temp[2] +", "+ temp[3];
+    loc_address =  temp[1] + " " + temp[2] +", "+ temp[3];
     print(loc_address);
-    // loc_address = temp[temp.length-5] + temp[temp.length-4] + temp[temp.length-3]  + temp[temp.length-2] + "," + temp[temp.length-1];
+     //loc_address = temp[temp.length-5] + temp[temp.length-4] + temp[temp.length-3]  + temp[temp.length-2] + "," + temp[temp.length-1];
     // print(loc_address);
   });
 }
@@ -114,6 +114,7 @@ class _TrendingPageState extends State<TrendingPage> {
   @override
   void initState() {
     super.initState();
+    refresh();
   }
 
   ListView listBuilder; //= ListView.builder(
@@ -124,7 +125,7 @@ class _TrendingPageState extends State<TrendingPage> {
   //     });
 
   Future<Null> refresh() async {
-    // getCurrentPosition();
+     getCurrentPosition();
     // getLocationName();
     // fetchRestByGeoCode();
     await Future.delayed(Duration(seconds: 5));
@@ -159,7 +160,7 @@ class _TrendingPageState extends State<TrendingPage> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.020,
                       ),
-                      new Text("Your Location",
+                      new Text("   Your Location",
                           style: new TextStyle(
                             wordSpacing: 2.0,
                             color: Colors.white,
@@ -168,7 +169,7 @@ class _TrendingPageState extends State<TrendingPage> {
                             fontSize: 20,
                           )),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(40, 0,0,0),
+                        padding: const EdgeInsets.fromLTRB(30, 0,0,0),
                         child: new Text(
                           loc_address,
                           style: new TextStyle(
