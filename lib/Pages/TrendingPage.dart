@@ -99,9 +99,12 @@ void getLocationName() async{
     final coordinates = new Coordinates(pos.latitude,pos.longitude);
     addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
     first = addresses.first;
-    var temp = first.addressLine.toString().split(",");
-    loc_address = temp[temp.length-5] + temp[temp.length-4] + temp[temp.length-3]  + temp[temp.length-2] + "," + temp[temp.length-1];
+    var temp = first.addressLine.split(",");
+    print(temp);
+    loc_address = temp[0] + " " + temp[1] + " " + temp[2] +", "+ temp[3];
     print(loc_address);
+    // loc_address = temp[temp.length-5] + temp[temp.length-4] + temp[temp.length-3]  + temp[temp.length-2] + "," + temp[temp.length-1];
+    // print(loc_address);
   });
 }
 
@@ -111,29 +114,28 @@ class _TrendingPageState extends State<TrendingPage> {
   @override
   void initState() {
     super.initState();
-    listBuilder = ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: nearByrestaurants.length,
-        itemBuilder: (BuildContext context, index) {
-          return HorizontalScroll(index ,nearByrestaurants, cuisines, thumb, restaurant_menu, photo_Links);
-        });
   }
 
-  ListView listBuilder;
+  ListView listBuilder; //= ListView.builder(
+  //     scrollDirection: Axis.horizontal,
+  //     itemCount: nearByrestaurants.length,
+  //     itemBuilder: (BuildContext context, index) {
+  //       return HorizontalScroll(index);
+  //     });
 
   Future<Null> refresh() async {
-    getCurrentPosition();
-    getLocationName();
-    fetchRestByGeoCode();
+    // getCurrentPosition();
+    // getLocationName();
+    // fetchRestByGeoCode();
     await Future.delayed(Duration(seconds: 5));
-    setState(() {
-      listBuilder = ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: nearByrestaurants.length,
-          itemBuilder: (BuildContext context, index) {
-            return HorizontalScroll(index, nearByrestaurants, cuisines, thumb, restaurant_menu, photo_Links);
-          });
-    });
+    // setState(() {
+    //   listBuilder = ListView.builder(
+    //       scrollDirection: Axis.horizontal,
+    //       itemCount: nearByrestaurants.length,
+    //       itemBuilder: (BuildContext context, index) {
+    //         return HorizontalScroll();
+    //       });
+    // });
     return null;
   }
 
@@ -221,7 +223,7 @@ class _TrendingPageState extends State<TrendingPage> {
                     Container(
                         width: MediaQuery.of(context).size.width * 0.92,
                         height: 175,
-                        child: listBuilder
+                        child: HorizontalScroll()
                       ),
                     Container(
                       width: MediaQuery.of(context).size.height * 0.92,

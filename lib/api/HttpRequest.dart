@@ -7,8 +7,6 @@ import 'dart:convert';
 import 'dart:async';
 import '../models/Restruant/Restruant.dart';
 import '../models/GeoCodeInfo/GeoCode.dart';
-import 'dart:isolate';
-import 'package:flutter/foundation.dart';
 
 String api_key = "";
 Restaurant restruant;
@@ -77,44 +75,49 @@ var hasOnlineDelivery=[];
 var popularity=[];
 var url=[];
 
-Future<GeoCode> fetchRestByGeoCode() async{
+Future fetchRestByGeoCode() async{
   StoreUserLocation.get_CurrentLocation().then((loc) {
     latitude = loc[0].toString();
     longitude = loc[1].toString();
     print("$longitude, $latitude");
   });
-  requestGeoCode(
+  Future geocode=requestGeoCode(
           "https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude",
           latitude,
-          longitude)
-      .then((GeoCode geoCode) {
-    if (geoCode != null) {
-      print(
-          "----List of nearby restaurants according to the location---------");
-      nearByrestaurants.clear();
-      cuisines.clear();
-      thumb.clear();
-      costForTwo.clear();
-      hasOnlineDelivery.clear();
-      reviews.clear();
-      url.clear();
-      for (int i = 0; i < geoCode.nearby_restaurants.length; i++) {
-        print(geoCode.nearby_restaurants[i].name);
-        nearByrestaurants.add(geoCode.nearby_restaurants[i].name);
-        cuisines.add(geoCode.nearby_restaurants[i].cuisines);
-        costForTwo.add(geoCode.nearby_restaurants[i].average_cost_for_two);
-        reviews.add(geoCode.nearby_restaurants[i].all_reviews);
-        hasOnlineDelivery.add(geoCode.nearby_restaurants[i].has_online_delivery);
-        compute(_fetchRestaurant, geoCode.nearby_restaurants[i].id); 
-        if (geoCode.nearby_restaurants[i].thumb != "") {
-          thumb.add(geoCode.nearby_restaurants[i].thumb);
-        } else {
-          thumb.add(geoCode.nearby_restaurants[i % 2].thumb);
-        }
-      }
-      return geoCode;
-    }
-  });
+          longitude);
+  if(geocode !=null){
+    return geocode;
+  }
+  else{
+    print("error in fetchRestByGeoCode");
+  }
+      // .then((GeoCode geoCode) {
+      //   if (geoCode != null) {
+      //     print(
+      //         "----List of nearby restaurants according to the location---------");
+      //     nearByrestaurants.clear();
+      //     cuisines.clear();
+      //     thumb.clear();
+      //     costForTwo.clear();
+      //     hasOnlineDelivery.clear();
+      //     reviews.clear();
+      //     url.clear();
+      //     for (int i = 0; i < geoCode.nearby_restaurants.length; i++) {
+      //       print(geoCode.nearby_restaurants[i].name);
+      //       nearByrestaurants.add(geoCode.nearby_restaurants[i].name);
+      //       cuisines.add(geoCode.nearby_restaurants[i].cuisines);
+      //       costForTwo.add(geoCode.nearby_restaurants[i].average_cost_for_two);
+      //       reviews.add(geoCode.nearby_restaurants[i].all_reviews);
+      //       hasOnlineDelivery.add(geoCode.nearby_restaurants[i].has_online_delivery);
+      //       if (geoCode.nearby_restaurants[i].thumb != "") {
+      //         thumb.add(geoCode.nearby_restaurants[i].thumb);
+      //       } else {
+      //         thumb.add(geoCode.nearby_restaurants[i % 2].thumb);
+      //       }
+      //     }
+      //     return geoCode;
+      //   }
+  // });
 }
 
 Future requestRestaurant(requestUrl, res_id) async {
@@ -142,17 +145,10 @@ Restaurant parseRestaurant(String responseBody) {
 }
 
 //Restaurant restaurant;
-void _fetchRestaurant(String res_id) {
-  requestRestaurant(
-          "https://developers.zomato.com/api/v2.1/restaurant?res_id=$res_id",
-          res_id)
-      .then((rest) {
-    print(rest.restruant_Name);
-    print(rest.restruant_Menu);
-    fetchPhotos(rest.restruant_Photo_url);
-    fetchMenu(rest.restruant_Menu);
-    //rest=restaurant;
-  });
+Future fetchRestaurant(String res_id) {
+  Future<dynamic> rest = requestRestaurant("https://developers.zomato.com/api/v2.1/restaurant?res_id=$res_id",res_id);
+
+  return rest;
 }
 var photo_Links=[];
 Future fetchPhotos(String url) async {
