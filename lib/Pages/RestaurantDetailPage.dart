@@ -44,15 +44,20 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                   return CustomScrollView(
                     slivers: <Widget>[
                       SliverAppBar(
-                        expandedHeight: 256,
+                        expandedHeight: 200,
                         pinned: true,
+                        // title: Text(snapshot.data.restruant_Name),
                         flexibleSpace: FlexibleSpaceBar(
+                          collapseMode: CollapseMode.parallax,
                           title: new Text(
                             snapshot.data.restruant_Name,
-                            textAlign: TextAlign.end,
+                            textDirection: TextDirection.ltr,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            textAlign: TextAlign.left,
                             style: new TextStyle(
                                 fontFamily: "Montserrat",
-                                fontSize: 24,
+                                fontSize: 15,
                                 fontWeight: FontWeight.w700,
                                 letterSpacing: 0.8,
                                 wordSpacing: 1),
@@ -80,33 +85,53 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                             height: 20,
                           ),
                           Padding(
-                            padding: EdgeInsets.only(left: 10, bottom: 5),
-                            child: Text(
-                              "Details",
-                              style: TextStyle(
+                              padding: EdgeInsets.only(left: 10, bottom: 5),
+                              child: Row(
+                                children: <Widget>[
+                                  Text(
+                                    "Cuisines",
+                                    style: TextStyle(
+                                      fontFamily: "Roboto",
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 16.0,
+                                    ),
+                                  ),
+                                ],
+                              )),
+                          Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    snapshot.data.restruant_Cuisines,
+                                    style: TextStyle(color: Colors.grey),
+                                  ),
+                                ],
+                              )),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Row(children: [
+                              Text(
+                                "Average Cost for 2",
+                                style: TextStyle(
                                   fontFamily: "Roboto",
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24.0,
-                                  letterSpacing: 1),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: 10, bottom: 5),
-                            child: Text(
-                              "Cuisines",
-                              style: TextStyle(
-                                fontFamily: "Roboto",
-                                fontWeight: FontWeight.normal,
-                                fontSize: 18.0,
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 16.0,
+                                ),
                               ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              snapshot.data.restruant_Cuisines,
-                              style: TextStyle(color: Colors.grey),
-                            ),
+                              Padding(
+                                padding: const EdgeInsets.only(left:8.0),
+                                child: Text(
+                                  "₹" +
+                                      snapshot.data.restruant_Avg_cost_for_two
+                                          .toString(),textDirection: TextDirection.rtl,
+                                  style: TextStyle(color: Colors.deepOrange, fontFamily: "Roboto", fontSize:15.0),
+                                ),
+                              )
+                            ]),
                           ),
                           SizedBox(
                             height: 20,
@@ -128,31 +153,103 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                             padding: EdgeInsets.only(top: 20),
                             child: Padding(
                               padding: const EdgeInsets.all(5.0),
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 20,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
-                                    child: new Material(
-                                      elevation: 10.0,
-                                      child: Container(
-                                        margin: EdgeInsets.only(
-                                            left: 10,
-                                            right: 10,
-                                            top: 5,
-                                            bottom: 5),
-                                        child: new Image.network(
-                                          "",
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
+                              child: FutureBuilder(
+                                  future: fetchPhotos(
+                                      snapshot.data.restruant_Photo_url),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot snapShot) {
+                                    if (snapShot.connectionState ==
+                                        ConnectionState.done) {
+                                      if (snapShot.data != null) {
+                                        return ListView.builder(
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: snapShot.data.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return GestureDetector(
+                                              child: new Material(
+                                                elevation: 10.0,
+                                                child: Container(
+                                                  margin: EdgeInsets.only(
+                                                      left: 10,
+                                                      right: 10,
+                                                      top: 5,
+                                                      bottom: 5),
+                                                  child: new Image.network(
+                                                    snapShot.data[index],
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      }
+                                    } else if (snapShot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return CircularProgressIndicator();
+                                    }
+                                  }),
                             ),
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              "Menu",
+                              style: TextStyle(
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24.0,
+                                  letterSpacing: 1),
+                            ),
+                          ),
+                          Container(
+                            height: 200.0,
+                            width: MediaQuery.of(context).size.width * 0.92,
+                            padding: EdgeInsets.only(top: 20),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: FutureBuilder(
+                                  future:
+                                      fetchMenu(snapshot.data.restruant_Menu),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot snapShot) {
+                                    if (snapShot.connectionState ==
+                                        ConnectionState.done) {
+                                      if (snapShot.data != null) {
+                                        return ListView.builder(
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: snapShot.data.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return GestureDetector(
+                                              child: new Material(
+                                                elevation: 10.0,
+                                                child: Container(
+                                                  margin: EdgeInsets.only(
+                                                      left: 10,
+                                                      right: 10,
+                                                      top: 5,
+                                                      bottom: 5),
+                                                  child: new Image.network(
+                                                    snapShot.data[index],
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      }
+                                    } else if (snapShot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return CircularProgressIndicator();
+                                    }
+                                  }),
+                            ),
+                          )
                         ]),
                       )
                     ],

@@ -150,7 +150,7 @@ Future fetchRestaurant(String res_id) {
 
   return rest;
 }
-var photo_Links=[];
+
 Future fetchPhotos(String url) async {
   var client = new Client();
   Response response = await client.get(url);
@@ -169,21 +169,22 @@ Future fetchPhotos(String url) async {
   List<String> restarauntPhotos = new List<String>();
   for (var photoLink in photoLinks) {
     restarauntPhotos.add(photoLink.attributes['data-original']
-        .replaceAll("?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A", ""));
+        /*.replaceAll("?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A", "")*/);
   }
 
-  for (var link in restarauntPhotos) {
-    photo_Links.add(link);
-  }
+  return restarauntPhotos;
 }
-var restaurant_menu=[];
+
 Future fetchMenu(String url) async {
   var client = new Client();
   Response response = await client.get(url);
   var menu = parse(response.body);
   List<dynamic> menuLink = menu.querySelectorAll('div#menu-image>img');
   print("----------Menu Image-------------");
+  var restaurant_menu=[];
   for (var link in menuLink) {
-    print(link.attributes['src']);
+    restaurant_menu.add(link.attributes['src']);
   }
+
+  return restaurant_menu;
 }
