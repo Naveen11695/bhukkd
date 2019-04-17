@@ -21,7 +21,7 @@ class Restaurant extends Model{
     int restruant_Has_table_booking;
     int restruant_Is_table_reservation_supported;
     String restruant_Cuisines;
-    List<String> restruant_Photos;
+    List<Photos> restruant_Photos;
 
 
     Restaurant({this.restruant_Id,
@@ -38,6 +38,7 @@ class Restaurant extends Model{
         this.restruant_Has_table_booking,
         this.restruant_Is_table_reservation_supported,
         this.restruant_Cuisines,
+        this.restruant_Photos, this.restruant_Location, this.restruant_photos_url, this.restruant_User_rating
     });
 
 
@@ -59,8 +60,8 @@ class Restaurant extends Model{
             //u.urprint();
         }
         if(photos != null){
-            p = Photos.fromJson(ur);
-            //p.photo_print();
+            p = Photos.fromJson(photos);
+            p.photo_print();
         }
 
         return Restaurant(

@@ -4,6 +4,7 @@ import '../models/Restruant/Restruant.dart';
 import '../Pages/RestaurantDetailPage.dart';
 import '../Components/CustomTransition.dart';
 import '../api/HttpRequest.dart';
+import 'package:bhukkd/flarecode/flare_actor.dart';
 
 class HorizontalScroll extends StatelessWidget {
   // int index;
@@ -121,7 +122,24 @@ class HorizontalScroll extends StatelessWidget {
                 });
           }
         } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return new CircularProgressIndicator();
+          return ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 20,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                        color: Colors.grey.shade100,
+                        // height: 100,
+                        width: 180,
+                        child: new Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: new FlareActor(
+                            "assets/animations/near_by_rest_loading.flr",
+                            animation: "loading",
+                            fit: BoxFit.cover,
+                          ),
+                        ));
+                  });
         }
         else{
           return Container(height: 0, width: 0,);

@@ -37,127 +37,129 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
         child: Scaffold(
           body: new FutureBuilder(
             future: fetchRestaurant(widget.productid.toString()),
-            builder:
-                (BuildContext context, AsyncSnapshot snapshot) {
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                return CustomScrollView(
-                  slivers: <Widget>[
-                    SliverAppBar(
-                      expandedHeight: 256,
-                      pinned: true,
-                      flexibleSpace: FlexibleSpaceBar(
-                        title: new Text(
-                          snapshot.data.restruant_Name,
-                          textAlign: TextAlign.end,
-                          style: new TextStyle(
-                              fontFamily: "Montserrat",
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
-                              letterSpacing: 0.8,
-                              wordSpacing: 1),
-                        ),
-                        centerTitle: false,
-                        background: Hero(
-                          tag: i++, // unique id
-                          child: FadeInImage(
-                            image: NetworkImage(snapshot.data.restruant_Feature_image),
-                            height: 300,
-                            fadeInDuration: const Duration(seconds: 1),
-                            placeholder: AssetImage("assets/images/pizza.jpg"),
-                            fit: BoxFit.cover,
-                            fadeOutDuration: const Duration(seconds: 1),
-                            fadeInCurve: Curves.fastOutSlowIn,
+                if (snapshot.data != null) {
+                  return CustomScrollView(
+                    slivers: <Widget>[
+                      SliverAppBar(
+                        expandedHeight: 256,
+                        pinned: true,
+                        flexibleSpace: FlexibleSpaceBar(
+                          title: new Text(
+                            snapshot.data.restruant_Name,
+                            textAlign: TextAlign.end,
+                            style: new TextStyle(
+                                fontFamily: "Montserrat",
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700,
+                                letterSpacing: 0.8,
+                                wordSpacing: 1),
+                          ),
+                          centerTitle: false,
+                          background: Hero(
+                            tag: i++, // unique id
+                            child: FadeInImage(
+                              image: NetworkImage(
+                                  snapshot.data.restruant_Feature_image),
+                              height: 300,
+                              fadeInDuration: const Duration(seconds: 1),
+                              placeholder:
+                                  AssetImage("assets/images/pizza.jpg"),
+                              fit: BoxFit.cover,
+                              fadeOutDuration: const Duration(seconds: 1),
+                              fadeInCurve: Curves.fastOutSlowIn,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SliverList(
-                      delegate: SliverChildListDelegate([
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 10, bottom: 5),
-                          child: Text(
-                            "Details",
-                            style: TextStyle(
-                                fontFamily: "Roboto",
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24.0,
-                                letterSpacing: 1),
+                      SliverList(
+                        delegate: SliverChildListDelegate([
+                          SizedBox(
+                            height: 20,
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 10, bottom: 5),
-                          child: Text(
-                            "Cuisines",
-                            style: TextStyle(
-                              fontFamily: "Roboto",
-                              fontWeight: FontWeight.normal,
-                              fontSize: 18.0,
+                          Padding(
+                            padding: EdgeInsets.only(left: 10, bottom: 5),
+                            child: Text(
+                              "Details",
+                              style: TextStyle(
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24.0,
+                                  letterSpacing: 1),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Text(
-                            "cuisines",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10.0),
-                          child: Text(
-                            "Photos",
-                            style: TextStyle(
+                          Padding(
+                            padding: EdgeInsets.only(left: 10, bottom: 5),
+                            child: Text(
+                              "Cuisines",
+                              style: TextStyle(
                                 fontFamily: "Roboto",
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24.0,
-                                letterSpacing: 1),
+                                fontWeight: FontWeight.normal,
+                                fontSize: 18.0,
+                              ),
+                            ),
                           ),
-                        ),
-                        Container(
-                          height: 200.0,
-                          width: MediaQuery.of(context).size.width * 0.92,
-                          padding: EdgeInsets.only(top: 20),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 10,
-                              itemBuilder: (BuildContext context, int index) {
-                                return GestureDetector(
-                                  child: new Material(
-                                    elevation: 10.0,
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                          left: 10,
-                                          right: 10,
-                                          top: 5,
-                                          bottom: 5),
-                                      child: new Image.asset(
-                                        "assets/images/pizza.jpg",
-                                        fit: BoxFit.fill,
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              snapshot.data.restruant_Cuisines,
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              "Photos",
+                              style: TextStyle(
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24.0,
+                                  letterSpacing: 1),
+                            ),
+                          ),
+                          Container(
+                            height: 200.0,
+                            width: MediaQuery.of(context).size.width * 0.92,
+                            padding: EdgeInsets.only(top: 20),
+                            child: Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 20,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return GestureDetector(
+                                    child: new Material(
+                                      elevation: 10.0,
+                                      child: Container(
+                                        margin: EdgeInsets.only(
+                                            left: 10,
+                                            right: 10,
+                                            top: 5,
+                                            bottom: 5),
+                                        child: new Image.network(
+                                          "",
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
                           ),
-                        ),
-                      ]),
-                    )
-                  ],
-                );
-              }
-              else{
-                if(snapshot.connectionState == ConnectionState.waiting){
-                    return new CircularProgressIndicator();
+                        ]),
+                      )
+                    ],
+                  );
+                }
+              } else {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return new CircularProgressIndicator();
                 }
               }
             },

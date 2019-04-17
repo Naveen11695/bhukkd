@@ -1,0 +1,265 @@
+{
+	"version": 21,
+	"artboards": [
+		{
+			"name": "Artboard",
+			"translation": [
+				0,
+				32
+			],
+			"width": 1024,
+			"height": 768,
+			"origin": [
+				0,
+				0
+			],
+			"clipContents": true,
+			"color": [
+				0.364705890417099,
+				0.364705890417099,
+				0.364705890417099,
+				1
+			],
+			"nodes": [
+				{
+					"name": "Rectangle",
+					"translation": [
+						504.1412353515625,
+						241.68844604492188
+					],
+					"rotation": 0,
+					"scale": [
+						1.448744535446167,
+						1.9183679819107056
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 1,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 0,
+					"opacity": 1,
+					"color": [
+						0.4523809552192688,
+						0.4523809552192688,
+						0.4523809552192688,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 0,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 451,
+					"height": 222,
+					"cornerRadius": 5,
+					"type": "rectangle"
+				},
+				{
+					"name": "Rectangle",
+					"translation": [
+						507.3594055175781,
+						545.5066528320312
+					],
+					"rotation": 0,
+					"scale": [
+						1.7842988967895508,
+						1.8509092330932617
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 2,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 3,
+					"opacity": 1,
+					"color": [
+						0.4000000059604645,
+						0.4000000059604645,
+						0.4000000059604645,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 3,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 358,
+					"height": 51,
+					"cornerRadius": 5,
+					"type": "rectangle"
+				}
+			],
+			"animations": [
+				{
+					"name": "loading",
+					"fps": 60,
+					"duration": 1,
+					"isLooping": true,
+					"keyed": [
+						{
+							"component": 0
+						},
+						{
+							"component": 1,
+							"fillColor": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": [
+											0.4285714328289032,
+											0.4285714328289032,
+											0.4285714328289032,
+											1
+										]
+									},
+									{
+										"time": 0.25,
+										"interpolatorType": 1,
+										"value": [
+											0.3761904835700989,
+											0.3761904835700989,
+											0.3761904835700989,
+											1
+										]
+									},
+									{
+										"time": 0.5,
+										"interpolatorType": 1,
+										"value": [
+											0.4285714328289032,
+											0.4285714328289032,
+											0.4285714328289032,
+											1
+										]
+									},
+									{
+										"time": 0.75,
+										"interpolatorType": 1,
+										"value": [
+											0.3761904835700989,
+											0.3761904835700989,
+											0.3761904835700989,
+											1
+										]
+									},
+									{
+										"time": 1,
+										"interpolatorType": 1,
+										"value": [
+											0.4285714328289032,
+											0.4285714328289032,
+											0.4285714328289032,
+											1
+										]
+									}
+								]
+							]
+						},
+						{
+							"component": 3
+						},
+						{
+							"component": 4,
+							"fillColor": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": [
+											0.49047619104385376,
+											0.49047619104385376,
+											0.49047619104385376,
+											1
+										]
+									},
+									{
+										"time": 0.25,
+										"interpolatorType": 1,
+										"value": [
+											0.39523810148239136,
+											0.39523810148239136,
+											0.39523810148239136,
+											1
+										]
+									},
+									{
+										"time": 0.5,
+										"interpolatorType": 1,
+										"value": [
+											0.49047619104385376,
+											0.49047619104385376,
+											0.49047619104385376,
+											1
+										]
+									},
+									{
+										"time": 0.75,
+										"interpolatorType": 1,
+										"value": [
+											0.39523810148239136,
+											0.39523810148239136,
+											0.39523810148239136,
+											1
+										]
+									},
+									{
+										"time": 1,
+										"interpolatorType": 1,
+										"value": [
+											0.49047619104385376,
+											0.49047619104385376,
+											0.49047619104385376,
+											1
+										]
+									}
+								]
+							]
+						}
+					],
+					"animationStart": 0,
+					"animationEnd": 1,
+					"type": "animation"
+				}
+			],
+			"type": "artboard"
+		}
+	]
+}
