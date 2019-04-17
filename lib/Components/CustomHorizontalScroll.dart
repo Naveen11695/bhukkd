@@ -25,9 +25,9 @@ class CustomHorizontalScroll extends StatelessWidget {
                         elevation: 10.0,
                         child: Container(
                           margin: EdgeInsets.only(
-                              left: 10, right: 10, top: 5, bottom: 5),
+                              left: 10, top: 5, bottom: 5),
                           height: 100,
-                          width: 300,
+                          width: 330,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Row(
@@ -54,12 +54,14 @@ class CustomHorizontalScroll extends StatelessWidget {
                                   width: 20,
                                 ),
                                 new Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     new Text(
                                       snapshot.data[index].name,
+                                      softWrap: true,
                                       style: TextStyle(
-                                          fontFamily: "", fontSize: 17),
+                                          fontFamily: "Raleway", fontSize: 14),
                                     ),
                                     new Text(
                                       snapshot.data[index]

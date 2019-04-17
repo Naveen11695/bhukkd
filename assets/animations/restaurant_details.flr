@@ -1,0 +1,900 @@
+{
+	"version": 21,
+	"artboards": [
+		{
+			"name": "Artboard",
+			"translation": [
+				0,
+				0
+			],
+			"width": 1024,
+			"height": 900,
+			"origin": [
+				0,
+				0
+			],
+			"clipContents": true,
+			"color": [
+				0.364705890417099,
+				0.364705890417099,
+				0.364705890417099,
+				1
+			],
+			"nodes": [
+				{
+					"name": "Rectangle",
+					"translation": [
+						507,
+						206.5
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 1,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 0,
+					"opacity": 1,
+					"color": [
+						0.4000000059604645,
+						0.4000000059604645,
+						0.4000000059604645,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 0,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 1032,
+					"height": 423,
+					"cornerRadius": 0,
+					"type": "rectangle"
+				},
+				{
+					"name": "Rectangle",
+					"translation": [
+						512,
+						194
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 2,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 3,
+					"opacity": 1,
+					"color": [
+						1,
+						1,
+						1,
+						1
+					],
+					"width": 1,
+					"cap": 0,
+					"join": 0,
+					"trim": 0,
+					"type": "colorStroke"
+				},
+				{
+					"name": "Color",
+					"parent": 3,
+					"opacity": 1,
+					"color": [
+						0.929411768913269,
+						0.929411768913269,
+						0.929411768913269,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 3,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 29,
+					"height": 66,
+					"cornerRadius": 3,
+					"type": "rectangle"
+				},
+				{
+					"name": "Rectangle",
+					"translation": [
+						550.1717529296875,
+						194
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 3,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 7,
+					"opacity": 1,
+					"color": [
+						1,
+						1,
+						1,
+						1
+					],
+					"width": 1,
+					"cap": 0,
+					"join": 0,
+					"trim": 0,
+					"type": "colorStroke"
+				},
+				{
+					"name": "Color",
+					"parent": 7,
+					"opacity": 1,
+					"color": [
+						0.929411768913269,
+						0.929411768913269,
+						0.929411768913269,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 7,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 29,
+					"height": 66,
+					"cornerRadius": 3,
+					"type": "rectangle"
+				},
+				{
+					"name": "Rectangle",
+					"translation": [
+						473.6050109863281,
+						194.3400421142578
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 4,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 11,
+					"opacity": 1,
+					"color": [
+						1,
+						0.9800000190734863,
+						0.9800000190734863,
+						1
+					],
+					"width": 1,
+					"cap": 0,
+					"join": 0,
+					"trim": 0,
+					"type": "colorStroke"
+				},
+				{
+					"name": "Color",
+					"parent": 11,
+					"opacity": 1,
+					"color": [
+						0.9285714030265808,
+						0.9285714030265808,
+						0.9285714030265808,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 11,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"bones": [],
+					"isVisible": true,
+					"isClosed": true,
+					"points": [
+						{
+							"pointType": 0,
+							"translation": [
+								-14.5,
+								-33
+							],
+							"radius": 3
+						},
+						{
+							"pointType": 0,
+							"translation": [
+								14.5,
+								-33
+							],
+							"radius": 3
+						},
+						{
+							"pointType": 0,
+							"translation": [
+								14.5,
+								33
+							],
+							"radius": 3
+						},
+						{
+							"pointType": 0,
+							"translation": [
+								-14.5,
+								33
+							],
+							"radius": 3
+						}
+					],
+					"type": "path"
+				},
+				{
+					"name": "Rectangle",
+					"translation": [
+						510,
+						659.5
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 17,
+					"drawOrder": 5,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 15,
+					"opacity": 1,
+					"color": [
+						1,
+						1,
+						1,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 15,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 1034,
+					"height": 485,
+					"cornerRadius": 0,
+					"type": "rectangle"
+				},
+				{
+					"name": "Rectangle",
+					"translation": [
+						277.89532470703125,
+						491.5897521972656
+					],
+					"rotation": 0,
+					"scale": [
+						1.0837212800979614,
+						0.8691850900650024
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 6,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 18,
+					"opacity": 1,
+					"color": [
+						0.4000000059604645,
+						0.4000000059604645,
+						0.4000000059604645,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 18,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 463,
+					"height": 56,
+					"cornerRadius": 20,
+					"type": "rectangle"
+				},
+				{
+					"name": "Rectangle",
+					"translation": [
+						210.04632568359375,
+						585.2457275390625
+					],
+					"rotation": 0,
+					"scale": [
+						0.8761623501777649,
+						1.179650902748108
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 7,
+					"type": "shape"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 21,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 412,
+					"height": 25,
+					"cornerRadius": 20,
+					"type": "rectangle"
+				},
+				{
+					"name": "Color",
+					"parent": 21,
+					"opacity": 1,
+					"color": [
+						0.4000000059604645,
+						0.4000000059604645,
+						0.4000000059604645,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle",
+					"translation": [
+						475.1279602050781,
+						736.6741943359375
+					],
+					"rotation": 0,
+					"scale": [
+						0.9197657108306885,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 8,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 24,
+					"opacity": 1,
+					"color": [
+						0.4000000059604645,
+						0.4000000059604645,
+						0.4000000059604645,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Rectangle Path",
+					"parent": 24,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 991,
+					"height": 176,
+					"cornerRadius": 20,
+					"type": "rectangle"
+				}
+			],
+			"animations": [
+				{
+					"name": "image_loading",
+					"fps": 60,
+					"duration": 0.5,
+					"isLooping": true,
+					"keyed": [
+						{
+							"component": 3,
+							"scaleX": [
+								[
+									{
+										"time": 0.18333333333333332,
+										"interpolatorType": 1,
+										"value": 1.200000667572021
+									},
+									{
+										"time": 0.2,
+										"interpolatorType": 1,
+										"value": 1.2
+									},
+									{
+										"time": 0.21666666666666667,
+										"interpolatorType": 1,
+										"value": 1.1700000047683716
+									},
+									{
+										"time": 0.23333333333333334,
+										"interpolatorType": 1,
+										"value": 1.13
+									},
+									{
+										"time": 0.26666666666666666,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"scaleY": [
+								[
+									{
+										"time": 0.18333333333333332,
+										"interpolatorType": 1,
+										"value": 1.4500000762939453
+									},
+									{
+										"time": 0.2,
+										"interpolatorType": 1,
+										"value": 1.5000000715255737
+									},
+									{
+										"time": 0.21666666666666667,
+										"interpolatorType": 1,
+										"value": 1.4000001192092897
+									},
+									{
+										"time": 0.23333333333333334,
+										"interpolatorType": 1,
+										"value": 1.3000000953674316
+									},
+									{
+										"time": 0.25,
+										"interpolatorType": 1,
+										"value": 1.2000000715255736
+									},
+									{
+										"time": 0.26666666666666666,
+										"interpolatorType": 1,
+										"value": 1.000000023841858
+									}
+								]
+							],
+							"posX": [
+								[
+									{
+										"time": 0.26666666666666666,
+										"interpolatorType": 1,
+										"value": 512
+									}
+								]
+							]
+						},
+						{
+							"component": 7,
+							"scaleX": [
+								[
+									{
+										"time": 0.3,
+										"interpolatorType": 1,
+										"value": 1.2
+									},
+									{
+										"time": 0.31666666666666665,
+										"interpolatorType": 1,
+										"value": 1.1700000047683716
+									},
+									{
+										"time": 0.3333333333333333,
+										"interpolatorType": 1,
+										"value": 1.13
+									},
+									{
+										"time": 0.35,
+										"interpolatorType": 1,
+										"value": 1.09
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"scaleY": [
+								[
+									{
+										"time": 0.3,
+										"interpolatorType": 1,
+										"value": 1.5
+									},
+									{
+										"time": 0.31666666666666665,
+										"interpolatorType": 1,
+										"value": 1.4
+									},
+									{
+										"time": 0.3333333333333333,
+										"interpolatorType": 1,
+										"value": 1.3
+									},
+									{
+										"time": 0.35,
+										"interpolatorType": 1,
+										"value": 1.2
+									},
+									{
+										"time": 0.36666666666666664,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"posX": [
+								[
+									{
+										"time": 0.35,
+										"interpolatorType": 1,
+										"value": 550.1716918945312
+									}
+								]
+							]
+						},
+						{
+							"component": 11,
+							"scaleX": [
+								[
+									{
+										"time": 0.08333333333333333,
+										"interpolatorType": 1,
+										"value": 1.2
+									},
+									{
+										"time": 0.1,
+										"interpolatorType": 1,
+										"value": 1.1700000047683716
+									},
+									{
+										"time": 0.11666666666666667,
+										"interpolatorType": 1,
+										"value": 1.13
+									},
+									{
+										"time": 0.15,
+										"interpolatorType": 1,
+										"value": 1.05
+									},
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							],
+							"scaleY": [
+								[
+									{
+										"time": 0.08333333333333333,
+										"interpolatorType": 1,
+										"value": 1.5000000715255737
+									},
+									{
+										"time": 0.1,
+										"interpolatorType": 1,
+										"value": 1.4000001192092897
+									},
+									{
+										"time": 0.11666666666666667,
+										"interpolatorType": 1,
+										"value": 1.3000000953674316
+									},
+									{
+										"time": 0.13333333333333333,
+										"interpolatorType": 1,
+										"value": 1.2000000715255736
+									},
+									{
+										"time": 0.15,
+										"interpolatorType": 1,
+										"value": 1.1000000476837157
+									},
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": 1.000000023841858
+									}
+								]
+							]
+						},
+						{
+							"component": 18
+						},
+						{
+							"component": 19,
+							"fillColor": [
+								[
+									{
+										"time": 0.03333333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.34761905670166016,
+											0.34761905670166016,
+											0.34761905670166016,
+											1
+										]
+									},
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": [
+											0.46666666865348816,
+											0.46433332562446594,
+											0.46433332562446594,
+											1
+										]
+									},
+									{
+										"time": 0.3,
+										"interpolatorType": 1,
+										"value": [
+											0.34761905670166016,
+											0.34761905670166016,
+											0.34761905670166016,
+											1
+										]
+									},
+									{
+										"time": 0.43333333333333335,
+										"interpolatorType": 1,
+										"value": [
+											0.46666666865348816,
+											0.46433332562446594,
+											0.46433332562446594,
+											1
+										]
+									}
+								]
+							]
+						},
+						{
+							"component": 21
+						},
+						{
+							"component": 23,
+							"fillColor": [
+								[
+									{
+										"time": 0.03333333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.34761905670166016,
+											0.34761905670166016,
+											0.34761905670166016,
+											1
+										]
+									},
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": [
+											0.46666666865348816,
+											0.46433332562446594,
+											0.46433332562446594,
+											1
+										]
+									},
+									{
+										"time": 0.3,
+										"interpolatorType": 1,
+										"value": [
+											0.34761905670166016,
+											0.34761905670166016,
+											0.34761905670166016,
+											1
+										]
+									},
+									{
+										"time": 0.43333333333333335,
+										"interpolatorType": 1,
+										"value": [
+											0.46666666865348816,
+											0.46433332562446594,
+											0.46433332562446594,
+											1
+										]
+									}
+								]
+							]
+						},
+						{
+							"component": 24
+						},
+						{
+							"component": 25,
+							"fillColor": [
+								[
+									{
+										"time": 0.03333333333333333,
+										"interpolatorType": 1,
+										"value": [
+											0.34761905670166016,
+											0.34761905670166016,
+											0.34761905670166016,
+											1
+										]
+									},
+									{
+										"time": 0.16666666666666666,
+										"interpolatorType": 1,
+										"value": [
+											0.46666666865348816,
+											0.46433332562446594,
+											0.46433332562446594,
+											1
+										]
+									},
+									{
+										"time": 0.3,
+										"interpolatorType": 1,
+										"value": [
+											0.34761905670166016,
+											0.34761905670166016,
+											0.34761905670166016,
+											1
+										]
+									},
+									{
+										"time": 0.43333333333333335,
+										"interpolatorType": 1,
+										"value": [
+											0.46666666865348816,
+											0.46433332562446594,
+											0.46433332562446594,
+											1
+										]
+									}
+								]
+							]
+						}
+					],
+					"animationStart": 0,
+					"animationEnd": 0.43333333333333335,
+					"type": "animation"
+				}
+			],
+			"type": "artboard"
+		}
+	]
+}

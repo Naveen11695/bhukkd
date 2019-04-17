@@ -23,10 +23,6 @@ class HorizontalScroll extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data != null) {
-            print("name of the rest: " +
-                snapshot.data.nearby_restaurants[0].name +
-                " Cuisines: " +
-                snapshot.data.nearby_restaurants[0].cuisines);
             return ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: snapshot.data.nearby_restaurants.length,
@@ -93,7 +89,9 @@ class HorizontalScroll extends StatelessWidget {
                                         .data.nearby_restaurants[index].name,
                                     textDirection: TextDirection.ltr,
                                     textAlign: TextAlign.center,
-                                    style: new TextStyle(shadows: [
+                                    style: new TextStyle(
+                                      fontFamily: "Raleway",
+                                      shadows: [
                                       Shadow(
                                           offset: Offset(0.3, 0.1),
                                           color: Colors.grey),
@@ -106,10 +104,7 @@ class HorizontalScroll extends StatelessWidget {
                                     textAlign: TextAlign.center,
                                     style: new TextStyle(
                                         fontSize: 10.0,
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .subtitle
-                                            .color),
+                                        color: Colors.black87),
                                   ),
                                 ],
                               ),

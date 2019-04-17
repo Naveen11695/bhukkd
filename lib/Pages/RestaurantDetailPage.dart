@@ -4,6 +4,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../models/GeoCodeInfo/GeoCode.dart';
 import '../api/HttpRequest.dart';
 import '../models/Restruant/Restruant.dart';
+import 'package:bhukkd/flarecode/flare_actor.dart';
 
 /**
  * Errors due to design fault
@@ -159,7 +160,11 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                 }
               } else {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return new CircularProgressIndicator();
+                  return FlareActor(
+                    "assets/animations/restaurant_details.flr",
+                    animation: "image_loading",
+                    fit: BoxFit.fill,
+                  );
                 }
               }
             },
