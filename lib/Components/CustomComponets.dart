@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 final opacity = Container(
-  color: Color.fromRGBO(249, 129, 42, 150),
+  color: Color.fromRGBO(249, 129, 42, 100),
 );
 
 final logo = Image.asset(
@@ -18,23 +18,30 @@ const TextStyle textStyle = TextStyle(
   fontFamily: 'Raleway',
 );
 
-final login_description = Text(
-  "Spot the right place to find your favorite food.",
-  textAlign: TextAlign.center,
-  style: new TextStyle(
-      fontSize: 20.0,
-      fontFamily: "Montserrat-Bold",
-      letterSpacing: 0.8,
-      wordSpacing: 0.0,
-      textBaseline: TextBaseline.ideographic,
-      color: Colors.white),
+final login_description = Container(
+  child: new Text(
+    "Spot the right place to find your favorite food.",
+    textAlign: TextAlign.center,
+    style: new TextStyle(
+        fontSize: 25.0,
+        fontFamily: "Montserrat-Bold",
+        letterSpacing: 0.8,
+        wordSpacing: 0.0,
+        fontWeight: FontWeight.bold,
+        textBaseline: TextBaseline.ideographic,
+        color: Colors.white),
+  ),
+  margin: const EdgeInsets.all(15.0),
+  padding: const EdgeInsets.all(3.0),
+  decoration:
+      new BoxDecoration(border: new Border.all(color: Colors.white)),
 );
 
 Widget semi_circlar_button(String label, Function onTap) {
   return Material(
-    color: Color.fromRGBO(249, 129, 42, 20),
+    color: Color.fromRGBO(0, 0, 0, 50),
     borderRadius: BorderRadius.circular(
-      30.0,
+      20.0,
     ),
     child: InkWell(
       onTap: onTap,
@@ -47,7 +54,7 @@ Widget semi_circlar_button(String label, Function onTap) {
             label,
             style: new TextStyle(
                 fontSize: 20.0,
-                fontFamily: "Montserrat-Bold",
+                fontFamily: "Montserrat",
                 // fontWeight: FontWeight.w700,
                 letterSpacing: 0.8,
                 wordSpacing: 0.0,
@@ -76,7 +83,10 @@ TextStyle Raleway = TextStyle(
   fontFamily: 'Raleway',
 );
 
-final login_background = Image.asset('assets/images/2.png', fit: BoxFit.fill,);
+final login_background = Image.asset(
+  'assets/images/2.png',
+  fit: BoxFit.fill,
+);
 
 final otp_background = Positioned(
   child: Image.asset('assets/images/food1.png', fit: BoxFit.fill),
@@ -121,7 +131,17 @@ final separator = Row(
   ],
 );
 
-
 final formatter = new NumberFormat("#,###");
-var randomPhotoList = ['2.png','3.jpeg','4.jpeg','5.jpg','6.jpg','7.jpeg','8.jpeg','9.jpeg','10.jpeg','food.png'];
+var randomPhotoList = [
+  '2.png',
+  '3.jpeg',
+  '4.jpeg',
+  '5.jpg',
+  '6.jpg',
+  '7.jpeg',
+  '8.jpeg',
+  '9.jpeg',
+  '10.jpeg',
+  'food.png'
+];
 final random = new Random();

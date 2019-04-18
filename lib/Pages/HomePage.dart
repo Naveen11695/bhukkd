@@ -1,7 +1,7 @@
 import 'package:bhukkd/Pages/ExplorePage.dart';
 import 'package:flutter/material.dart';
 import './TrendingPage.dart';
-import './LoginPage.dart';
+import 'package:bhukkd/Auth/LoginPage.dart';
 import './WagonPage.dart';
 
 class HomePage extends StatefulWidget {

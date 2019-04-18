@@ -32,6 +32,7 @@ dependencies:
 
   # Firebase dependencies
   firebase_auth: ^0.8.4
+  google_sign_in: ^4.0.0
 
 
   # Api- key 1:0bc8d74fdefd3601d84a0d52ffa01901
