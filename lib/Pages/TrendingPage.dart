@@ -21,6 +21,7 @@ import 'dart:async';
 import '../models/Locations/Locations.dart';
 import 'dart:convert';
 import '../models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
+import 'package:bhukkd/flarecode/flare_actor.dart';
 
 Future getEntityFromLocations(String nameOfTheLocation) async{
   getKey();
@@ -88,14 +89,12 @@ class TrendingPage extends StatefulWidget {
 
 //.......................................important........................................//
 
-
-
-var loc_address = "";
-
-void getLocationName() async{
+var loc_address;
+Future<String> getLocationName() async{
   var addresses;
   var first;
-  getCurrentPosition().then((Position pos) async{
+  var location_address;
+  location_address=await getCurrentPosition().then((Position pos) async{
     final coordinates = new Coordinates(pos.latitude,pos.longitude);
     addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
     first = addresses.first;
@@ -103,9 +102,12 @@ void getLocationName() async{
     print(temp);
     loc_address =  temp[1] + " " + temp[2] +", "+ temp[3];
     print(loc_address);
+    return loc_address;
      //loc_address = temp[temp.length-5] + temp[temp.length-4] + temp[temp.length-3]  + temp[temp.length-2] + "," + temp[temp.length-1];
     // print(loc_address);
   });
+  return location_address;
+
 }
 
 //.......................................important........................................//
@@ -125,10 +127,12 @@ class _TrendingPageState extends State<TrendingPage> {
   //     });
 
   Future<Null> refresh() async {
-     getCurrentPosition();
-    // getLocationName();
-    // fetchRestByGeoCode();
+    getLocationName();
     await Future.delayed(Duration(seconds: 5));
+    setState(() {
+      HorizontalScroll();
+      CustomHorizontalScroll(); 
+    });
     // setState(() {
     //   listBuilder = ListView.builder(
     //       scrollDirection: Axis.horizontal,
@@ -160,25 +164,48 @@ class _TrendingPageState extends State<TrendingPage> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.020,
                       ),
-                      new Text("   Your Location",
-                          style: new TextStyle(
-                            wordSpacing: 2.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "Montserrat",
-                            fontSize: 20,
-                          )),
+                      // new Text("   Your Location",
+                      //     style: new TextStyle(
+                      //       wordSpacing: 2.0,
+                      //       color: Colors.white,
+                      //       fontWeight: FontWeight.bold,
+                      //       fontFamily: "Montserrat",
+                      //       fontSize: 10,
+                      //     )),
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 0,0,0),
-                        child: new Text(
-                          loc_address,
-                          style: new TextStyle(
-                            color: Colors.white,
-                            fontFamily: "Montserrat-Bold",
-                            fontSize: 10,
-                            fontWeight: FontWeight.w100,
-                          ),
-                        ),
+                        padding: const EdgeInsets.fromLTRB(0, 0,0,0),
+                        child: FutureBuilder(
+                          future: getLocationName(),
+                          builder: (BuildContext context, AsyncSnapshot snapshot){
+                            if(snapshot.connectionState == ConnectionState.done){
+                              if(snapshot.data != null){
+                                return Align(
+                                alignment: FractionalOffset(0.1, 0.4),child:Column(children:<Widget>[
+                                  Text("Your Location",
+                                  style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontFamily: "Montserrat",)
+                                  ),
+                                  Text(snapshot.data.toString(),
+                                  style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white,
+                                  fontFamily: "Montserrat",)
+                                  ),
+                                  
+                                  ]));
+                              }
+                            }
+                            else if(snapshot.connectionState == ConnectionState.waiting){
+                              return Align(
+                                alignment: FractionalOffset(0.1, 0),
+                                child:ConstrainedBox(
+                                constraints: BoxConstraints.tight(new Size(35, 35)),
+                                child:CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),))); 
+                            }    
+                        },)
                       ),
                     ],
                   ),
@@ -215,7 +242,6 @@ class _TrendingPageState extends State<TrendingPage> {
                         style: new TextStyle(
                           fontSize: 20.0,
                           fontFamily: "Montserrat-Bold",
-                          // fontWeight: FontWeight.w700,
                           letterSpacing: 0.8,
                           wordSpacing: 0.0,
                         ),

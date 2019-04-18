@@ -46,7 +46,6 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                       SliverAppBar(
                         expandedHeight: 200,
                         pinned: true,
-                        // title: Text(snapshot.data.restruant_Name),
                         flexibleSpace: FlexibleSpaceBar(
                           collapseMode: CollapseMode.parallax,
                           title: new Text(
@@ -96,6 +95,19 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                                       fontSize: 16.0,
                                     ),
                                   ),
+                                  Container(width: MediaQuery.of(context).size.width * 0.6,),
+                                  DecoratedBox(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(5),
+                                      child:Text("3.5", style: TextStyle(
+                                      color: Colors.white
+                                    ))),
+                                    decoration: BoxDecoration(
+                                    color: Colors.deepOrange,
+                                    borderRadius: BorderRadius.circular(2),
+                                    shape: BoxShape.rectangle,
+                              
+                            ),)
                                 ],
                               )),
                           Padding(
@@ -248,6 +260,37 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                                       return CircularProgressIndicator();
                                     }
                                   }),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Text(
+                              "Details",
+                              style: TextStyle(
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24.0,
+                                  letterSpacing: 1),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Row(
+                              children: <Widget>[
+                                Column(children:[
+                                Text(
+                                  "Address",
+                                  style: TextStyle(
+                                    fontFamily: "Roboto",
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 16.0,
+                                    )
+                              ),
+                              Text(snapshot.data.restruant_Location.address)
+                              ])],
                             ),
                           )
                         ]),
