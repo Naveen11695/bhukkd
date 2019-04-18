@@ -1,3 +1,4 @@
+import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/flarecode/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -81,7 +82,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                       SliverList(
                         delegate: SliverChildListDelegate([
                           SizedBox(
-                            height: 20,
+                            height: 5,
                           ),
                           Padding(
                               padding: EdgeInsets.only(left: 10, bottom: 5),
@@ -95,12 +96,14 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                                       fontSize: 16.0,
                                     ),
                                   ),
-                                  Container(width: MediaQuery.of(context).size.width * 0.6,),
+                                  Container(width: MediaQuery.of(context).size.width * 0.7,),
                                   DecoratedBox(
                                     child: Padding(
-                                      padding: EdgeInsets.all(5),
+                                      padding: EdgeInsets.all(10),
                                       child:Text("3.5", style: TextStyle(
-                                      color: Colors.white
+                                      color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25,
                                     ))),
                                     decoration: BoxDecoration(
                                     color: Colors.deepOrange,
@@ -127,7 +130,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                             padding: const EdgeInsets.only(left: 10.0),
                             child: Row(children: [
                               Text(
-                                "Average Cost for 2",
+                                "Average Cost for Two",
                                 style: TextStyle(
                                   fontFamily: "Roboto",
                                   fontWeight: FontWeight.normal,
@@ -138,8 +141,8 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                                 padding: const EdgeInsets.only(left:8.0),
                                 child: Text(
                                   "₹" +
-                                      snapshot.data.restruant_Avg_cost_for_two
-                                          .toString(),textDirection: TextDirection.rtl,
+                                      ((snapshot.data.restruant_Avg_cost_for_two <999)? snapshot.data.restruant_Avg_cost_for_two.toString():formatter.format(snapshot.data.restruant_Avg_cost_for_two))
+                                      ,textDirection: TextDirection.rtl,
                                   style: TextStyle(color: Colors.deepOrange, fontFamily: "Roboto", fontSize:15.0),
                                 ),
                               )

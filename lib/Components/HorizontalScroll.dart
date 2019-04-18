@@ -7,15 +7,6 @@ import '../api/HttpRequest.dart';
 import 'package:bhukkd/flarecode/flare_actor.dart';
 
 class HorizontalScroll extends StatelessWidget {
-  // int index;
-  // // final List nearby_restaurants;
-  // // final List cuisines;
-  // // final List thumb;
-  // // final List restaurant_menu;
-  // // final List photo_Links;
-  // HorizontalScroll(this.index);
-
-  // HorizontalScroll();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -42,8 +33,7 @@ class HorizontalScroll extends StatelessWidget {
                                       RestaurantDetailPage(
                                         productid: snapshot
                                             .data.nearby_restaurants[index].id,
-                                      )
-                                  /*RestaurantDetailPage(productid:index, nearByrestaurants:nearby_restaurants, cuisines:cuisines, thumb:thumb, restaurant_menu: restaurant_menu,restaurant_photos: photo_Links,)*/));
+                                      )));
                         },
                         child: new Container(
                           child: Card(

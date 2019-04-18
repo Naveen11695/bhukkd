@@ -1,3 +1,4 @@
+import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/flarecode/flare_actor.dart';
 import 'package:flutter/material.dart';
 import '../Pages/TrendingPage.dart';
@@ -8,7 +9,6 @@ class CustomHorizontalScroll extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         color: Colors.grey,
-        //padding: EdgeInsets.only(top: 2, left: 2, bottom: 2, right: 2),
         height: 150,
         child: FutureBuilder(
           future: getEntityFromLocations(loc_address),
@@ -24,8 +24,7 @@ class CustomHorizontalScroll extends StatelessWidget {
                       child: new Material(
                         elevation: 10.0,
                         child: Container(
-                          margin: EdgeInsets.only(
-                              left: 10, top: 5, bottom: 5),
+                          margin: EdgeInsets.only(left: 10, top: 5, bottom: 5),
                           height: 100,
                           width: 330,
                           child: Padding(
@@ -72,16 +71,11 @@ class CustomHorizontalScroll extends StatelessWidget {
                                     ),
                                     new Row(
                                       children: <Widget>[
-                                        Icon(Icons.star,
-                                            color: Colors.deepOrange),
-                                        Icon(Icons.star,
-                                            color: Colors.deepOrange),
-                                        Icon(Icons.star,
-                                            color: Colors.deepOrange),
-                                        Icon(Icons.star,
-                                            color: Colors.deepOrange),
-                                        Icon(Icons.star,
-                                            color: Colors.deepOrange),
+                                        Icon(Icons.star, color: Colors.deepOrange),
+                                        Icon(Icons.star, color: Colors.deepOrange),
+                                        Icon(Icons.star, color: Colors.orange),
+                                        Icon(Icons.star, color: Colors.orange),
+                                        Icon(Icons.star, color: Colors.black12),
                                       ],
                                     ),
                                     new SizedBox(
@@ -106,9 +100,13 @@ class CustomHorizontalScroll extends StatelessWidget {
                         ),
                       ),
                       onTap: () {
-                        /* Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context){
-                        return new RestaurantDetailPage(nearByrestaurants: [], cuisines: [], productid: snapshot.data[index].id, restaurant_menu: [], restaurant_photos: [], thumb: snapshot.data[index].thumb,);
-                      }));*/
+                        Navigator.push(
+                            context,
+                            HorizontalTransition(
+                                builder: (BuildContext context) =>
+                                    RestaurantDetailPage(
+                                      productid: snapshot.data[index].id,
+                                    )));
                       },
                     );
                   },
