@@ -1,6 +1,5 @@
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:flutter/material.dart';
-import '../Pages/Details.dart';
 import '../Components/CustomComponets.dart';
 import '../Pages/LocationServicePage.dart';
 class otp extends StatefulWidget {

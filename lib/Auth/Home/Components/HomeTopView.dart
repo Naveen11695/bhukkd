@@ -6,11 +6,14 @@ class ImageBackground extends StatelessWidget {
   final DecorationImage profileImage;
   final Animation<double> containerGrowAnimation;
   final String email;
-  ImageBackground(
-      {this.backgroundImage,
-      this.containerGrowAnimation,
-      this.profileImage,
-      this.email,});
+
+  ImageBackground({
+    this.backgroundImage,
+    this.containerGrowAnimation,
+    this.profileImage,
+    this.email,
+  });
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
@@ -29,38 +32,48 @@ class ImageBackground extends StatelessWidget {
             begin: const FractionalOffset(0.0, 0.0),
             end: const FractionalOffset(0.0, 1.0),
           )),
-          child:new Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              InkWell(
+                onTap: () {
+                  print("Profile pic");
+                },
+                splashColor: Colors.white24,
+                highlightColor: Colors.white10,
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  child: new ProfileNotification(
+                    containerGrowAnimation: containerGrowAnimation,
+                    profileImage: profileImage,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: Row(
                   children: <Widget>[
-                    new ProfileNotification(
-                      containerGrowAnimation: containerGrowAnimation,
-                      profileImage: profileImage,
+                    new Text(
+                      "Good Morning! ",
+                      style: new TextStyle(
+                          fontSize: 30.0,
+                          letterSpacing: 1.2,
+                          fontWeight: FontWeight.w100,
+                          color: Colors.white),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left:15.0),
-                      child: Row(
-                        children: <Widget>[
-                          new Text(
-                            "Good Morning! ",
-                            style: new TextStyle(
-                                fontSize: 30.0,
-                                letterSpacing: 1.2,
-                                fontWeight: FontWeight.w100,
-                                color: Colors.white),
-                          ),
-                          new Text(
-                            email.split('@')[0].toUpperCase(),
-                            style: new TextStyle(
-                                fontSize: 30.0,
-                                letterSpacing: 1.2,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ),
-                        ],
-                      ),
+                    new Text(
+                      email.split('@')[0].toUpperCase(),
+                      style: new TextStyle(
+                          fontSize: 30.0,
+                          letterSpacing: 1.2,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     ),
                   ],
                 ),
+              ),
+            ],
+          ),
         )));
   }
 }

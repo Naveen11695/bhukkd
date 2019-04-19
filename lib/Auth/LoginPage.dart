@@ -156,8 +156,8 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
     ]);
     timeDilation = 0.3;
     screenSize = MediaQuery.of(context).size;
-    return Container(
-      child: FutureBuilder(
+    return Scaffold(
+      body: FutureBuilder(
           future: _auth.currentUser(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
@@ -167,53 +167,58 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                 print("................" + snapshot.data.email.toString());
 
                 return Container(
-                      child: Builder(builder: (BuildContext context) {
-                        return ListView(
+                  child: Builder(builder: (BuildContext context) {
+                    return ListView(
+                      children: <Widget>[
+                        new Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                              new Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  new ImageBackground(
-                                    backgroundImage: backgroundImage,
-                                    containerGrowAnimation: containerGrowAnimation,
-                                    profileImage: profileImage,
-                                    email:snapshot.data.email.toString(),
-                                  ),
-                                  new ListViewContent(
-                                    listSlideAnimation: listSlideAnimation,
-                                    listSlidePosition: listSlidePosition,
-                                    listTileWidth: listTileWidth,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(20.0),
-                                    child: semi_circlar_button(
-                                      'Sign out',
-                                          () async {
-                                        final FirebaseUser user =
+                            new ImageBackground(
+                              backgroundImage: backgroundImage,
+                              containerGrowAnimation: containerGrowAnimation,
+                              profileImage: profileImage,
+                              email: snapshot.data.email.toString(),
+                            ),
+                            new ListViewContent(
+                              listSlideAnimation: listSlideAnimation,
+                              listSlidePosition: listSlidePosition,
+                              listTileWidth: listTileWidth,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Material(
+                                color: Color.fromRGBO(0, 0, 0, 50),
+                                borderRadius: BorderRadius.circular(
+                                  20.0,
+                                ),
+                                child: semi_circlar_button(
+                                  'Sign out',
+                                  () async {
+                                    final FirebaseUser user =
                                         await _auth.currentUser();
-                                        if (user == null) {
-                                          Scaffold.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content: const Text(
-                                                'No one has signed in.'),
-                                          ));
-                                          return;
-                                        }
-                                        _signOut();
-                                        final String uid = user.email;
-                                        Scaffold.of(context)
-                                            .showSnackBar(SnackBar(
-                                          content: Text(uid +
-                                              ' has successfully signed out.'),
-                                        ));
-                                      },
-                                    ),
-                                  ),
-                                ],
-                        ),
+                                    if (user == null) {
+                                      Scaffold.of(context)
+                                          .showSnackBar(SnackBar(
+                                        content:
+                                            const Text('No one has signed in.'),
+                                      ));
+                                      return;
+                                    }
+                                    _signOut();
+                                    final String uid = user.email;
+                                    Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text(uid +
+                                          ' has successfully signed out.'),
+                                    ));
+                                  },
+                                ),
+                              ),
+                            ),
                           ],
-                        );
-                      }),
+                        ),
+                      ],
+                    );
+                  }),
                 );
                 //.........................................//Home Start//......................................................//
 

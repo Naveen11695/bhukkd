@@ -16,8 +16,8 @@ class ProfileNotification extends StatelessWidget {
                 child: new Center(
                   child: new Text("2",
                       style: new TextStyle(
-                          fontSize: containerGrowAnimation.value * 15,
-                          fontWeight: FontWeight.w400,
+                          fontSize: containerGrowAnimation.value * 20,
+                          fontWeight: FontWeight.bold,
                           color: Colors.deepOrange)),
                 ),
                 decoration: new BoxDecoration(
