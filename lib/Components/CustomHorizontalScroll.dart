@@ -11,7 +11,7 @@ class CustomHorizontalScroll extends StatelessWidget {
         color: Colors.grey,
         height: 150,
         child: FutureBuilder(
-          future: getEntityFromLocations(loc_address),
+          future: getEntityFromLocations(addressCity),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
@@ -26,7 +26,7 @@ class CustomHorizontalScroll extends StatelessWidget {
                         child: Container(
                           margin: EdgeInsets.only(left: 10, top: 5, bottom: 5),
                           height: 100,
-                          width: 330,
+                          width: MediaQuery.of(context).size.width * 0.8,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Row(
@@ -42,7 +42,7 @@ class CustomHorizontalScroll extends StatelessWidget {
                                                   null ||
                                               snapshot.data[index].thumb == ""
                                           ? AssetImage(
-                                              "assets/images/pizza.jpg")
+                                              "assets/images/default.jpg")
                                           : NetworkImage(
                                               snapshot.data[index].thumb),
                                       fit: BoxFit.cover,
@@ -71,8 +71,10 @@ class CustomHorizontalScroll extends StatelessWidget {
                                     ),
                                     new Row(
                                       children: <Widget>[
-                                        Icon(Icons.star, color: Colors.deepOrange),
-                                        Icon(Icons.star, color: Colors.deepOrange),
+                                        Icon(Icons.star,
+                                            color: Colors.deepOrange),
+                                        Icon(Icons.star,
+                                            color: Colors.deepOrange),
                                         Icon(Icons.star, color: Colors.orange),
                                         Icon(Icons.star, color: Colors.orange),
                                         Icon(Icons.star, color: Colors.black12),
@@ -133,8 +135,8 @@ class CustomHorizontalScroll extends StatelessWidget {
                   });
             } else {
               return Container(
-                height: 0,
-                width: 0,
+                height: 10,
+                width: 10,
               );
             }
           },

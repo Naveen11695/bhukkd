@@ -99,6 +99,8 @@ flutter:
   - assets/api/config.json
   - assets/images/Breakfast.png
   - assets/images/5.jpg
+  - assets/images/default.jpg
+  - assets/images/default-avatar.png
   - assets/images/
 
 

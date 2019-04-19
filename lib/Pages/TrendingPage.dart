@@ -1,4 +1,5 @@
 // flutter
+import 'package:bhukkd/Components/CircularBorder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -98,6 +99,7 @@ class TrendingPage extends StatefulWidget {
 //.......................................important........................................//
 
 var loc_address;
+var addressCity;
 
 Future<String> getLocationName() async {
   var addresses;
@@ -109,8 +111,10 @@ Future<String> getLocationName() async {
     first = addresses.first;
     var temp = first.addressLine.split(",");
     print(temp);
-    loc_address = temp[1] + " " + temp[2] + ", " + temp[3];
+    loc_address = temp[1] + " " + temp[2] + ", " + temp[3] + temp[4] + temp [5];
     print(loc_address);
+    addressCity = temp[5];
+    print(addressCity);
     return loc_address;
     //loc_address = temp[temp.length-5] + temp[temp.length-4] + temp[temp.length-3]  + temp[temp.length-2] + "," + temp[temp.length-1];
     // print(loc_address);
@@ -127,28 +131,15 @@ class _TrendingPageState extends State<TrendingPage> {
     refresh();
   }
 
-  ListView listBuilder; //= ListView.builder(
-  //     scrollDirection: Axis.horizontal,
-  //     itemCount: nearByrestaurants.length,
-  //     itemBuilder: (BuildContext context, index) {
-  //       return HorizontalScroll(index);
-  //     });
+  ListView listBuilder;
 
   Future<Null> refresh() async {
     getLocationName();
-    await Future.delayed(Duration(seconds: 5));
+    await Future.delayed(Duration(seconds: 2));
     setState(() {
       HorizontalScroll();
       CustomHorizontalScroll();
     });
-    // setState(() {
-    //   listBuilder = ListView.builder(
-    //       scrollDirection: Axis.horizontal,
-    //       itemCount: nearByrestaurants.length,
-    //       itemBuilder: (BuildContext context, index) {
-    //         return HorizontalScroll();
-    //       });
-    // });
     return null;
   }
 
@@ -190,18 +181,18 @@ class _TrendingPageState extends State<TrendingPage> {
                                     ConnectionState.done) {
                                   if (snapshot.data != null) {
                                     return Align(
-                                        alignment: FractionalOffset(0.1, 0.4),
+                                        alignment: FractionalOffset(0.1, 1),
                                         child: Column(children: <Widget>[
                                           Text("Your Location",
                                               style: TextStyle(
-                                                fontSize: 12,
+                                                fontSize: 13,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white,
                                                 fontFamily: "Montserrat",
                                               )),
                                           Text(snapshot.data.toString(),
                                               style: TextStyle(
-                                                fontSize: 14,
+                                                fontSize: 15,
                                                 color: Colors.white,
                                                 fontFamily: "Montserrat",
                                               )),
@@ -235,13 +226,13 @@ class _TrendingPageState extends State<TrendingPage> {
                     ),
                     backgroundColor: Color.fromRGBO(249, 129, 42, 1),
                     leading: Padding(
-                      padding: const EdgeInsets.fromLTRB(40, 10, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
                       child: new Icon(
                         Icons.location_on,
                         semanticLabel: "Your Location",
                         textDirection: TextDirection.ltr,
                         color: Colors.white,
-                        size: 30,
+                        size: 45,
                       ),
                     ),
                     titleSpacing: 0.4,

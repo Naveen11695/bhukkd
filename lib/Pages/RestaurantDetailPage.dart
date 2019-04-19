@@ -71,7 +71,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                               height: 300,
                               fadeInDuration: const Duration(seconds: 1),
                               placeholder:
-                                  AssetImage("assets/images/pizza.jpg"),
+                                  AssetImage("assets/images/default.jpg"),
                               fit: BoxFit.cover,
                               fadeOutDuration: const Duration(seconds: 1),
                               fadeInCurve: Curves.fastOutSlowIn,

@@ -29,7 +29,7 @@ class CustomCardState extends State<CustomCard> {
               children: <Widget>[
                 Expanded(
                   child: new Image.asset(
-                    "assets/images/food.png",
+                    "assets/images/default.jpg",
                     fit: BoxFit.fitWidth,
                     height: 140,
                     width: 50,
