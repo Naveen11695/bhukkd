@@ -19,7 +19,7 @@ class ListData extends StatelessWidget {
           top: new BorderSide(
               width: 1.0, color: const Color.fromRGBO(204, 204, 204, 0.3)),
           bottom: new BorderSide(
-              width: 1.0, color: const Color.fromRGBO(204, 204, 204, 0.3)),
+              width: 5.0, color: const Color.fromRGBO(204, 204, 204, 0.3)),
         ),
       ),
       child: new Row(
@@ -30,23 +30,23 @@ class ListData extends StatelessWidget {
               width: 60.0,
               height: 60.0,
               decoration:
-                  new BoxDecoration(shape: BoxShape.circle, image: image)),
+                  new BoxDecoration(shape: BoxShape.rectangle, image: image)),
           new Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               new Text(
                 title,
                 style:
-                    new TextStyle(fontSize: 18.0, fontWeight: FontWeight.w400),
+                    new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
               new Padding(
-                padding: new EdgeInsets.only(top: 5.0),
+                padding: new EdgeInsets.only(top: 10.0),
                 child: new Text(
                   subtitle,
                   style: new TextStyle(
                       color: Colors.grey,
                       fontSize: 14.0,
-                      fontWeight: FontWeight.w300),
+                      fontWeight: FontWeight.w700),
                 ),
               )
             ],

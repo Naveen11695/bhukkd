@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './TrendingPage.dart';
 import 'package:bhukkd/Auth/LoginPage.dart';
 import './WagonPage.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -51,17 +52,17 @@ class _HomePage extends State<HomePage> {
                 color: bottomNavColor
               ),),),
           BottomNavigationBarItem(
-              icon: Icon(Icons.search, color:bottomNavColor),
+              icon: Icon(FontAwesomeIcons.periscope, color:bottomNavColor),
               title: new Text("Explore",textAlign: TextAlign.center,style: new TextStyle(
                 color: bottomNavColor
               ),),),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart, color:bottomNavColor),
-              title: new Text("Wagon",textAlign: TextAlign.center,style: new TextStyle(
+              icon: Icon(FontAwesomeIcons.chair, color:bottomNavColor),
+              title: new Text("Bookings",textAlign: TextAlign.center,style: new TextStyle(
                 color: bottomNavColor
               ),),),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person, color: bottomNavColor),
+            icon: Icon(FontAwesomeIcons.userCircle, color: bottomNavColor),
             title: new Text("Account", textAlign: TextAlign.center,style: new TextStyle(
                 color: bottomNavColor
               ),),

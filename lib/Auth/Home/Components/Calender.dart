@@ -34,7 +34,7 @@ class Calender extends StatelessWidget {
         color: Colors.white,
         border: new Border(
           bottom: new BorderSide(
-              width: 1.0, color: const Color.fromRGBO(204, 204, 204, 1.0)),
+              width: 5.0, color: Colors.deepOrange),
         ),
       ),
       child: new Row(

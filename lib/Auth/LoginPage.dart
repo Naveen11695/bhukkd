@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bhukkd/Auth/GoogleSignIn.dart';
+import 'package:bhukkd/Auth/Home/Components/Calender.dart';
 import 'package:bhukkd/Auth/Home/Components/HomeTopView.dart';
 import 'package:bhukkd/Auth/Home/Components/ListViewContainer.dart';
-import 'package:bhukkd/Auth/Home/Screens/Home/index.dart';
 import 'package:bhukkd/Auth/Home/Screens/Home/styles.dart';
 import 'package:bhukkd/Auth/register_page.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
@@ -166,50 +166,54 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
 
                 print("................" + snapshot.data.email.toString());
 
-                return Scaffold(
-                  resizeToAvoidBottomPadding: false,
-                  body: Stack(fit: StackFit.expand, children: <Widget>[
-                    ListView(
-                      children: <Widget>[
-                        Builder(builder: (BuildContext context) {
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              willPopScope,
-                              Container(
-                                color: Colors.white,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: semi_circlar_button(
-                                    'Sign out',
-                                    () async {
-                                      final FirebaseUser user =
-                                          await _auth.currentUser();
-                                      if (user == null) {
+                return Container(
+                      child: Builder(builder: (BuildContext context) {
+                        return ListView(
+                          children: <Widget>[
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  new ImageBackground(
+                                    backgroundImage: backgroundImage,
+                                    containerGrowAnimation: containerGrowAnimation,
+                                    profileImage: profileImage,
+                                    email:snapshot.data.email.toString(),
+                                  ),
+                                  new ListViewContent(
+                                    listSlideAnimation: listSlideAnimation,
+                                    listSlidePosition: listSlidePosition,
+                                    listTileWidth: listTileWidth,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: semi_circlar_button(
+                                      'Sign out',
+                                          () async {
+                                        final FirebaseUser user =
+                                        await _auth.currentUser();
+                                        if (user == null) {
+                                          Scaffold.of(context)
+                                              .showSnackBar(SnackBar(
+                                            content: const Text(
+                                                'No one has signed in.'),
+                                          ));
+                                          return;
+                                        }
+                                        _signOut();
+                                        final String uid = user.email;
                                         Scaffold.of(context)
                                             .showSnackBar(SnackBar(
-                                          content: const Text(
-                                              'No one has signed in.'),
+                                          content: Text(uid +
+                                              ' has successfully signed out.'),
                                         ));
-                                        return;
-                                      }
-                                      _signOut();
-                                      final String uid = user.email;
-                                      Scaffold.of(context)
-                                          .showSnackBar(SnackBar(
-                                        content: Text(uid +
-                                            ' has successfully signed out.'),
-                                      ));
-                                    },
+                                      },
+                                    ),
                                   ),
-                                ),
-                              )
-                            ],
-                          );
-                        })
-                      ],
-                    ),
-                  ]),
+                                ],
+                        ),
+                          ],
+                        );
+                      }),
                 );
                 //.........................................//Home Start//......................................................//
 

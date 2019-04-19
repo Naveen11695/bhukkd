@@ -14,32 +14,39 @@ class ListViewContent extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return (new Stack(
+    return Stack(
       alignment: listSlideAnimation.value,
       children: <Widget>[
-        new Calender(margin: listSlidePosition.value * 6.5),
-        new ListData(
-            margin: listSlidePosition.value * 5.5,
-            width: listTileWidth.value,
-            title: "Yoga classes with Emily",
-            subtitle: "7 - 8am Workout",
-            image: avatar6),
+        new Calender(margin: listSlidePosition.value * 5.5),
+        Column(children: <Widget>[
+          new ListData(
+              width: listTileWidth.value,
+              title: "My Account",
+              subtitle: "Change your email/password or delete your account.",
+              image: user),
+          new ListData(
+              width: listTileWidth.value,
+              title: "Privacy",
+              subtitle: "Hide your profile from search engines",
+              image: privacy),
+          new ListData(
+              width: listTileWidth.value,
+              title: "Manage Payment Options",
+              subtitle: "Address, Favourites, Refrerrals & Offers",
+              image: paymentOption),
+          new ListData(
+              width: listTileWidth.value,
+              title: "Your Bookings",
+              subtitle: "Past booking history",
+              image: bookings),
+          new ListData(
+              width: listTileWidth.value,
+              title: "Help",
+              subtitle: "FAQ & Link",
+              image: help),
+        ],),
       ],
-    ));
+    );
   }
 }
 
-//For large set of data
-
-//import '../Screens/Home/data.dart';
-// DataListBuilder dataListBuilder = new DataListBuilder();
-// var i = dataListBuilder.rowItemList.length + 0.5;
-// children: dataListBuilder.rowItemList.map((RowBoxData rowBoxData) {
-//   return new ListData(
-//     title: rowBoxData.title,
-//     subtitle: rowBoxData.subtitle,
-//     image: rowBoxData.image,
-//     width: listTileWidth.value,
-//     margin: listSlidePosition.value * (--i).toDouble(),
-//   );
-// }).toList(),

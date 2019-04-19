@@ -14,6 +14,10 @@ class DataListBuilder {
       title: "Yoga classes with Emily",
       subtitle: "7 - 8am Workout",
       image: avatar6);
+  RowBoxData row3 = new RowBoxData(
+      title: "Yoga classes with Emily",
+      subtitle: "7 - 8am Workout",
+      image: avatar6);
   RowBoxData row8 = new RowBoxData(
       title: "Yoga classes with Emily",
       subtitle: "7 - 8am Workout",
@@ -21,6 +25,7 @@ class DataListBuilder {
 
   DataListBuilder() {
     rowItemList.add(row2);
+    rowItemList.add(row3);
     rowItemList.add(row8);
   }
 }

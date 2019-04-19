@@ -5,18 +5,18 @@ class ImageBackground extends StatelessWidget {
   final DecorationImage backgroundImage;
   final DecorationImage profileImage;
   final Animation<double> containerGrowAnimation;
+  final String email;
   ImageBackground(
       {this.backgroundImage,
       this.containerGrowAnimation,
-      this.profileImage,});
+      this.profileImage,
+      this.email,});
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    final Orientation orientation = MediaQuery.of(context).orientation;
-    bool isLandscape = orientation == Orientation.landscape;
     return (new Container(
         width: screenSize.width,
-        height: screenSize.height / 2.5,
+        height: screenSize.height / 3.5,
         decoration: new BoxDecoration(image: backgroundImage),
         child: new Container(
           decoration: new BoxDecoration(
@@ -29,43 +29,35 @@ class ImageBackground extends StatelessWidget {
             begin: const FractionalOffset(0.0, 0.0),
             end: const FractionalOffset(0.0, 1.0),
           )),
-          child: isLandscape
-              ? new ListView(
-                  children: <Widget>[
-                    new Flex(
-                      direction: Axis.vertical,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        new Text(
-                          "Good Morning!",
-                          style: new TextStyle(
-                              fontSize: 30.0,
-                              letterSpacing: 1.2,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white),
-                        ),
-                        new ProfileNotification(
-                          containerGrowAnimation: containerGrowAnimation,
-                          profileImage: profileImage,
-                        ),
-                      ],
-                    )
-                  ],
-                )
-              : new Column(
+          child:new Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    new Text(
-                      "Good Morning!",
-                      style: new TextStyle(
-                          fontSize: 30.0,
-                          letterSpacing: 1.2,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.white),
-                    ),
                     new ProfileNotification(
                       containerGrowAnimation: containerGrowAnimation,
                       profileImage: profileImage,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left:15.0),
+                      child: Row(
+                        children: <Widget>[
+                          new Text(
+                            "Good Morning! ",
+                            style: new TextStyle(
+                                fontSize: 30.0,
+                                letterSpacing: 1.2,
+                                fontWeight: FontWeight.w100,
+                                color: Colors.white),
+                          ),
+                          new Text(
+                            email.split('@')[0].toUpperCase(),
+                            style: new TextStyle(
+                                fontSize: 30.0,
+                                letterSpacing: 1.2,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),

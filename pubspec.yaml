@@ -29,6 +29,7 @@ dependencies:
   date_format: "^1.0.4"
   url_launcher: "^3.0.1"
   intl: ">=0.14.0"
+  font_awesome_flutter: ^8.4.0
 
   # Firebase dependencies
   firebase_auth: ^0.8.4
@@ -100,7 +101,12 @@ flutter:
   - assets/images/Breakfast.png
   - assets/images/5.jpg
   - assets/images/default.jpg
-  - assets/images/default-avatar.png
+  - assets/images/default-avatar.jpg
+  - assets/images/icons/user.png
+  - assets/images/icons/bookings.png
+  - assets/images/icons/help.png
+  - assets/images/icons/payment_option.png
+  - assets/images/icons/privacy.png
   - assets/images/
 
 
