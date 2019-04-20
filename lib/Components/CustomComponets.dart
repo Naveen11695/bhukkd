@@ -144,4 +144,20 @@ var randomPhotoList = [
   '10.jpeg',
   'food.png'
 ];
+
+var catagoriesPhotoList = [
+  'delivery.png',
+  'dine_out.png',
+  'night_life.png',
+  'catching_up.png',
+  'takeaway.png',
+  'cafe.png',
+  'daily_menu.png',
+  'breakfast.png',
+  'lunch.png',
+  'dinner.png',
+  'pubs_bars.png',
+  'friendly_delivery.png',
+  'club_lounges.png',
+];
 final random = new Random();

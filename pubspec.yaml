@@ -107,6 +107,19 @@ flutter:
   - assets/images/icons/help.png
   - assets/images/icons/payment_option.png
   - assets/images/icons/privacy.png
+  - assets/images/icons/delivery.png
+  - assets/images/icons/dine_out.png
+  - assets/images/icons/night_life.png
+  - assets/images/icons/catching_up.png
+  - assets/images/icons/takeaway.png
+  - assets/images/icons/cafe.png
+  - assets/images/icons/daily_menu.png
+  - assets/images/icons/breakfast.png
+  - assets/images/icons/lunch.png
+  - assets/images/icons/dinner.png
+  - assets/images/icons/pubs_bars.png
+  - assets/images/icons/friendly_delivery.png
+  - assets/images/icons/club_lounges.png
   - assets/images/
 
 

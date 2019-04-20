@@ -439,10 +439,7 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
               }
             } else {
               print("no connection");
-              return Container(
-                height: 0,
-                width: 0,
-              );
+              return Center(child: CircularProgressIndicator());
             }
           }),
     );
