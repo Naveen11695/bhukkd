@@ -228,7 +228,7 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                 //.........................................//LoginForm Start//......................................................//
 
                 return Scaffold(
-                  resizeToAvoidBottomPadding: false,
+                  //resizeToAvoidBottomPadding: false,
                   body: Stack(
                     fit: StackFit.expand,
                     children: <Widget>[
@@ -379,51 +379,43 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                               padding: const EdgeInsets.all(8.0),
                               child: new Row(
                                 children: <Widget>[
-                                  new Stack(
-                                    children: <Widget>[
-                                      new Row(
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: const EdgeInsets.all(25.0),
-                                            child: new OutlineButton(
-                                              child: new Text(
-                                                'Sign in With Google',
-                                                style: textStyle.copyWith(
-                                                    fontSize: 15.0,
-                                                    color: Colors.white),
-                                              ),
-                                              borderSide: BorderSide(
-                                                  color: Colors.white),
-                                              onPressed: () async {
-                                                print(
-                                                    "Login button with Google fetching data from server....");
-                                                signInWithGoogle();
-                                              },
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(15.0),
-                                            child: new OutlineButton(
-                                              child: new Text(
-                                                'Sign in With Phone',
-                                                style: textStyle.copyWith(
-                                                    fontSize: 15.0),
-                                              ),
-                                              borderSide: BorderSide(
-                                                  color: Colors.white),
-                                              onPressed: () {
-                                                Route route =
-                                                    HorizontalTransition(
-                                                        builder: (BuildContext
-                                                                context) =>
-                                                            new otpPage());
-                                                Navigator.push(context, route);
-                                              },
-                                            ),
-                                          ),
-                                        ],
+                                  Padding(
+                                    padding: const EdgeInsets.all(25.0),
+                                    child: new OutlineButton(
+                                      child: new Text(
+                                        'Sign in With Google',
+                                        style: textStyle.copyWith(
+                                            fontSize: 15.0,
+                                            color: Colors.white),
                                       ),
-                                    ],
+                                      borderSide: BorderSide(
+                                          color: Colors.white),
+                                      onPressed: () async {
+                                        print(
+                                            "Login button with Google fetching data from server....");
+                                        signInWithGoogle();
+                                      },
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(25.0),
+                                    child: new OutlineButton(
+                                      child: new Text(
+                                        'Sign in With Phone',
+                                        style: textStyle.copyWith(
+                                            fontSize: 15.0),
+                                      ),
+                                      borderSide: BorderSide(
+                                          color: Colors.white),
+                                      onPressed: () {
+                                        Route route =
+                                            HorizontalTransition(
+                                                builder: (BuildContext
+                                                        context) =>
+                                                    new otpPage());
+                                        Navigator.push(context, route);
+                                      },
+                                    ),
                                   ),
                                 ],
                               ),

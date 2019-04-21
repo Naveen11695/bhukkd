@@ -71,7 +71,10 @@ class _ExplorePage extends State<ExplorePage> {
                                         BorderRadius.all(Radius.circular(20)),
                                     child: InkWell(
                                         onTap: () {
-                                          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=> CategoriesPage(id:snapshot.data.categoriesId[index])));
+                                          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=> CategoriesPage(id:snapshot.data.categoriesId[index],
+                                          name:snapshot.data.categoriesName[index],
+                                          photo:catagoriesPhotoList[index]
+                                          )));
                                         },
                                         child: Hero(
                                           transitionOnUserGestures: true,
@@ -105,11 +108,11 @@ class _ExplorePage extends State<ExplorePage> {
                   );
                 } else {
                   print("nope");
-                  return Center(child: CircularProgressIndicator());
+                  return Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.deepOrange)));
                 }
               } else {
                 print("no connection");
-                return Center(child: CircularProgressIndicator());
+                return Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.deepOrange)));
               }
             }),
       ),

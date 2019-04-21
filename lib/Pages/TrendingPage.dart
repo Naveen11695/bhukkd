@@ -304,6 +304,15 @@ class _TrendingPageState extends State<TrendingPage> {
                           ),
                         ),
                       ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.92,
+                        height: 500,
+                        child: Column(
+                          children: <Widget>[
+                          
+                          ],
+                        ),
+                      )
                     ]),
                   ),
                 ],

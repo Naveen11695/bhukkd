@@ -138,7 +138,7 @@ class Restaurant extends Model{
     }
 
 
-    void print_res() {
+   /* void print_res() {
 
         print(".......................Restruant.......................");
             print("restruant_Name: " + this.restruant_Name);
@@ -155,6 +155,6 @@ class Restaurant extends Model{
             print("restruant_Is_table_reservation_supported: " + this.restruant_Is_table_reservation_supported.toString());
             print("restruant_Cuisines: " + this.restruant_Cuisines);
         print(".......................Restruant.......................");
-    }
+    }*/
 
 }
