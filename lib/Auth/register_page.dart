@@ -35,51 +35,6 @@ class RegisterPageState extends State<RegisterPage> {
     _passwordVisible = false;
   }
 
-  void _register(BuildContext _context) async {
-    _formKey.currentState.save();
-    try {
-      print("Email: " + _emailController.text.trim());
-      print("password: " + _passwordController.text.trim());
-      final FirebaseUser user = await _auth.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
-      if (user != null) {
-        setState(() {
-          _success = true;
-          _userEmail = user.email;
-        });
-      } else {
-        _success = false;
-      }
-    } catch (e) {
-      setState(() {
-        var _handleError = e.code;
-        print(e.toString());
-        switch (e.code) {
-          case "ERROR_USER_NOT_FOUND":
-            handleError =
-            "Email Id doesn't exist. Please check the email address.";
-            break;
-          case "ERROR_WRONG_PASSWORD":
-            handleError =
-            "Password incorrect. Please check the password again.";
-            break;
-          case "ERROR_INVALID_EMAIL":
-            handleError = "The E-mail Address must be a valid email address.";
-            break;
-          case "ERROR_EMAIL_ALREADY_IN_USE":
-            handleError =
-            "The email address is already in use by another account.";
-            break;
-        }
-        var snackBar = SnackBar(content: Text("hhh"));
-        Scaffold.of(_context).showSnackBar(snackBar);
-      });
-    }
-  }
-
-
   @override
   Widget build(BuildContext context) {
    SystemChrome.setPreferredOrientations([
@@ -88,6 +43,7 @@ class RegisterPageState extends State<RegisterPage> {
     ]);
     return Scaffold(
       resizeToAvoidBottomPadding: false,
+      key: scaffoldKey,
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -251,4 +207,55 @@ class RegisterPageState extends State<RegisterPage> {
     _passwordController.dispose();
     super.dispose();
   }
+
+
+
+  void _register(BuildContext _context) async {
+    _formKey.currentState.save();
+    try {
+      print("Email: " + _emailController.text.trim());
+      print("password: " + _passwordController.text.trim());
+      final FirebaseUser user = await _auth.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      if (user != null) {
+        setState(() {
+          _success = true;
+          _userEmail = user.email;
+          print("registered successfully");
+          Navigator.pop(context);
+        });
+      } else {
+        _success = false;
+      }
+    } catch (e) {
+      setState(() {
+        var _handleError = e.code;
+        print(e.toString());
+        switch (e.code) {
+          case "ERROR_USER_NOT_FOUND":
+            handleError =
+            "Email Id doesn't exist. Please check the email address.";
+            break;
+          case "ERROR_WRONG_PASSWORD":
+            handleError =
+            "Password incorrect. Please check the password again.";
+            break;
+          case "ERROR_INVALID_EMAIL":
+            handleError = "The E-mail Address must be a valid email address.";
+            break;
+          case "ERROR_EMAIL_ALREADY_IN_USE":
+            handleError =
+            "The email address is already in use by another account.";
+            break;
+        }
+        var snackBar = SnackBar(content: Text(handleError));
+        scaffoldKey.currentState.showSnackBar(snackBar);
+      });
+    }
+  }
+
+
+
 }

@@ -62,15 +62,17 @@ class NearByRestaurants{
 
     if (loc != null) {
       // printing the location of the restraunts
-      print("-----------Location of the NearByRest------------");
+    /*  print("-----------Location of the NearByRest------------");
       print(loc);
-      print("-----------End------------");
+      print("-----------End------------");*/
       l = location.fromJson(loc);
     }else{
-      print("error in location in NearByrest:$l");
+/*      print("error in location in NearByrest:$l");*/
     }
 
+/*
     print("restaurants:"+json['restaurants'].toString());
+*/
 
     // error in zomatoEvents
 
@@ -83,12 +85,12 @@ class NearByRestaurants{
 
     if(user_rate!=null){
       // printing the user rating
-      print("-----------User Rating------------");
+    /*  print("-----------User Rating------------");
       print(user_rate);
-      print("-----------End--------------------");
+      print("-----------End--------------------");*/
       rate =UserRating.fromJson(user_rate);
     }else{
-      print("error in userRating in NearByrest:$rate");
+  /*    print("error in userRating in NearByrest:$rate");*/
     }
 
     return NearByRestaurants(

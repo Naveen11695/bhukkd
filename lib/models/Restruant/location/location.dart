@@ -12,7 +12,7 @@ class location {
   location({this.address, this.locality, this.city, this.latitude,
     this.longitude, this.zipcode, this.country_id, this.locality_verbose});
 
-  void  location_print() {
+  /*void  location_print() {
     print(".......................location.......................");
         print("address: "+ address);
         print("locality: "+ locality);
@@ -23,7 +23,7 @@ class location {
         print("country_id: "+ country_id.toString());
         print("locality_verbose: "+locality_verbose);
     print(".......................location.......................");
-  }
+  }*/
 
   factory location.fromJson(Map<String, dynamic> parsedJson){
     return location(

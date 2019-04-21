@@ -97,7 +97,7 @@ final explore_background = Container(
   decoration: BoxDecoration(color: Colors.black),
 );
 final background = new Positioned(
-  child: Image.asset('assets/images/chowmien.png', fit: BoxFit.scaleDown),
+  child: Image.asset('assets/images/default.jpg', fit: BoxFit.scaleDown),
   left: 170,
   top: 30,
 );

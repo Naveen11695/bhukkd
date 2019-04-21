@@ -50,21 +50,21 @@ class ImageBackground extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 15.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: <Widget>[
                     new Text(
                       "Good Morning! ",
                       style: new TextStyle(
-                          fontSize: 30.0,
+                          fontSize: 20.0,
                           letterSpacing: 1.2,
-                          fontWeight: FontWeight.w100,
+                          fontWeight: FontWeight.w300,
                           color: Colors.white),
                     ),
                     new Text(
                       email.split('@')[0].toUpperCase(),
                       style: new TextStyle(
-                          fontSize: 30.0,
+                          fontSize: 25.0,
                           letterSpacing: 1.2,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),

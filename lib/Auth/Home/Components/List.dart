@@ -9,6 +9,7 @@ class ListData extends StatelessWidget {
   ListData({this.margin, this.subtitle, this.title, this.width, this.image});
   @override
   Widget build(BuildContext context) {
+    double c_width = MediaQuery.of(context).size.width * 0.5;
     return (new Container(
       alignment: Alignment.center,
       margin: margin,
@@ -31,25 +32,28 @@ class ListData extends StatelessWidget {
               height: 60.0,
               decoration:
                   new BoxDecoration(shape: BoxShape.rectangle, image: image)),
-          new Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              new Text(
-                title,
-                style:
-                    new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-              ),
-              new Padding(
-                padding: new EdgeInsets.only(top: 10.0),
-                child: new Text(
-                  subtitle,
-                  style: new TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w700),
+          new Container(
+            width: c_width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                new Text(
+                  title,
+                  style:
+                      new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
                 ),
-              )
-            ],
+                new Padding(
+                  padding: new EdgeInsets.only(top: 10.0),
+                  child: new Text(
+                    subtitle,
+                    style: new TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w700),
+                  ),
+                ),
+              ],
+            ),
           )
         ],
       ),

@@ -36,7 +36,7 @@ class ListViewContent extends StatelessWidget {
                         width: listTileWidth.value,
                         title: "My Account",
                         subtitle:
-                            "Change your email/password or delete your account.",
+                            "Address, email, password or delete your account.",
                         image: user),
                   )),
               InkWell(

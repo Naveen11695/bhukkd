@@ -31,8 +31,8 @@ Future getEntityFromLocations(String nameOfTheLocation) async {
       "https://developers.zomato.com/api/v2.1/locations?query=$nameOfTheLocation";
   final response = await http.get(Uri.encodeFull(url),
       headers: {"Accept": "application/json", "user-key": api_key});
-  print(
-      "----------Location entity--------------------------------------------------------------------");
+/*  print(
+      "----------Location entity--------------------------------------------------------------------");*/
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonParsed = json.decode(response.body);
     List<dynamic> data = jsonParsed["location_suggestions"];
@@ -51,24 +51,24 @@ Future getEntityFromLocations(String nameOfTheLocation) async {
 
     return getTopRestaurants(loc.entity_id.toString(), loc.entity_type);
   } else {
-    print(
-        "----------PROBLEM--------------------------------------------------------------------------");
+/*    print(
+        "----------PROBLEM--------------------------------------------------------------------------");*/
   }
-  print(
-      "---------------------------------------------------------------------------------------------");
+ /* print(
+      "---------------------------------------------------------------------------------------------");*/
 }
 
 Future getTopRestaurants(String entity_id, String entity_type) async {
   getKey();
-  print("entity id: " + entity_id);
-  print("entity type: " + entity_type);
+ /* print("entity id: " + entity_id);
+  print("entity type: " + entity_type);*/
   String url =
       "https://developers.zomato.com/api/v2.1/location_details?entity_id=$entity_id&entity_type=$entity_type";
   final response = await http.get(Uri.encodeFull(url),
       headers: {"Accept": "application/json", "user-key": api_key});
   if (response.statusCode == 200) {
-    print(
-        "----------------------top restaurant data according to the location----------------");
+    /*print(
+        "----------------------top restaurant data according to the location----------------");*/
     //print(response.body);
     Map<String, dynamic> jsonParsed = json.decode(response.body);
     List<dynamic> bestRestaurants = jsonParsed['best_rated_restaurant'];
@@ -80,12 +80,12 @@ Future getTopRestaurants(String entity_id, String entity_type) async {
     for (var i in bestRest) {
       print(i.name);
     }
-    print(
-        "--------------------------------------------------------------------------------------");
+/*    print(
+        "--------------------------------------------------------------------------------------");*/
     return bestRest;
   } else {
-    print(
-        "------------------------------------------------error------------------------------");
+  /*  print(
+        "------------------------------------------------error------------------------------");*/
   }
 }
 
@@ -110,11 +110,9 @@ Future<String> getLocationName() async {
     addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
     first = addresses.first;
     var temp = first.addressLine.split(",");
-    print(temp);
     loc_address = temp[1] + " " + temp[2] + ", " + temp[3] + temp[4] + temp [5];
-    print(loc_address);
     addressCity = temp[5];
-    print(addressCity);
+ /*   print(addressCity);*/
     return loc_address;
     //loc_address = temp[temp.length-5] + temp[temp.length-4] + temp[temp.length-3]  + temp[temp.length-2] + "," + temp[temp.length-1];
     // print(loc_address);

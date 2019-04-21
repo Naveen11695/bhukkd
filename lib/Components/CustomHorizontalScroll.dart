@@ -15,6 +15,7 @@ class CustomHorizontalScroll extends StatelessWidget {
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
+
                 return ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,

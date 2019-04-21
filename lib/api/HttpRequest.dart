@@ -161,11 +161,11 @@ Future fetchPhotos(String url) async {
   //photos
   List<dynamic> photoLinks = photos.querySelectorAll(
       'div.photos_container_load_more>div.photobox>a.res-info-thumbs>img');
-  print("-----------extra photo info links-----------");
+/*  print("-----------extra photo info links-----------");
   for (var link in thumbLinks) {
     print(link.attributes['href']);
   }
-  print("----------Photo links------------");
+  print("----------Photo links------------");*/
   List<String> restarauntPhotos = new List<String>();
   for (var photoLink in photoLinks) {
     restarauntPhotos.add(photoLink.attributes['data-original']
@@ -180,7 +180,7 @@ Future fetchMenu(String url) async {
   Response response = await client.get(url);
   var menu = parse(response.body);
   List<dynamic> menuLink = menu.querySelectorAll('div#menu-image>img');
-  print("----------Menu Image-------------");
+ /* print("----------Menu Image-------------");*/
   var restaurant_menu=[];
   for (var link in menuLink) {
     restaurant_menu.add(link.attributes['src']);

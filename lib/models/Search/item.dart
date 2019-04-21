@@ -74,45 +74,48 @@ class RestaurantData extends StatelessWidget {
                     children: <Widget>[
                       new Container(
                         width: c_width,
-                        child: new Column(
-                          children: <Widget>[
-                            new Text(
-                              repo.name,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontFamily: "Montserrat",
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            new Text(
-                              repo.near_by_restaurants_location["locality_verbose"],
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left:20.0),
+                          child: new Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              new Text(
+                                repo.name,
+                                style: TextStyle(
                                   fontFamily: "Montserrat",
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top:8.0),
-                              child: new Text(
-                                repo.cuisines,
-                                textAlign: TextAlign.center,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              new Text(
+                                repo.near_by_restaurants_location["locality_verbose"],
                                 style: TextStyle(
                                     fontFamily: "Montserrat",
-                                    fontSize: 12,
+                                    fontSize: 10,
                                     fontWeight: FontWeight.w300),
                               ),
-                            ),
-                            new Text(
-                              " ₹ " + ((repo.average_cost_for_two <999)? repo.average_cost_for_two.toString():formatter.format(repo.average_cost_for_two))+ " for two person (approx.)",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontFamily: "Montserrat",
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w300),
-                            ),
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.only(top:8.0),
+                                child: new Text(
+                                  repo.cuisines,
+                                  style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top:5.0),
+                                child: new Text(
+                                  " ₹ " + ((repo.average_cost_for_two <999)? repo.average_cost_for_two.toString():formatter.format(repo.average_cost_for_two))+ " for two person (approx.)",
+                                  style: TextStyle(
+                                      fontFamily: "Montserrat",
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w300),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
 

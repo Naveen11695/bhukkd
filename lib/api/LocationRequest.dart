@@ -12,7 +12,7 @@ Future<Position> getCurrentPosition() async {
       await geolocator.checkGeolocationPermissionStatus();
   position = await Geolocator()
       .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-  print("Current Location : " + position.toString());
+ /* print("Current Location : " + position.toString());*/
   SharedPreferences preferences = await SharedPreferences.getInstance();
   preferences.setStringList("Current_location", [
     position.latitude.toString(),
