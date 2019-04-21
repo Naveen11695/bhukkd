@@ -43,7 +43,7 @@ class _ExplorePage extends State<ExplorePage> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
-                  print(snapshot.data.categoriesId);
+                  /*print(snapshot.data.categoriesId);*/
                   return CustomScrollView(
                     slivers: <Widget>[
                       new SliverAppBar(
@@ -169,7 +169,7 @@ Future<Categories> requestCatagories(requestUrl) async {
     "user-key": api_key,
   });
   if (response.statusCode == 200) {
-      print(response.body);
+     /* print(response.body);*/
       Categories categories = parseCategories(response.body);
 
     return categories;
@@ -183,7 +183,6 @@ Future<Categories> requestCatagories(requestUrl) async {
 
 Categories parseCategories(String responseBody) {
   final parsed = json.decode(responseBody);
-  print("...........");
   Categories categories = Categories.fromJson(parsed);
   return categories;
 }

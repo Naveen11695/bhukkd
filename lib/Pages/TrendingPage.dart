@@ -36,7 +36,7 @@ Future getEntityFromLocations(String nameOfTheLocation) async {
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonParsed = json.decode(response.body);
     List<dynamic> data = jsonParsed["location_suggestions"];
-    print(data[0]);
+    /*print(data[0]);*/
     Map<String, dynamic> location_suggestion_data = data[0];
     Locations loc = new Locations(
         entity_type: location_suggestion_data["entity_type"],
@@ -77,9 +77,9 @@ Future getTopRestaurants(String entity_id, String entity_type) async {
       NearByRestaurants res = NearByRestaurants.fromJson(r);
       bestRest.add(res);
     }
-    for (var i in bestRest) {
+   /* for (var i in bestRest) {
       print(i.name);
-    }
+    }*/
 /*    print(
         "--------------------------------------------------------------------------------------");*/
     return bestRest;
