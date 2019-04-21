@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'dart:async';
 import '../models/Restruant/Restruant.dart';
 import '../models/GeoCodeInfo/GeoCode.dart';
+import '../models/Catagories/Catagories.dart';
 
 String api_key = "";
 Restaurant restruant;
@@ -23,17 +24,6 @@ Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
   return rootBundle
       .loadString(assetsPath)
       .then((jsonStr) => jsonDecode(jsonStr));
-}
-
-void requestCategories(requestUrl) async {
-  getKey();
-  final response = await http
-      .get(Uri.encodeFull(requestUrl), headers: {"user-key": api_key});
-  if (response.statusCode == 200) {
-    print(response.body);
-  } else {
-    print(response.statusCode);
-  }
 }
 
 Future<GeoCode> requestGeoCode(requestUrl, latitude, longitude) async {

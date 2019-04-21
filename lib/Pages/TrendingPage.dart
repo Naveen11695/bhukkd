@@ -1,4 +1,3 @@
-// flutter
 import 'package:bhukkd/Components/CircularBorder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -9,7 +8,6 @@ import 'package:progress_indicators/progress_indicators.dart';
 import '../Components/HorizontalScroll.dart';
 import '../api/HttpRequest.dart';
 import '../Components/CustomHorizontalScroll.dart';
-import '../Components/CategoriesComponent.dart';
 import 'package:http/http.dart' as http;
 import '../models/SharedPreferance/SharedPreference.dart';
 import '../api/LocationRequest.dart';
@@ -99,7 +97,7 @@ class TrendingPage extends StatefulWidget {
 //.......................................important........................................//
 
 var loc_address;
-var addressCity;
+var locality;
 
 Future<String> getLocationName() async {
   var addresses;
@@ -113,8 +111,8 @@ Future<String> getLocationName() async {
     print(temp);
     loc_address = temp[1] + " " + temp[2] + ", " + temp[3] + temp[4] + temp [5];
     print(loc_address);
-    addressCity = temp[5];
-    print(addressCity);
+    locality = temp[3];
+    print(locality);
     return loc_address;
     //loc_address = temp[temp.length-5] + temp[temp.length-4] + temp[temp.length-3]  + temp[temp.length-2] + "," + temp[temp.length-1];
     // print(loc_address);
@@ -135,7 +133,7 @@ class _TrendingPageState extends State<TrendingPage> {
 
   Future<Null> refresh() async {
     getLocationName();
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 5));
     setState(() {
       HorizontalScroll();
       CustomHorizontalScroll();
@@ -295,7 +293,7 @@ class _TrendingPageState extends State<TrendingPage> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                         child: new Text(
-                          "Categories",
+                          "Recommended",
                           textAlign: TextAlign.start,
                           style: new TextStyle(
                             fontSize: 20.0,
@@ -306,10 +304,6 @@ class _TrendingPageState extends State<TrendingPage> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(15),
-                        child: CategoriesComponent(),
-                      )
                     ]),
                   ),
                 ],

@@ -11,7 +11,7 @@ class CustomHorizontalScroll extends StatelessWidget {
         color: Colors.grey,
         height: 150,
         child: FutureBuilder(
-          future: getEntityFromLocations(addressCity),
+          future: getEntityFromLocations(locality),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {

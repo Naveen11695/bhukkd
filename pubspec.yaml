@@ -78,6 +78,9 @@ flutter:
     - family: Montserrat
       fonts:
         - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf   
+    - family: Pacifico
+      fonts:
+        - asset: assets/fonts/Pacifico/Pacifico-Regular.ttf   
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -98,7 +101,6 @@ flutter:
   - assets/animations/sushi/
   - assets/images/food.png
   - assets/api/config.json
-  - assets/images/Breakfast.png
   - assets/images/5.jpg
   - assets/images/default.jpg
   - assets/images/default-avatar.jpg
