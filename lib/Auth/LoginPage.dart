@@ -2,10 +2,13 @@ import 'dart:async';
 
 import 'package:bhukkd/Auth/GoogleSignIn.dart';
 import 'package:bhukkd/Auth/Home/Components/Calender.dart';
+import 'package:bhukkd/Auth/Home/Components/FadeContainer.dart';
 import 'package:bhukkd/Auth/Home/Components/HomeTopView.dart';
 import 'package:bhukkd/Auth/Home/Components/ListViewContainer.dart';
+import 'package:bhukkd/Auth/Home/Screens/Home/homeAnimation.dart';
 import 'package:bhukkd/Auth/Home/Screens/Home/styles.dart';
 import 'package:bhukkd/Auth/register_page.dart';
+import 'package:bhukkd/Components/AddButton.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +25,7 @@ class LoginPage extends StatefulWidget {
 }
 
 Animation<double> containerGrowAnimation;
-AnimationController screenController;
+AnimationController _screenController;
 AnimationController _buttonController;
 Animation<double> buttonGrowAnimation;
 Animation<double> listTileWidth;
@@ -48,33 +51,53 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
   String _userEmail;
   var snackBar;
   var handleError = "";
+  Animation<double> buttonGrowAnimation;
+
+  Widget buttonLoading = Container(
+    child: Text(
+      "Sign In",
+      style: new TextStyle(
+          fontSize: 20.0,
+          fontFamily: "Montserrat",
+// fontWeight: FontWeight.w700,
+          letterSpacing: 0.8,
+          wordSpacing: 0.0,
+          textBaseline: TextBaseline.ideographic,
+          color: Colors.white),
+    ),
+  );
 
   @override
   void initState() {
     _passwordVisible = false;
     super.initState();
 
-    screenController = new AnimationController(
+    _screenController = new AnimationController(
         duration: new Duration(milliseconds: 2000), vsync: this);
     _buttonController = new AnimationController(
         duration: new Duration(milliseconds: 1500), vsync: this);
+
+    buttonGrowAnimation = new CurvedAnimation(
+      parent: _screenController,
+      curve: Curves.easeOut,
+    );
 
     fadeScreenAnimation = new ColorTween(
       begin: const Color.fromRGBO(247, 64, 106, 1.0),
       end: const Color.fromRGBO(247, 64, 106, 0.0),
     ).animate(
       new CurvedAnimation(
-        parent: screenController,
+        parent: _screenController,
         curve: Curves.ease,
       ),
     );
     containerGrowAnimation = new CurvedAnimation(
-      parent: screenController,
+      parent: _screenController,
       curve: Curves.easeIn,
     );
 
     buttonGrowAnimation = new CurvedAnimation(
-      parent: screenController,
+      parent: _screenController,
       curve: Curves.easeOut,
     );
     containerGrowAnimation.addListener(() {
@@ -87,7 +110,7 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
       end: 600.0,
     ).animate(
       new CurvedAnimation(
-        parent: screenController,
+        parent: _screenController,
         curve: new Interval(
           0.225,
           0.600,
@@ -101,7 +124,7 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
       end: Alignment.bottomCenter,
     ).animate(
       new CurvedAnimation(
-        parent: screenController,
+        parent: _screenController,
         curve: new Interval(
           0.325,
           0.700,
@@ -114,7 +137,7 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
       end: Alignment.bottomRight,
     ).animate(
       new CurvedAnimation(
-        parent: screenController,
+        parent: _screenController,
         curve: new Interval(
           0.225,
           0.600,
@@ -127,7 +150,7 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
       end: const EdgeInsets.only(bottom: 80.0),
     ).animate(
       new CurvedAnimation(
-        parent: screenController,
+        parent: _screenController,
         curve: new Interval(
           0.325,
           0.800,
@@ -135,15 +158,21 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
         ),
       ),
     );
-    screenController.forward();
+    _screenController.forward();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    screenController.dispose();
+    _screenController.dispose();
     _buttonController.dispose();
+  }
+
+  Future<Null> _playAnimation() async {
+    try {
+      await _buttonController.forward();
+    } on TickerCanceled {}
   }
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -194,6 +223,7 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                                 child: semi_circlar_button(
                                   'Sign out',
                                   () async {
+                                    buttonLoading = buttonSignin;
                                     final FirebaseUser user =
                                         await _auth.currentUser();
                                     if (user == null) {
@@ -344,17 +374,36 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                                           ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.fromLTRB(
-                                              20, 20, 20, 10),
-                                          child: semi_circlar_button('Sign In',
-                                              () async {
-                                            final form = formKey.currentState;
-                                            if (form.validate()) {
-                                              form.save();
-                                              _signInWithEmailAndPassword();
-                                            }
-                                          }),
-                                        ),
+                                            padding: const EdgeInsets.fromLTRB(
+                                                20, 20, 20, 10),
+                                            child: Material(
+                                              color:
+                                                  Color.fromRGBO(0, 0, 0, 50),
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                20.0,
+                                              ),
+                                              child: InkWell(
+                                                onTap: () async {
+                                                  setState(() {
+                                                    buttonLoading=buttonLoading2;
+                                                  });
+                                                  final form =
+                                                      formKey.currentState;
+                                                  if (form.validate()) {
+                                                    form.save();
+                                                    _signInWithEmailAndPassword();
+                                                  }
+                                                },
+                                                splashColor: Colors.white24,
+                                                highlightColor: Colors.white10,
+                                                child: Container(
+                                                  padding: EdgeInsets.symmetric(horizontal:150.0, vertical: 10.0),
+                                                  child: buttonLoading,
+                                                ),
+                                              ),
+                                            )
+                                            ),
                                         Padding(
                                           padding: const EdgeInsets.fromLTRB(
                                               20, 5, 20, 20),
@@ -388,8 +437,8 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                                             fontSize: 15.0,
                                             color: Colors.white),
                                       ),
-                                      borderSide: BorderSide(
-                                          color: Colors.white),
+                                      borderSide:
+                                          BorderSide(color: Colors.white),
                                       onPressed: () async {
                                         print(
                                             "Login button with Google fetching data from server....");
@@ -402,17 +451,15 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                                     child: new OutlineButton(
                                       child: new Text(
                                         'Sign in With Phone',
-                                        style: textStyle.copyWith(
-                                            fontSize: 15.0),
+                                        style:
+                                            textStyle.copyWith(fontSize: 15.0),
                                       ),
-                                      borderSide: BorderSide(
-                                          color: Colors.white),
+                                      borderSide:
+                                          BorderSide(color: Colors.white),
                                       onPressed: () {
-                                        Route route =
-                                            HorizontalTransition(
-                                                builder: (BuildContext
-                                                        context) =>
-                                                    new otpPage());
+                                        Route route = HorizontalTransition(
+                                            builder: (BuildContext context) =>
+                                                new otpPage());
                                         Navigator.push(context, route);
                                       },
                                     ),
@@ -431,7 +478,7 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
               }
             } else {
               print("no connection");
-              return Center(child: CircularProgressIndicator());
+              return Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.deepOrange)));
             }
           }),
     );
