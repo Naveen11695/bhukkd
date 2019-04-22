@@ -109,9 +109,14 @@ Future<Placemark> getLocationName() async {
   Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   Geolocator geolocator = Geolocator()..forceAndroidLocationManager = true;
   GeolocationStatus geolocationStatus  = await geolocator.checkGeolocationPermissionStatus();
-  List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(28.7041, 77.1025);
-  print(placemark[0].subLocality);
-  return placemark[0];
+  if(geolocationStatus == GeolocationStatus.granted){
+    List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(position.latitude, position.longitude);
+    print(placemark[0].subLocality);
+    return placemark[0];
+  }
+  else{
+   print("Location denied ");
+  }
 }
 
 //.......................................important........................................//
