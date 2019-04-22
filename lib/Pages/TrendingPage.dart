@@ -15,16 +15,20 @@ import '../models/Restruant/Restruant.dart';
 import 'package:html/parser.dart';
 import '../models/GeoCodeInfo/GeoCode.dart';
 import "package:geolocator/geolocator.dart";
-import 'package:loading_card/loading_card.dart';
-import 'package:geocoder/geocoder.dart';
 import 'dart:async';
 import '../models/Locations/Locations.dart';
 import 'dart:convert';
 import '../models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:bhukkd/flarecode/flare_actor.dart';
 
-Future getEntityFromLocations(String nameOfTheLocation) async {
+Future getEntityFromLocations() async {
+  //print("eeeeeeeeee"+nameOfTheLocation);
+  var nameOfTheLocation;
+  await getLocationName().then((loc){
+    nameOfTheLocation = loc.subLocality;
+  });
   getKey();
+
   String url =
       "https://developers.zomato.com/api/v2.1/locations?query=$nameOfTheLocation";
   final response = await http.get(Uri.encodeFull(url),
@@ -96,33 +100,25 @@ class TrendingPage extends StatefulWidget {
 
 //.......................................important........................................//
 
-var loc_address;
-var locality;
 
-Future<String> getLocationName() async {
+
+Future<Placemark> getLocationName() async {
   var addresses;
   var first;
-  var location_address;
-  location_address = await getCurrentPosition().then((Position pos) async {
-    final coordinates = new Coordinates(pos.latitude, pos.longitude);
-    addresses = await Geocoder.local.findAddressesFromCoordinates(coordinates);
-    first = addresses.first;
-    var temp = first.addressLine.split(",");
-    print(temp);
-    loc_address = temp[1] + " " + temp[2] + ", " + temp[3] + temp[4] + temp [5];
-    print(loc_address);
-    locality = temp[3];
-    print(locality);
-    return loc_address;
-    //loc_address = temp[temp.length-5] + temp[temp.length-4] + temp[temp.length-3]  + temp[temp.length-2] + "," + temp[temp.length-1];
-    // print(loc_address);
-  });
-  return location_address;
+  var locality;
+  Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  Geolocator geolocator = Geolocator()..forceAndroidLocationManager = true;
+  GeolocationStatus geolocationStatus  = await geolocator.checkGeolocationPermissionStatus();
+  List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(28.7041, 77.1025);
+  print(placemark[0].subLocality);
+  return placemark[0];
 }
 
 //.......................................important........................................//
 
 class _TrendingPageState extends State<TrendingPage> {
+  String address;
+
   @override
   void initState() {
     super.initState();
@@ -130,13 +126,20 @@ class _TrendingPageState extends State<TrendingPage> {
   }
 
   ListView listBuilder;
+  String _locality;
 
   Future<Null> refresh() async {
-    getLocationName();
-    await Future.delayed(Duration(seconds: 5));
+
+    getLocationName().then((locality){
+      address = locality.subLocality  + " " + locality.subAdministrativeArea + ", " + locality.locality +" " + locality.postalCode ;
+    });
+    CustomHorizontalScroll();
+
+    await Future.delayed(Duration(seconds: 1));
+
+    HorizontalScroll();
     setState(() {
-      HorizontalScroll();
-      CustomHorizontalScroll();
+
     });
     return null;
   }
@@ -188,7 +191,7 @@ class _TrendingPageState extends State<TrendingPage> {
                                                 color: Colors.white,
                                                 fontFamily: "Montserrat",
                                               )),
-                                          Text(snapshot.data.toString(),
+                                          Text(address,
                                               style: TextStyle(
                                                 fontSize: 15,
                                                 color: Colors.white,

@@ -17,15 +17,14 @@ dependencies:
   flutter:
     sdk: flutter
   http: any
-  geolocator: '^3.0.1'
-  geocoder: ^0.1.2
+  geolocator: '^4.0.0'
+#  geocoder: ^0.1.2
   scoped_model: ^1.0.1
   shared_preferences: any
   html: any
   sqflite: any
   path_provider: ^0.4.1
   async_loader: ^0.1.2
-  loading_card: ^0.0.5
   date_format: "^1.0.4"
   url_launcher: "^3.0.1"
   intl: ">=0.14.0"

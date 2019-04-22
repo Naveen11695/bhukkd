@@ -5,17 +5,17 @@ import '../Pages/TrendingPage.dart';
 import '../Pages/RestaurantDetailPage.dart';
 
 class CustomHorizontalScroll extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Container(
         color: Colors.grey,
         height: 150,
         child: FutureBuilder(
-          future: getEntityFromLocations(locality),
+          future: getEntityFromLocations(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
-
                 return ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
