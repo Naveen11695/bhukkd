@@ -9,7 +9,6 @@ TrendingPage trendingPage;
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: Colors.grey,
         height: 150,
         child: FutureBuilder(
           future: getEntityFromLocations(),
