@@ -3,7 +3,6 @@ import 'dart:async';
 import 'dart:convert';
 import '../api/HttpRequest.dart';
 import '../models/Search/SearchRestaurant.dart';
-
 import 'package:http/http.dart' as http;
 
 class CategoriesPage extends StatefulWidget {
@@ -17,16 +16,73 @@ class CategoriesPage extends StatefulWidget {
 
 String getSortingValue() {}
 
+List<dynamic> copydata = [];
+
 class CategoriesPageState extends State<CategoriesPage> {
+  ScrollController _controller= new ScrollController();
+  bool isInitializingRequest = false;
+  List<dynamic> rests=[];
+
+  @override
+  void initState() {
+    super.initState();
+    callit();
+    _controller.addListener(() async{
+      if(_controller.position.pixels == _controller.position.maxScrollExtent){
+        await fetchRestByCategoryID(widget.id, sorting: null);
+      }
+    });
+  }
+
+  Future callit() async{
+    await fetchRestByCategoryID(widget.id, sorting: null);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+  int start=0;
+  Future fetchRestByCategoryID(int id, {String sorting}) async {
+  getKey();
+  if(!isInitializingRequest){
+    setState(() {
+      isInitializingRequest = true; 
+    });
+  if (sorting == null && id != null) {
+    http.Response response = await http.get(
+        "https://developers.zomato.com/api/v2.1/search?start=$start&category=${id.toString()}",
+        headers: {"Accept": "application/json", "user-key": api_key});
+    start += 20;
+    SearchRestraunts searchByCategory =
+        SearchRestraunts.fromJson(json.decode(response.body));
+    copydata = List.from(searchByCategory.restaurants);
+    List<dynamic> addRest = new List.generate(20, (index)=>copydata[index]);
+    setState(() {
+      rests.addAll(addRest);
+      isInitializingRequest = false;
+    });
+  }
+  // else if (sorting != null && id != null) {
+  //   http.Response response = await http.get(
+  //       "https://developers.zomato.com/api/v2.1/search?category=${id.toString()}&sorting=$sorting",
+  //       headers: {"Accept": "application/json", "user-key": api_key});
+
+  //   print(response.body);
+  //   SearchRestraunts searchByCategory =
+  //       SearchRestraunts.fromJson(json.decode(response.body));
+  //   return searchByCategory;
+  // }}
+}
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    if(rests!=null){
     return Scaffold(
-        body: FutureBuilder(
-            future: fetchRestByCategoryID(widget.id, sorting: null),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.hasData) {
-                  return CustomScrollView(slivers: <Widget>[
+        body:CustomScrollView(controller: _controller,slivers: <Widget>[
                     SliverAppBar(
                       backgroundColor: Colors.deepOrange,
                       floating: true,
@@ -58,24 +114,20 @@ class CategoriesPageState extends State<CategoriesPage> {
                             child: Column(
                               verticalDirection: VerticalDirection.down,
                               children: <Widget>[
-                                snapshot.data.restaurants[index]
-                                                .featured_image ==
+                                rests[index].featured_image ==
                                             null ||
-                                        snapshot.data.restaurants[index]
-                                                .featured_image ==
-                                            ""
+                                        rests[index].featured_image == ""
                                     ? Image.asset("assets/images/default.jpg", fit: BoxFit.cover, height: 125,)
-                                    : Image.network(snapshot.data
-                                        .restaurants[index].featured_image, fit: BoxFit.fill, height: 125),
+                                    : Image.network(rests[index].featured_image, fit: BoxFit.fill, height: 125),
                                 Text(
-                                  snapshot.data.restaurants[index].name,
+                                  rests[index].name,
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
                                       fontFamily: "Roboto"),
                                 ),
                                 Text(
-                                  snapshot.data.restaurants[index].cuisines,
+                                  rests[index].cuisines,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 12,
@@ -86,35 +138,13 @@ class CategoriesPageState extends State<CategoriesPage> {
                               ],
                             ),
                           );
-                        }, childCount: snapshot.data.results_found,addRepaintBoundaries: true))
-                  ]);
-                }
-              } else if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child:CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.deepOrange),));
-              }
-            }));
-  }
-}
-
-Future fetchRestByCategoryID(int id, {String sorting}) async {
-  getKey();
-  if (sorting == null && id != null) {
-    http.Response response = await http.get(
-        "https://developers.zomato.com/api/v2.1/search?category=${id.toString()}",
-        headers: {"Accept": "application/json", "user-key": api_key});
-
-    print(response.body);
-    SearchRestraunts searchByCategory =
-        SearchRestraunts.fromJson(json.decode(response.body));
-    return searchByCategory;
-  } else if (sorting != null && id != null) {
-    http.Response response = await http.get(
-        "https://developers.zomato.com/api/v2.1/search?category=${id.toString()}&sorting=$sorting",
-        headers: {"Accept": "application/json", "user-key": api_key});
-
-    print(response.body);
-    SearchRestraunts searchByCategory =
-        SearchRestraunts.fromJson(json.decode(response.body));
-    return searchByCategory;
+                        }, childCount: rests.length,addRepaintBoundaries: true))
+                  ])
+              
+            );
+    }
+    else{
+      return Scaffold(body:Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.deepOrange),),));
+    }
   }
 }
