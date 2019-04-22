@@ -66,7 +66,7 @@ var popularity=[];
 var url=[];
 
 Future fetchRestByGeoCode() async{
-  StoreUserLocation.get_CurrentLocation().then((loc) {
+  await StoreUserLocation.get_CurrentLocation().then((loc) {
     latitude = loc[0].toString();
     longitude = loc[1].toString();
     print("$longitude, $latitude");
@@ -81,33 +81,6 @@ Future fetchRestByGeoCode() async{
   else{
     print("error in fetchRestByGeoCode");
   }
-      // .then((GeoCode geoCode) {
-      //   if (geoCode != null) {
-      //     print(
-      //         "----List of nearby restaurants according to the location---------");
-      //     nearByrestaurants.clear();
-      //     cuisines.clear();
-      //     thumb.clear();
-      //     costForTwo.clear();
-      //     hasOnlineDelivery.clear();
-      //     reviews.clear();
-      //     url.clear();
-      //     for (int i = 0; i < geoCode.nearby_restaurants.length; i++) {
-      //       print(geoCode.nearby_restaurants[i].name);
-      //       nearByrestaurants.add(geoCode.nearby_restaurants[i].name);
-      //       cuisines.add(geoCode.nearby_restaurants[i].cuisines);
-      //       costForTwo.add(geoCode.nearby_restaurants[i].average_cost_for_two);
-      //       reviews.add(geoCode.nearby_restaurants[i].all_reviews);
-      //       hasOnlineDelivery.add(geoCode.nearby_restaurants[i].has_online_delivery);
-      //       if (geoCode.nearby_restaurants[i].thumb != "") {
-      //         thumb.add(geoCode.nearby_restaurants[i].thumb);
-      //       } else {
-      //         thumb.add(geoCode.nearby_restaurants[i % 2].thumb);
-      //       }
-      //     }
-      //     return geoCode;
-      //   }
-  // });
 }
 
 Future requestRestaurant(requestUrl, res_id) async {

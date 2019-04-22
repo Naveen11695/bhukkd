@@ -5,7 +5,7 @@ import '../Pages/TrendingPage.dart';
 import '../Pages/RestaurantDetailPage.dart';
 
 class CustomHorizontalScroll extends StatelessWidget {
-
+TrendingPage trendingPage;
   @override
   Widget build(BuildContext context) {
     return Container(

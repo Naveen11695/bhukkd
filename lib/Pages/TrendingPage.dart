@@ -22,23 +22,18 @@ import '../models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:bhukkd/flarecode/flare_actor.dart';
 
 Future getEntityFromLocations() async {
-  //print("eeeeeeeeee"+nameOfTheLocation);
-  var nameOfTheLocation;
+  String nameOfTheLocation;
   await getLocationName().then((loc){
     nameOfTheLocation = loc.subLocality;
   });
   getKey();
-
   String url =
       "https://developers.zomato.com/api/v2.1/locations?query=$nameOfTheLocation";
   final response = await http.get(Uri.encodeFull(url),
       headers: {"Accept": "application/json", "user-key": api_key});
-  print(
-      "----------Location entity--------------------------------------------------------------------");
   if (response.statusCode == 200) {
     Map<String, dynamic> jsonParsed = json.decode(response.body);
     List<dynamic> data = jsonParsed["location_suggestions"];
-    print(data[0]);
     Map<String, dynamic> location_suggestion_data = data[0];
     Locations loc = new Locations(
         entity_type: location_suggestion_data["entity_type"],
@@ -53,11 +48,8 @@ Future getEntityFromLocations() async {
 
     return getTopRestaurants(loc.entity_id.toString(), loc.entity_type);
   } else {
-    print(
-        "----------PROBLEM--------------------------------------------------------------------------");
+    print("getEntityFromLocations Problem");
   }
-  print(
-      "---------------------------------------------------------------------------------------------");
 }
 
 Future getTopRestaurants(String entity_id, String entity_type) async {
@@ -69,9 +61,6 @@ Future getTopRestaurants(String entity_id, String entity_type) async {
   final response = await http.get(Uri.encodeFull(url),
       headers: {"Accept": "application/json", "user-key": api_key});
   if (response.statusCode == 200) {
-    print(
-        "----------------------top restaurant data according to the location----------------");
-    //print(response.body);
     Map<String, dynamic> jsonParsed = json.decode(response.body);
     List<dynamic> bestRestaurants = jsonParsed['best_rated_restaurant'];
     List<NearByRestaurants> bestRest = [];
@@ -79,15 +68,9 @@ Future getTopRestaurants(String entity_id, String entity_type) async {
       NearByRestaurants res = NearByRestaurants.fromJson(r);
       bestRest.add(res);
     }
-    for (var i in bestRest) {
-      print(i.name);
-    }
-    print(
-        "--------------------------------------------------------------------------------------");
     return bestRest;
   } else {
-    print(
-        "------------------------------------------------error------------------------------");
+    print("getTopRestaurants Problem");
   }
 }
 
@@ -103,20 +86,25 @@ class TrendingPage extends StatefulWidget {
 
 
 Future<Placemark> getLocationName() async {
-  var addresses;
-  var first;
-  var locality;
-  Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  double latitude,longitude;
+
+  await StoreUserLocation.get_CurrentLocation().then((loc) {
+    latitude = double.parse(loc[0]);
+    longitude = double.parse(loc[1]);
+    print("$longitude, $latitude");
+  });
+  //Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   Geolocator geolocator = Geolocator()..forceAndroidLocationManager = true;
   GeolocationStatus geolocationStatus  = await geolocator.checkGeolocationPermissionStatus();
   if(geolocationStatus == GeolocationStatus.granted){
-    List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(position.latitude, position.longitude);
-    print(placemark[0].subLocality);
+    List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(latitude, longitude);
     return placemark[0];
   }
   else{
    print("Location denied ");
+   return null;
   }
+
 }
 
 //.......................................important........................................//
@@ -131,20 +119,15 @@ class _TrendingPageState extends State<TrendingPage> {
   }
 
   ListView listBuilder;
-  String _locality;
 
   Future<Null> refresh() async {
-
     getLocationName().then((locality){
       address = locality.subLocality  + " " + locality.subAdministrativeArea + ", " + locality.locality +" " + locality.postalCode ;
     });
-    CustomHorizontalScroll();
-
     await Future.delayed(Duration(seconds: 1));
-
-    HorizontalScroll();
     setState(() {
-
+      CustomHorizontalScroll();
+      HorizontalScroll();
     });
     return null;
   }
