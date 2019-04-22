@@ -1,9 +1,11 @@
 import 'package:bhukkd/models/SharedPreferance/SharedPreference.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:async';
 import '../models/Restruant/Restruant.dart';
 import '../models/GeoCodeInfo/GeoCode.dart';
@@ -27,22 +29,22 @@ Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
 }
 
 Future<GeoCode> requestGeoCode(requestUrl, latitude, longitude) async {
-  getKey();
-  final response = await http.get(Uri.encodeFull(requestUrl), headers: {
-    "user-key": api_key,
-    "lat": latitude,
-    "lon": longitude,
-  });
-  if (response.statusCode == 200) {
-    //  print(response.body);
-    GeoCode geo = parseGeoCode(response.body);
-    return geo;
-  } else if (response.statusCode == 403) {
-    fetchRestByGeoCode();
-  } else {
-    print("Error: ${response.statusCode}");
-    print("Error: ${response.body}");
-  }
+    getKey();
+    final response = await http.get(Uri.encodeFull(requestUrl), headers: {
+      "user-key": api_key,
+      "lat": latitude,
+      "lon": longitude,
+    });
+    if (response.statusCode == 200) {
+      //  print(response.body);
+      GeoCode geo = parseGeoCode(response.body);
+      return geo;
+    } else if (response.statusCode == 403) {
+      fetchRestByGeoCode();
+    } else {
+      print("Error: ${response.statusCode}");
+      print("Error: ${response.body}");
+    }
 }
 
 // This function will convert a respose body into a List<GeoCode>
@@ -66,21 +68,28 @@ var popularity=[];
 var url=[];
 
 Future fetchRestByGeoCode() async{
-  await StoreUserLocation.get_CurrentLocation().then((loc) {
-    latitude = loc[0].toString();
-    longitude = loc[1].toString();
-    print("$longitude, $latitude");
-  });
-  Future geocode=requestGeoCode(
-          "https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude",
-          latitude,
-          longitude);
-  if(geocode !=null){
-    return geocode;
+  try{
+    final result = await InternetAddress.lookup('google.com');
+    await StoreUserLocation.get_CurrentLocation().then((loc) {
+      latitude = loc[0].toString();
+      longitude = loc[1].toString();
+      print("$longitude, $latitude");
+    });
+    Future geocode=requestGeoCode(
+        "https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude",
+        latitude,
+        longitude);
+    if(geocode !=null){
+      return geocode;
+    }
+    else{
+      print("error in fetchRestByGeoCode");
+    }
+  }on SocketException catch (e) {
+    print('not connected');
+    return "error";
   }
-  else{
-    print("error in fetchRestByGeoCode");
-  }
+
 }
 
 Future requestRestaurant(requestUrl, res_id) async {

@@ -13,7 +13,29 @@ class HorizontalScroll extends StatelessWidget {
       future: fetchRestByGeoCode(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.data != null) {
+          if(snapshot.data=="error"){
+            return Container(
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: 20,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                      color: Colors.grey.shade100,
+                      // height: 100,
+                      width: 180,
+                      child: new Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: new FlareActor(
+                          "assets/animations/near_by_rest_loading.flr",
+                          animation: "loading",
+                          fit: BoxFit.cover,
+                        ),
+                      ));
+                }),
+            );
+          }
+          else if (snapshot.data != null) {
             return ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: snapshot.data.nearby_restaurants.length,
@@ -106,28 +128,11 @@ class HorizontalScroll extends StatelessWidget {
                   );
                 });
           }
-        } else if (snapshot.connectionState == ConnectionState.waiting) {
-          return ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 20,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                        color: Colors.grey.shade100,
-                        // height: 100,
-                        width: 180,
-                        child: new Padding(
-                          padding: EdgeInsets.only(top: 10),
-                          child: new FlareActor(
-                            "assets/animations/near_by_rest_loading.flr",
-                            animation: "loading",
-                            fit: BoxFit.cover,
-                          ),
-                        ));
-                  });
-        }
-        else{
-          return Container(height: 0, width: 0,);
+        }else {
+          return Container(
+            height: 10,
+            width: 10,
+          );
         }
       },
     );

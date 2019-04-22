@@ -18,37 +18,44 @@ import "package:geolocator/geolocator.dart";
 import 'dart:async';
 import '../models/Locations/Locations.dart';
 import 'dart:convert';
+import 'dart:io';
 import '../models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:bhukkd/flarecode/flare_actor.dart';
 
 Future getEntityFromLocations() async {
-  String nameOfTheLocation;
-  await getLocationName().then((loc){
-    nameOfTheLocation = loc.subLocality;
-  });
-  getKey();
-  String url =
-      "https://developers.zomato.com/api/v2.1/locations?query=$nameOfTheLocation";
-  final response = await http.get(Uri.encodeFull(url),
-      headers: {"Accept": "application/json", "user-key": api_key});
-  if (response.statusCode == 200) {
-    Map<String, dynamic> jsonParsed = json.decode(response.body);
-    List<dynamic> data = jsonParsed["location_suggestions"];
-    Map<String, dynamic> location_suggestion_data = data[0];
-    Locations loc = new Locations(
-        entity_type: location_suggestion_data["entity_type"],
-        entity_id: location_suggestion_data["entity_id"],
-        city_id: location_suggestion_data['city_id'],
-        city_name: location_suggestion_data['city_name'],
-        country_id: location_suggestion_data['country_id'],
-        country_name: location_suggestion_data['country_name'],
-        latitude: location_suggestion_data['latitude'],
-        longitude: location_suggestion_data['longitude'],
-        title: location_suggestion_data['title']);
+  try {
 
-    return getTopRestaurants(loc.entity_id.toString(), loc.entity_type);
-  } else {
-    print("getEntityFromLocations Problem");
+    String nameOfTheLocation;
+    await getLocationName().then((loc){
+      nameOfTheLocation = loc.subLocality;
+    });
+    getKey();
+    String url =
+        "https://developers.zomato.com/api/v2.1/locations?query=$nameOfTheLocation";
+    final response = await http.get(Uri.encodeFull(url),
+        headers: {"Accept": "application/json", "user-key": api_key});
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonParsed = json.decode(response.body);
+      List<dynamic> data = jsonParsed["location_suggestions"];
+      Map<String, dynamic> location_suggestion_data = data[0];
+      Locations loc = new Locations(
+          entity_type: location_suggestion_data["entity_type"],
+          entity_id: location_suggestion_data["entity_id"],
+          city_id: location_suggestion_data['city_id'],
+          city_name: location_suggestion_data['city_name'],
+          country_id: location_suggestion_data['country_id'],
+          country_name: location_suggestion_data['country_name'],
+          latitude: location_suggestion_data['latitude'],
+          longitude: location_suggestion_data['longitude'],
+          title: location_suggestion_data['title']);
+
+      return getTopRestaurants(loc.entity_id.toString(), loc.entity_type);
+    } else {
+      print("getEntityFromLocations Problem");
+    }
+  }on SocketException catch (e) {
+    print('not connected');
+    return "error";
   }
 }
 
@@ -93,6 +100,7 @@ Future<Placemark> getLocationName() async {
     longitude = double.parse(loc[1]);
     print("$longitude, $latitude");
   });
+
   //Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   Geolocator geolocator = Geolocator()..forceAndroidLocationManager = true;
   GeolocationStatus geolocationStatus  = await geolocator.checkGeolocationPermissionStatus();

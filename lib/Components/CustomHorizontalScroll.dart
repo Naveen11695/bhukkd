@@ -15,7 +15,29 @@ TrendingPage trendingPage;
           future: getEntityFromLocations(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.hasData) {
+              if(snapshot.data=="error"){
+                return Container(
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 20,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                            color: Colors.grey.shade100,
+                            height: 100,
+                            width: 300,
+                            child: new Padding(
+                              padding: EdgeInsets.only(top: 10),
+                              child: new FlareActor(
+                                "assets/animations/top_restaurant_loading.flr",
+                                animation: "circular_loading",
+                                fit: BoxFit.cover,
+                              ),
+                            ));
+                      }),
+                );
+              }
+              else if (snapshot.hasData) {
                 return ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
@@ -115,25 +137,6 @@ TrendingPage trendingPage;
                   },
                 );
               }
-            } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 20,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                        color: Colors.grey.shade100,
-                        height: 100,
-                        width: 300,
-                        child: new Padding(
-                          padding: EdgeInsets.only(top: 10),
-                          child: new FlareActor(
-                            "assets/animations/top_restaurant_loading.flr",
-                            animation: "circular_loading",
-                            fit: BoxFit.cover,
-                          ),
-                        ));
-                  });
             } else {
               return Container(
                 height: 10,
