@@ -28,24 +28,6 @@ Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
       .then((jsonStr) => jsonDecode(jsonStr));
 }
 
-Future<GeoCode> requestGeoCode(requestUrl, latitude, longitude) async {
-    getKey();
-    final response = await http.get(Uri.encodeFull(requestUrl), headers: {
-      "user-key": api_key,
-      "lat": latitude,
-      "lon": longitude,
-    });
-    if (response.statusCode == 200) {
-      //  print(response.body);
-      GeoCode geo = parseGeoCode(response.body);
-      return geo;
-    } else if (response.statusCode == 403) {
-      fetchRestByGeoCode();
-    } else {
-      print("Error: ${response.statusCode}");
-      print("Error: ${response.body}");
-    }
-}
 
 // This function will convert a respose body into a List<GeoCode>
 GeoCode parseGeoCode(String responseBody) {
@@ -75,10 +57,25 @@ Future fetchRestByGeoCode() async{
       longitude = loc[1].toString();
       print("$longitude, $latitude");
     });
-    Future geocode=requestGeoCode(
-        "https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude",
-        latitude,
-        longitude);
+    GeoCode geocode;
+
+    getKey();
+    final response = await http.get(Uri.encodeFull("https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude"), headers: {
+      "user-key": api_key,
+      "lat": latitude,
+      "lon": longitude,
+    });
+    if (response.statusCode == 200) {
+      geocode = parseGeoCode(response.body);
+
+    } else if (response.statusCode == 403) {
+      fetchRestByGeoCode();
+    } else {
+      print("Error: ${response.statusCode}");
+      print("Error: ${response.body}");
+      return "error";
+    }
+
     if(geocode !=null){
       return geocode;
     }

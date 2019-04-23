@@ -45,7 +45,7 @@ class _SplashScreenState extends State<SplashScreen>
   Animation<double> animation;
 
   Future delayTimer() async {
-    Duration duration = new Duration(seconds: 7);
+    Duration duration = new Duration(seconds: 3);
     return new Timer(duration, navigateTo);
   }
 

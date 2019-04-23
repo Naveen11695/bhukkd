@@ -55,6 +55,7 @@ Future getEntityFromLocations() async {
       return getTopRestaurants(loc.entity_id.toString(), loc.entity_type);
     } else {
       print("getEntityFromLocations Problem");
+      return "error";
     }
   } on SocketException catch (e) {
     print('not connected');
