@@ -872,6 +872,7 @@
 import 'package:scoped_model/scoped_model.dart';
 import '../Restruant/location/location.dart';
 import '../Popularity/Popularity.dart';
+import '../Reviews/Reviews.dart';
 import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 
 class GeoCode extends Model{
@@ -886,7 +887,7 @@ class GeoCode extends Model{
     Map<String, dynamic> loc = json['location'];
     Map<String, dynamic> pop = json['popularity'];
     var near_res = json['nearby_restaurants'] as List;
-    //Map<String, dynamic> reviews = json['all_reviews'];
+    Map<String, dynamic> reviews = json['all_reviews'];
 
     location l;
     Popularity p;
@@ -904,7 +905,8 @@ class GeoCode extends Model{
       print("Error in Geocode in nearbyrestaurants");
     }
     // if(reviews!=null){
-    //   print("Pass data into Review class");
+    //   Review r =Review.fromJson();
+    //   // print("Pass data into Review class");
     // }
 
 

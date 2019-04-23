@@ -69,13 +69,40 @@ class Restaurant extends Model{
     String restruant_Photo_url;
     String restruant_Menu;
     String restruant_Event_url;
-    List<String> restruant_User_rating;
+    UserRating restruant_User_rating;
     String restruant_photos_url;
     int restruant_Has_online_delivery;
     int restruant_Is_delivery_now;
     int restruant_Has_table_booking;
     int restruant_Is_table_reservation_supported;
     String restruant_Cuisines;
+    String currency;
+
+  // "switch_to_order_menu"
+  // "cuisines"
+  // "average_cost_for_two"
+  // "price_range"
+  // "currency"
+  // "offers"
+  // "opentable_support"
+  // "is_zomato_book_res"
+  // "mezzo_provider"
+  // "is_book_form_web_view"
+  // "book_form_web_view_url"
+  // "book_again_url"
+  // "thumb"
+  // "user_rating"
+  // "photos_url"
+  // "menu_url"
+  // "featured_image"
+  // "has_online_delivery"
+  // "is_delivering_now"
+  // "has_fake_reviews"
+  // "include_bogo_offers"
+  // "deeplink" 
+  // "is_table_reservation_supported"
+  // "has_table_booking"
+  // "events_url"
 
 
     Restaurant({this.restruant_Id,
@@ -92,7 +119,8 @@ class Restaurant extends Model{
         this.restruant_Has_table_booking,
         this.restruant_Is_table_reservation_supported,
         this.restruant_Cuisines,
-        this.restruant_Location, this.restruant_photos_url, this.restruant_User_rating
+        this.restruant_Location, this.restruant_photos_url, this.restruant_User_rating,
+        this.currency,
     });
 
 
@@ -134,6 +162,8 @@ class Restaurant extends Model{
             restruant_Is_table_reservation_supported: json['is_table_reservation_supported'],
             restruant_Cuisines : json['cuisines'],
             restruant_Location: l,
+            currency: json['currency'],
+            restruant_User_rating: u,
         );
     }
 
