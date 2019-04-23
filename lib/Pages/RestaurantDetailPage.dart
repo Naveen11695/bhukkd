@@ -6,6 +6,9 @@ import '../models/GeoCodeInfo/GeoCode.dart';
 import '../api/HttpRequest.dart';
 import '../models/Restruant/Restruant.dart';
 import 'package:bhukkd/flarecode/flare_actor.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import '../models/Reviews/Reviews.dart';
 
 /**
  * Errors due to design fault
@@ -45,23 +48,11 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                   return CustomScrollView(
                     slivers: <Widget>[
                       SliverAppBar(
-                        expandedHeight: 200,
+                        backgroundColor: Colors.deepOrange,
+                        expandedHeight: 175,
                         pinned: true,
                         flexibleSpace: FlexibleSpaceBar(
                           collapseMode: CollapseMode.parallax,
-                          title: new Text(
-                            snapshot.data.restruant_Name,
-                            textDirection: TextDirection.ltr,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            textAlign: TextAlign.start,
-                            style: new TextStyle(
-                                fontFamily: "Montserrat",
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 0.8,
-                                wordSpacing: 1),
-                          ),
                           centerTitle: false,
                           background: Hero(
                             tag: i++, // unique id
@@ -85,44 +76,93 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                             height: 5,
                           ),
                           Padding(
+                            padding: EdgeInsets.all(10),
+                            child: new Text(
+                              snapshot.data.restruant_Name,
+                              textDirection: TextDirection.ltr,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              textAlign: TextAlign.start,
+                              style: new TextStyle(
+                                  fontFamily: "Montserrat-Bold",
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 0.8,
+                                  wordSpacing: 1),
+                            ),
+                          ),
+                          Padding(
                               padding: EdgeInsets.only(left: 10, bottom: 5),
                               child: Row(
                                 children: <Widget>[
                                   Text(
-                                    "Cuisines",
+                                    snapshot.data.restruant_Location
+                                        .locality_verbose,
                                     style: TextStyle(
                                       fontFamily: "Roboto",
                                       fontWeight: FontWeight.normal,
-                                      fontSize: 16.0,
+                                      color: Colors.black87,
+                                      fontSize: 18.0,
                                     ),
                                   ),
-                                  Container(width: MediaQuery.of(context).size.width * 0.7,),
+                                  Container(
+                                    width: MediaQuery.of(context)
+                                        .size
+                                        .width
+                                        .remainder(20),
+                                  ),
                                   DecoratedBox(
                                     child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child:Text("3.5", style: TextStyle(
-                                      color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 25,
-                                    ))),
+                                        padding: EdgeInsets.all(5),
+                                        child: Text(snapshot.data.restruant_User_rating.aggregate_rating,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ))),
                                     decoration: BoxDecoration(
-                                    color: Colors.deepOrange,
-                                    borderRadius: BorderRadius.circular(2),
-                                    shape: BoxShape.rectangle,
-                              
-                            ),)
+                                      color: Colors.deepOrange,
+                                      borderRadius: BorderRadius.circular(25),
+                                      shape: BoxShape.rectangle,
+                                    ),
+                                  ),
+                                  Container(
+                                    width: MediaQuery.of(context)
+                                        .size
+                                        .width
+                                        .remainder(20),
+                                  ),
+                                  snapshot.data.restruant_Is_delivery_now == 0
+                                      ? Text(
+                                          "Closed",
+                                          style: TextStyle(
+                                            color: Colors.red,
+                                            fontFamily: "Montserrat-Bold",
+                                            fontSize: 18,
+                                            fontStyle: FontStyle.normal,
+                                            letterSpacing: 1.1,
+                                          ),
+                                        )
+                                      : Text(
+                                          "Open",
+                                          style: TextStyle(
+                                            color: Colors.green,
+                                            fontFamily: "Montserrat-Bold",
+                                            fontSize: 18,
+                                            fontStyle: FontStyle.normal,
+                                            letterSpacing: 1.1,
+                                          ),
+                                        ),
                                 ],
                               )),
                           Padding(
                               padding: const EdgeInsets.only(left: 10),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    snapshot.data.restruant_Cuisines,
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                ],
-                              )),
+                              child: Row(children: [
+                                Text(
+                                  snapshot.data.restruant_Cuisines,
+                                  style: TextStyle(color: Colors.black87),
+                                ),
+                              ])),
                           SizedBox(
                             height: 10,
                           ),
@@ -138,12 +178,22 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(left:8.0),
+                                padding: const EdgeInsets.only(left: 8.0),
                                 child: Text(
-                                  "₹" +
-                                      ((snapshot.data.restruant_Avg_cost_for_two <999)? snapshot.data.restruant_Avg_cost_for_two.toString():formatter.format(snapshot.data.restruant_Avg_cost_for_two))
-                                      ,textDirection: TextDirection.rtl,
-                                  style: TextStyle(color: Colors.deepOrange, fontFamily: "Roboto", fontSize:15.0),
+                                  snapshot.data.currency +
+                                      ((snapshot.data
+                                                  .restruant_Avg_cost_for_two <
+                                              999)
+                                          ? snapshot
+                                              .data.restruant_Avg_cost_for_two
+                                              .toString()
+                                          : formatter.format(snapshot.data
+                                              .restruant_Avg_cost_for_two)),
+                                  textDirection: TextDirection.rtl,
+                                  style: TextStyle(
+                                      color: Colors.deepOrange,
+                                      fontFamily: "Roboto",
+                                      fontSize: 15.0),
                                 ),
                               )
                             ]),
@@ -158,7 +208,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                               style: TextStyle(
                                   fontFamily: "Roboto",
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 24.0,
+                                  fontSize: 18.0,
                                   letterSpacing: 1),
                             ),
                           ),
@@ -215,7 +265,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                               style: TextStyle(
                                   fontFamily: "Roboto",
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 24.0,
+                                  fontSize: 18.0,
                                   letterSpacing: 1),
                             ),
                           ),
@@ -240,6 +290,34 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                                           itemBuilder: (BuildContext context,
                                               int index) {
                                             return GestureDetector(
+                                              onTap: () {
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (BuildContext
+                                                                context) =>
+                                                            Scaffold(
+                                                                body: PageView(
+                                                              controller:
+                                                                  PageController(
+                                                                      initialPage:
+                                                                          index,
+                                                                      keepPage:
+                                                                          true,
+                                                                      viewportFraction:
+                                                                          1),
+                                                              scrollDirection:
+                                                                  Axis.horizontal,
+                                                              children: <
+                                                                  Widget>[
+                                                                new Image
+                                                                        .network(
+                                                                    snapShot.data[
+                                                                        index],
+                                                                    fit: BoxFit
+                                                                        .fitWidth)
+                                                              ],
+                                                            ))));
+                                              },
                                               child: new Material(
                                                 elevation: 10.0,
                                                 child: Container(
@@ -275,27 +353,69 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                               style: TextStyle(
                                   fontFamily: "Roboto",
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 24.0,
+                                  fontSize: 18.0,
                                   letterSpacing: 1),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
+                            padding: const EdgeInsets.only(left: 10.0, top: 10),
                             child: Row(
                               children: <Widget>[
-                                Column(children:[
-                                Text(
-                                  "Address",
-                                  style: TextStyle(
-                                    fontFamily: "Roboto",
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 16.0,
-                                    )
-                              ),
-                              Text(snapshot.data.restruant_Location.address)
-                              ])],
+                                Text("Address",
+                                      style: TextStyle(
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 16.0,
+                                          color: Colors.black87)),
+                                
+                              ],
                             ),
-                          )
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left:10.0, top:6),
+                            child: Row(children: [
+                              Text(
+                                snapshot.data.restruant_Location.address,
+                                overflow: TextOverflow.clip,
+                              ),
+                              
+                            ]),
+                          ),
+                          
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child:FutureBuilder(
+                                  future:
+                                      fetchReviews(widget.productid),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot snapShot) {
+                                    if (snapShot.connectionState ==
+                                        ConnectionState.done) {
+                                      if (snapShot.data != null) { 
+                                        print(snapShot.data.user_reviews[0].review.user.name);
+                            return  Container(height:500, width: MediaQuery.of(context).size.width * 0.92,child:ListView.separated(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemCount: 5,
+                              separatorBuilder: (BuildContext context, int index){
+                                return Divider(color: Colors.black54,);
+                              },
+                              itemBuilder: (BuildContext context, int index){
+                                return ListTile(
+                              leading: CircleAvatar(maxRadius: 28,backgroundImage: NetworkImage(snapShot.data.user_reviews[index].review.user.profile_image,),),
+                              title: Text(snapShot.data.user_reviews[index].review.review_text),
+                              trailing: Text(snapShot.data.user_reviews[index].review.rating.toString(),),
+                              );
+                              },
+                            ));
+                            }
+                            }
+                            else if(snapShot.connectionState== ConnectionState.waiting){
+                              return CircularProgressIndicator();
+                            }
+                            }
+                            )
+                          ),
                         ]),
                       )
                     ],
@@ -322,4 +442,19 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
           ),
         ));
   }
+}
+
+
+
+Future fetchReviews(String rest_id) async{
+  getKey();
+  http.Response response = await http.get(Uri.encodeFull("https://developers.zomato.com/api/v2.1/reviews?res_id=${rest_id.toString()}"), headers: {
+    "Accept":'json/application',
+    "user_key": api_key
+  });
+  Reviews r=Reviews.fromJson(json.decode(response.body));
+  print(r.user_reviews[0].review.comments_count);
+  print(r.user_reviews[0].review.user);
+  print(r.user_reviews[0].review.user.name);
+  return r;
 }

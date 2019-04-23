@@ -80,6 +80,7 @@ TrendingPage trendingPage;
                                   children: <Widget>[
                                     new Text(
                                       snapshot.data[index].name,
+                                      overflow: TextOverflow.ellipsis,
                                       softWrap: true,
                                       style: TextStyle(
                                           fontFamily: "Raleway", fontSize: 14),
