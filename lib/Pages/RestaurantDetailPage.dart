@@ -114,7 +114,9 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                                   DecoratedBox(
                                     child: Padding(
                                         padding: EdgeInsets.all(5),
-                                        child: Text(snapshot.data.restruant_User_rating.aggregate_rating,
+                                        child: Text(
+                                            snapshot.data.restruant_User_rating
+                                                .aggregate_rating,
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
@@ -362,60 +364,110 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                             child: Row(
                               children: <Widget>[
                                 Text("Address",
-                                      style: TextStyle(
-                                          fontFamily: "Roboto",
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 16.0,
-                                          color: Colors.black87)),
-                                
+                                    style: TextStyle(
+                                        fontFamily: "Roboto",
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 16.0,
+                                        color: Colors.black87)),
                               ],
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left:10.0, top:6),
+                            padding: const EdgeInsets.only(left: 10.0, top: 6),
                             child: Row(children: [
-                              Text(
+                              Expanded(
+                                flex: 1,
+                                child:Text(
                                 snapshot.data.restruant_Location.address,
                                 overflow: TextOverflow.clip,
-                              ),
-                              
+                              ),)
                             ]),
                           ),
-                          
                           Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child:FutureBuilder(
-                                  future:
-                                      fetchReviews(widget.productid),
+                            padding: const EdgeInsets.only(top:10, left: 10),
+                            child: Text(
+                              "Reviews",
+                              style: TextStyle(
+                                  fontFamily: "Roboto",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.0,
+                                  letterSpacing: 1),
+                            ),
+                          ),
+                          Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: FutureBuilder(
+                                  future: fetchReviews(widget.productid),
                                   builder: (BuildContext context,
                                       AsyncSnapshot snapShot) {
                                     if (snapShot.connectionState ==
                                         ConnectionState.done) {
-                                      if (snapShot.data != null) { 
-                                        print(snapShot.data.user_reviews[0].review.user.name);
-                            return  Container(height:500, width: MediaQuery.of(context).size.width * 0.92,child:ListView.separated(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: 5,
-                              separatorBuilder: (BuildContext context, int index){
-                                return Divider(color: Colors.black54,);
-                              },
-                              itemBuilder: (BuildContext context, int index){
-                                return ListTile(
-                              leading: CircleAvatar(maxRadius: 28,backgroundImage: NetworkImage(snapShot.data.user_reviews[index].review.user.profile_image,),),
-                              title: Text(snapShot.data.user_reviews[index].review.review_text),
-                              trailing: Text(snapShot.data.user_reviews[index].review.rating.toString(),),
-                              );
-                              },
-                            ));
-                            }
-                            }
-                            else if(snapShot.connectionState== ConnectionState.waiting){
-                              return CircularProgressIndicator();
-                            }
-                            }
-                            )
-                          ),
+                                      if (snapShot.data != null) {
+                                        return Container(
+                                            height: 500,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.92,
+                                            child: ListView.separated(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  NeverScrollableScrollPhysics(),
+                                              itemCount: 5,
+                                              separatorBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return Divider(
+                                                  color: Colors.black54,
+                                                );
+                                              },
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return ListTile(
+                                                  leading: CircleAvatar(
+                                                    maxRadius: 28,
+                                                    backgroundImage:
+                                                        NetworkImage(
+                                                      snapShot
+                                                          .data
+                                                          .user_reviews[index]
+                                                          .review
+                                                          .user
+                                                          .profile_image,
+                                                    ),
+                                                  ),
+                                                  title: Column(crossAxisAlignment: CrossAxisAlignment.start,children:[
+                                                    Text(snapShot.data.user_reviews[index]
+                                            .review.user.name, textAlign: TextAlign.justify,style: TextStyle(
+                                              color: Colors.black, fontFamily: "Roboto",
+                                              fontWeight: FontWeight.w600, fontSize: 18,
+                                            ),),
+                                                    Text(snapShot
+                                                      .data
+                                                      .user_reviews[index]
+                                                      .review
+                                                      .review_text, style: TextStyle(
+                                                        color: Colors.black54, fontFamily: "Roboto",
+                                              fontWeight: FontWeight.w400, fontSize: 14
+                                                      ),)]),
+                                                  trailing: Text(
+                                                    snapShot
+                                                        .data
+                                                        .user_reviews[index]
+                                                        .review
+                                                        .rating
+                                                        .toString(),
+                                                  ),
+                                                );
+                                              },
+                                            ));
+                                      }
+                                    } else if (snapShot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return CircularProgressIndicator();
+                                    }
+                                  })),
                         ]),
                       )
                     ],
@@ -444,15 +496,13 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
   }
 }
 
-
-
-Future fetchReviews(String rest_id) async{
+Future fetchReviews(String rest_id) async {
   getKey();
-  http.Response response = await http.get(Uri.encodeFull("https://developers.zomato.com/api/v2.1/reviews?res_id=${rest_id.toString()}"), headers: {
-    "Accept":'json/application',
-    "user_key": api_key
-  });
-  Reviews r=Reviews.fromJson(json.decode(response.body));
+  http.Response response = await http.get(
+      Uri.encodeFull(
+          "https://developers.zomato.com/api/v2.1/reviews?res_id=${rest_id.toString()}"),
+      headers: {"Accept": 'json/application', "user_key": api_key});
+  Reviews r = Reviews.fromJson(json.decode(response.body));
   print(r.user_reviews[0].review.comments_count);
   print(r.user_reviews[0].review.user);
   print(r.user_reviews[0].review.user.name);
