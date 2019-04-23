@@ -375,10 +375,12 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                           Padding(
                             padding: const EdgeInsets.only(left: 10.0, top: 6),
                             child: Row(children: [
-                              Text(
+                              Expanded(
+                                flex: 1,
+                                child:Text(
                                 snapshot.data.restruant_Location.address,
                                 overflow: TextOverflow.clip,
-                              ),
+                              ),)
                             ]),
                           ),
                           Padding(
