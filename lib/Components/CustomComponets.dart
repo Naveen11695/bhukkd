@@ -69,7 +69,7 @@ Widget semi_circlar_button(String label, Function onTap) {
 
 final splash_description = new RichText(
   text: TextSpan(
-    text: 'Loading Assests',
+    text: 'Loading Assets',
     style: TextStyle(
       color: Colors.white,
       fontSize: 25.0,

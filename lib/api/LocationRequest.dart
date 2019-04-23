@@ -6,18 +6,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 Position position;
 
 Future<Position> getCurrentPosition() async {
+
+  Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   Geolocator geolocator = Geolocator()..forceAndroidLocationManager = true;
-  GeolocationStatus geolocationStatus =
-      await geolocator.checkGeolocationPermissionStatus();
-  position = await Geolocator()
-      .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
- /* print("Current Location : " + position.toString());*/
+  GeolocationStatus geolocationStatus  = await geolocator.checkGeolocationPermissionStatus();
   SharedPreferences preferences = await SharedPreferences.getInstance();
   preferences.setStringList("Current_location", [
     position.latitude.toString(),
     position.longitude.toString(),
-    position.timestamp.toString()
+    position.timestamp.toString(),
   ]);
+  print("pos"+position.toString());
   return position;
 }
 

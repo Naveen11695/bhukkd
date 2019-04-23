@@ -95,6 +95,7 @@ flutter:
   - assets/animations/Loading animation.flr
   - assets/animations/Pizza Slice.flr
   - assets/animations/Add to cart icon.flr
+  - assets/animations/loading_Untitled.flr
   - assets/images/logo.png
   - assets/images/pizza.jpg
   - assets/animations/top_restaurant_loading.flr

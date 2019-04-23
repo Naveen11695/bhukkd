@@ -139,8 +139,24 @@ TrendingPage trendingPage;
               }
             } else {
               return Container(
-                height: 10,
-                width: 10,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 20,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                          color: Colors.grey.shade100,
+                          height: 100,
+                          width: 300,
+                          child: new Padding(
+                            padding: EdgeInsets.only(top: 10),
+                            child: new FlareActor(
+                              "assets/animations/top_restaurant_loading.flr",
+                              animation: "circular_loading",
+                              fit: BoxFit.cover,
+                            ),
+                          ));
+                    }),
               );
             }
           },

@@ -136,8 +136,24 @@ class HorizontalScroll extends StatelessWidget {
           }
         }else {
           return Container(
-            height: 10,
-            width: 10,
+            child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: 20,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                      color: Colors.grey.shade100,
+                      // height: 100,
+                      width: 180,
+                      child: new Padding(
+                        padding: EdgeInsets.only(top: 10),
+                        child: new FlareActor(
+                          "assets/animations/near_by_rest_loading.flr",
+                          animation: "loading",
+                          fit: BoxFit.cover,
+                        ),
+                      ));
+                }),
           );
         }
       },

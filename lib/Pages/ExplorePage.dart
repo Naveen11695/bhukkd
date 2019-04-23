@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Pages/TrendingPage.dart';
 import 'package:bhukkd/api/HttpRequest.dart';
+import 'package:bhukkd/flarecode/flare_actor.dart';
 import 'package:bhukkd/models/Catagories/Catagories.dart';
 import 'package:bhukkd/models/GeoCodeInfo/GeoCode.dart';
 import 'package:flutter/material.dart';
@@ -108,11 +109,23 @@ class _ExplorePage extends State<ExplorePage> {
                   );
                 } else {
                   print("nope");
-                  return Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.deepOrange)));
+                  return Container(
+                    child: Center(child: new FlareActor(
+                      "assets/animations/loading_Untitled.flr",
+                      animation: "Untitled",
+                      fit: BoxFit.contain,
+                    ),),
+                  );
                 }
               } else {
                 print("no connection");
-                return Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.deepOrange)));
+                return Container(
+                  child: Center(child: new FlareActor(
+                    "assets/animations/loading_Untitled.flr",
+                    animation: "Untitled",
+                    fit: BoxFit.contain,
+                  ),),
+                );
               }
             }),
       ),

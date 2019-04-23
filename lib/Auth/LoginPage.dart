@@ -11,6 +11,7 @@ import 'package:bhukkd/Auth/register_page.dart';
 import 'package:bhukkd/Components/AddButton.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
+import 'package:bhukkd/flarecode/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -478,7 +479,13 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
               }
             } else {
               print("no connection");
-              return Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.deepOrange)));
+              return Container(
+                child: Center(child: new FlareActor(
+                  "assets/animations/loading_Untitled.flr",
+                  animation: "Untitled",
+                  fit: BoxFit.contain,
+                ),),
+              );
             }
           }),
     );
