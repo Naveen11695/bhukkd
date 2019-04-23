@@ -1,4 +1,7 @@
 import 'package:bhukkd/Components/CircularBorder.dart';
+import 'package:bhukkd/Components/CustomTransition.dart';
+import 'package:bhukkd/Pages/RestaurantDetailPage.dart';
+import 'package:bhukkd/models/Search/SearchRestaurant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -19,14 +22,14 @@ import 'dart:async';
 import '../models/Locations/Locations.dart';
 import 'dart:convert';
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import '../models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:bhukkd/flarecode/flare_actor.dart';
 
 Future getEntityFromLocations() async {
   try {
-
     String nameOfTheLocation;
-    await getLocationName().then((loc){
+    await getLocationName().then((loc) {
       nameOfTheLocation = loc.subLocality;
     });
     getKey();
@@ -53,7 +56,7 @@ Future getEntityFromLocations() async {
     } else {
       print("getEntityFromLocations Problem");
     }
-  }on SocketException catch (e) {
+  } on SocketException catch (e) {
     print('not connected');
     return "error";
   }
@@ -90,10 +93,8 @@ class TrendingPage extends StatefulWidget {
 
 //.......................................important........................................//
 
-
-
 Future<Placemark> getLocationName() async {
-  double latitude,longitude;
+  double latitude, longitude;
 
   await StoreUserLocation.get_CurrentLocation().then((loc) {
     latitude = double.parse(loc[0]);
@@ -103,34 +104,90 @@ Future<Placemark> getLocationName() async {
 
   //Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   Geolocator geolocator = Geolocator()..forceAndroidLocationManager = true;
-  GeolocationStatus geolocationStatus  = await geolocator.checkGeolocationPermissionStatus();
-  if(geolocationStatus == GeolocationStatus.granted){
-    List<Placemark> placemark = await Geolocator().placemarkFromCoordinates(latitude, longitude);
+  GeolocationStatus geolocationStatus =
+      await geolocator.checkGeolocationPermissionStatus();
+  if (geolocationStatus == GeolocationStatus.granted) {
+    List<Placemark> placemark =
+        await Geolocator().placemarkFromCoordinates(latitude, longitude);
     return placemark[0];
+  } else {
+    print("Location denied ");
+    return null;
   }
-  else{
-   print("Location denied ");
-   return null;
-  }
-
 }
 
 //.......................................important........................................//
 
+String getSortingValue() {}
+
+List<dynamic> copydata = [];
+
 class _TrendingPageState extends State<TrendingPage> {
   String address;
+  ScrollController _controller = new ScrollController();
+  bool isInitializingRequest = false;
+  List<dynamic> rests = [];
 
   @override
   void initState() {
     super.initState();
     refresh();
+    callit();
+    _controller.addListener(() async {
+      if (_controller.position.pixels == _controller.position.maxScrollExtent) {
+        await fetchRestByCollectionID(1, sorting: null);
+      }
+    });
+  }
+
+  int start = 0;
+
+  Future fetchRestByCollectionID(int id, {String sorting}) async {
+    Iterable<dynamic> key =
+        (await parseJsonFromAssets('assets/api/config.json')).values;
+    var apiKey = key.elementAt(0);
+
+    double latitude, longitude;
+    await StoreUserLocation.get_CurrentLocation().then((loc) {
+      latitude = double.parse(loc[0]);
+      longitude = double.parse(loc[1]);
+      print("$longitude, $latitude");
+    });
+
+    if (!isInitializingRequest) {
+      setState(() {
+        isInitializingRequest = true;
+      });
+      if (sorting == null && id != null) {
+        http.Response response = await http.get(
+            "https://developers.zomato.com/api/v2.1/search?lat=${latitude.toString()}&lon=${longitude.toString()}&sort=rating&order=desc",
+            headers: {"Accept": "application/json", "user-key": apiKey});
+        start += 20;
+        print(response.body);
+        SearchRestraunts searchByCategory =
+            SearchRestraunts.fromJson(json.decode(response.body));
+        copydata = List.from(searchByCategory.restaurants);
+        List<dynamic> addRest =
+            new List.generate(20, (index) => copydata[index]);
+        setState(() {
+          rests.addAll(addRest);
+          isInitializingRequest = false;
+        });
+      }
+    }
   }
 
   ListView listBuilder;
 
   Future<Null> refresh() async {
-    getLocationName().then((locality){
-      address = locality.subLocality  + " " + locality.subAdministrativeArea + ", " + locality.locality +" " + locality.postalCode ;
+    getLocationName().then((locality) {
+      address = locality.subLocality +
+          " " +
+          locality.subAdministrativeArea +
+          ", " +
+          locality.locality +
+          " " +
+          locality.postalCode;
     });
     await Future.delayed(Duration(seconds: 1));
     setState(() {
@@ -138,6 +195,16 @@ class _TrendingPageState extends State<TrendingPage> {
       HorizontalScroll();
     });
     return null;
+  }
+
+  Future callit() async {
+    await fetchRestByCollectionID(1, sorting: null);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 
   Widget build(BuildContext context) {
@@ -151,6 +218,7 @@ class _TrendingPageState extends State<TrendingPage> {
           child: Stack(
             children: <Widget>[
               new CustomScrollView(
+                controller: _controller,
                 physics: ScrollPhysics(),
                 slivers: <Widget>[
                   new SliverAppBar(
@@ -208,7 +276,8 @@ class _TrendingPageState extends State<TrendingPage> {
                                                     Color>(Colors.white),
                                           )));*/
                                   return Padding(
-                                    padding: const EdgeInsets.only(left:20,top: 10),
+                                    padding: const EdgeInsets.only(
+                                        left: 20, top: 10),
                                     child: Row(
                                       children: <Widget>[
                                         new Text('Fetching Your Location'),
@@ -303,17 +372,96 @@ class _TrendingPageState extends State<TrendingPage> {
                           ),
                         ),
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.92,
-                        height: 500,
-                        child: Column(
-                          children: <Widget>[
-                          
-                          ],
-                        ),
-                      )
                     ]),
                   ),
+                  rests != null
+                      ? SliverGrid(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2),
+                          delegate: SliverChildBuilderDelegate(
+                              (BuildContext context, int index) {
+                            return InkWell(
+                              onTap: (){
+                                Navigator.push(
+                                    context,
+                                    HorizontalTransition(
+                                        builder: (BuildContext context) =>
+                                            RestaurantDetailPage(
+                                              productid: rests[index].id,
+                                            )));
+                              },
+                              child: Card(
+                                child: Column(
+                                  verticalDirection: VerticalDirection.down,
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: rests[index].featured_image ==
+                                                  null ||
+                                              rests[index].featured_image == ""
+                                          ? Image.asset(
+                                              "assets/images/default.jpg",
+                                              fit: BoxFit.cover,
+                                              height: 130,
+                                            )
+                                          : CachedNetworkImage(
+                                              imageUrl:
+                                                  rests[index].featured_image,
+                                              fit: BoxFit.cover,
+                                              height: 130,
+                                              placeholder: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(50.0),
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
+                                              errorWidget: Icon(Icons.error),
+                                            ),
+                                    ),
+                                    Text(
+                                      rests[index].name,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          fontFamily: "Roboto"),
+                                    ),
+                                    Text(
+                                      rests[index].cuisines,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w300,
+                                          fontFamily: "Roboto",
+                                          color: Colors.deepOrange),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                              childCount: rests.length,
+                              addRepaintBoundaries: true))
+                      : Container(
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 20,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Container(
+                                    color: Colors.grey.shade100,
+                                    height: 100,
+                                    width: 300,
+                                    child: new Padding(
+                                      padding: EdgeInsets.only(top: 10),
+                                      child: new FlareActor(
+                                        "assets/animations/top_restaurant_loading.flr",
+                                        animation: "circular_loading",
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ));
+                              }),
+                        ),
                 ],
               ),
               new Container(

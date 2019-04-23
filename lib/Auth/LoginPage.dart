@@ -8,7 +8,6 @@ import 'package:bhukkd/Auth/Home/Components/ListViewContainer.dart';
 import 'package:bhukkd/Auth/Home/Screens/Home/homeAnimation.dart';
 import 'package:bhukkd/Auth/Home/Screens/Home/styles.dart';
 import 'package:bhukkd/Auth/register_page.dart';
-import 'package:bhukkd/Components/AddButton.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/flarecode/flare_actor.dart';
@@ -75,32 +74,14 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
 
     _screenController = new AnimationController(
         duration: new Duration(milliseconds: 2000), vsync: this);
-    _buttonController = new AnimationController(
-        duration: new Duration(milliseconds: 1500), vsync: this);
 
-    buttonGrowAnimation = new CurvedAnimation(
-      parent: _screenController,
-      curve: Curves.easeOut,
-    );
 
-    fadeScreenAnimation = new ColorTween(
-      begin: const Color.fromRGBO(247, 64, 106, 1.0),
-      end: const Color.fromRGBO(247, 64, 106, 0.0),
-    ).animate(
-      new CurvedAnimation(
-        parent: _screenController,
-        curve: Curves.ease,
-      ),
-    );
     containerGrowAnimation = new CurvedAnimation(
       parent: _screenController,
       curve: Curves.easeIn,
     );
 
-    buttonGrowAnimation = new CurvedAnimation(
-      parent: _screenController,
-      curve: Curves.easeOut,
-    );
+
     containerGrowAnimation.addListener(() {
       this.setState(() {});
     });
@@ -133,19 +114,7 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
         ),
       ),
     );
-    buttonSwingAnimation = new AlignmentTween(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomRight,
-    ).animate(
-      new CurvedAnimation(
-        parent: _screenController,
-        curve: new Interval(
-          0.225,
-          0.600,
-          curve: Curves.ease,
-        ),
-      ),
-    );
+
     listSlidePosition = new EdgeInsetsTween(
       begin: const EdgeInsets.only(bottom: 16.0),
       end: const EdgeInsets.only(bottom: 80.0),
@@ -510,6 +479,22 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
       } else {
         _success = false;
         print("SignIn Failed");
+
+        setState(() {
+          buttonLoading = Container(
+            child: Text(
+              "Sign In",
+              style: new TextStyle(
+                  fontSize: 20.0,
+                  fontFamily: "Montserrat",
+                  letterSpacing: 0.8,
+                  wordSpacing: 0.0,
+                  textBaseline: TextBaseline.ideographic,
+                  color: Colors.white),
+            ),
+          );
+        });
+
         snackBar = SnackBar(content: Text("SignIn Failed"));
         Scaffold.of(context).showSnackBar(snackBar);
       }
@@ -534,6 +519,21 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                 "Password incorrect. Please check the password again.";
             break;
         }
+
+        setState(() {
+          buttonLoading = Container(
+            child: Text(
+              "Sign In",
+              style: new TextStyle(
+                  fontSize: 20.0,
+                  fontFamily: "Montserrat",
+                  letterSpacing: 0.8,
+                  wordSpacing: 0.0,
+                  textBaseline: TextBaseline.ideographic,
+                  color: Colors.white),
+            ),
+          );
+        });
         snackBar = SnackBar(content: Text(handleError));
         Scaffold.of(context).showSnackBar(snackBar);
       });
