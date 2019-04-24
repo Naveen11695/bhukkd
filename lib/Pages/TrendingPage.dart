@@ -26,64 +26,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:bhukkd/flarecode/flare_actor.dart';
 
-Future getEntityFromLocations() async {
-  try {
-    String nameOfTheLocation;
-    await getLocationName().then((loc) {
-      nameOfTheLocation = loc.subLocality;
-    });
-    getKey();
-    String url =
-        "https://developers.zomato.com/api/v2.1/locations?query=$nameOfTheLocation";
-    final response = await http.get(Uri.encodeFull(url),
-        headers: {"Accept": "application/json", "user-key": api_key});
-    if (response.statusCode == 200) {
-      Map<String, dynamic> jsonParsed = json.decode(response.body);
-      List<dynamic> data = jsonParsed["location_suggestions"];
-      Map<String, dynamic> location_suggestion_data = data[0];
-      Locations loc = new Locations(
-          entity_type: location_suggestion_data["entity_type"],
-          entity_id: location_suggestion_data["entity_id"],
-          city_id: location_suggestion_data['city_id'],
-          city_name: location_suggestion_data['city_name'],
-          country_id: location_suggestion_data['country_id'],
-          country_name: location_suggestion_data['country_name'],
-          latitude: location_suggestion_data['latitude'],
-          longitude: location_suggestion_data['longitude'],
-          title: location_suggestion_data['title']);
-
-      return getTopRestaurants(loc.entity_id.toString(), loc.entity_type);
-    } else {
-      print("getEntityFromLocations Problem");
-      return "error";
-    }
-  } on SocketException catch (e) {
-    print('not connected');
-    return "error";
-  }
-}
-
-Future getTopRestaurants(String entity_id, String entity_type) async {
-  getKey();
-  print("entity id: " + entity_id);
-  print("entity type: " + entity_type);
-  String url =
-      "https://developers.zomato.com/api/v2.1/location_details?entity_id=$entity_id&entity_type=$entity_type";
-  final response = await http.get(Uri.encodeFull(url),
-      headers: {"Accept": "application/json", "user-key": api_key});
-  if (response.statusCode == 200) {
-    Map<String, dynamic> jsonParsed = json.decode(response.body);
-    List<dynamic> bestRestaurants = jsonParsed['best_rated_restaurant'];
-    List<NearByRestaurants> bestRest = [];
-    for (var r in bestRestaurants) {
-      NearByRestaurants res = NearByRestaurants.fromJson(r);
-      bestRest.add(res);
-    }
-    return bestRest;
-  } else {
-    print("getTopRestaurants Problem");
-  }
-}
 
 /*------------------------------DISCLAIMER----------------------------------- */
 // font used is OpenSans and Montserrat, please dont use any other font.
@@ -92,32 +34,6 @@ class TrendingPage extends StatefulWidget {
   _TrendingPageState createState() => new _TrendingPageState();
 }
 
-//.......................................important........................................//
-
-Future<Placemark> getLocationName() async {
-  double latitude, longitude;
-
-  await StoreUserLocation.get_CurrentLocation().then((loc) {
-    latitude = double.parse(loc[0]);
-    longitude = double.parse(loc[1]);
-    print("$longitude, $latitude");
-  });
-
-  //Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-  Geolocator geolocator = Geolocator()..forceAndroidLocationManager = true;
-  GeolocationStatus geolocationStatus =
-      await geolocator.checkGeolocationPermissionStatus();
-  if (geolocationStatus == GeolocationStatus.granted) {
-    List<Placemark> placemark =
-        await Geolocator().placemarkFromCoordinates(latitude, longitude);
-    return placemark[0];
-  } else {
-    print("Location denied ");
-    return null;
-  }
-}
-
-//.......................................important........................................//
 
 String getSortingValue() {}
 
@@ -133,74 +49,12 @@ class _TrendingPageState extends State<TrendingPage> {
   void initState() {
     super.initState();
     refresh();
-    callit();
-    _controller.addListener(() async {
-      if (_controller.position.pixels == _controller.position.maxScrollExtent) {
-        await fetchRestByCollectionID(1, sorting: null);
-      }
-    });
   }
 
   int start = 0;
 
-  Future fetchRestByCollectionID(int id, {String sorting}) async {
-    Iterable<dynamic> key =
-        (await parseJsonFromAssets('assets/api/config.json')).values;
-    var apiKey = key.elementAt(0);
-
-    double latitude, longitude;
-    await StoreUserLocation.get_CurrentLocation().then((loc) {
-      latitude = double.parse(loc[0]);
-      longitude = double.parse(loc[1]);
-      print("$longitude, $latitude");
-    });
-
-    if (!isInitializingRequest) {
-      setState(() {
-        isInitializingRequest = true;
-      });
-      if (sorting == null && id != null) {
-        http.Response response = await http.get(
-            "https://developers.zomato.com/api/v2.1/search?lat=${latitude.toString()}&lon=${longitude.toString()}&sort=rating&order=desc",
-            headers: {"Accept": "application/json", "user-key": apiKey});
-        start += 20;
-        print(response.body);
-        SearchRestraunts searchByCategory =
-            SearchRestraunts.fromJson(json.decode(response.body));
-        copydata = List.from(searchByCategory.restaurants);
-        List<dynamic> addRest =
-            new List.generate(20, (index) => copydata[index]);
-        setState(() {
-          rests.addAll(addRest);
-          isInitializingRequest = false;
-        });
-      }
-    }
-  }
 
   ListView listBuilder;
-
-  Future<Null> refresh() async {
-    getLocationName().then((locality) {
-      address = locality.subLocality +
-          " " +
-          locality.subAdministrativeArea +
-          ", " +
-          locality.locality +
-          " " +
-          locality.postalCode;
-    });
-    await Future.delayed(Duration(seconds: 1));
-    setState(() {
-      CustomHorizontalScroll();
-      HorizontalScroll();
-    });
-    return null;
-  }
-
-  Future callit() async {
-    await fetchRestByCollectionID(1, sorting: null);
-  }
 
   @override
   void dispose() {
@@ -529,4 +383,158 @@ class _TrendingPageState extends State<TrendingPage> {
       ),
     );
   }
+
+
+  Future<Null> refresh() async {
+    getLocationName().then((locality) {
+      address = locality.subLocality +
+          " " +
+          locality.subAdministrativeArea +
+          ", " +
+          locality.locality +
+          " " +
+          locality.postalCode;
+    });
+    await Future.delayed(Duration(seconds: 1));
+    setState(() {
+      CustomHorizontalScroll();
+      HorizontalScroll();
+      callit();
+      _controller.addListener(() async {
+        if (_controller.position.pixels == _controller.position.maxScrollExtent) {
+          await fetchRestByCollectionID(1, sorting: null);
+        }
+      });
+    });
+    return null;
+  }
+
+  Future callit() async {
+    await fetchRestByCollectionID(1, sorting: null);
+  }
+
+
+
+  Future fetchRestByCollectionID(int id, {String sorting}) async {
+    Iterable<dynamic> key =
+        (await parseJsonFromAssets('assets/api/config.json')).values;
+    var apiKey = key.elementAt(0);
+
+    double latitude, longitude;
+    await StoreUserLocation.get_CurrentLocation().then((loc) {
+      latitude = double.parse(loc[0]);
+      longitude = double.parse(loc[1]);
+      print("$longitude, $latitude");
+    });
+
+    if (!isInitializingRequest) {
+      setState(() {
+        isInitializingRequest = true;
+      });
+      if (sorting == null && id != null) {
+        http.Response response = await http.get(
+            "https://developers.zomato.com/api/v2.1/search?lat=${latitude.toString()}&lon=${longitude.toString()}&start=$start&sort=rating&order=desc",
+            headers: {"Accept": "application/json", "user-key": apiKey});
+        start += 20;
+        print(response.body);
+        SearchRestraunts searchByCategory =
+        SearchRestraunts.fromJson(json.decode(response.body));
+        copydata = List.from(searchByCategory.restaurants);
+        List<dynamic> addRest =
+        new List.generate(20, (index) => copydata[index]);
+        setState(() {
+          rests.addAll(addRest);
+          isInitializingRequest = false;
+        });
+      }
+    }
+  }
 }
+
+
+//.......................................important........................................//
+
+Future<Placemark> getLocationName() async {
+  double latitude, longitude;
+
+  await StoreUserLocation.get_CurrentLocation().then((loc) {
+    latitude = double.parse(loc[0]);
+    longitude = double.parse(loc[1]);
+    print("$longitude, $latitude");
+  });
+
+  //Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+  Geolocator geolocator = Geolocator()..forceAndroidLocationManager = true;
+  GeolocationStatus geolocationStatus =
+  await geolocator.checkGeolocationPermissionStatus();
+  if (geolocationStatus == GeolocationStatus.granted) {
+    List<Placemark> placemark =
+    await Geolocator().placemarkFromCoordinates(latitude, longitude);
+    return placemark[0];
+  } else {
+    print("Location denied ");
+    return null;
+  }
+}
+
+//.......................................important........................................//
+
+Future getEntityFromLocations() async {
+  try {
+    String nameOfTheLocation;
+    await getLocationName().then((loc) {
+      nameOfTheLocation = loc.subLocality;
+    });
+    getKey();
+    String url =
+        "https://developers.zomato.com/api/v2.1/locations?query=$nameOfTheLocation";
+    final response = await http.get(Uri.encodeFull(url),
+        headers: {"Accept": "application/json", "user-key": api_key});
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonParsed = json.decode(response.body);
+      List<dynamic> data = jsonParsed["location_suggestions"];
+      Map<String, dynamic> location_suggestion_data = data[0];
+      Locations loc = new Locations(
+          entity_type: location_suggestion_data["entity_type"],
+          entity_id: location_suggestion_data["entity_id"],
+          city_id: location_suggestion_data['city_id'],
+          city_name: location_suggestion_data['city_name'],
+          country_id: location_suggestion_data['country_id'],
+          country_name: location_suggestion_data['country_name'],
+          latitude: location_suggestion_data['latitude'],
+          longitude: location_suggestion_data['longitude'],
+          title: location_suggestion_data['title']);
+
+      return getTopRestaurants(loc.entity_id.toString(), loc.entity_type);
+    } else {
+      print("getEntityFromLocations Problem");
+      return "error";
+    }
+  } on SocketException catch (e) {
+    print('not connected');
+    return "error";
+  }
+}
+
+Future getTopRestaurants(String entity_id, String entity_type) async {
+  getKey();
+  print("entity id: " + entity_id);
+  print("entity type: " + entity_type);
+  String url =
+      "https://developers.zomato.com/api/v2.1/location_details?entity_id=$entity_id&entity_type=$entity_type";
+  final response = await http.get(Uri.encodeFull(url),
+      headers: {"Accept": "application/json", "user-key": api_key});
+  if (response.statusCode == 200) {
+    Map<String, dynamic> jsonParsed = json.decode(response.body);
+    List<dynamic> bestRestaurants = jsonParsed['best_rated_restaurant'];
+    List<NearByRestaurants> bestRest = [];
+    for (var r in bestRestaurants) {
+      NearByRestaurants res = NearByRestaurants.fromJson(r);
+      bestRest.add(res);
+    }
+    return bestRest;
+  } else {
+    print("getTopRestaurants Problem");
+  }
+}
+

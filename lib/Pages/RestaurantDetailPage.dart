@@ -402,7 +402,10 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                                       AsyncSnapshot snapShot) {
                                     if (snapShot.connectionState ==
                                         ConnectionState.done) {
-                                      if (snapShot.data != null) {
+                                      if(snapShot.data == "error"){
+                                        return Container(child:Text("No Reviews Available"));
+                                      }
+                                      else if (snapShot.data != null) {
                                         return Container(
                                             height: 500,
                                             width: MediaQuery.of(context)
@@ -413,7 +416,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                                               shrinkWrap: true,
                                               physics:
                                                   NeverScrollableScrollPhysics(),
-                                              itemCount: 5,
+                                              itemCount: snapShot.data.reviews_count > 5 ?5:snapShot.data.user_reviews.length,
                                               separatorBuilder:
                                                   (BuildContext context,
                                                       int index) {
@@ -503,8 +506,8 @@ Future fetchReviews(String rest_id) async {
           "https://developers.zomato.com/api/v2.1/reviews?res_id=${rest_id.toString()}"),
       headers: {"Accept": 'json/application', "user_key": api_key});
   Reviews r = Reviews.fromJson(json.decode(response.body));
-  print(r.user_reviews[0].review.comments_count);
-  print(r.user_reviews[0].review.user);
-  print(r.user_reviews[0].review.user.name);
+  if(r.reviews_count == 0){
+    return "error";
+  }
   return r;
 }

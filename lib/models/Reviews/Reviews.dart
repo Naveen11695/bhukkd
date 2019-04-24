@@ -39,16 +39,24 @@ class Reviews extends Model {
   factory Reviews.fromJson(Map<String, dynamic> json){
     //print(json['user_reviews']);
     var listOfReviews = json['user_reviews'] as List;
+    print(listOfReviews);
     List<UserReviews> user_review;
-    if(listOfReviews!=null){
+    if(listOfReviews.isEmpty){
+      return Reviews(
+        reviews_count: 0,
+        reviews_shown: 0,
+        reviews_start: 0,
+        user_reviews: null,
+      );
+    }else{
       user_review = listOfReviews.map((review)=>UserReviews.fromJson(review)).toList();
+      return Reviews(
+          reviews_count: json['reviews_count'],
+          reviews_shown: json['reviews_shown'],
+          reviews_start: json['reviews_start'],
+          user_reviews: user_review
+      );
     }
-    return Reviews(
-      reviews_count: json['reviews_count'],
-      reviews_shown: json['reviews_shown'],
-      reviews_start: json['reviews_start'],
-      user_reviews: user_review
-    );
   }
 }
 

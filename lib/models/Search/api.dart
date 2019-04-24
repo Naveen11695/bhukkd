@@ -22,7 +22,7 @@ class Api {
       longitude = loc[1].toString();
     });
 
-    String _url = "https://developers.zomato.com/api/v2.1/search?q=$query&lat=$latitude&lon=$longitude&radius=1000000&order=asc&sort=rating";
+    String _url = "https://developers.zomato.com/api/v2.1/search?q=$query&lat=$latitude&lon=$longitude&radius=1000000";
     Iterable<dynamic> key =
         (await parseJsonFromAssets('assets/api/config.json')).values;
     print("key: " + key.elementAt(0));

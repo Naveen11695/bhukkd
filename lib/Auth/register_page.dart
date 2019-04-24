@@ -249,6 +249,9 @@ class RegisterPageState extends State<RegisterPage> {
             handleError =
             "The email address is already in use by another account.";
             break;
+          case "ERROR_NETWORK_REQUEST_FAILED":
+            handleError =
+            "A network timeout. Please connect to more stable network.";
         }
         var snackBar = SnackBar(content: Text(handleError));
         scaffoldKey.currentState.showSnackBar(snackBar);

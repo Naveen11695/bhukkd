@@ -355,12 +355,12 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                                               ),
                                               child: InkWell(
                                                 onTap: () async {
-                                                  setState(() {
-                                                    buttonLoading=buttonLoading2;
-                                                  });
                                                   final form =
                                                       formKey.currentState;
                                                   if (form.validate()) {
+                                                    setState(() {
+                                                      buttonLoading=buttonLoading2;
+                                                    });
                                                     form.save();
                                                     _signInWithEmailAndPassword();
                                                   }
@@ -518,6 +518,9 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
             handleError =
                 "Password incorrect. Please check the password again.";
             break;
+          case "ERROR_NETWORK_REQUEST_FAILED":
+            handleError =
+                "A network timeout. Please connect to more stable network.";
         }
 
         setState(() {
