@@ -19,7 +19,7 @@ void getKey() async {
   Iterable<dynamic> key =
       (await parseJsonFromAssets('assets/api/config.json')).values;
   api_key = key.elementAt(0);
-  print('api-key : $api_key');
+  /*print('api-key : $api_key');*/
 }
 
 Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
@@ -55,7 +55,7 @@ Future fetchRestByGeoCode() async{
     await StoreUserLocation.get_CurrentLocation().then((loc) {
       latitude = loc[0].toString();
       longitude = loc[1].toString();
-      print("$longitude, $latitude");
+//      print("$longitude, $latitude");
     });
     GeoCode geocode;
 

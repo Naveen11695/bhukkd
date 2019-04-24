@@ -25,9 +25,9 @@ class SearchRestraunts extends Model {
       print("Error in Geocode in nearbyrestaurants");
     }
 
-    print("results_found:"+json['results_found'].toString());
-    print("results_start:"+json['results_start'].toString());
-    print("results_shown:"+json['results_shown'].toString());
+//    print("results_found:"+json['results_found'].toString());
+//    print("results_start:"+json['results_start'].toString());
+//    print("results_shown:"+json['results_shown'].toString());
     //print("restaurant:"+restrauntList[0].name);
 
     return SearchRestraunts(

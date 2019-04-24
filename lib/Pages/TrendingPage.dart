@@ -48,7 +48,23 @@ class _TrendingPageState extends State<TrendingPage> {
   @override
   void initState() {
     super.initState();
-    refresh();
+    //refresh();
+    getLocationName().then((locality) {
+      address = locality.subLocality +
+          " " +
+          locality.subAdministrativeArea +
+          ", " +
+          locality.locality +
+          " " +
+          locality.postalCode;
+    });
+
+    callit();
+    _controller.addListener(() async {
+      if (_controller.position.pixels == _controller.position.maxScrollExtent) {
+        await fetchRestByCollectionID(1, sorting: null);
+      }
+    });
   }
 
   int start = 0;
@@ -335,7 +351,7 @@ class _TrendingPageState extends State<TrendingPage> {
                       borderRadius: BorderRadius.circular(30.0),
                       child: InkWell(
                         onTap: () {
-                          print("Search");
+//                          print("Search");
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -423,7 +439,7 @@ class _TrendingPageState extends State<TrendingPage> {
     await StoreUserLocation.get_CurrentLocation().then((loc) {
       latitude = double.parse(loc[0]);
       longitude = double.parse(loc[1]);
-      print("$longitude, $latitude");
+      /*print("$longitude, $latitude");*/
     });
 
     if (!isInitializingRequest) {
@@ -435,7 +451,7 @@ class _TrendingPageState extends State<TrendingPage> {
             "https://developers.zomato.com/api/v2.1/search?lat=${latitude.toString()}&lon=${longitude.toString()}&start=$start&sort=rating&order=desc",
             headers: {"Accept": "application/json", "user-key": apiKey});
         start += 20;
-        print(response.body);
+//        print(response.body);
         SearchRestraunts searchByCategory =
         SearchRestraunts.fromJson(json.decode(response.body));
         copydata = List.from(searchByCategory.restaurants);
@@ -459,7 +475,7 @@ Future<Placemark> getLocationName() async {
   await StoreUserLocation.get_CurrentLocation().then((loc) {
     latitude = double.parse(loc[0]);
     longitude = double.parse(loc[1]);
-    print("$longitude, $latitude");
+//    print("$longitude, $latitude");
   });
 
   //Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
@@ -517,8 +533,8 @@ Future getEntityFromLocations() async {
 
 Future getTopRestaurants(String entity_id, String entity_type) async {
   getKey();
-  print("entity id: " + entity_id);
-  print("entity type: " + entity_type);
+//  print("entity id: " + entity_id);
+//  print("entity type: " + entity_type);
   String url =
       "https://developers.zomato.com/api/v2.1/location_details?entity_id=$entity_id&entity_type=$entity_type";
   final response = await http.get(Uri.encodeFull(url),

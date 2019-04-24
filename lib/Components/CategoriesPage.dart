@@ -1,5 +1,6 @@
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Pages/RestaurantDetailPage.dart';
+import 'package:bhukkd/api/LocationRequest.dart';
 import 'package:bhukkd/models/SharedPreferance/SharedPreference.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -152,10 +153,9 @@ class CategoriesPageState extends State<CategoriesPage> {
   Future fetchRestByCategoryID(int id, {String sorting}) async {
     getKey();
     double latitude, longitude;
-    await StoreUserLocation.get_CurrentLocation().then((loc) {
-      latitude = double.parse(loc[0]);
-      longitude = double.parse(loc[1]);
-      print("$longitude, $latitude");
+    await getCurrentPosition().then((position){
+      latitude = position.latitude;
+      longitude = position.longitude;
     });
 
     if (!isInitializingRequest) {
