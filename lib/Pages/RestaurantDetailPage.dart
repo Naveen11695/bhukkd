@@ -1,5 +1,6 @@
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/flarecode/flare_actor.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../models/GeoCodeInfo/GeoCode.dart';
@@ -32,6 +33,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
   }
 
   int i = 0;
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -57,13 +59,11 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                           centerTitle: false,
                           background: Hero(
                             tag: i++, // unique id
-                            child: FadeInImage(
-                              image: NetworkImage(
-                                  snapshot.data.restruant_Feature_image),
+                            child: CachedNetworkImage(imageUrl:snapshot.data.restruant_Feature_image,
                               height: 300,
                               fadeInDuration: const Duration(seconds: 1),
                               placeholder:
-                                  AssetImage("assets/images/default.jpg"),
+                                  Image.asset("assets/images/default.jpg",height: 300,fit: BoxFit.cover,),
                               fit: BoxFit.cover,
                               fadeOutDuration: const Duration(seconds: 1),
                               fadeInCurve: Curves.fastOutSlowIn,
@@ -244,9 +244,20 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                                                       right: 10,
                                                       top: 5,
                                                       bottom: 5),
-                                                  child: new Image.network(
-                                                    snapShot.data[index],
-                                                    fit: BoxFit.fill,
+                                                  child: CachedNetworkImage(
+                                                    imageUrl:
+                                                        snapShot.data[index],
+                                                    fit: BoxFit.cover,
+                                                    height: 130,
+                                                    placeholder: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              50.0),
+                                                      child:
+                                                          CircularProgressIndicator(),
+                                                    ),
+                                                    errorWidget:
+                                                        Icon(Icons.error),
                                                   ),
                                                 ),
                                               ),
@@ -378,14 +389,15 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                             child: Row(children: [
                               Expanded(
                                 flex: 1,
-                                child:Text(
-                                snapshot.data.restruant_Location.address,
-                                overflow: TextOverflow.clip,
-                              ),)
+                                child: Text(
+                                  snapshot.data.restruant_Location.address,
+                                  overflow: TextOverflow.clip,
+                                ),
+                              )
                             ]),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top:10, left: 10),
+                            padding: const EdgeInsets.only(top: 10, left: 10),
                             child: Text(
                               "Reviews",
                               style: TextStyle(
@@ -403,10 +415,11 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                                       AsyncSnapshot snapShot) {
                                     if (snapShot.connectionState ==
                                         ConnectionState.done) {
-                                      if(snapShot.data == "error"){
-                                        return Container(child:Text("No Reviews Available"));
-                                      }
-                                      else if (snapShot.data != null) {
+                                      if (snapShot.data == "error") {
+                                        return Container(
+                                            child:
+                                                Text("No Reviews Available"));
+                                      } else if (snapShot.data != null) {
                                         return Container(
                                             height: 500,
                                             width: MediaQuery.of(context)
@@ -417,7 +430,12 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                                               shrinkWrap: true,
                                               physics:
                                                   NeverScrollableScrollPhysics(),
-                                              itemCount: snapShot.data.reviews_count > 5 ?5:snapShot.data.user_reviews.length,
+                                              itemCount:
+                                                  snapShot.data.reviews_count >
+                                                          5
+                                                      ? 5
+                                                      : snapShot.data
+                                                          .user_reviews.length,
                                               separatorBuilder:
                                                   (BuildContext context,
                                                       int index) {
@@ -441,20 +459,48 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage> {
                                                           .profile_image,
                                                     ),
                                                   ),
-                                                  title: Column(crossAxisAlignment: CrossAxisAlignment.start,children:[
-                                                    Text(snapShot.data.user_reviews[index]
-                                            .review.user.name, textAlign: TextAlign.justify,style: TextStyle(
-                                              color: Colors.black, fontFamily: "Roboto",
-                                              fontWeight: FontWeight.w600, fontSize: 18,
-                                            ),),
-                                                    Text(snapShot
-                                                      .data
-                                                      .user_reviews[index]
-                                                      .review
-                                                      .review_text, style: TextStyle(
-                                                        color: Colors.black54, fontFamily: "Roboto",
-                                              fontWeight: FontWeight.w400, fontSize: 14
-                                                      ),)]),
+                                                  title: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          snapShot
+                                                              .data
+                                                              .user_reviews[
+                                                                  index]
+                                                              .review
+                                                              .user
+                                                              .name,
+                                                          textAlign:
+                                                              TextAlign.justify,
+                                                          style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontFamily:
+                                                                "Roboto",
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            fontSize: 18,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          snapShot
+                                                              .data
+                                                              .user_reviews[
+                                                                  index]
+                                                              .review
+                                                              .review_text,
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .black54,
+                                                              fontFamily:
+                                                                  "Roboto",
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              fontSize: 14),
+                                                        )
+                                                      ]),
                                                   trailing: Text(
                                                     snapShot
                                                         .data
@@ -507,7 +553,7 @@ Future fetchReviews(String rest_id) async {
           "https://developers.zomato.com/api/v2.1/reviews?res_id=${rest_id.toString()}"),
       headers: {"Accept": 'json/application', "user_key": api_key});
   Reviews r = Reviews.fromJson(json.decode(response.body));
-  if(r.reviews_count == 0){
+  if (r.reviews_count == 0) {
     return "error";
   }
   return r;

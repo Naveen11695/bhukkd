@@ -1,5 +1,7 @@
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Pages/RestaurantDetailPage.dart';
+import 'package:bhukkd/models/SharedPreferance/SharedPreference.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -49,40 +51,6 @@ class CategoriesPageState extends State<CategoriesPage> {
 
   int start = 0;
 
-  Future fetchRestByCategoryID(int id, {String sorting}) async {
-    getKey();
-    if (!isInitializingRequest) {
-      setState(() {
-        isInitializingRequest = true;
-      });
-      if (sorting == null && id != null) {
-        http.Response response = await http.get(
-            "https://developers.zomato.com/api/v2.1/search?start=$start&category=${id.toString()}",
-            headers: {"Accept": "application/json", "user-key": api_key});
-        start += 20;
-        SearchRestraunts searchByCategory =
-            SearchRestraunts.fromJson(json.decode(response.body));
-        copydata = List.from(searchByCategory.restaurants);
-        List<dynamic> addRest =
-            new List.generate(20, (index) => copydata[index]);
-        setState(() {
-          rests.addAll(addRest);
-          isInitializingRequest = false;
-        });
-      }
-      // else if (sorting != null && id != null) {
-      //   http.Response response = await http.get(
-      //       "https://developers.zomato.com/api/v2.1/search?category=${id.toString()}&sorting=$sorting",
-      //       headers: {"Accept": "application/json", "user-key": api_key});
-
-      //   print(response.body);
-      //   SearchRestraunts searchByCategory =
-      //       SearchRestraunts.fromJson(json.decode(response.body));
-      //   return searchByCategory;
-      // }}
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     if (rests != null) {
@@ -129,15 +97,26 @@ class CategoriesPageState extends State<CategoriesPage> {
                   child: Column(
                     verticalDirection: VerticalDirection.down,
                     children: <Widget>[
-                      rests[index].featured_image == null ||
-                              rests[index].featured_image == ""
-                          ? Image.asset(
-                              "assets/images/default.jpg",
-                              fit: BoxFit.cover,
-                              height: 125,
-                            )
-                          : Image.network(rests[index].featured_image,
-                              fit: BoxFit.fill, height: 125),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: rests[index].featured_image == null ||
+                                rests[index].featured_image == ""
+                            ? Image.asset(
+                                "assets/images/default.jpg",
+                                fit: BoxFit.cover,
+                                height: 140,
+                              )
+                            : CachedNetworkImage(
+                                imageUrl: rests[index].featured_image,
+                                fit: BoxFit.cover,
+                                height: 140,
+                                placeholder: Padding(
+                                  padding: const EdgeInsets.all(40.0),
+                                  child: CircularProgressIndicator(),
+                                ),
+                                errorWidget: Icon(Icons.error),
+                              ),
+                      ),
                       Text(
                         rests[index].name,
                         style: TextStyle(
@@ -167,6 +146,37 @@ class CategoriesPageState extends State<CategoriesPage> {
           valueColor: new AlwaysStoppedAnimation<Color>(Colors.deepOrange),
         ),
       ));
+    }
+  }
+
+  Future fetchRestByCategoryID(int id, {String sorting}) async {
+    getKey();
+    double latitude, longitude;
+    await StoreUserLocation.get_CurrentLocation().then((loc) {
+      latitude = double.parse(loc[0]);
+      longitude = double.parse(loc[1]);
+      print("$longitude, $latitude");
+    });
+
+    if (!isInitializingRequest) {
+      setState(() {
+        isInitializingRequest = true;
+      });
+      if (sorting == null && id != null) {
+        http.Response response = await http.get(
+            "https://developers.zomato.com/api/v2.1/search?start=$start&category=${id.toString()}&sort=rating&lat=${latitude.toString()}&lon=${longitude.toString()}",
+            headers: {"Accept": "application/json", "user-key": api_key});
+        start += 20;
+        SearchRestraunts searchByCategory =
+            SearchRestraunts.fromJson(json.decode(response.body));
+        copydata = List.from(searchByCategory.restaurants);
+        List<dynamic> addRest =
+            new List.generate(20, (index) => copydata[index]);
+        setState(() {
+          rests.addAll(addRest);
+          isInitializingRequest = false;
+        });
+      }
     }
   }
 }

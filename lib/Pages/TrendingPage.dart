@@ -265,11 +265,10 @@ class _TrendingPageState extends State<TrendingPage> {
                                                   rests[index].featured_image,
                                               fit: BoxFit.cover,
                                               height: 130,
-                                              placeholder: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(50.0),
-                                                child:
-                                                    CircularProgressIndicator(),
+                                              placeholder: Image.asset(
+                                                "assets/images/default.jpg",
+                                                fit: BoxFit.cover,
+                                                height: 130,
                                               ),
                                               errorWidget: Icon(Icons.error),
                                             ),
