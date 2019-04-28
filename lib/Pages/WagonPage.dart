@@ -2,6 +2,7 @@ import 'package:bhukkd/flarecode/flare_actor.dart';
 import 'package:flutter/material.dart';
 
 class WagonPage extends StatefulWidget{
+  WagonPage({Key key}):super(key:key);
   @override
   _WagonPageState createState() => new _WagonPageState();
 }

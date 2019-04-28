@@ -6,14 +6,38 @@ import '../Pages/RestaurantDetailPage.dart';
 import '../Components/CustomTransition.dart';
 import '../api/HttpRequest.dart';
 import 'package:bhukkd/flarecode/flare_actor.dart';
+import '../Pages/TrendingPage.dart';
+import '../Pages/HomePage.dart';
 
-class HorizontalScroll extends StatelessWidget {
+class HorizontalScroll extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return HorizontalScrollState();
+  }
+}
+AsyncSnapshot fetchRestByGeoCodeData;
+class HorizontalScrollState extends State<HorizontalScroll> with AutomaticKeepAliveClientMixin{
+  Future<dynamic> fetchRestGeoCode;
+  int count=1;
+  @override
+  void initState() {
+    super.initState();
+    fetchRestGeoCode = fetchRestByGeoCode();
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return FutureBuilder(
-      future: fetchRestByGeoCode(),
+      future: count==1 || isReloading == true?fetchRestByGeoCode() : fetchRestGeoCode,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
+          fetchRestByGeoCodeData=snapshot;
+          count++;
+          isReloading=false;
           if (snapshot.data == "error") {
             return Container(
               child: ListView.builder(
@@ -37,6 +61,8 @@ class HorizontalScroll extends StatelessWidget {
             );
           } else if (snapshot.data != null) {
             return ListView.builder(
+                addAutomaticKeepAlives: true,
+                cacheExtent: 10,
                 scrollDirection: Axis.horizontal,
                 itemCount: snapshot.data.nearby_restaurants.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -50,7 +76,7 @@ class HorizontalScroll extends StatelessWidget {
                             bottomRight: Radius.circular(7)),
                         child: new Container(
                           constraints: BoxConstraints.expand(
-                            width: 180.0,
+                            width: 185.0,
                           ),
                           child: InkWell(
                             onTap: () {
@@ -84,7 +110,7 @@ class HorizontalScroll extends StatelessWidget {
                                             flex: 1,
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(8.0),
+                                                  const EdgeInsets.all(5.0),
                                               child: (snapshot
                                                           .data
                                                           .nearby_restaurants[

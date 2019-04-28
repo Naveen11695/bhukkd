@@ -100,11 +100,16 @@ class _SplashScreenState extends State<SplashScreen>
     }
   }
 
-
-
+  void _saveLocation() async {
+    await getCurrentPosition().then((position) {
+      StoreUserLocation.location = position;
+      StoreUserLocation.setLocation();
+    });
+  }
   @override
   void initState() {
     super.initState();
+    _saveLocation();
     /*getLocationName();
     getCurrentPosition();
     fetchRestByGeoCode();*/

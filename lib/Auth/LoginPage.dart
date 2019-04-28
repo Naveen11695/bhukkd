@@ -20,6 +20,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
+  LoginPage({Key key}):super(key:key);
   @override
   _LoginPage createState() => _LoginPage();
 }

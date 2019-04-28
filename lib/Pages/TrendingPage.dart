@@ -31,24 +31,28 @@ import 'package:bhukkd/flarecode/flare_actor.dart';
 // font used is OpenSans and Montserrat, please dont use any other font.
 
 class TrendingPage extends StatefulWidget {
+  TrendingPage({Key key}):super(key:key);
   _TrendingPageState createState() => new _TrendingPageState();
 }
 
+bool isReloading = false;
 
 String getSortingValue() {}
 
 List<dynamic> copydata = [];
 
-class _TrendingPageState extends State<TrendingPage> {
+class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClientMixin {
   String address;
   ScrollController _controller = new ScrollController();
   bool isInitializingRequest = false;
   List<dynamic> rests = [];
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   void initState() {
     super.initState();
-    //refresh();
     getLocationName().then((locality) {
       address = locality.subLocality +
           " " +
@@ -71,7 +75,6 @@ class _TrendingPageState extends State<TrendingPage> {
 
 
   ListView listBuilder;
-
   @override
   void dispose() {
     super.dispose();
@@ -79,8 +82,9 @@ class _TrendingPageState extends State<TrendingPage> {
   }
 
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
-      body: RefreshIndicator(
+      body:RefreshIndicator(
         child: GestureDetector(
           onVerticalDragDown: (DragDownDetails scrolldetails) {
             double currentPosition = MediaQuery.of(context).size.height -
@@ -401,6 +405,7 @@ class _TrendingPageState extends State<TrendingPage> {
 
 
   Future<Null> refresh() async {
+    isReloading = true;
     getLocationName().then((locality) {
       address = locality.subLocality +
           " " +

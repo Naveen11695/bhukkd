@@ -4,11 +4,15 @@ import './TrendingPage.dart';
 import 'package:bhukkd/Auth/LoginPage.dart';
 import './WagonPage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../Components/HorizontalScroll.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePage createState() => new _HomePage();
 }
+
+
+AsyncSnapshot saveGeoCodeRest=AsyncSnapshot.nothing();
 
 class _HomePage extends State<HomePage> {
 
@@ -16,10 +20,10 @@ class _HomePage extends State<HomePage> {
 
 
   List<Widget> bottomNavigation = [
-    new TrendingPage(),
-    new ExplorePage(),
-    new WagonPage(),
-    new LoginPage(),
+    new TrendingPage(key:PageStorageKey("TrendingPage")),
+    new ExplorePage(key:PageStorageKey("ExplorePage")),
+    new WagonPage(key:PageStorageKey("WagonPage")),
+    new LoginPage(key:PageStorageKey("LoginPage")),
   ];
 
   @override
@@ -37,6 +41,7 @@ class _HomePage extends State<HomePage> {
         type: BottomNavigationBarType.fixed,
         onTap: (int index) {
           setState(() {
+            saveGeoCodeRest = fetchRestByGeoCodeData;
             this.selectedIndex = index;
           });
         },

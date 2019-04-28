@@ -16,6 +16,7 @@ import '../Components/CategoriesPage.dart';
 //.................................data to be render..........................//
 
 class ExplorePage extends StatefulWidget {
+  ExplorePage({Key key}):super(key:key);
   @override
   _ExplorePage createState() => _ExplorePage();
 }
