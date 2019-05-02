@@ -73,78 +73,74 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
     _passwordVisible = false;
     super.initState();
 
-    _screenController = new AnimationController(
-        duration: new Duration(milliseconds: 2000), vsync: this);
+//    _screenController = new AnimationController(
+//        duration: new Duration(milliseconds: 2000), vsync: this);
 
 
-    containerGrowAnimation = new CurvedAnimation(
-      parent: _screenController,
-      curve: Curves.easeIn,
-    );
+//    containerGrowAnimation = new CurvedAnimation(
+//      parent: _screenController,
+//      curve: Curves.easeIn,
+//    );
 
 
-    containerGrowAnimation.addListener(() {
-      this.setState(() {});
-    });
-    containerGrowAnimation.addStatusListener((AnimationStatus status) {});
+//    containerGrowAnimation.addListener(() {
+//      this.setState(() {});
+//    });
+//    containerGrowAnimation.addStatusListener((AnimationStatus status) {});
+//
+//    listTileWidth = new Tween<double>(
+//      begin: 1000.0,
+//      end: 600.0,
+//    ).animate(
+//      new CurvedAnimation(
+//        parent: _screenController,
+//        curve: new Interval(
+//          0.225,
+//          0.600,
+//          curve: Curves.bounceIn,
+//        ),
+//      ),
+//    );
 
-    listTileWidth = new Tween<double>(
-      begin: 1000.0,
-      end: 600.0,
-    ).animate(
-      new CurvedAnimation(
-        parent: _screenController,
-        curve: new Interval(
-          0.225,
-          0.600,
-          curve: Curves.bounceIn,
-        ),
-      ),
-    );
+//    listSlideAnimation = new AlignmentTween(
+//      begin: Alignment.topCenter,
+//      end: Alignment.bottomCenter,
+//    ).animate(
+//      new CurvedAnimation(
+//        parent: _screenController,
+//        curve: new Interval(
+//          0.325,
+//          0.700,
+//          curve: Curves.ease,
+//        ),
+//      ),
+//    );
 
-    listSlideAnimation = new AlignmentTween(
-      begin: Alignment.topCenter,
-      end: Alignment.bottomCenter,
-    ).animate(
-      new CurvedAnimation(
-        parent: _screenController,
-        curve: new Interval(
-          0.325,
-          0.700,
-          curve: Curves.ease,
-        ),
-      ),
-    );
-
-    listSlidePosition = new EdgeInsetsTween(
-      begin: const EdgeInsets.only(bottom: 16.0),
-      end: const EdgeInsets.only(bottom: 80.0),
-    ).animate(
-      new CurvedAnimation(
-        parent: _screenController,
-        curve: new Interval(
-          0.325,
-          0.800,
-          curve: Curves.ease,
-        ),
-      ),
-    );
-    _screenController.forward();
+//    listSlidePosition = new EdgeInsetsTween(
+//      begin: const EdgeInsets.only(bottom: 16.0),
+//      end: const EdgeInsets.only(bottom: 80.0),
+//    ).animate(
+//      new CurvedAnimation(
+//        parent: _screenController,
+//        curve: new Interval(
+//          0.325,
+//          0.800,
+//          curve: Curves.ease,
+//        ),
+//      ),
+//    );
+//    _screenController.forward();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _screenController.dispose();
-    _buttonController.dispose();
+//    _screenController.dispose();
+//    _buttonController.dispose();
   }
 
-  Future<Null> _playAnimation() async {
-    try {
-      await _buttonController.forward();
-    } on TickerCanceled {}
-  }
+
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 

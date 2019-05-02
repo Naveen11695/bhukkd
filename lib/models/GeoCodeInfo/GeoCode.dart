@@ -869,6 +869,7 @@
 // } */
 
 
+
 import 'package:scoped_model/scoped_model.dart';
 import '../Restruant/location/location.dart';
 import '../Popularity/Popularity.dart';
@@ -913,14 +914,13 @@ class GeoCode extends Model{
 
 
     return GeoCode(
-      link: json['link'],
-      nearby_restaurants:restrauntList,
-      popularity: p,
-      restaraunt_location: l
+        link: json['link'],
+        nearby_restaurants:restrauntList,
+        popularity: p,
+        restaraunt_location: l
     );
   }
 
 
 
 }
-

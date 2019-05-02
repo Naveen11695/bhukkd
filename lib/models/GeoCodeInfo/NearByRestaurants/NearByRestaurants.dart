@@ -55,24 +55,21 @@ class NearByRestaurants{
     Map<String, dynamic> loc = json["restaurant"]["location"];
     //Map<String, dynamic> event = json["restaurant"]['zomato_events'];
     Map<String, dynamic> user_rate = json["restaurant"]['user_rating'];
-  
     location l;
     ZomatoEvents zomatoEvents;
     UserRating rate;
 
     if (loc != null) {
       // printing the location of the restraunts
-    /*  print("-----------Location of the NearByRest------------");
+   /*   print("-----------Location of the NearByRest------------");
       print(loc);
       print("-----------End------------");*/
       l = location.fromJson(loc);
     }else{
-/*      print("error in location in NearByrest:$l");*/
+      print("error in location in NearByrest:$l");
     }
 
-/*
-    print("restaurants:"+json['restaurants'].toString());
-*/
+  /*  print("restaurants:"+json['restaurant'].toString());*/
 
     // error in zomatoEvents
 
@@ -92,6 +89,9 @@ class NearByRestaurants{
     }else{
   /*    print("error in userRating in NearByrest:$rate");*/
     }
+
+//    print(json.toString());
+
 
     return NearByRestaurants(
       id:json["restaurant"]['id'],

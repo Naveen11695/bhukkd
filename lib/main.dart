@@ -5,7 +5,6 @@ import 'package:bhukkd/api/HttpRequest.dart';
 import 'package:bhukkd/api/LocationRequest.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import './Pages/LocationServicePage.dart';
 import 'models/SharedPreferance/SharedPreference.dart';
 import './Pages/HomePage.dart';
 import 'package:progress_indicators/progress_indicators.dart';
@@ -26,7 +25,6 @@ class Bhukkd extends StatelessWidget {
       title: 'SplashScreen',
       home: SplashScreen(),
       routes: <String, WidgetBuilder>{
-        '/LocationService': (BuildContext context) => new LocationServicePage(),
         '/HomePage': (BuildContext context) => new HomePage(),
       },
       theme: new ThemeData(bottomAppBarColor: Color.fromRGBO(249, 129, 42, 1)),
@@ -65,11 +63,6 @@ class _SplashScreenState extends State<SplashScreen>
   // }
 
   void navigateTo() async {
-    if (await StoreUserLocation.get_CurrentLocation() == null) {
-      Route route = HorizontalTransition(
-          builder: (BuildContext context) => new LocationServicePage());
-      Navigator.of(context).pushReplacement(route);
-    } else {
       Navigator.pushReplacement(
           context,
           PageRouteBuilder(
@@ -97,7 +90,6 @@ class _SplashScreenState extends State<SplashScreen>
                   child: child,
                 );
               }));
-    }
   }
 
   void _saveLocation() async {
