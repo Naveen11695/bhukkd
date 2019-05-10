@@ -39,7 +39,6 @@ class Reviews extends Model {
   factory Reviews.fromJson(Map<String, dynamic> json){
     //print(json['user_reviews']);
     var listOfReviews = json['user_reviews'] as List;
-    print(listOfReviews);
     List<UserReviews> user_review;
     if(listOfReviews.isEmpty){
       return Reviews(

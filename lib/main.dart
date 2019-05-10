@@ -102,9 +102,6 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     _saveLocation();
-    /*getLocationName();
-    getCurrentPosition();
-    fetchRestByGeoCode();*/
 
     controller = AnimationController(
       duration: Duration(milliseconds: 20),
@@ -127,6 +124,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    var c_height = MediaQuery.of(context).size.height * 0.5;
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -142,14 +140,12 @@ class _SplashScreenState extends State<SplashScreen>
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.all(130.0),
+                  padding: EdgeInsets.all(100.0),
                   child: logo,
                 ),
+                SizedBox(height: c_height*0.5,),
                 Center(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 200.0, 0.0, 0.0),
-                    child: splash_description,
-                  ),
+                  child: splash_description,
                 ),
                 Padding(
                   padding: EdgeInsets.all(10.0),

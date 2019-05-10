@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bhukkd/Auth/GoogleSignIn.dart';
 import 'package:bhukkd/Auth/Home/Components/Calender.dart';
 import 'package:bhukkd/Auth/Home/Components/FadeContainer.dart';
 import 'package:bhukkd/Auth/Home/Components/HomeTopView.dart';
@@ -15,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import '../Pages/otpPage.dart';
+import 'package:bhukkd/Auth/otpPage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -53,19 +52,18 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
   var snackBar;
   var handleError = "";
   Animation<double> buttonGrowAnimation;
+  static double c_width;
 
-  Widget buttonLoading = Container(
-    child: Text(
-      "Sign In",
-      style: new TextStyle(
-          fontSize: 20.0,
-          fontFamily: "Montserrat",
-// fontWeight: FontWeight.w700,
+  Widget buttonLoading = Text(
+    "Sign In",
+    style: new TextStyle(
+        fontSize: 20.0,
+        fontFamily: "Montserrat",
+ fontWeight: FontWeight.w700,
           letterSpacing: 0.8,
           wordSpacing: 0.0,
-          textBaseline: TextBaseline.ideographic,
-          color: Colors.white),
-    ),
+        textBaseline: TextBaseline.ideographic,
+        color: Colors.white),
   );
 
   @override
@@ -73,64 +71,65 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
     _passwordVisible = false;
     super.initState();
 
-//    _screenController = new AnimationController(
-//        duration: new Duration(milliseconds: 2000), vsync: this);
+    _screenController = new AnimationController(
+        duration: new Duration(milliseconds: 2000), vsync: this);
 
 
-//    containerGrowAnimation = new CurvedAnimation(
-//      parent: _screenController,
-//      curve: Curves.easeIn,
-//    );
+    containerGrowAnimation = new CurvedAnimation(
+      parent: _screenController,
+      curve: Curves.easeIn,
+    );
 
 
-//    containerGrowAnimation.addListener(() {
-//      this.setState(() {});
-//    });
-//    containerGrowAnimation.addStatusListener((AnimationStatus status) {});
-//
-//    listTileWidth = new Tween<double>(
-//      begin: 1000.0,
-//      end: 600.0,
-//    ).animate(
-//      new CurvedAnimation(
-//        parent: _screenController,
-//        curve: new Interval(
-//          0.225,
-//          0.600,
-//          curve: Curves.bounceIn,
-//        ),
-//      ),
-//    );
+    containerGrowAnimation.addListener(() {
+      this.setState(() {});
+    });
+    containerGrowAnimation.addStatusListener((AnimationStatus status) {});
 
-//    listSlideAnimation = new AlignmentTween(
-//      begin: Alignment.topCenter,
-//      end: Alignment.bottomCenter,
-//    ).animate(
-//      new CurvedAnimation(
-//        parent: _screenController,
-//        curve: new Interval(
-//          0.325,
-//          0.700,
-//          curve: Curves.ease,
-//        ),
-//      ),
-//    );
+    listTileWidth = new Tween<double>(
+      begin: 1000.0,
+      end: 600.0,
+    ).animate(
+      new CurvedAnimation(
+        parent: _screenController,
+        curve: new Interval(
+          0.225,
+          0.600,
+          curve: Curves.bounceIn,
+        ),
+      ),
+    );
 
-//    listSlidePosition = new EdgeInsetsTween(
-//      begin: const EdgeInsets.only(bottom: 16.0),
-//      end: const EdgeInsets.only(bottom: 80.0),
-//    ).animate(
-//      new CurvedAnimation(
-//        parent: _screenController,
-//        curve: new Interval(
-//          0.325,
-//          0.800,
-//          curve: Curves.ease,
-//        ),
-//      ),
-//    );
-//    _screenController.forward();
+    listSlideAnimation = new AlignmentTween(
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+    ).animate(
+      new CurvedAnimation(
+        parent: _screenController,
+        curve: new Interval(
+          0.325,
+          0.700,
+          curve: Curves.ease,
+        ),
+      ),
+    );
+
+    listSlidePosition = new EdgeInsetsTween(
+      begin: const EdgeInsets.only(bottom: 16.0),
+      end: const EdgeInsets.only(bottom: 80.0),
+    ).animate(
+      new CurvedAnimation(
+        parent: _screenController,
+        curve: new Interval(
+          0.325,
+          0.800,
+          curve: Curves.ease,
+        ),
+      ),
+    );
+    _screenController.forward();
   }
+
 
   @override
   void dispose() {
@@ -146,6 +145,7 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    c_width = MediaQuery.of(context).size.width * 0.5;
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -238,12 +238,12 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                         child: ListView(
                           children: <Widget>[
                             Padding(
-                              padding: EdgeInsets.fromLTRB(100, 20, 100, 30),
+                              padding: EdgeInsets.fromLTRB(100, 20, 100, 10),
                               child: logo,
                             ),
                             Padding(
                               padding:
-                                  const EdgeInsets.fromLTRB(20, 50, 20, 25),
+                                  const EdgeInsets.fromLTRB(20, 20, 20, 25),
                               child: login_description,
                             ),
                             Column(
@@ -342,35 +342,46 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                                         ),
                                         Padding(
                                             padding: const EdgeInsets.fromLTRB(
-                                                20, 20, 20, 10),
-                                            child: Material(
-                                              color:
-                                                  Color.fromRGBO(0, 0, 0, 50),
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                20.0,
-                                              ),
-                                              child: InkWell(
-                                                onTap: () async {
-                                                  final form =
-                                                      formKey.currentState;
-                                                  if (form.validate()) {
-                                                    setState(() {
-                                                      buttonLoading=buttonLoading2;
-                                                    });
-                                                    form.save();
-                                                    _signInWithEmailAndPassword();
-                                                  }
-                                                },
-                                                splashColor: Colors.white24,
-                                                highlightColor: Colors.white10,
-                                                child: Container(
-                                                  padding: EdgeInsets.symmetric(horizontal:150.0, vertical: 10.0),
-                                                  child: buttonLoading,
+                                                20, 50, 20, 20),
+                                            child: Container(
+                                              decoration: BoxDecoration(boxShadow: [
+                                                new BoxShadow(
+                                                  color: Colors.black,
+                                                  blurRadius: 5.0,
+                                                ),
+                                              ]),
+                                              child: Material(
+                                                color:
+                                                    Color.fromRGBO(0, 0, 0, 50),
+                                                child: InkWell(
+                                                  onTap: () async {
+                                                    final form =
+                                                        formKey.currentState;
+                                                    if (form.validate()) {
+                                                      setState(() {
+                                                        buttonLoading=buttonLoading2;
+                                                      });
+                                                      form.save();
+                                                      _signInWithEmailAndPassword();
+                                                    }
+                                                  },
+                                                  splashColor: Colors.white24,
+                                                  highlightColor: Colors.white10,
+                                                  child: Container(
+                                                    width: c_width*2.0,
+                                                    height: c_width*0.2,
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        SizedBox(width: c_width*0.7),
+                                                        buttonLoading,
+                                                      ],
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             )
                                             ),
+
                                         Padding(
                                           padding: const EdgeInsets.fromLTRB(
                                               20, 5, 20, 20),
@@ -387,53 +398,66 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                                     )),
                               ],
                             ),
+
+                            SizedBox(height: 20.0,),
+
                             Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: separator,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: new Row(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(25.0),
-                                    child: new OutlineButton(
+
+                            SizedBox(height: 20.0,),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Container(
+                                  width: c_width*0.7,
+                                  child: new OutlineButton(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
                                       child: new Text(
                                         'Sign in With Google',
                                         style: textStyle.copyWith(
-                                            fontSize: 15.0,
+                                            fontSize: 20.0,
                                             color: Colors.white),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      borderSide:
-                                          BorderSide(color: Colors.white),
-                                      onPressed: () async {
-                                        print(
-                                            "Login button with Google fetching data from server....");
-                                        signInWithGoogle();
-                                      },
                                     ),
+                                    borderSide:
+                                    BorderSide(color: Colors.white),
+                                    onPressed: () async {
+                                      print(
+                                          "Login button with Google fetching data from server....");
+                                      signInWithGoogle();
+                                    },
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(25.0),
-                                    child: new OutlineButton(
+                                ),
+                                Container(
+                                  width: c_width*0.7,
+                                  child: new OutlineButton(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
                                       child: new Text(
                                         'Sign in With Phone',
                                         style:
-                                            textStyle.copyWith(fontSize: 15.0),
+                                        textStyle.copyWith(fontSize: 20.0),
+                                        textAlign: TextAlign.center,
                                       ),
-                                      borderSide:
-                                          BorderSide(color: Colors.white),
-                                      onPressed: () {
-                                        Route route = HorizontalTransition(
-                                            builder: (BuildContext context) =>
-                                                new otpPage());
-                                        Navigator.push(context, route);
-                                      },
                                     ),
+                                    borderSide:
+                                    BorderSide(color: Colors.white),
+                                    onPressed: () {
+                                      Route route = HorizontalTransition(
+                                          builder: (BuildContext context) =>
+                                          new otpPage());
+                                      Navigator.push(context, route);
+                                    },
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
+                            SizedBox(height: 50.0,),
                           ],
                         ),
                       )
@@ -540,8 +564,50 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
     }
   }
 
+
+  void signInWithGoogle() async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+
+    bool _success;
+    String _userID;
+    final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication googleAuth =
+    await googleUser.authentication;
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    final FirebaseUser user = await _auth.signInWithCredential(credential);
+    assert(user.email != null);
+    assert(user.displayName != null);
+    assert(!user.isAnonymous);
+    assert(await user.getIdToken() != null);
+
+    final FirebaseUser currentUser = await _auth.currentUser();
+    assert(user.uid == currentUser.uid);
+
+    if (user != null) {
+      _success = true;
+      _userID = user.uid;
+      print("signIn Successfull");
+      setState(() {
+        snackBar = SnackBar(content: Text("SignIn Successful"));
+        Scaffold.of(context).showSnackBar(snackBar);
+      });
+    } else {
+      _success = false;
+      print("signIn failed");
+      snackBar = SnackBar(content: Text("SignIn Failed"));
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
+  }
+
+
+
   void _signOut() async {
     await _auth.signOut();
+    await _googleSignIn.disconnect();
+    print("signOut Successfull");
     setState(() {});
   }
 }

@@ -6,6 +6,8 @@ import 'package:bhukkd/models/Search/item.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 class SearchList extends StatefulWidget {
   SearchList({Key key}) : super(key: key);
 
@@ -18,7 +20,7 @@ class _SearchState extends State<SearchList> {
   final TextEditingController _searchQuery = TextEditingController();
   bool _isSearching = false;
   String _error;
-  List <NearByRestaurants> _results;
+  List<NearByRestaurants> _results;
 
   Timer debounceTimer;
 
@@ -57,8 +59,6 @@ class _SearchState extends State<SearchList> {
         _isSearching = false;
         if (repos != null) {
           _results = repos;
-        } else {
-          _error = 'Error searching repos';
         }
       });
     }
@@ -67,25 +67,34 @@ class _SearchState extends State<SearchList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomPadding:false,
+        resizeToAvoidBottomPadding: false,
         key: key,
         appBar: AppBar(
+          elevation: 10.0,
           backgroundColor: Theme.of(context).bottomAppBarColor,
           centerTitle: true,
-          title: TextField(
-            autofocus: true,
-            controller: _searchQuery,
-            style: TextStyle(color: Colors.white),
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                prefixIcon: Padding(
-                    padding: EdgeInsetsDirectional.only(end: 16.0),
-                    child: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    )),
-                hintText: "Search for restaurants, dishes...",
-                hintStyle: TextStyle(color: Colors.white)),
+          title: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              autofocus: true,
+              controller: _searchQuery,
+              textAlign: TextAlign.left,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontFamily: "Montserrat",
+                  fontWeight: FontWeight.bold),
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  prefixIcon: Padding(
+                      padding: EdgeInsetsDirectional.only(end: 25.0),
+                      child: Icon(
+                        FontAwesomeIcons.search,
+                        color: Colors.white,
+                      )),
+                  hintText: "Search for restaurants, dishes..",
+                  hintStyle: TextStyle(color: Colors.white70)),
+            ),
           ),
         ),
         body: buildBody(context));
@@ -93,16 +102,24 @@ class _SearchState extends State<SearchList> {
 
   Widget buildBody(BuildContext context) {
     if (_isSearching) {
-      return  Padding(
+      return Padding(
         padding: const EdgeInsets.all(50.0),
-        child: FlareActor("assets/animations/Search Loading.flr", fit:BoxFit.scaleDown,animation: "default",),
+        child: FlareActor(
+          "assets/animations/Search Loading.flr",
+          fit: BoxFit.scaleDown,
+          animation: "default",
+        ),
       );
     } else if (_error != null) {
       return CenterTitle(_error);
     } else if (_searchQuery.text.isEmpty) {
-      return  Padding(
+      return Padding(
         padding: const EdgeInsets.all(50.0),
-        child: FlareActor("assets/animations/Search Loading.flr", fit:BoxFit.scaleDown,animation: "default",),
+        child: FlareActor(
+          "assets/animations/Search Loading.flr",
+          fit: BoxFit.scaleDown,
+          animation: "default",
+        ),
       );
     } else {
       return ListView.builder(

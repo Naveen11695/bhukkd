@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 final opacity = Container(
-  color: Color.fromRGBO(249, 129, 42, 100),
+  color: Color.fromRGBO(249, 129, 42, 150),
 );
 
-final logo = Image.asset(
-  'assets/images/icon.png',
-  width: 120.0,
-  height: 120.0,
+final logo = Container(
+  child: Image.asset(
+    'assets/images/icon.png',
+    width: 120.0,
+    height: 120.0,
+  ),
 );
 
 const TextStyle textStyle = TextStyle(
@@ -23,26 +25,39 @@ final login_description = Container(
     "Spot the right place to find your favorite food.",
     textAlign: TextAlign.center,
     style: new TextStyle(
-        fontSize: 25.0,
-        fontFamily: "Montserrat-Bold",
-        letterSpacing: 0.8,
-        wordSpacing: 0.0,
+        shadows: [
+          Shadow(
+              // bottomLeft
+              offset: Offset(-1.5, -1.5),
+              color: Colors.black54),
+          Shadow(
+              // bottomRight
+              offset: Offset(1.5, -1.5),
+              color: Colors.black54),
+          Shadow(
+              // topRight
+              offset: Offset(1.5, 1.5),
+              color: Colors.black54),
+          Shadow(
+              // topLeft
+              offset: Offset(-1.5, 1.5),
+              color: Colors.black54),
+        ],
+        fontSize: 35.0,
+        fontFamily: "Pacifico",
+        letterSpacing: 2.5,
+        wordSpacing: 2.0,
         fontWeight: FontWeight.bold,
         textBaseline: TextBaseline.ideographic,
         color: Colors.white),
   ),
   margin: const EdgeInsets.all(15.0),
   padding: const EdgeInsets.all(3.0),
-  decoration:
-      new BoxDecoration(border: new Border.all(color: Colors.white)),
 );
 
 Widget semi_circlar_button(String label, Function onTap) {
   return Material(
     color: Color.fromRGBO(0, 0, 0, 50),
-    borderRadius: BorderRadius.circular(
-      20.0,
-    ),
     child: InkWell(
       onTap: onTap,
       splashColor: Colors.white24,
@@ -62,6 +77,12 @@ Widget semi_circlar_button(String label, Function onTap) {
                 color: Colors.white),
           ),
         ),
+        decoration: BoxDecoration(boxShadow: [
+          new BoxShadow(
+            color: Colors.black,
+            blurRadius: 5.0,
+          ),
+        ]),
       ),
     ),
   );
@@ -96,11 +117,7 @@ final otp_background = Positioned(
 final explore_background = Container(
   decoration: BoxDecoration(color: Colors.black),
 );
-final background = new Positioned(
-  child: Image.asset('assets/images/default.jpg', fit: BoxFit.scaleDown),
-  left: 170,
-  top: 30,
-);
+
 final splash_background = Container(
     decoration: BoxDecoration(
         image: DecorationImage(
@@ -162,9 +179,10 @@ var catagoriesPhotoList = [
 ];
 final random = new Random();
 
-
 Widget buttonLoading2 = Container(
-  child: Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.deepOrange))),
+  child: Center(
+      child: CircularProgressIndicator(
+          valueColor: new AlwaysStoppedAnimation<Color>(Colors.deepOrange))),
 );
 
 Widget buttonSignin = Container(
@@ -180,3 +198,72 @@ Widget buttonSignin = Container(
         color: Colors.white),
   ),
 );
+
+Widget titleBar(String text, double sizeWidth) {
+  return Row(
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.only(top:5.0, bottom: 5.0, left: 10.0, right: 10.0),
+        child: Container(
+          color: Colors.deepOrange,
+          height: 25,
+          width: 100,
+          child: Center(
+            child: Text(
+              text,
+              style: TextStyle(
+                color: Colors.white,
+                fontFamily: "Roboto",
+                fontWeight: FontWeight.bold,
+                fontSize: 25.0,
+                letterSpacing: 1,
+                shadows: [
+                  Shadow(
+                      // bottomLeft
+                      offset: Offset(1.5, 1.5),
+                      color: Colors.black54),
+                  Shadow(
+                      // bottomRight
+                      offset: Offset(1.5, 1.5),
+                      color: Colors.black54),
+                  Shadow(
+                      // topRight
+                      offset: Offset(1.5, 1.5),
+                      color: Colors.black54),
+                  Shadow(
+                      // topLeft
+                      offset: Offset(1.5, 1.5),
+                      color: Colors.black54),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(top:15.0, bottom: 5.0, right: 10.0),
+        child: Container(
+          height: 2,
+          width: sizeWidth*1.2,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              // Where the linear gradient begins and ends
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              // Add one stop for each color. Stops should increase from 0 to 1
+              stops: [0.1, 0.5, 0.7, 0.9],
+              colors: [
+                // Colors are easy thanks to Flutter's Colors class.
+                Colors.deepOrange[600],
+                Colors.deepOrange[400],
+                Colors.deepOrange[200],
+                Colors.deepOrange[100],
+              ],
+            ),
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+      )
+    ],
+  );
+}

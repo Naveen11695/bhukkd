@@ -176,6 +176,7 @@ class RegisterPageState extends State<RegisterPage> {
                                 ),
                               ),
                             ),
+                            SizedBox(height: 25.0,),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
                               child:
@@ -188,6 +189,15 @@ class RegisterPageState extends State<RegisterPage> {
                                 }
                               }),
                             ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 5, 20, 20),
+                              child:
+                              semi_circlar_button(
+                                  'Cancel', () async {
+                                Navigator.pop(context);
+                              }),
+                            ),
+                            SizedBox(height: 25.0,),
                           ],
                         )),
                   ],

@@ -10,6 +10,7 @@ import 'dart:async';
 import '../models/Restruant/Restruant.dart';
 import '../models/GeoCodeInfo/GeoCode.dart';
 import '../models/Catagories/Catagories.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 String api_key = "";
 
@@ -27,19 +28,18 @@ Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
       .then((jsonStr) => jsonDecode(jsonStr));
 }
 
-
 String latitude;
 String longitude;
 
-
-
-Future requestRestaurant(requestUrl, res_id) async {
+Future requestZomatoApiRestaurant(requestUrl, res_id) async {
   getKey();
   final response = await http.get(Uri.encodeFull(requestUrl), headers: {
     "user-key": api_key,
     "res_id": res_id,
   });
   if (response.statusCode == 200) {
+
+    StoreRestaurantInFireStore(res_id, response.body);
     Restaurant r = parseRestaurant(response.body);
     return r;
   } else {
@@ -53,15 +53,40 @@ Restaurant parseRestaurant(String responseBody) {
   final parsed = json.decode(responseBody);
   Restaurant r = Restaurant.fromJson(parsed);
   return r;
-
-  //r.print_res();
 }
 
 //Restaurant restaurant;
-Future fetchRestaurant(String res_id) {
-  Future<dynamic> rest = requestRestaurant("https://developers.zomato.com/api/v2.1/restaurant?res_id=$res_id",res_id);
+Future fetchRestaurant(String res_id) async {
+  Future<dynamic> rest;
+  var fireStore = Firestore.instance;
+  DocumentReference snapshot =
+      fireStore.collection('Restaurant').document(res_id);
+  await snapshot.get().then((dataSnapshot) {
+    if (dataSnapshot.exists) {
+      rest = requestRestaurant(dataSnapshot.data[res_id]);
+    } else {
+      rest = requestZomatoApiRestaurant(
+          "https://developers.zomato.com/api/v2.1/restaurant?res_id=$res_id",
+          res_id);
+    }
+  });
 
   return rest;
+}
+
+Future requestRestaurant(var data) async {
+  Restaurant rest =  await parseRestaurant(data);
+  return rest;
+}
+
+
+void StoreRestaurantInFireStore(var res_id, var data) async {
+    Firestore.instance
+        .collection("Restaurant")
+        .document(res_id)
+        .setData({
+      res_id: data
+    });
 }
 
 Future fetchPhotos(String url) async {
@@ -82,7 +107,7 @@ Future fetchPhotos(String url) async {
   List<String> restarauntPhotos = new List<String>();
   for (var photoLink in photoLinks) {
     restarauntPhotos.add(photoLink.attributes['data-original']
-      /*.replaceAll("?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A", "")*/);
+        /*.replaceAll("?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A", "")*/);
   }
 
   return restarauntPhotos;
@@ -94,7 +119,7 @@ Future fetchMenu(String url) async {
   var menu = parse(response.body);
   List<dynamic> menuLink = menu.querySelectorAll('div#menu-image>img');
   /* print("----------Menu Image-------------");*/
-  var restaurant_menu=[];
+  var restaurant_menu = [];
   for (var link in menuLink) {
     restaurant_menu.add(link.attributes['src']);
   }

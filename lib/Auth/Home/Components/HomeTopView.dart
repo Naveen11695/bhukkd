@@ -49,27 +49,36 @@ class ImageBackground extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: <Widget>[
-                    new Text(
-                      "Good Morning! ",
-                      style: new TextStyle(
-                          fontSize: 20.0,
-                          letterSpacing: 1.2,
-                          fontWeight: FontWeight.w300,
-                          color: Colors.white),
-                    ),
-                    new Text(
-                      email.split('@')[0].toUpperCase(),
-                      style: new TextStyle(
-                          fontSize: 25.0,
-                          letterSpacing: 1.2,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                  ],
+              Center(
+                child: Container(
+                  child: new Text(
+                    email.split('@')[0].toUpperCase(),
+                    style: new TextStyle(
+                        shadows: [
+                          Shadow( // bottomLeft
+                              offset: Offset(-1.5, -1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // bottomRight
+                              offset: Offset(1.5, -1.5),
+                              color: Colors.grey
+                          ),
+                          Shadow( // topRight
+                              offset: Offset(1.5, 1.5),
+                              color: Colors.black
+                          ),
+                          Shadow( // topLeft
+                              offset: Offset(-1.5, 1.5),
+                              color: Colors.black
+                          ),
+                        ],
+                        fontSize: 25.0,
+                        letterSpacing: 1.5,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
             ],

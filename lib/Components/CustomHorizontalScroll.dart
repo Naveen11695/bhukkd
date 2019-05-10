@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'package:bhukkd/api/HttpRequest.dart';
 import 'package:bhukkd/models/Locations/Locations.dart';
+import 'package:bhukkd/models/SharedPreferance/SharedPreference.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/flarecode/flare_actor.dart';
@@ -8,19 +11,20 @@ import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.da
 import 'package:flutter/material.dart';
 import '../Pages/TrendingPage.dart';
 import '../Pages/RestaurantDetailPage.dart';
+import 'HorizontalScroll.dart';
 
 class CustomHorizontalScroll extends StatelessWidget {
-TrendingPage trendingPage;
+  TrendingPage trendingPage;
   @override
   Widget build(BuildContext context) {
     double c_width = MediaQuery.of(context).size.width * 0.4;
     return Container(
         height: 150,
         child: FutureBuilder(
-          future: _getEntityFromLocations(),
+          future: getTopRestaurants(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              if(snapshot.data=="error"){
+              if (snapshot.data == "error") {
                 return Container(
                   child: ListView.builder(
                       shrinkWrap: true,
@@ -41,8 +45,7 @@ TrendingPage trendingPage;
                             ));
                       }),
                 );
-              }
-              else if (snapshot.hasData) {
+              } else if (snapshot.hasData) {
                 return ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
@@ -59,21 +62,17 @@ TrendingPage trendingPage;
                             padding: const EdgeInsets.all(5.0),
                             child: Row(
                               children: <Widget>[
-                                new Container(
-                                  margin: EdgeInsets.only(left: 3),
-                                  height: 100,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    image: DecorationImage(
-                                      image: snapshot.data[index].thumb ==
-                                                  null ||
-                                              snapshot.data[index].thumb == ""
-                                          ? AssetImage(
-                                              "assets/images/default.jpg")
-                                          : NetworkImage(
-                                              snapshot.data[index].thumb),
+                                new ClipOval(
+                                  child: CachedNetworkImage(
+                                    imageUrl: snapshot.data[index].thumb,
+                                    fit: BoxFit.cover,
+                                    width: 100,
+                                    height: 105,
+                                    placeholder: new Image.asset(
+                                      "assets/images/default.jpg",
                                       fit: BoxFit.cover,
+                                      width: 100,
+                                      height: 105,
                                     ),
                                   ),
                                 ),
@@ -84,25 +83,32 @@ TrendingPage trendingPage;
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    new Text(
-                                      snapshot.data[index].name,
-                                      overflow: TextOverflow.ellipsis,
-                                      softWrap: true,
-                                      style: TextStyle(
-                                          fontFamily: "Raleway", fontSize: 15),
+                                    Container(
+                                      width: c_width,
+                                      child: new Text(
+                                        snapshot.data[index].name,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: true,
+                                        style: TextStyle(
+                                            fontFamily: "Raleway",
+                                            fontSize: 15),
+                                      ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top:5.0,bottom: 5.0),
+                                      padding: const EdgeInsets.only(
+                                          top: 5.0, bottom: 5.0),
                                       child: Container(
                                         width: c_width,
                                         child: new Text(
-                                        snapshot.data[index]
-                                              .near_by_restaurants_location[
-                                          "address"],
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontFamily: "", fontSize: 11, color: Colors.deepOrange),
+                                          snapshot.data[index]
+                                                  .near_by_restaurants_location[
+                                              "address"],
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontFamily: "",
+                                              fontSize: 11,
+                                              color: Colors.deepOrange),
                                         ),
                                       ),
                                     ),
@@ -115,18 +121,12 @@ TrendingPage trendingPage;
                                       width: 60,
                                       color: Colors.deepOrange,
                                     ),
+
                                     Padding(
-                                      padding: const EdgeInsets.only(top:10.0),
-                                      child: new Row(
-                                        children: <Widget>[
-                                          Icon(Icons.star,
-                                              color: Colors.deepOrange),
-                                          Icon(Icons.star,
-                                              color: Colors.deepOrange),
-                                          Icon(Icons.star, color: Colors.orange),
-                                          Icon(Icons.star, color: Colors.orange),
-                                          Icon(Icons.star, color: Colors.black12),
-                                        ],
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: getStarWidgets(
+                                        snapshot.data[index].user_rating
+                                            .aggregate_rating,
                                       ),
                                     ),
                                     new SizedBox(height: 8),
@@ -180,70 +180,89 @@ TrendingPage trendingPage;
           },
         ));
   }
-Future _getEntityFromLocations() async {
-  try {
-    String nameOfTheLocation;
-    await getLocationName().then((loc) {
-      nameOfTheLocation = loc.subLocality;
-    });
-    getKey();
-    print("TopRestaurants Api Key: "+ api_key);
-    String url =
-        "https://developers.zomato.com/api/v2.1/locations?query=$nameOfTheLocation";
-    final response = await http.get(Uri.encodeFull(url),
-        headers: {"Accept": "application/json", "user-key": api_key});
-    if (response.statusCode == 200) {
-      Map<String, dynamic> jsonParsed = json.decode(response.body);
-      List<dynamic> data = jsonParsed["location_suggestions"];
-      Map<String, dynamic> location_suggestion_data = data[0];
-      Locations loc = new Locations(
-          entity_type: location_suggestion_data["entity_type"],
-          entity_id: location_suggestion_data["entity_id"],
-          city_id: location_suggestion_data['city_id'],
-          city_name: location_suggestion_data['city_name'],
-          country_id: location_suggestion_data['country_id'],
-          country_name: location_suggestion_data['country_name'],
-          latitude: location_suggestion_data['latitude'],
-          longitude: location_suggestion_data['longitude'],
-          title: location_suggestion_data['title']);
 
-      if(nameOfTheLocation==""){
-        return "error";
-      }
-      else{
-        print("ok!");
-        return getTopRestaurants(loc.entity_id.toString(), loc.entity_type);
-      }
 
-    } else {
-      print("getEntityFromLocations Problem");
+
+  Future getTopRestaurants() async {
+    try {
+      getKey();
+      String entity_id;
+      String entity_type;
+      await getEntityFromLocations().then((loc){
+        entity_id=loc.entity_id.toString();
+        entity_type=loc.entity_type.toString();
+      });
+
+      bool flag = false;
+      Map<String, dynamic> jsonParsed;
+      var fireStore = Firestore.instance;
+      DocumentReference snapshot =
+      fireStore.collection('TopRestaurants').document(
+          entity_type + "-" + entity_id);
+      await snapshot.get().then((dataSnapshot) {
+        if (dataSnapshot.exists) {
+          final response = dataSnapshot.data[entity_type + "-" + entity_id];
+          jsonParsed = json.decode(response);
+        }
+        else {
+          flag = true;
+        }
+      });
+
+      if(flag) {
+        print("<TopRestaurants>");
+        String url =
+            "https://developers.zomato.com/api/v2.1/location_details?entity_id=$entity_id&entity_type=$entity_type";
+        final response = await http.get(Uri.encodeFull(url),
+            headers: {"Accept": "application/json", "user-key": api_key});
+        print(response.body);
+        if (response.statusCode == 200) {
+          jsonParsed = json.decode(response.body);
+          saveTopByRestaurants(entity_type + "-" + entity_id, response.body);
+        } else {
+          print("<TopRestaurants> Problem");
+          print(response.body);
+          return "error";
+        }
+      }
+      List<dynamic> bestRestaurants = jsonParsed['best_rated_restaurant'];
+      List<NearByRestaurants> bestRest = [];
+      for (var r in bestRestaurants) {
+        NearByRestaurants res = NearByRestaurants.fromJson(r);
+        bestRest.add(res);
+      }
+      return bestRest;
+    }catch(e){
+      print("<TopRestaurants> Problem");
       return "error";
     }
-  } catch (e) {
-    print('not connected');
-    return "error";
   }
 }
 
-Future getTopRestaurants(String entity_id, String entity_type) async {
-  getKey();
-//  print("entity id: " + entity_id);
-//  print("entity type: " + entity_type);
-  String url =
-      "https://developers.zomato.com/api/v2.1/location_details?entity_id=$entity_id&entity_type=$entity_type";
-  final response = await http.get(Uri.encodeFull(url),
-      headers: {"Accept": "application/json", "user-key": api_key});
-  if (response.statusCode == 200) {
-    Map<String, dynamic> jsonParsed = json.decode(response.body);
-    List<dynamic> bestRestaurants = jsonParsed['best_rated_restaurant'];
-    List<NearByRestaurants> bestRest = [];
-    for (var r in bestRestaurants) {
-      NearByRestaurants res = NearByRestaurants.fromJson(r);
-      bestRest.add(res);
-    }
-    return bestRest;
-  } else {
-    print("getTopRestaurants Problem");
-  }
+void saveTopByRestaurants(String entity_id_type, String data) {
+  Firestore.instance
+      .collection("TopRestaurants")
+      .document(entity_id_type)
+      .setData({
+    entity_id_type: data
+  });
 }
+
+
+
+Widget getStarWidgets(String size) {
+  var Size = double.parse(size);
+  var list = [];
+  for (int i = 1; i <= Size; i++) {
+    list.add("s");
+  }
+  for (int i = list.length; i < 5; i++) {
+    list.add("u");
+  }
+  return new Row(
+      children: list
+          .map((item) => item == "s"
+          ? Icon(Icons.star, color: Colors.deepOrange)
+          : Icon(Icons.star, color: Colors.black12))
+          .toList());
 }

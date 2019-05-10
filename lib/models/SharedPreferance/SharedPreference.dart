@@ -9,7 +9,6 @@ class StoreUserLocation{
                                            location.longitude.toString(),
                                            location.timestamp.toString()]
                              );
-    print("..................."+location.toString());
   }
   static get_CurrentLocation() async{
     SharedPreferences preferences = await SharedPreferences.getInstance();

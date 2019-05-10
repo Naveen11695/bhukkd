@@ -147,7 +147,7 @@ class Restaurant extends Model{
         }
 
         return Restaurant(
-            restruant_Id : json['res_id'],
+            restruant_Id : json['id'],
             restruant_Name : json['name'],
             restruant_Avg_cost_for_two : json['average_cost_for_two'],
             restruant_Price_range : json['price_range'],
@@ -168,23 +168,5 @@ class Restaurant extends Model{
     }
 
 
-   /* void print_res() {
-
-        print(".......................Restruant.......................");
-            print("restruant_Name: " + this.restruant_Name);
-            print("restruant_Avg_cost_for_two: " + this.restruant_Avg_cost_for_two.toString());
-            print("restruant_Price_range: " + this.restruant_Price_range.toString());
-            print("restruant_Thumb: " + this.restruant_Thumb);
-            print("restruant_Feature_image: " + this.restruant_Feature_image);
-            print("restruant_Photo_url: " + this.restruant_Photo_url);
-            print("restruant_Menu: " + this.restruant_Menu);
-            print("restruant_Event_url: " + this.restruant_Event_url);
-            print("restruant_Has_online_delivery: " + this.restruant_Has_online_delivery.toString());
-            print("restruant_Is_delivery_now: " + this.restruant_Is_delivery_now.toString());
-            print("restruant_Has_table_booking: " + this.restruant_Has_table_booking.toString());
-            print("restruant_Is_table_reservation_supported: " + this.restruant_Is_table_reservation_supported.toString());
-            print("restruant_Cuisines: " + this.restruant_Cuisines);
-        print(".......................Restruant.......................");
-    }*/
 
 }

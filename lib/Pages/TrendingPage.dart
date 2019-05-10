@@ -2,6 +2,7 @@ import 'package:bhukkd/Components/CircularBorder.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Pages/RestaurantDetailPage.dart';
 import 'package:bhukkd/models/Search/SearchRestaurant.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -26,12 +27,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:bhukkd/flarecode/flare_actor.dart';
 
-
 /*------------------------------DISCLAIMER----------------------------------- */
 // font used is OpenSans and Montserrat, please dont use any other font.
 
 class TrendingPage extends StatefulWidget {
-  TrendingPage({Key key}):super(key:key);
+  TrendingPage({Key key}) : super(key: key);
+
   _TrendingPageState createState() => new _TrendingPageState();
 }
 
@@ -41,7 +42,8 @@ String getSortingValue() {}
 
 List<dynamic> copydata = [];
 
-class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClientMixin {
+class _TrendingPageState extends State<TrendingPage>
+    with AutomaticKeepAliveClientMixin {
   String address;
   ScrollController _controller = new ScrollController();
   bool isInitializingRequest = false;
@@ -54,8 +56,10 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
   void initState() {
     super.initState();
     getLocationName().then((locality) {
-      if(locality!=null) {
-        address = locality.subLocality +
+      if (locality != null) {
+        address = locality.name +
+            " " +
+            locality.subLocality +
             " " +
             locality.subAdministrativeArea +
             ", " +
@@ -63,7 +67,7 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
             " " +
             locality.postalCode;
       }
-      });
+    });
     callit();
     _controller.addListener(() async {
       if (_controller.position.pixels == _controller.position.maxScrollExtent) {
@@ -74,8 +78,8 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
 
   int start = 0;
 
-
   ListView listBuilder;
+
   @override
   void dispose() {
     super.dispose();
@@ -83,9 +87,10 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
   }
 
   Widget build(BuildContext context) {
+    double c_width = MediaQuery.of(context).size.width * 0.5;
     super.build(context);
     return Scaffold(
-      body:RefreshIndicator(
+      body: RefreshIndicator(
         child: GestureDetector(
           onVerticalDragDown: (DragDownDetails scrolldetails) {
             double currentPosition = MediaQuery.of(context).size.height -
@@ -113,25 +118,30 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
                         //       fontSize: 10,
                         //     )),
                         Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                            child:  Align(
-                                        alignment: FractionalOffset(0.1, 1),
-                                        child: Column(children: <Widget>[
-                                          Text("Your Location",
-                                              style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                                fontFamily: "Montserrat",
-                                              )),
-                                          Text(address==null?"Fetching Your Location..":address,
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.white,
-                                                fontFamily: "Montserrat",
-                                              )),
-                                        ])),
-                            ),
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Align(
+                              alignment: FractionalOffset(0.1, 1),
+                              child: Column(children: <Widget>[
+                                Text("Your Location",
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontFamily: "Montserrat",
+                                    )),
+                                Text(
+                                    address == null
+                                        ? "Fetching Your Location.."
+                                        : address,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      fontFamily: "Montserrat",
+                                    )),
+                              ])),
+                        ),
                       ],
                     ),
                     backgroundColor: Color.fromRGBO(249, 129, 42, 1),
@@ -226,7 +236,7 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
                           delegate: SliverChildBuilderDelegate(
                               (BuildContext context, int index) {
                             return InkWell(
-                              onTap: (){
+                              onTap: () {
                                 Navigator.push(
                                     context,
                                     HorizontalTransition(
@@ -236,6 +246,7 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
                                             )));
                               },
                               child: Card(
+                                elevation: 10,
                                 child: Column(
                                   verticalDirection: VerticalDirection.down,
                                   children: <Widget>[
@@ -247,33 +258,41 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
                                           ? Image.asset(
                                               "assets/images/default.jpg",
                                               fit: BoxFit.cover,
-                                              height: 130,
+                                              height: c_width * 0.6,
                                             )
                                           : CachedNetworkImage(
                                               imageUrl:
                                                   rests[index].featured_image,
                                               fit: BoxFit.cover,
-                                              height: 130,
+                                              height: c_width * 0.6,
                                               placeholder: Image.asset(
                                                 "assets/images/default.jpg",
                                                 fit: BoxFit.cover,
-                                                height: 130,
+                                                height: c_width * 0.6,
                                               ),
                                               errorWidget: Icon(Icons.error),
                                             ),
                                     ),
-                                    Text(
-                                      rests[index].name,
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: "Roboto"),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 5.0),
+                                      child: Text(
+                                        rests[index].name,
+                                        textAlign: TextAlign.center,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: "Roboto"),
+                                      ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.all(2.0),
+                                      padding: const EdgeInsets.only(top: 2.0),
                                       child: Text(
                                         rests[index].cuisines,
                                         textAlign: TextAlign.center,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w300,
@@ -341,8 +360,10 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Icon(Icons.search,
-                                    color: Colors.deepOrange),
+                                child: Icon(
+                                  Icons.search,
+                                  color: Colors.deepOrange,
+                                ),
                               ),
                               Center(
                                 child: Text(
@@ -350,7 +371,7 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
                                   style: new TextStyle(
                                       fontFamily: "Montserrat",
                                       fontWeight: FontWeight.w300,
-                                      fontSize: 16.0,
+                                      fontSize: 15.0,
                                       color: Colors.deepOrange,
                                       shadows: [
                                         Shadow(
@@ -375,12 +396,13 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
     );
   }
 
-
   Future<Null> refresh() async {
     isReloading = true;
     getLocationName().then((locality) {
-      if(locality!=null) {
-        address = locality.subLocality +
+      if (locality != null) {
+        address = locality.name +
+            " " +
+            locality.subLocality +
             " " +
             locality.subAdministrativeArea +
             ", " +
@@ -395,7 +417,8 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
       HorizontalScroll();
       callit();
       _controller.addListener(() async {
-        if (_controller.position.pixels == _controller.position.maxScrollExtent) {
+        if (_controller.position.pixels ==
+            _controller.position.maxScrollExtent) {
           await fetchRestByCollectionID(1, sorting: null);
         }
       });
@@ -407,9 +430,8 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
     await fetchRestByCollectionID(1, sorting: null);
   }
 
-
-
   Future fetchRestByCollectionID(int id, {String sorting}) async {
+    print("<fetchRestByCollectionID>");
     Iterable<dynamic> key =
         (await parseJsonFromAssets('assets/api/config.json')).values;
     var apiKey = key.elementAt(0);
@@ -418,7 +440,6 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
     await StoreUserLocation.get_CurrentLocation().then((loc) {
       latitude = double.parse(loc[0]);
       longitude = double.parse(loc[1]);
-      /*print("$longitude, $latitude");*/
     });
 
     if (!isInitializingRequest) {
@@ -432,10 +453,10 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
         start += 20;
 //        print(response.body);
         SearchRestraunts searchByCategory =
-        SearchRestraunts.fromJson(json.decode(response.body));
+            SearchRestraunts.fromJson(json.decode(response.body));
         copydata = List.from(searchByCategory.restaurants);
         List<dynamic> addRest =
-        new List.generate(20, (index) => copydata[index]);
+            new List.generate(20, (index) => copydata[index]);
         setState(() {
           rests.addAll(addRest);
           isInitializingRequest = false;
@@ -445,37 +466,55 @@ class _TrendingPageState extends State<TrendingPage> with AutomaticKeepAliveClie
   }
 }
 
-
 //.......................................important........................................//
 
 Future<Placemark> getLocationName() async {
   double latitude, longitude;
-try {
-  await StoreUserLocation.get_CurrentLocation().then((loc) {
-    latitude = double.parse(loc[0]);
-    longitude = double.parse(loc[1]);
+  try {
+    await StoreUserLocation.get_CurrentLocation().then((loc) {
+      latitude = double.parse(loc[0]);
+      longitude = double.parse(loc[1]);
 //    print("$longitude, $latitude");
-  });
+    });
 
-  //Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-  Geolocator geolocator = Geolocator()
-    ..forceAndroidLocationManager = true;
-  GeolocationStatus geolocationStatus =
-  await geolocator.checkGeolocationPermissionStatus();
-  if (geolocationStatus == GeolocationStatus.granted) {
-    List<Placemark> placemark =
-    await Geolocator().placemarkFromCoordinates(latitude, longitude);
-    return placemark[0];
-  } else {
-    print("Location denied ");
-    return null;
+    //Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    Geolocator geolocator = Geolocator()..forceAndroidLocationManager = true;
+    GeolocationStatus geolocationStatus =
+        await geolocator.checkGeolocationPermissionStatus();
+    if (geolocationStatus == GeolocationStatus.granted) {
+      List<Placemark> placemark =
+          await Geolocator().placemarkFromCoordinates(latitude, longitude);
+      /*print("loc: " +
+          placemark[0].name +
+          " - " +
+          placemark[0].name +
+          " - " +
+          placemark[0].isoCountryCode +
+          " - " +
+          placemark[0].country +
+          " - " +
+          placemark[0].postalCode +
+          " - " +
+          placemark[0].administrativeArea +
+          " - " +
+          placemark[0].subAdministrativeArea +
+          " - " +
+          placemark[0].locality +
+          " - " +
+          placemark[0].subLocality +
+          " - " +
+          placemark[0].thoroughfare +
+          " - " +
+          placemark[0].subThoroughfare +
+          " - ");*/
+      return placemark[0];
+    } else {
+      print("Location denied ");
+      return null;
+    }
+  } catch (e) {
+    print("error: " + e.message);
   }
-}catch(e){
-  print("error: "+ e.message);
-}
 }
 
 //.......................................important........................................//
-
-
-

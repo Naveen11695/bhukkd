@@ -24,7 +24,7 @@ class NearByRestaurants{
   String book_form_web_view_url;
   String book_again_url;
   String thumb;
-  List<dynamic> user_rating;
+  UserRating user_rating;
   String menu_url;
   String photo_url;
   String featured_image;
@@ -120,7 +120,8 @@ class NearByRestaurants{
       mezzo_provider: json["restaurant"]['mezzo_provider'],
       opentable_support: json["restaurant"]['opentable_support'],
       photo_url: json["restaurant"]['photo_url'],
-      thumb: json["restaurant"]['thumb']
+      thumb: json["restaurant"]['thumb'],
+      user_rating: rate,
     );
 
   }
