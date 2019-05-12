@@ -105,9 +105,12 @@ Future fetchPhotos(String url) async {
   }
   print("----------Photo links------------");*/
   List<String> restarauntPhotos = new List<String>();
+  List<String> splittedUrl;
   for (var photoLink in photoLinks) {
-    restarauntPhotos.add(photoLink.attributes['data-original']
-        .replaceAll("?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A", ""));
+    splittedUrl=photoLink.attributes['data-original'].split("?");
+    print(splittedUrl[0]);
+    restarauntPhotos.add(splittedUrl[0]);
+
   }
 
   return restarauntPhotos;
