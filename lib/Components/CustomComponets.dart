@@ -241,7 +241,7 @@ Widget titleBar(String text, double sizeWidth) {
         ),
       ),
       Padding(
-        padding: const EdgeInsets.only(top:15.0, bottom: 5.0, right: 10.0),
+        padding: const EdgeInsets.only(top:10.0, bottom: 5.0, right: 10.0),
         child: Container(
           height: 2,
           width: sizeWidth*1.2,

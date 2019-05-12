@@ -111,11 +111,11 @@ class CategoriesPageState extends State<CategoriesPage> {
                                 imageUrl: rests[index].featured_image,
                                 fit: BoxFit.cover,
                                 height: 140,
-                                placeholder: Padding(
+                                placeholder: (context, url) =>Padding(
                                   padding: const EdgeInsets.all(40.0),
                                   child: CircularProgressIndicator(),
                                 ),
-                                errorWidget: Icon(Icons.error),
+                                errorWidget: (context, url, error) =>Icon(Icons.error),
                               ),
                       ),
                       Text(

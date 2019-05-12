@@ -49,6 +49,8 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
     backgroundColor: Colors.deepOrange,
   );
 
+  double _initialScale = 1.8;
+
   Future resDetailPageCache() => _resDetailPageCache.runOnce(() async {
         return fetchRestaurant(widget.productid.toString());
       });
@@ -86,6 +88,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
     setState(() {
       if (isAnimationCompleted) {
         _controller.reverse();
+        _initialScale = 1.8;
         _bookingButton = new FloatingActionButton(
           onPressed: () {},
           child: Icon(Icons.restaurant),
@@ -96,6 +99,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
         );
       } else {
         _controller.forward();
+        _initialScale = 1;
         _bookingButton = null;
       }
       isAnimationCompleted = !isAnimationCompleted;
@@ -174,23 +178,30 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                               return PhotoViewGalleryPageOptions(
                                                 imageProvider: NetworkImage(
                                                     snapShot.data[index]),
-                                               /* initialScale:
+                                                initialScale:
                                                     PhotoViewComputedScale
                                                             .contained *
-                                                        1.5,*/
+                                                        _initialScale,
                                                 minScale: PhotoViewComputedScale
                                                         .contained *
-                                                    1.3,
-                                                //heroTag: galleryItems[index].id,
+                                                    1,
+                                                maxScale: PhotoViewComputedScale
+                                                        .contained *
+                                                    2,
                                               );
                                             },
                                             itemCount: snapShot.data.length,
                                             loadingChild: Center(
-                                                child:
-                                                    CircularProgressIndicator()),
-                                            /*backgroundDecoration: widget.backgroundDecoration,
-                                                          pageController: widget.pageController,
-                                                          onPageChanged: onPageChanged,*/
+                                              child: Container(
+                                                height: 50,
+                                                width: 50,
+                                                child: new FlareActor(
+                                                  "assets/animations/dotLoader.flr",
+                                                  animation: "load",
+                                                  fit: BoxFit.contain,
+                                                ),
+                                              ),
+                                            ),
                                           ),
                                         );
                                       } else {
@@ -206,11 +217,16 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                       }
                                     } else {
                                       return Container(
+                                        color: Colors.black,
                                         child: Center(
-                                          child: Image.asset(
-                                            "assets/images/default.jpg",
-                                            fit: BoxFit.fitHeight,
-                                            height: 350,
+                                          child: Container(
+                                            height: 50,
+                                            width: 50,
+                                            child: new FlareActor(
+                                              "assets/animations/dotLoader.flr",
+                                              animation: "load",
+                                              fit: BoxFit.contain,
+                                            ),
                                           ),
                                         ),
                                       );
@@ -384,11 +400,10 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                0.92,
-                                            padding: EdgeInsets.only(top: 20),
+                                                1.0,
                                             child: Padding(
                                               padding:
-                                                  const EdgeInsets.all(5.0),
+                                                  const EdgeInsets.all(2.0),
                                               child: FutureBuilder(
                                                   future: resMenu(),
                                                   builder: (BuildContext
@@ -399,83 +414,141 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                         ConnectionState.done) {
                                                       if (snapShot.data !=
                                                           null) {
-                                                        return ListView.builder(
-                                                          shrinkWrap: true,
-                                                          scrollDirection:
-                                                              Axis.horizontal,
-                                                          itemCount: snapShot
-                                                              .data.length,
-                                                          itemBuilder:
-                                                              (BuildContext
-                                                                      context,
-                                                                  int index) {
-                                                            return GestureDetector(
-                                                              onTap: () {
-                                                                Navigator.of(context).push(
-                                                                    MaterialPageRoute(
-                                                                        builder: (BuildContext
-                                                                                context) =>
-                                                                            Scaffold(
-                                                                                body: PageView(
-                                                                              controller: PageController(initialPage: index, keepPage: true, viewportFraction: 1),
-                                                                              scrollDirection: Axis.horizontal,
-                                                                              children: <Widget>[
-                                                                                new Image.network(snapShot.data[index], fit: BoxFit.fitWidth)
-                                                                              ],
-                                                                            ))));
-                                                              },
-                                                              child:
-                                                                  new Material(
-                                                                elevation: 10.0,
-                                                                child:
-                                                                    Container(
-                                                                  margin: EdgeInsets
-                                                                      .only(
+                                                        return Material(
+                                                          child:
+                                                              ListView.builder(
+                                                            shrinkWrap: true,
+                                                            scrollDirection:
+                                                                Axis.horizontal,
+                                                            itemCount: snapShot
+                                                                .data.length,
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    int index) {
+                                                              int _index =
+                                                                  index;
+                                                              return GestureDetector(
+                                                                onTap: () {
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .push(MaterialPageRoute(
+                                                                          builder: (BuildContext context) => Container(
+                                                                                color: Colors.black,
+                                                                                child: PhotoViewGallery.builder(
+                                                                                  scrollPhysics: const BouncingScrollPhysics(),
+                                                                                  builder: (BuildContext context, int index) {
+                                                                                    return PhotoViewGalleryPageOptions(
+                                                                                      imageProvider: NetworkImage(snapShot.data[index]),
+                                                                                      initialScale: PhotoViewComputedScale.contained * 1,
+                                                                                      minScale: PhotoViewComputedScale.contained * 1,
+                                                                                      maxScale: PhotoViewComputedScale.contained * 2,
+                                                                                      //heroTag: galleryItems[index].id,
+                                                                                    );
+                                                                                  },
+                                                                                  itemCount: snapShot.data.length,
+                                                                                  loadingChild: Center(
+                                                                                    child: Container(
+                                                                                      height: 50,
+                                                                                      width: 50,
+                                                                                      child: new FlareActor(
+                                                                                        "assets/animations/dotLoader.flr",
+                                                                                        animation: "load",
+                                                                                        fit: BoxFit.contain,
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                  pageController: PageController(initialPage: _index, keepPage: true, viewportFraction: 1),
+                                                                                ),
+                                                                              )));
+                                                                },
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          2.0),
+                                                                  child:
+                                                                      Material(
+                                                                    elevation:
+                                                                        10.0,
+                                                                    child:
+                                                                        Container(
+                                                                      margin: EdgeInsets.only(
                                                                           left:
-                                                                              10,
+                                                                              5,
                                                                           right:
-                                                                              10,
+                                                                              5,
                                                                           top:
                                                                               5,
                                                                           bottom:
                                                                               5),
-                                                                  child:
-                                                                      CachedNetworkImage(
-                                                                    imageUrl: snapShot
-                                                                            .data[
-                                                                        index],
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                    width: 120,
-                                                                    height: 100,
-                                                                    placeholder:
-                                                                        Center(
-                                                                      child: Container(
-                                                                          width:
-                                                                              120,
-                                                                          height:
-                                                                              100,
-                                                                          child:
-                                                                              Center(child: CircularProgressIndicator())),
+                                                                      child:
+                                                                          CachedNetworkImage(
+                                                                        imageUrl:
+                                                                            snapShot.data[index],
+                                                                        fit: BoxFit
+                                                                            .fill,
+                                                                        width:
+                                                                            150,
+                                                                        height:
+                                                                            150,
+                                                                        placeholder: (context,
+                                                                                url) =>
+                                                                            Center(
+                                                                              child: Container(
+                                                                                width: 150,
+                                                                                height: 100,
+                                                                                child: Center(
+                                                                                  child: new FlareActor(
+                                                                                    "assets/animations/loading_Untitled.flr",
+                                                                                    animation: "Untitled",
+                                                                                    fit: BoxFit.contain,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            );
-                                                          },
+                                                              );
+                                                            },
+                                                          ),
                                                         );
                                                       }
                                                     } else if (snapShot
                                                             .connectionState ==
                                                         ConnectionState
                                                             .waiting) {
-                                                      return Container();
+                                                      return ListView.builder(
+                                                          shrinkWrap: true,
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          itemCount: 3,
+                                                          itemBuilder:
+                                                              (BuildContext
+                                                                      context,
+                                                                  int index) {
+                                                            return Center(
+                                                              child: Container(
+                                                                width: 130,
+                                                                height: 100,
+                                                                child: Center(
+                                                                  child:
+                                                                      new FlareActor(
+                                                                    "assets/animations/loading_Untitled.flr",
+                                                                    animation:
+                                                                        "Untitled",
+                                                                    fit: BoxFit
+                                                                        .contain,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            );
+                                                          });
                                                     }
                                                   }),
                                             ),
-                                          ),
-                                          SizedBox(
-                                            height: 20,
                                           ),
                                           titleBar("Details", c_width),
                                           Padding(
@@ -663,7 +736,17 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                             .connectionState ==
                                                         ConnectionState
                                                             .waiting) {
-                                                      return CircularProgressIndicator();
+                                                      return Container(
+                                                        height: 200,
+                                                        width: 200,
+                                                        child: Center(
+                                                          child: new FlareActor(
+                                                            "assets/animations/loading_Untitled.flr",
+                                                            animation: "Untitled",
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                      );
                                                     }
                                                   })),
                                         ],
@@ -678,7 +761,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                 Padding(
                                   padding: EdgeInsets.only(left: 10),
                                   child: Container(
-                                    width: c_width*1.3,
+                                    width: c_width * 1.3,
                                     child: new Text(
                                       snapshot.data.restruant_Name,
                                       textDirection: TextDirection.ltr,

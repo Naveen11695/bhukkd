@@ -19,7 +19,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key key}):super(key:key);
+  LoginPage({Key key}) : super(key: key);
+
   @override
   _LoginPage createState() => _LoginPage();
 }
@@ -53,18 +54,25 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
   var handleError = "";
   Animation<double> buttonGrowAnimation;
   static double c_width;
+  static double c_height;
 
   Widget buttonLoading = Text(
     "Sign In",
     style: new TextStyle(
         fontSize: 20.0,
         fontFamily: "Montserrat",
- fontWeight: FontWeight.w700,
-          letterSpacing: 0.8,
-          wordSpacing: 0.0,
+        fontWeight: FontWeight.w700,
+        letterSpacing: 0.8,
+        wordSpacing: 0.0,
         textBaseline: TextBaseline.ideographic,
         color: Colors.white),
   );
+
+  AnimationController _controller;
+  Animation<double> _heightFactorAnimation;
+  final double collapsedHeightFactor = 0.69;
+  final double expendedHeightFactor = 0.1;
+  bool isAnimationCompleted = false;
 
   @override
   void initState() {
@@ -74,12 +82,10 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
     _screenController = new AnimationController(
         duration: new Duration(milliseconds: 2000), vsync: this);
 
-
     containerGrowAnimation = new CurvedAnimation(
       parent: _screenController,
       curve: Curves.easeIn,
     );
-
 
     containerGrowAnimation.addListener(() {
       this.setState(() {});
@@ -127,9 +133,13 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
         ),
       ),
     );
+    _controller = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
+    _heightFactorAnimation =
+        Tween<double>(begin: collapsedHeightFactor, end: expendedHeightFactor)
+            .animate(_controller);
     _screenController.forward();
   }
-
 
   @override
   void dispose() {
@@ -139,13 +149,23 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
 //    _buttonController.dispose();
   }
 
-
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  onBottomPartTap() {
+    setState(() {
+      if (isAnimationCompleted) {
+        _controller.reverse();
+      } else {
+        _controller.forward();
+      }
+      isAnimationCompleted = !isAnimationCompleted;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     c_width = MediaQuery.of(context).size.width * 0.5;
+    c_height = MediaQuery.of(context).size.height * 0.5;
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -162,61 +182,27 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
 
                 print("................" + snapshot.data.email.toString());
 
-                return Container(
-                  child: Builder(builder: (BuildContext context) {
-                    return ListView(
+                return Stack(children: <Widget>[
+                    Column(
                       children: <Widget>[
-                        new Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            new ImageBackground(
-                              backgroundImage: backgroundImage,
-                              containerGrowAnimation: containerGrowAnimation,
-                              profileImage: profileImage,
-                              email: snapshot.data.email.toString(),
-                            ),
-                            new ListViewContent(
-                              listSlideAnimation: listSlideAnimation,
-                              listSlidePosition: listSlidePosition,
-                              listTileWidth: listTileWidth,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: Material(
-                                color: Color.fromRGBO(0, 0, 0, 50),
-                                borderRadius: BorderRadius.circular(
-                                  20.0,
-                                ),
-                                child: semi_circlar_button(
-                                  'Sign out',
-                                  () async {
-                                    buttonLoading = buttonSignin;
-                                    final FirebaseUser user =
-                                        await _auth.currentUser();
-                                    if (user == null) {
-                                      Scaffold.of(context)
-                                          .showSnackBar(SnackBar(
-                                        content:
-                                            const Text('No one has signed in.'),
-                                      ));
-                                      return;
-                                    }
-                                    _signOut();
-                                    final String uid = user.email;
-                                    Scaffold.of(context).showSnackBar(SnackBar(
-                                      content: Text(uid +
-                                          ' has successfully signed out.'),
-                                    ));
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
+                        new ImageBackground(
+                          backgroundImage: backgroundImage,
+                          containerGrowAnimation: containerGrowAnimation,
+                          profileImage: profileImage,
+                          email: snapshot.data.email.toString(),
                         ),
+                        new Calender(margin: listSlidePosition.value * 2.0),
                       ],
-                    );
-                  }),
-                );
+                    ),
+                  Padding(
+                    padding: const EdgeInsets.only(top:400.0),
+                    child: ListView(
+                      children: <Widget>[
+                        bottomView(context),
+                      ],
+                    ),
+                  ),
+                ]);
                 //.........................................//Home Start//......................................................//
 
               } else {
@@ -344,7 +330,8 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                                             padding: const EdgeInsets.fromLTRB(
                                                 20, 50, 20, 20),
                                             child: Container(
-                                              decoration: BoxDecoration(boxShadow: [
+                                              decoration:
+                                                  BoxDecoration(boxShadow: [
                                                 new BoxShadow(
                                                   color: Colors.black,
                                                   blurRadius: 5.0,
@@ -359,29 +346,31 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                                                         formKey.currentState;
                                                     if (form.validate()) {
                                                       setState(() {
-                                                        buttonLoading=buttonLoading2;
+                                                        buttonLoading =
+                                                            buttonLoading2;
                                                       });
                                                       form.save();
                                                       _signInWithEmailAndPassword();
                                                     }
                                                   },
                                                   splashColor: Colors.white24,
-                                                  highlightColor: Colors.white10,
+                                                  highlightColor:
+                                                      Colors.white10,
                                                   child: Container(
-                                                    width: c_width*2.0,
-                                                    height: c_width*0.2,
+                                                    width: c_width * 2.0,
+                                                    height: c_width * 0.2,
                                                     child: Row(
                                                       children: <Widget>[
-                                                        SizedBox(width: c_width*0.7),
+                                                        SizedBox(
+                                                            width:
+                                                                c_width * 0.7),
                                                         buttonLoading,
                                                       ],
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            )
-                                            ),
-
+                                            )),
                                         Padding(
                                           padding: const EdgeInsets.fromLTRB(
                                               20, 5, 20, 20),
@@ -398,21 +387,21 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                                     )),
                               ],
                             ),
-
-                            SizedBox(height: 20.0,),
-
+                            SizedBox(
+                              height: 20.0,
+                            ),
                             Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: separator,
                             ),
-
-                            SizedBox(height: 20.0,),
-
+                            SizedBox(
+                              height: 20.0,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
                                 Container(
-                                  width: c_width*0.7,
+                                  width: c_width * 0.7,
                                   child: new OutlineButton(
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
@@ -424,8 +413,7 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    borderSide:
-                                    BorderSide(color: Colors.white),
+                                    borderSide: BorderSide(color: Colors.white),
                                     onPressed: () async {
                                       print(
                                           "Login button with Google fetching data from server....");
@@ -434,30 +422,31 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
                                   ),
                                 ),
                                 Container(
-                                  width: c_width*0.7,
+                                  width: c_width * 0.7,
                                   child: new OutlineButton(
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: new Text(
                                         'Sign in With Phone',
                                         style:
-                                        textStyle.copyWith(fontSize: 20.0),
+                                            textStyle.copyWith(fontSize: 20.0),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    borderSide:
-                                    BorderSide(color: Colors.white),
+                                    borderSide: BorderSide(color: Colors.white),
                                     onPressed: () {
                                       Route route = HorizontalTransition(
                                           builder: (BuildContext context) =>
-                                          new otpPage());
+                                              new otpPage());
                                       Navigator.push(context, route);
                                     },
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 50.0,),
+                            SizedBox(
+                              height: 50.0,
+                            ),
                           ],
                         ),
                       )
@@ -470,14 +459,55 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
             } else {
               print("no connection");
               return Container(
-                child: Center(child: new FlareActor(
-                  "assets/animations/loading_Untitled.flr",
-                  animation: "Untitled",
-                  fit: BoxFit.contain,
-                ),),
+                child: Center(
+                  child: new FlareActor(
+                    "assets/animations/loading_Untitled.flr",
+                    animation: "Untitled",
+                    fit: BoxFit.contain,
+                  ),
+                ),
               );
             }
           }),
+    );
+  }
+
+  Widget bottomView(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        new ListViewContent(
+          listSlideAnimation: listSlideAnimation,
+          listSlidePosition: listSlidePosition,
+          listTileWidth: listTileWidth,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Material(
+            color: Color.fromRGBO(0, 0, 0, 50),
+            borderRadius: BorderRadius.circular(
+              20.0,
+            ),
+            child: semi_circlar_button(
+              'Sign out',
+              () async {
+                buttonLoading = buttonSignin;
+                final FirebaseUser user = await _auth.currentUser();
+                if (user == null) {
+                  Scaffold.of(context).showSnackBar(SnackBar(
+                    content: const Text('No one has signed in.'),
+                  ));
+                  return;
+                }
+                _signOut();
+                final String uid = user.email;
+                Scaffold.of(context).showSnackBar(SnackBar(
+                  content: Text(uid + ' has successfully signed out.'),
+                ));
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -564,7 +594,6 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
     }
   }
 
-
   void signInWithGoogle() async {
     final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -572,7 +601,7 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
     String _userID;
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =
-    await googleUser.authentication;
+        await googleUser.authentication;
     final AuthCredential credential = GoogleAuthProvider.getCredential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
@@ -601,8 +630,6 @@ class _LoginPage extends State<LoginPage> with TickerProviderStateMixin {
       Scaffold.of(context).showSnackBar(snackBar);
     }
   }
-
-
 
   void _signOut() async {
     await _auth.signOut();

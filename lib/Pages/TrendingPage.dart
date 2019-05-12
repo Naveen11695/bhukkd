@@ -265,12 +265,12 @@ class _TrendingPageState extends State<TrendingPage>
                                                   rests[index].featured_image,
                                               fit: BoxFit.cover,
                                               height: c_width * 0.6,
-                                              placeholder: Image.asset(
+                                              placeholder: (context, url)=> Image.asset(
                                                 "assets/images/default.jpg",
                                                 fit: BoxFit.cover,
                                                 height: c_width * 0.6,
                                               ),
-                                              errorWidget: Icon(Icons.error),
+                                              errorWidget:(context, url, error) => Icon(Icons.error),
                                             ),
                                     ),
                                     Padding(
@@ -297,7 +297,7 @@ class _TrendingPageState extends State<TrendingPage>
                                             fontSize: 12,
                                             fontWeight: FontWeight.w300,
                                             fontFamily: "Roboto",
-                                            color: Colors.deepOrange),
+                                            color: Color.fromRGBO(249, 129, 42, 1)),
                                       ),
                                     )
                                   ],
@@ -362,7 +362,7 @@ class _TrendingPageState extends State<TrendingPage>
                                 padding: const EdgeInsets.all(8.0),
                                 child: Icon(
                                   Icons.search,
-                                  color: Colors.deepOrange,
+                                  color: Color.fromRGBO(249, 129, 42, 1),
                                 ),
                               ),
                               Center(
@@ -372,7 +372,7 @@ class _TrendingPageState extends State<TrendingPage>
                                       fontFamily: "Montserrat",
                                       fontWeight: FontWeight.w300,
                                       fontSize: 15.0,
-                                      color: Colors.deepOrange,
+                                      color: Color.fromRGBO(249, 129, 42, 1),
                                       shadows: [
                                         Shadow(
                                             offset: Offset(0.3, 0.1),

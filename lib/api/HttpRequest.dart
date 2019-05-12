@@ -108,7 +108,7 @@ Future fetchPhotos(String url) async {
   List<String> splittedUrl;
   for (var photoLink in photoLinks) {
     splittedUrl=photoLink.attributes['data-original'].split("?");
-    print(splittedUrl[0]);
+    /*print(splittedUrl[0]);*/
     restarauntPhotos.add(splittedUrl[0]);
 
   }

@@ -10,7 +10,7 @@ description: A spicy hot place to find food that lets you book a table in nearby
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.0.0-dev.68.0 <3.0.0"
+  sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
   splashscreen: ^1.2.0
@@ -23,16 +23,16 @@ dependencies:
   shared_preferences: any
   html: any
   sqflite: any
-  path_provider: ^0.4.1
+  path_provider: any
   async_loader: ^0.1.2
   date_format: "^1.0.4"
   url_launcher: "^3.0.1"
   intl: ">=0.14.0"
   font_awesome_flutter: ^8.4.0
-  cached_network_image: ^0.5.0
+  cached_network_image: ^0.8.0
   async: any
   photo_view: ^0.3.3
-#  avataaar_image: ^1.0.2
+  avataaar_image: ^1.0.2
 
   # Firebase dependencies
   firebase_auth: ^0.8.4
@@ -101,6 +101,7 @@ flutter:
   - assets/animations/Pizza Slice.flr
   - assets/animations/Add to cart icon.flr
   - assets/animations/loading_Untitled.flr
+  - assets/animations/dotLoader.flr
   - assets/images/logo.png
   - assets/images/pizza.jpg
   - assets/animations/top_restaurant_loading.flr

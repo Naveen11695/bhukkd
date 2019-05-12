@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'List.dart';
 import 'Calender.dart';
 import '../Screens/Home/styles.dart';
+import 'componets.dart';
 
 class ListViewContent extends StatelessWidget {
   final Animation<double> listTileWidth;
@@ -19,41 +20,26 @@ class ListViewContent extends StatelessWidget {
     return Stack(
       alignment: listSlideAnimation.value,
       children: <Widget>[
-        new Calender(margin: listSlidePosition.value * 6.0),
         Container(
           child: Column(
             children: <Widget>[
               InkWell(
-                  onTap: () {
-                    print("Account");
-                  },
-                  splashColor: Colors.black45,
-                  highlightColor: Colors.black45,
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
-                    child: new ListData(
-                        width: listTileWidth.value,
-                        title: "My Account",
-                        subtitle:
-                            "Address, email, password or delete your account.",
-                        image: user),
-                  )),
+                onTap: () {
+                  print("My Account");
+                },
+                splashColor: Colors.black45,
+                highlightColor: Colors.black45,
+                child: homeOptionBox(listTileWidth, "My Account", "Address, email, password or delete your account.", user),
+              ),
+
               InkWell(
                 onTap: () {
                   print("Privacy");
                 },
                 splashColor: Colors.black45,
                 highlightColor: Colors.black45,
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
-                  child: new ListData(
-                      width: listTileWidth.value,
-                      title: "Privacy",
-                      subtitle: "Hide your profile from search engines",
-                      image: privacy),
-                ),
+                child:
+                homeOptionBox(listTileWidth, "Privacy", "Hide your profile from search engines", privacy),
               ),
               InkWell(
                 onTap: () {
@@ -61,15 +47,8 @@ class ListViewContent extends StatelessWidget {
                 },
                 splashColor: Colors.black45,
                 highlightColor: Colors.black45,
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
-                  child: new ListData(
-                      width: listTileWidth.value,
-                      title: "Manage Payment Options",
-                      subtitle: "Address, Favourites, Refrerrals & Offers",
-                      image: paymentOption),
-                ),
+                child:
+                homeOptionBox(listTileWidth, "Manage Payment Options", "Address, Favourites, Refrerrals & Offers", paymentOption),
               ),
               InkWell(
                 onTap: () {
@@ -77,15 +56,8 @@ class ListViewContent extends StatelessWidget {
                 },
                 splashColor: Colors.black45,
                 highlightColor: Colors.black45,
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
-                  child: new ListData(
-                      width: listTileWidth.value,
-                      title: "Your Bookings",
-                      subtitle: "Past booking history",
-                      image: bookings),
-                ),
+                child:
+                homeOptionBox(listTileWidth, "Your Bookings", "Past booking history", bookings),
               ),
               InkWell(
                 onTap: () {
@@ -93,15 +65,8 @@ class ListViewContent extends StatelessWidget {
                 },
                 splashColor: Colors.black45,
                 highlightColor: Colors.black45,
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
-                  child: new ListData(
-                      width: listTileWidth.value,
-                      title: "Help",
-                      subtitle: "FAQ & Link",
-                      image: help),
-                ),
+                child:
+              homeOptionBox(listTileWidth, "Help", "FAQ & Link", help),
               ),
             ],
           ),

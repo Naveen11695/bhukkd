@@ -34,7 +34,7 @@ class _HomePage extends State<HomePage> {
   }
   @override
   Widget build(BuildContext context) {
-    final bottomNavColor = Theme.of(context).bottomAppBarColor;
+    final bottomNavColor = Color.fromRGBO(249, 129, 42, 1);
     return new Scaffold(
       body: bottomNavigation[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

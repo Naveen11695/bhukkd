@@ -16,12 +16,19 @@ class Calender extends StatelessWidget {
       return (31);
   }
 
+
   @override
   Widget build(BuildContext context) {
     int element = new DateTime.now().day - new DateTime.now().weekday;
-    int totalDay = totaldays(new DateTime.now().month);
+    int totalDay = totaldays(new DateTime.now().month-1);
+    if(DateTime.now().day>15){
+      totalDay = totaldays(new DateTime.now().month);
+    }
     for (var i = 0; i < 7; i++) {
       if (element > totalDay) element = 1;
+      if(element <= 0) {
+            element += totalDay;
+      }
       arrayDay.add(element);
       element++;
     }
@@ -34,7 +41,7 @@ class Calender extends StatelessWidget {
         color: Colors.white,
         border: new Border(
           bottom: new BorderSide(
-              width: 5.0, color: Colors.deepOrange),
+              width: 5.0, color: Color.fromRGBO(249, 129, 42, 1)),
         ),
       ),
       child: new Row(

@@ -139,7 +139,7 @@ class HorizontalScrollState extends State<HorizontalScroll>
                                                         fit: BoxFit.cover,
                                                         width: 150,
                                                         height: 105,
-                                                        placeholder:
+                                                        placeholder: (context, url) =>
                                                             new Image.asset(
                                                           "assets/images/default.jpg",
                                                           fit: BoxFit.cover,

@@ -45,7 +45,7 @@ class RestaurantData extends StatelessWidget {
                             fit: BoxFit.cover,
                             width: 110,
                             height: 100,
-                            placeholder: new Image.asset(
+                            placeholder: (context, url) => new Image.asset(
                               "assets/images/default.jpg",
                               fit: BoxFit.cover,
                               width: 110,
