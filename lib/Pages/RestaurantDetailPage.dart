@@ -135,7 +135,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                   restruant_Photo_url = snapshot.data.restruant_Photo_url;
                   Menu = snapshot.data.restruant_Menu;
                   return Stack(
-                    fit: StackFit.expand,
+                    fit: StackFit.passthrough,
                     children: <Widget>[
                       GestureDetector(
                         onTap: () {

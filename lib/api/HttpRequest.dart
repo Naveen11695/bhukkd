@@ -107,7 +107,7 @@ Future fetchPhotos(String url) async {
   List<String> restarauntPhotos = new List<String>();
   for (var photoLink in photoLinks) {
     restarauntPhotos.add(photoLink.attributes['data-original']
-        /*.replaceAll("?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A", "")*/);
+        .replaceAll("?fit=around%7C200%3A200&crop=200%3A200%3B%2A%2C%2A", ""));
   }
 
   return restarauntPhotos;
@@ -117,11 +117,34 @@ Future fetchMenu(String url) async {
   var client = new Client();
   Response response = await client.get(url);
   var menu = parse(response.body);
-  List<dynamic> menuLink = menu.querySelectorAll('div#menu-image>img');
-  /* print("----------Menu Image-------------");*/
+
+  List<dynamic> urls = menu.querySelectorAll("div.item a.paginator_item");
+  var urlsToBeFetchedForMenu = [];
+  for(var url in urls){
+    // print("https://www.zomato.com"+url.attributes['href']);
+    urlsToBeFetchedForMenu.add("https://www.zomato.com"+url.attributes['href']);
+  }
+
+  var menuLinks=[];
+  for(var url in urlsToBeFetchedForMenu){
+    Response response = await client.get(url);
+    var menuPhotos=parse(response.body);
+    if(menuLinks.contains(url)){
+      continue;
+    }
+    else{
+      menuLinks.addAll(menuPhotos.querySelectorAll('div#menu-image>img'));
+    }
+  }
+
+  // for(var link in menuLinks){
+  //   print(link.attributes['src']);
+  // }
+  
   var restaurant_menu = [];
-  for (var link in menuLink) {
+  for (var link in menuLinks) {
     restaurant_menu.add(link.attributes['src']);
+
   }
 
   return restaurant_menu;
