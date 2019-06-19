@@ -17,7 +17,8 @@ import '../Components/CategoriesPage.dart';
 //.................................data to be render..........................//
 
 class ExplorePage extends StatefulWidget {
-  ExplorePage({Key key}):super(key:key);
+  ExplorePage({Key key}) : super(key: key);
+
   @override
   _ExplorePage createState() => _ExplorePage();
 }
@@ -50,12 +51,21 @@ class _ExplorePage extends State<ExplorePage> {
                   return CustomScrollView(
                     slivers: <Widget>[
                       SliverAppBar(
-                        backgroundColor: Colors.transparent,title: Text("Categories",style: TextStyle(
-                        fontFamily: "Montserrat",
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black
-                      ),),),
+                        elevation: 10,
+                        floating: true,
+                        pinned: false,
+                        backgroundColor: Color.fromRGBO(249, 129, 42, 1),
+                        title: Text(
+                          "Categories",
+                          style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              wordSpacing: 2.0,
+                              letterSpacing: 1.0,
+                              color: Colors.white),
+                        ),
+                      ),
                       SliverGrid(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2, childAspectRatio: 1),
@@ -63,51 +73,63 @@ class _ExplorePage extends State<ExplorePage> {
                           (BuildContext context, int index) {
                             return Container(
                               decoration: BoxDecoration(
-                                //boxShadow: [BoxShadow(color: Colors.white,offset: Offset(10,0),blurRadius: 100.0)],
-                              ),
-                              child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
+                                  boxShadow: [BoxShadow(color: Colors.white,offset: Offset(10,0),blurRadius: 50.0)],
                                   ),
-                                  child: Stack(fit: StackFit.expand, children: [
-                                    Material(
-                                      elevation: 10,
-                                      type: MaterialType.canvas,
+                              child: Padding(
+                                padding: const EdgeInsets.only(top:10),
+                                child: Card(
+                                    shape: RoundedRectangleBorder(
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(20)),
-                                      child: InkWell(
-                                          onTap: () {
-                                            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=> CategoriesPage(id:snapshot.data.categoriesId[index],
-                                            name:snapshot.data.categoriesName[index],
-                                            photo:catagoriesPhotoList[index]
-                                            )));
-                                          },
-                                          child: Hero(
-                                            transitionOnUserGestures: true,
-                                            tag:
-                                                snapshot.data.categoriesId[index],
-                                            child: ClipRRect(
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(20)),
-                                                child: Image.asset(
-                                                  "assets/images/icons/" +
-                                                      catagoriesPhotoList[index],
-                                                  fit: BoxFit.cover,
-                                                )),
-                                          )),
                                     ),
-                                    Center(
-                                      child: new Text(
-                                        snapshot.data.categoriesName[index],
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 40,
-                                            fontFamily: "Pacifico"),
+                                    child: Stack(fit: StackFit.expand, children: [
+                                      Material(
+                                        elevation: 10,
+                                        type: MaterialType.canvas,
+                                        borderRadius:
+                                            BorderRadius.all(Radius.circular(20)),
+                                        child: InkWell(
+                                            onTap: () {
+                                              Navigator.of(context).push(MaterialPageRoute(
+                                                  builder: (BuildContext context) =>
+                                                      CategoriesPage(
+                                                          id: snapshot.data
+                                                                  .categoriesId[
+                                                              index],
+                                                          name: snapshot.data
+                                                                  .categoriesName[
+                                                              index],
+                                                          photo:
+                                                              catagoriesPhotoList[
+                                                                  index])));
+                                            },
+                                            child: Hero(
+                                              transitionOnUserGestures: true,
+                                              tag: snapshot
+                                                  .data.categoriesId[index],
+                                              child: ClipRRect(
+                                                  borderRadius: BorderRadius.all(
+                                                      Radius.circular(20)),
+                                                  child: Image.asset(
+                                                    "assets/images/icons/" +
+                                                        catagoriesPhotoList[
+                                                            index],
+                                                    fit: BoxFit.cover,
+                                                  )),
+                                            )),
                                       ),
-                                    ),
-                                  ])),
+                                      Center(
+                                        child: new Text(
+                                          snapshot.data.categoriesName[index],
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 40,
+                                              fontFamily: "Pacifico"),
+                                        ),
+                                      ),
+                                    ])),
+                              ),
                             );
                           },
                           childCount: snapshot.data.categoriesId.length,
@@ -118,21 +140,25 @@ class _ExplorePage extends State<ExplorePage> {
                 } else {
                   print("nope");
                   return Container(
-                    child: Center(child: new FlareActor(
-                      "assets/animations/loading_Untitled.flr",
-                      animation: "Untitled",
-                      fit: BoxFit.contain,
-                    ),),
+                    child: Center(
+                      child: new FlareActor(
+                        "assets/animations/loading_Untitled.flr",
+                        animation: "Untitled",
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   );
                 }
               } else {
                 print("no connection");
                 return Container(
-                  child: Center(child: new FlareActor(
-                    "assets/animations/loading_Untitled.flr",
-                    animation: "Untitled",
-                    fit: BoxFit.contain,
-                  ),),
+                  child: Center(
+                    child: new FlareActor(
+                      "assets/animations/loading_Untitled.flr",
+                      animation: "Untitled",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 );
               }
             }),
@@ -158,19 +184,17 @@ Future requestCategories(requestUrl) async {
     Categories categories;
     bool flag = false;
     DocumentReference snapshot =
-    fireStore.collection('categories').document(
-        'categories');
+        fireStore.collection('categories').document('categories');
     await snapshot.get().then((dataSnapshot) {
       if (dataSnapshot.exists) {
         final response = dataSnapshot.data['categories'];
         categories = parseCategories(response);
-      }
-      else{
+      } else {
         flag = true;
       }
     });
 
-    if(flag){
+    if (flag) {
       print("<requestCatagories>");
       final response = await http.get(Uri.encodeFull(requestUrl), headers: {
         "user-key": api_key,
@@ -186,8 +210,8 @@ Future requestCategories(requestUrl) async {
       }
     }
     return categories;
-  }catch (e){
-    print("<requestCatagories>"+e.toString());
+  } catch (e) {
+    print("<requestCatagories>" + e.toString());
   }
 }
 
@@ -195,14 +219,11 @@ void saveCategories(String data) {
   Firestore.instance
       .collection("categories")
       .document("categories")
-      .setData({
-    "categories": data
-  });
+      .setData({"categories": data});
 }
 
-    Categories parseCategories(String responseBody) {
-      final parsed = json.decode(responseBody);
-      Categories categories = Categories.fromJson(parsed);
-      return categories;
-    }
-
+Categories parseCategories(String responseBody) {
+  final parsed = json.decode(responseBody);
+  Categories categories = Categories.fromJson(parsed);
+  return categories;
+}

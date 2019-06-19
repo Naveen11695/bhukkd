@@ -58,7 +58,7 @@ class RestaurantData extends StatelessWidget {
                         padding: const EdgeInsets.only(
                             top: 5.0, bottom: 5.0, left: 5.0),
                         child: getStarWidgets(
-                          repo.user_rating.aggregate_rating,
+                          repo.user_rating.aggregate_rating.toString(),
                         ),
                       ),
                     ],

@@ -1,17 +1,17 @@
 import 'package:bhukkd/models/Restruant/Photos/User.dart';
 class Photos {
-  String id;
-  String url;
-  String thumb_url;
-  List<String> user;
-  String res_id;
-  String caption;
-  String timestamp;
-  String friendly_time;
-  String width;
-  String height;
-  String comments_count;
-  String likes_count;
+  var id;
+  var url;
+  var thumb_url;
+  var user;
+  var res_id;
+  var caption;
+  var timestamp;
+  var friendly_time;
+  var width;
+  var height;
+  var comments_count;
+  var likes_count;
 
   Photos({this.id, this.url, this.thumb_url, this.res_id, this.caption,
       this.timestamp, this.friendly_time, this.width, this.height,
@@ -21,7 +21,7 @@ class Photos {
     print("...................................photo_caption: $caption");
   }
 
-  factory Photos.fromJson(Map<String, dynamic> parsedJson){
+  factory Photos.fromJson(var parsedJson){
     Map<String,dynamic> u = parsedJson['user'];
     User user = User.fromJson(u);
     user.urserprint();

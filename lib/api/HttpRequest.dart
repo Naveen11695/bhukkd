@@ -32,19 +32,23 @@ String latitude;
 String longitude;
 
 Future requestZomatoApiRestaurant(requestUrl, res_id) async {
-  getKey();
-  final response = await http.get(Uri.encodeFull(requestUrl), headers: {
-    "user-key": api_key,
-    "res_id": res_id,
-  });
-  if (response.statusCode == 200) {
-
-    StoreRestaurantInFireStore(res_id, response.body);
-    Restaurant r = parseRestaurant(response.body);
-    return r;
-  } else {
-    print(response.statusCode);
-    print(response.body);
+  try {
+    getKey();
+    final response = await http.get(Uri.encodeFull(requestUrl), headers: {
+      "user-key": api_key,
+      "res_id": res_id,
+    });
+    if (response.statusCode == 200) {
+      StoreRestaurantInFireStore(res_id, response.body);
+      Restaurant r = parseRestaurant(response.body);
+      return r;
+    } else {
+      print(response.statusCode);
+      print(response.body);
+    }
+  }catch (e) {
+    print("<Restaurant exception>"+e.toString());
+    return "error";
   }
 }
 

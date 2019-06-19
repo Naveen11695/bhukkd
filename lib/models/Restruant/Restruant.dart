@@ -125,9 +125,9 @@ class Restaurant extends Model{
 
 
     factory Restaurant.fromJson(Map<String, dynamic> json) {
-        Map<String,dynamic> loc = json['location'];
-        Map<String,dynamic> ur = json['user_rating'];
-        Map<String,dynamic> photos = json['photos'];
+        var loc = json['location'];
+        var ur = json['user_rating'];
+        var photos = json['photos'];
 
         location l;
         UserRating u;
@@ -142,8 +142,8 @@ class Restaurant extends Model{
             //u.urprint();
         }
         if(photos != null){
-            p = Photos.fromJson(photos);
-            p.photo_print();
+//            p = Photos.fromJson(photos);
+//            p.photo_print();
         }
 
         return Restaurant(

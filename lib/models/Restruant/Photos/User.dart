@@ -1,12 +1,12 @@
 class User {
-  String name;
-  String zomato_handle;
-  String foodie_level;
-  String foodie_level_num;
-  String foodie_color;
-  String profile_url;
-  String profile_deeplink;
-  String profile_image;
+  var name;
+  var zomato_handle;
+  var foodie_level;
+  var foodie_level_num;
+  var foodie_color;
+  var profile_url;
+  var profile_deeplink;
+  var profile_image;
 
   User({this.name, this.zomato_handle, this.foodie_level, this.foodie_level_num,
       this.foodie_color, this.profile_url, this.profile_deeplink,

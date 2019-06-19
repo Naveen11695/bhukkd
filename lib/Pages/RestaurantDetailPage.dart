@@ -49,7 +49,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
     backgroundColor: Colors.deepOrange,
   );
 
-  double _initialScale = 1.8;
+  double _initialScale = 2;
 
   Future resDetailPageCache() => _resDetailPageCache.runOnce(() async {
         return fetchRestaurant(widget.productid.toString());
@@ -88,7 +88,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
     setState(() {
       if (isAnimationCompleted) {
         _controller.reverse();
-        _initialScale = 1.8;
+        _initialScale = 2;
         _bookingButton = new FloatingActionButton(
           onPressed: () {},
           child: Icon(Icons.restaurant),
@@ -135,7 +135,14 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
             future: resDetailPageCache(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.data != null) {
+                if(snapshot.data == "error") {
+                  return FlareActor(
+                    "assets/animations/restaurant_details.flr",
+                    animation: "image_loading",
+                    fit: BoxFit.fill,
+                  );
+                }
+                else if (snapshot.data != null) {
                   restruant_Photo_url = snapshot.data.restruant_Photo_url;
                   Menu = snapshot.data.restruant_Menu;
                   return Stack(

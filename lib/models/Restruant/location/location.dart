@@ -25,7 +25,7 @@ class location {
     print(".......................location.......................");
   }*/
 
-  factory location.fromJson(Map<String, dynamic> parsedJson){
+  factory location.fromJson(var parsedJson){
     return location(
       address: parsedJson['address'],
       locality: parsedJson['locality'],

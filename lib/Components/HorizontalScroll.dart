@@ -252,20 +252,19 @@ class HorizontalScrollState extends State<HorizontalScroll>
       if (flag) {
         print("<NearByRestaurants>");
         String url =
-            "https://developers.zomato.com/api/v2.1/search?entity_id=$entity_id&entity_type=$entity_type&lat=$latitude&lon=$longitude&&sort=real_distance";
+            "https://developers.zomato.com/api/v2.1/geocode?lat=$latitude&lon=$longitude";
         final response = await http.get(Uri.encodeFull(url),
             headers: {"Accept": "application/json", "user-key": api_key});
         if (response.statusCode == 200) {
           saveNearByRestaurants(entity_type + "-" + entity_id, response.body);
-          Map<String, dynamic> jsonParsed = json.decode(response.body);
-
+          jsonParsed = json.decode(response.body);
         } else {
           print("<NearByRestaurants> Problem");
           print(response.body);
           return "error";
         }
       }
-      List<dynamic> bestRestaurants = jsonParsed['restaurants'];
+      List<dynamic> bestRestaurants = jsonParsed['nearby_restaurants'];
       List<NearByRestaurants> bestRest = [];
       for (var r in bestRestaurants) {
         NearByRestaurants res = NearByRestaurants.fromJson(r);
