@@ -655,7 +655,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                               "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
                                                           additionalOptions: {
                                                             'accessToken':
-                                                            'sk.eyJ1IjoibmF2ZWVuMTE2OTUiLCJhIjoiY2p5c21iMDB3MDF4MDNsbXk5emV3eGlwYyJ9.ceo9CMq7F791AdpT4mME2Q',
+                                                            '<Map Api Key',
                                                             'id':
                                                             'mapbox.streets',
                                                           },
