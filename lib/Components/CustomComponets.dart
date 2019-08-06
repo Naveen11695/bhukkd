@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -17,7 +18,7 @@ final logo = Container(
 
 const TextStyle textStyle = TextStyle(
   color: Color(0xFFFFFFFF),
-  fontFamily: 'Raleway',
+  fontFamily: 'Pacifico',
 );
 
 final login_description = Container(
@@ -56,33 +57,28 @@ final login_description = Container(
 );
 
 Widget semi_circlar_button(String label, Function onTap) {
-  return Material(
-    color: Color.fromRGBO(0, 0, 0, 50),
-    child: InkWell(
-      onTap: onTap,
-      splashColor: Colors.white24,
-      highlightColor: Colors.white10,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10.0),
-        child: Center(
-          child: Text(
-            label,
-            style: new TextStyle(
-                fontSize: 20.0,
-                fontFamily: "Montserrat",
-                // fontWeight: FontWeight.w700,
-                letterSpacing: 0.8,
-                wordSpacing: 0.0,
-                textBaseline: TextBaseline.ideographic,
-                color: Colors.white),
-          ),
+  return InkWell(
+    onTap: onTap,
+    splashColor: Colors.white24,
+    highlightColor: Colors.white10,
+    child: Container(
+      padding: EdgeInsets.symmetric(vertical: 10.0),
+      child: Center(
+        child: Text(
+          label,
+          style: new TextStyle(
+              fontSize: 20.0,
+              fontFamily: FONT_TEXT_PRIMARY,
+              // fontWeight: FontWeight.w700,
+              letterSpacing: 0.8,
+              wordSpacing: 0.0,
+              textBaseline: TextBaseline.ideographic,
+              color: Colors.white),
         ),
-        decoration: BoxDecoration(boxShadow: [
-          new BoxShadow(
-            color: Colors.black,
-            blurRadius: 5.0,
-          ),
-        ]),
+      ),
+      decoration: BoxDecoration(
+        color: SECONDARY_COLOR_1,
+        borderRadius: BorderRadius.circular(50),
       ),
     ),
   );
@@ -104,10 +100,16 @@ TextStyle Raleway = TextStyle(
   fontFamily: 'Raleway',
 );
 
-final login_background = Image.asset(
-  'assets/images/2.png',
-  fit: BoxFit.fill,
-);
+Widget login_background(Size size) {
+  return Container(
+    child: Image.asset(
+      'assets/images/2.png',
+      width: size.width,
+      height: size.height,
+      fit: BoxFit.fill,
+    ),
+  );
+}
 
 final otp_background = Positioned(
   child: Image.asset('assets/images/food1.png', fit: BoxFit.fill),
@@ -149,18 +151,7 @@ final separator = Row(
 );
 
 final formatter = new NumberFormat("#,###");
-var randomPhotoList = [
-  '2.png',
-  '3.jpeg',
-  '4.jpeg',
-  '5.jpg',
-  '6.jpg',
-  '7.jpeg',
-  '8.jpeg',
-  '9.jpeg',
-  '10.jpeg',
-  'food.png'
-];
+
 
 var catagoriesPhotoList = [
   'delivery.png',
@@ -203,48 +194,50 @@ Widget titleBar(String text, double sizeWidth) {
   return Row(
     children: <Widget>[
       Padding(
-        padding: const EdgeInsets.only(top:5.0, bottom: 5.0, left: 10.0, right: 10.0),
+        padding: const EdgeInsets.only(
+            top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
         child: Container(
-          color: Colors.deepOrange,
-          height: 25,
-          width: 100,
-          child: Center(
-            child: Text(
-              text,
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: "Roboto",
-                fontWeight: FontWeight.bold,
-                fontSize: 25.0,
-                letterSpacing: 1,
-                shadows: [
-                  Shadow(
+          color: SECONDARY_COLOR_1,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Text(
+                text,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: FONT_TEXT_PRIMARY,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25.0,
+                  letterSpacing: 1,
+                  shadows: [
+                    Shadow(
                       // bottomLeft
-                      offset: Offset(1.5, 1.5),
-                      color: Colors.black54),
-                  Shadow(
+                        offset: Offset(1.5, 1.5),
+                        color: Colors.black54),
+                    Shadow(
                       // bottomRight
-                      offset: Offset(1.5, 1.5),
-                      color: Colors.black54),
-                  Shadow(
+                        offset: Offset(1.5, 1.5),
+                        color: Colors.black54),
+                    Shadow(
                       // topRight
-                      offset: Offset(1.5, 1.5),
-                      color: Colors.black54),
-                  Shadow(
+                        offset: Offset(1.5, 1.5),
+                        color: Colors.black54),
+                    Shadow(
                       // topLeft
-                      offset: Offset(1.5, 1.5),
-                      color: Colors.black54),
-                ],
+                        offset: Offset(1.5, 1.5),
+                        color: Colors.black54),
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ),
       Padding(
-        padding: const EdgeInsets.only(top:10.0, bottom: 5.0, right: 10.0),
+        padding: const EdgeInsets.only(top: 10.0, bottom: 5.0, right: 10.0),
         child: Container(
           height: 2,
-          width: sizeWidth*1.2,
+          width: sizeWidth * 1.2,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               // Where the linear gradient begins and ends
@@ -265,5 +258,40 @@ Widget titleBar(String text, double sizeWidth) {
         ),
       )
     ],
+  );
+}
+
+Widget blackTitle(String text, double size) {
+  return Container(
+    decoration: BoxDecoration(
+      gradient: LinearGradient(
+        // Where the linear gradient begins and ends
+        begin: Alignment.topRight,
+        end: Alignment.bottomLeft,
+        // Add one stop for each color. Stops should increase from 0 to 1
+        stops: [0.1, 0.5, 0.7, 0.9],
+        colors: [
+          SECONDARY_COLOR_3,
+          SECONDARY_COLOR_1,
+          SECONDARY_COLOR_2,
+          SECONDARY_COLOR_3,
+        ],
+      ),
+      borderRadius: BorderRadius.circular(20),
+    ),
+    //color: Colors.black,
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: size,
+          color: Colors.white,
+          fontFamily: FONT_TEXT_PRIMARY,
+          letterSpacing: 1.0,
+          wordSpacing: 1.0,
+        ),
+      ),
+    ),
   );
 }

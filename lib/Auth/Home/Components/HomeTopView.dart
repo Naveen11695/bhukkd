@@ -1,11 +1,9 @@
-import 'dart:convert';
-
-import 'package:bhukkd/api/LocationRequest.dart';
-import 'package:bhukkd/models/SharedPreferance/SharedPreference.dart';
+import 'package:avataaar_image/avataaar_image.dart';
+import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
 import 'Avataaar.dart';
-import 'package:avataaar_image/avataaar_image.dart';
 
 class ImageBackground extends StatefulWidget {
   DecorationImage backgroundImage;
@@ -53,12 +51,8 @@ class _ImageBackground extends State<ImageBackground> {
       width: containerGrowAnimation.value * 150,
       height: containerGrowAnimation.value * 150,
       decoration: new BoxDecoration(
-        shape: BoxShape.circle,
+        shape: BoxShape.rectangle,
         image: profileImage,
-        boxShadow: [
-          BoxShadow(
-              color: Colors.black, offset: Offset(5.0, 5.0), blurRadius: 20.0)
-        ],
       ),
     );
   }
@@ -67,8 +61,7 @@ class _ImageBackground extends State<ImageBackground> {
     var response;
     var fireStore = Firestore.instance;
     DocumentReference snapshot =
-    fireStore.collection('UserData').document(
-        email);
+    fireStore.collection('UsersData').document(email);
     await snapshot.get().then((dataSnapshot) {
       if (dataSnapshot.exists) {
         response = dataSnapshot.data['Avataaar_index'].toString();
@@ -82,19 +75,22 @@ class _ImageBackground extends State<ImageBackground> {
     Size screenSize = MediaQuery.of(context).size;
     return (new Container(
         width: screenSize.width,
-        height: screenSize.height / 2.8,
-        decoration: new BoxDecoration(image: backgroundImage),
+        height: screenSize.height / 3.0,
         child: new Container(
           decoration: new BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  bottomRight: Radius.circular(100),
+                  bottomLeft: Radius.circular(100)),
               gradient: new LinearGradient(
-            colors: <Color>[
-              const Color.fromRGBO(110, 101, 103, 0.6),
-              const Color.fromRGBO(51, 51, 63, 0.9),
-            ],
-            stops: [0.2, 1.0],
-            begin: const FractionalOffset(0.0, 0.0),
-            end: const FractionalOffset(0.0, 1.0),
-          )),
+                colors: <Color>[
+                  Colors.white,
+                  SECONDARY_COLOR,
+                ],
+                stops: [0.2, 1.0],
+                begin: const FractionalOffset(0.0, 0.0),
+                end: const FractionalOffset(0.0, 0.9),
+              )),
           child: new Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -108,7 +104,7 @@ class _ImageBackground extends State<ImageBackground> {
                 splashColor: Colors.white24,
                 highlightColor: Colors.white10,
                 child: Container(
-                  padding: EdgeInsets.only(top: 40.0),
+                  padding: EdgeInsets.only(top: 20.0),
                   child: FutureBuilder(
                     future: _setAvtaaar(),
                     builder: (BuildContext context, AsyncSnapshot snapShot) {
@@ -117,15 +113,23 @@ class _ImageBackground extends State<ImageBackground> {
                           return Center(
                             child: Container(
                               child: _userImage = AvataaarImage(
-                                avatar: _avataarList[int.parse(snapShot.data.toString())],
+                                avatar: _avataarList[int.parse((snapShot.data
+                                    .toString()
+                                    .trim()
+                                    .compareTo("null") ==
+                                    0)
+                                    ? "0"
+                                    : snapShot.data.toString())],
                                 errorImage: Icon(Icons.error),
-                                placeholder: CircularProgressIndicator(),
+                                placeholder: CircularProgressIndicator(
+                                  valueColor: new AlwaysStoppedAnimation<Color>(
+                                      Colors.white),
+                                ),
                                 width: 200.0,
                               ),
                             ),
                           );
-                        }
-                        else{
+                        } else {
                           print(snapShot.data.toString());
                           return new Container(
                             width: containerGrowAnimation.value * 150,
@@ -142,52 +146,19 @@ class _ImageBackground extends State<ImageBackground> {
                             ),
                           );
                         }
-                      }
-                      else {
+                      } else {
                         return new Container(
                           width: containerGrowAnimation.value * 150,
                           height: containerGrowAnimation.value * 150,
-                          child: Center(child: CircularProgressIndicator(),),
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              valueColor: new AlwaysStoppedAnimation<Color>(
+                                  Colors.white),
+                            ),
+                          ),
                         );
                       }
                     },
-                  ),
-                ),
-              ),
-              Center(
-                child: Container(
-                  child: new Text(
-                    email.split('@')[0].toUpperCase(),
-                    style: new TextStyle(
-                        fontFamily: "Montserrat",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25.0,
-                        shadows: [
-                          Shadow(
-                              // bottomLeft
-                              offset: Offset(1.5, 1.5),
-                              color: Colors.black,
-                              blurRadius: 10),
-                          Shadow(
-                              // bottomRight
-                              offset: Offset(1.5, 1.5),
-                              color: Colors.black,
-                              blurRadius: 10),
-                          Shadow(
-                              // topRight
-                              offset: Offset(1.5, 1.5),
-                              color: Colors.white,
-                              blurRadius: 10),
-                          Shadow(
-                              // topLeft
-                              offset: Offset(1.5, 1.5),
-                              color: Colors.white,
-                              blurRadius: 10),
-                        ],
-                        letterSpacing: 5.0,
-                        color: Colors.white),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ),
@@ -253,7 +224,10 @@ class _ImageBackground extends State<ImageBackground> {
                   child: AvataaarImage(
                     avatar: iconList[i],
                     errorImage: Icon(Icons.error),
-                    placeholder: CircularProgressIndicator(),
+                    placeholder: CircularProgressIndicator(
+                      valueColor:
+                      new AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
                     width: 150.0,
                   ),
                 ),
@@ -267,14 +241,26 @@ class _ImageBackground extends State<ImageBackground> {
     return tiles;
   }
 
-  void _onTileClicked(int index) {
-    Firestore.instance
-        .collection("UserData")
-        .document(email)
-        .setData({
-      "Avataaar_index": index
+  void _onTileClicked(int index) async {
+    var fireStore = Firestore.instance;
+    DocumentReference documentReference =
+    fireStore.collection('UsersData').document(email);
+    await documentReference.get().then((dataSnapshot) {
+      if (dataSnapshot.exists) {
+        documentReference
+            .updateData({"Avataaar_index": index}).whenComplete(() {
+          print("Successfull: Avataaar_index update");
+        }).catchError((e) {
+          print("Error: Avataaar_index update" + e.toString());
+        });
+      } else {
+        documentReference.setData({"Avataaar_index": index}).whenComplete(() {
+          print("Successfull: Avataaar_index update");
+        }).catchError((e) {
+          print("Error: Avataaar_index add" + e.toString());
+        });
+      }
     });
-    setState(() {
-    });
+    setState(() {});
   }
 }

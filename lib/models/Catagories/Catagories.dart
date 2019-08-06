@@ -17,10 +17,8 @@ class Categories extends Model {
       _name.add(loc.asMap()[i]['categories']['name']);
     }
 
-    _id.removeAt(3);
-    _name.removeAt(3);
-    _id.removeAt(3);
-    _name.removeAt(3);
+    _id.removeAt(6);
+    _name.removeAt(6);
 
     return Categories(
       categoriesId: _id,

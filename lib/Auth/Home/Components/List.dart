@@ -1,3 +1,4 @@
+import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:flutter/material.dart';
 
 class ListData extends StatelessWidget {
@@ -6,7 +7,9 @@ class ListData extends StatelessWidget {
   final String title;
   final String subtitle;
   final DecorationImage image;
+
   ListData({this.margin, this.subtitle, this.title, this.width, this.image});
+
   @override
   Widget build(BuildContext context) {
     double c_width = MediaQuery.of(context).size.width * 0.5;
@@ -31,7 +34,7 @@ class ListData extends StatelessWidget {
               width: 60.0,
               height: 60.0,
               decoration:
-                  new BoxDecoration(shape: BoxShape.rectangle, image: image)),
+              new BoxDecoration(shape: BoxShape.rectangle, image: image)),
           new Container(
             width: c_width,
             child: Column(
@@ -40,16 +43,20 @@ class ListData extends StatelessWidget {
                 new Text(
                   title,
                   style:
-                      new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                  new TextStyle(fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                      color: TEXT_PRIMARY_COLOR,
+                      fontFamily: FONT_TEXT_SECONDARY),
                 ),
                 new Padding(
                   padding: new EdgeInsets.only(top: 10.0),
                   child: new Text(
                     subtitle,
                     style: new TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w700),
+                      color: TEXT_SECONDARY_COLOR,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: FONT_TEXT_PRIMARY,),
                   ),
                 ),
               ],

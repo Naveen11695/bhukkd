@@ -1,8 +1,8 @@
 class UserRating {
-  String aggregate_rating;
+  var aggregate_rating;
   String rating_text;
   String rating_color;
-  String votes;
+  var votes;
 
   UserRating({this.aggregate_rating, this.rating_text, this.rating_color,
       this.votes});

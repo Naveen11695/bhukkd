@@ -1,10 +1,13 @@
+import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:flutter/material.dart';
+
 import 'CalenderCell.dart';
 
 class Calender extends StatelessWidget {
   final EdgeInsets margin;
   final List<String> week = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
   final List arrayDay = [];
+
   Calender({this.margin});
 
   int totaldays(int month) {
@@ -27,7 +30,7 @@ class Calender extends StatelessWidget {
     for (var i = 0; i < 7; i++) {
       if (element > totalDay) element = 1;
       if(element <= 0) {
-            element += totalDay;
+        element += totalDay;
       }
       arrayDay.add(element);
       element++;
@@ -41,7 +44,7 @@ class Calender extends StatelessWidget {
         color: Colors.white,
         border: new Border(
           bottom: new BorderSide(
-              width: 5.0, color: Color.fromRGBO(249, 129, 42, 1)),
+              width: 5.0, color: TEXT_SECONDARY_COLOR),
         ),
       ),
       child: new Row(

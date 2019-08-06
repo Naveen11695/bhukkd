@@ -1,10 +1,13 @@
+import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:flutter/material.dart';
 
 class CalenderCell extends StatelessWidget {
   final String week;
   final String day;
   final bool today;
+
   CalenderCell({this.week, this.day, this.today});
+
   @override
   Widget build(BuildContext context) {
     return (new Column(
@@ -15,7 +18,8 @@ class CalenderCell extends StatelessWidget {
           style: new TextStyle(
               color: const Color.fromRGBO(204, 204, 204, 1.0),
               fontSize: 12.0,
-              fontWeight: FontWeight.w400),
+              fontWeight: FontWeight.w400,
+              fontFamily: FONT_TEXT_PRIMARY),
         ),
         new Padding(
           padding: new EdgeInsets.only(top: 10.0, bottom: 5.0),
@@ -34,17 +38,19 @@ class CalenderCell extends StatelessWidget {
                   new Text(
                     day,
                     style: new TextStyle(
-                        fontSize: 12.0, fontWeight: FontWeight.w400),
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w600,
+                        fontFamily: FONT_TEXT_SECONDARY),
                   ),
                   today
                       ? new Container(
-                          padding: new EdgeInsets.only(top: 3.0),
-                          width: 3.0,
-                          height: 3.0,
-                          decoration: new BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: const Color.fromRGBO(247, 64, 106, 1.0)),
-                        )
+                    padding: new EdgeInsets.only(top: 3.0),
+                    width: 3.0,
+                    height: 3.0,
+                    decoration: new BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: const Color.fromRGBO(247, 64, 106, 1.0)),
+                  )
                       : new Container()
                 ],
               )),

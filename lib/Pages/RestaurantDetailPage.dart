@@ -1,23 +1,24 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:ui';
 
-import 'package:bhukkd/Components/CustomComponets.dart';
-import 'package:bhukkd/Components/CustomHorizontalScroll.dart';
-import 'package:bhukkd/flarecode/flare_actor.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:scoped_model/scoped_model.dart';
-import '../models/GeoCodeInfo/GeoCode.dart';
-import '../api/HttpRequest.dart';
-import '../models/Restruant/Restruant.dart';
-import 'package:bhukkd/flarecode/flare_actor.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import '../models/Reviews/Reviews.dart';
 import 'package:async/async.dart';
+import 'package:bhukkd/Booking/Pages/BookingMain.dart';
+import 'package:bhukkd/Components/CustomComponets.dart';
+import 'package:bhukkd/Constants/app_constant.dart';
+import 'package:bhukkd/Pages/TrendingPage/Componets/CustomHorizontalScroll.dart';
+import 'package:bhukkd/Services/HttpRequest.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flare_flutter/flare_actor.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'package:latlong/latlong.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+
+import '../models/Reviews/Reviews.dart';
 
 class RestaurantDetailPage extends StatefulWidget {
   final productid;
@@ -40,16 +41,11 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
   double c_height = 0;
   double c_width = 0;
 
-  var _bookingButton = new FloatingActionButton(
-    onPressed: () {},
-    child: Icon(Icons.restaurant),
-    tooltip: "Reserve a seat",
-    mini: true,
-    foregroundColor: Colors.white,
-    backgroundColor: Colors.deepOrange,
-  );
-
   double _initialScale = 2;
+
+  var coverImage;
+
+  var restruantInfo;
 
   Future resDetailPageCache() => _resDetailPageCache.runOnce(() async {
         return fetchRestaurant(widget.productid.toString());
@@ -89,18 +85,9 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
       if (isAnimationCompleted) {
         _controller.reverse();
         _initialScale = 2;
-        _bookingButton = new FloatingActionButton(
-          onPressed: () {},
-          child: Icon(Icons.restaurant),
-          tooltip: "Reserve a seat",
-          mini: true,
-          foregroundColor: Colors.white,
-          backgroundColor: Colors.deepOrange,
-        );
       } else {
         _controller.forward();
         _initialScale = 1;
-        _bookingButton = null;
       }
       isAnimationCompleted = !isAnimationCompleted;
     });
@@ -111,15 +98,34 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
     c_height = MediaQuery.of(context).size.height * 0.5;
     c_width = MediaQuery.of(context).size.width * 0.5;
     return Scaffold(
-      body: AnimatedBuilder(
-        animation: _controller,
-        builder: (context, widget) {
-          return getWidget();
-        },
-      ),
-      floatingActionButton: _bookingButton,
-    );
+        body: AnimatedBuilder(
+          animation: _controller,
+          builder: (context, widget) {
+            return getWidget();
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            if (coverImage != null) {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                      BookingMain(coverImage, restruantInfo)));
+            } else {
+              print("no");
+            }
+          },
+          child: Icon(
+            Icons.restaurant,
+            size: 30,
+          ),
+          tooltip: "Reserve a seat",
+          mini: false,
+          foregroundColor: Colors.white,
+          backgroundColor: SECONDARY_COLOR_2,
+        ));
   }
+
+  String res_name;
 
   Widget getWidget() {
     return WillPopScope(
@@ -133,18 +139,20 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
         children: <Widget>[
           new FutureBuilder(
             future: resDetailPageCache(),
+            // ignore: missing_return
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                if(snapshot.data == "error") {
+                if (snapshot.data == "error") {
                   return FlareActor(
                     "assets/animations/restaurant_details.flr",
                     animation: "image_loading",
                     fit: BoxFit.fill,
                   );
-                }
-                else if (snapshot.data != null) {
+                } else if (snapshot.data != null) {
                   restruant_Photo_url = snapshot.data.restruant_Photo_url;
+                  restruantInfo = snapshot.data;
                   Menu = snapshot.data.restruant_Menu;
+                  coverImage = snapshot.data.restruant_Thumb;
                   return Stack(
                     fit: StackFit.passthrough,
                     children: <Widget>[
@@ -176,7 +184,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                         );
                                       } else if (snapShot.data != null) {
                                         return Container(
-                                          color: Colors.black,
+                                          color: SECONDARY_COLOR_1,
                                           child: PhotoViewGallery.builder(
                                             scrollPhysics:
                                                 const BouncingScrollPhysics(),
@@ -224,7 +232,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                       }
                                     } else {
                                       return Container(
-                                        color: Colors.black,
+                                        color: SECONDARY_COLOR_1,
                                         child: Center(
                                           child: Container(
                                             height: 50,
@@ -246,7 +254,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                   child: new IconButton(
                                     icon: new Icon(
                                       FontAwesomeIcons.arrowLeft,
-                                      color: Colors.white,
+                                      color: SECONDARY_COLOR_1,
                                       size: 20.0,
                                     ),
                                     onPressed: () =>
@@ -269,7 +277,6 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                   topLeft: Radius.circular(40),
                                   topRight: Radius.circular(40),
                                 ),
-                                color: Color.fromRGBO(255, 255, 255, 250),
                               ),
                               child: Container(
                                 decoration: BoxDecoration(
@@ -301,10 +308,12 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                       overflow:
                                                           TextOverflow.ellipsis,
                                                       style: TextStyle(
-                                                        fontFamily: "Roboto",
+                                                        fontFamily:
+                                                        FONT_TEXT_SECONDARY,
                                                         fontWeight:
                                                             FontWeight.normal,
-                                                        color: Colors.black87,
+                                                        color:
+                                                        TEXT_SECONDARY_COLOR,
                                                         fontSize: 20.0,
                                                       ),
                                                     ),
@@ -320,7 +329,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                           style: TextStyle(
                                                             color: Colors.red,
                                                             fontFamily:
-                                                                "Montserrat-Bold",
+                                                            FONT_TEXT_PRIMARY,
                                                             fontSize: 25,
                                                             fontStyle: FontStyle
                                                                 .normal,
@@ -334,7 +343,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                           style: TextStyle(
                                                             color: Colors.green,
                                                             fontFamily:
-                                                                "Montserrat-Bold",
+                                                            FONT_TEXT_PRIMARY,
                                                             fontSize: 25,
                                                             fontStyle: FontStyle
                                                                 .normal,
@@ -355,6 +364,8 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                         .restruant_Cuisines,
                                                     style: TextStyle(
                                                         fontSize: 18,
+                                                        fontFamily:
+                                                        FONT_TEXT_PRIMARY,
                                                         color: Colors.black54),
                                                   ))),
                                           SizedBox(
@@ -364,12 +375,17 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                             padding: const EdgeInsets.only(
                                                 left: 10.0),
                                             child: Row(children: [
-                                              Text(
-                                                "Average Cost for Two",
-                                                style: TextStyle(
-                                                  fontFamily: "Roboto",
-                                                  fontWeight: FontWeight.w200,
-                                                  fontSize: 16.0,
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 8.0, bottom: 8.0),
+                                                child: Text(
+                                                  "Average Cost for Two",
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                    FONT_TEXT_SECONDARY,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 16.0,
+                                                  ),
                                                 ),
                                               ),
                                               Padding(
@@ -389,8 +405,10 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                   textDirection:
                                                       TextDirection.rtl,
                                                   style: TextStyle(
-                                                      color: Colors.deepOrange,
-                                                      fontFamily: "Roboto",
+                                                      color:
+                                                      TEXT_SECONDARY_COLOR,
+                                                      fontFamily:
+                                                      FONT_TEXT_PRIMARY,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                       fontSize: 18.0),
@@ -401,7 +419,11 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                           SizedBox(
                                             height: 20,
                                           ),
-                                          titleBar("Menu", c_width),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 8.0, bottom: 8.0),
+                                            child: titleBar("Menu", c_width),
+                                          ),
                                           Container(
                                             height: 200.0,
                                             width: MediaQuery.of(context)
@@ -413,6 +435,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                   const EdgeInsets.all(2.0),
                                               child: FutureBuilder(
                                                   future: resMenu(),
+                                                  // ignore: missing_return
                                                   builder: (BuildContext
                                                           context,
                                                       AsyncSnapshot snapShot) {
@@ -475,42 +498,37 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                                               .all(
                                                                           2.0),
                                                                   child:
-                                                                      Material(
-                                                                    elevation:
-                                                                        10.0,
+                                                                  Container(
                                                                     child:
-                                                                        Container(
-                                                                      margin: EdgeInsets.only(
-                                                                          left:
-                                                                              5,
-                                                                          right:
-                                                                              5,
-                                                                          top:
-                                                                              5,
-                                                                          bottom:
-                                                                              5),
-                                                                      child:
-                                                                          CachedNetworkImage(
-                                                                        imageUrl:
-                                                                            snapShot.data[index],
-                                                                        fit: BoxFit
-                                                                            .fill,
-                                                                        width:
-                                                                            150,
-                                                                        height:
-                                                                            150,
-                                                                        placeholder: (context,
-                                                                                url) =>
-                                                                            Center(
-                                                                              child: Container(
-                                                                                width: 150,
-                                                                                height: 100,
-                                                                                child: Center(
-                                                                                  child: new FlareActor(
-                                                                                    "assets/animations/loading_Untitled.flr",
-                                                                                    animation: "Untitled",
-                                                                                    fit: BoxFit.contain,
-                                                                                  ),
+                                                                    CachedNetworkImage(
+                                                                      imageUrl:
+                                                                      snapShot
+                                                                          .data[index],
+                                                                      fit: BoxFit
+                                                                          .fill,
+                                                                      width:
+                                                                      150,
+                                                                      height:
+                                                                      150,
+                                                                      placeholder:
+                                                                          (
+                                                                          context,
+                                                                          url) =>
+                                                                          Center(
+                                                                            child:
+                                                                            Container(
+                                                                              width:
+                                                                              150,
+                                                                              height:
+                                                                              100,
+                                                                              child:
+                                                                              Center(
+                                                                                child:
+                                                                                new FlareActor(
+                                                                                  "assets/animations/loading_Untitled.flr",
+                                                                                  animation: "Untitled",
+                                                                                  fit: BoxFit
+                                                                                      .contain,
                                                                                 ),
                                                                               ),
                                                                             ),
@@ -557,21 +575,21 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                   }),
                                             ),
                                           ),
-                                          titleBar("Details", c_width),
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 10.0, top: 10),
-                                            child: Row(
-                                              children: <Widget>[
-                                                Text("Address",
-                                                    style: TextStyle(
-                                                        fontFamily: "Roboto",
-                                                        fontWeight:
-                                                            FontWeight.w200,
-                                                        fontSize: 20.0,
-                                                        color: Colors.black87)),
-                                              ],
-                                            ),
+                                                top: 8.0, bottom: 8.0),
+                                            child: titleBar("Details", c_width),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10.0),
+                                            child: Text("Address",
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                    FONT_TEXT_PRIMARY,
+                                                    fontWeight: FontWeight.w300,
+                                                    fontSize: 20.0,
+                                                    color: Colors.black87)),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
@@ -586,24 +604,108 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                       .address,
                                                   overflow: TextOverflow.clip,
                                                   style: TextStyle(
-                                                      fontFamily: "Roboto",
+                                                      fontFamily:
+                                                      FONT_TEXT_SECONDARY,
                                                       fontWeight:
-                                                          FontWeight.w600,
+                                                      FontWeight.w400,
                                                       fontSize: 16.0,
-                                                      color: Colors.black87),
+                                                      color:
+                                                      TEXT_SECONDARY_COLOR),
                                                 ),
                                               )
                                             ]),
                                           ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10.0, top: 10),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Container(
+                                                  height: MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .height *
+                                                      0.3,
+                                                  width: double.infinity,
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                    BorderRadius.circular(
+                                                        20),
+                                                    child: FlutterMap(
+                                                      options: new MapOptions(
+                                                        center: new LatLng(
+                                                            double.parse(
+                                                                snapshot
+                                                                    .data
+                                                                    .restruant_Location
+                                                                    .latitude),
+                                                            double.parse(
+                                                                snapshot
+                                                                    .data
+                                                                    .restruant_Location
+                                                                    .longitude)),
+                                                        zoom: 13.0,
+                                                      ),
+                                                      layers: [
+                                                        new TileLayerOptions(
+                                                          urlTemplate:
+                                                          "https://api.tiles.mapbox.com/v4/"
+                                                              "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+                                                          additionalOptions: {
+                                                            'accessToken':
+                                                            'sk.eyJ1IjoibmF2ZWVuMTE2OTUiLCJhIjoiY2p5c21iMDB3MDF4MDNsbXk5emV3eGlwYyJ9.ceo9CMq7F791AdpT4mME2Q',
+                                                            'id':
+                                                            'mapbox.streets',
+                                                          },
+                                                        ),
+                                                        new MarkerLayerOptions(
+                                                          markers: [
+                                                            new Marker(
+                                                              width: 100.0,
+                                                              height: 100.0,
+                                                              point: new LatLng(
+                                                                  double.parse(
+                                                                      snapshot
+                                                                          .data
+                                                                          .restruant_Location
+                                                                          .latitude),
+                                                                  double.parse(
+                                                                      snapshot
+                                                                          .data
+                                                                          .restruant_Location
+                                                                          .longitude)),
+                                                              builder: (ctx) =>
+                                                              new Container(
+                                                                child: new Icon(
+                                                                    Icons
+                                                                        .restaurant),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                           SizedBox(
                                             height: 20,
                                           ),
-                                          titleBar("Reviews", c_width),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 8.0, bottom: 8.0),
+                                            child: titleBar("Reviews", c_width),
+                                          ),
                                           Padding(
                                               padding:
                                                   const EdgeInsets.all(10.0),
                                               child: FutureBuilder(
                                                   future: resComments(),
+                                                  // ignore: missing_return
                                                   builder: (BuildContext
                                                           context,
                                                       AsyncSnapshot snapShot) {
@@ -697,12 +799,17 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                                       textAlign:
                                                                           TextAlign
                                                                               .justify,
+                                                                      overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                      maxLines:
+                                                                      1,
                                                                       style:
                                                                           TextStyle(
-                                                                        color: Colors
-                                                                            .black,
+                                                                            color:
+                                                                            TEXT_PRIMARY_COLOR,
                                                                         fontFamily:
-                                                                            "Roboto",
+                                                                        FONT_TEXT_PRIMARY,
                                                                         fontWeight:
                                                                             FontWeight.w600,
                                                                         fontSize:
@@ -719,9 +826,14 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                                           child:
                                                                               Text(
                                                                             snapShot.data.user_reviews[index].review.review_text,
+                                                                                overflow:
+                                                                                TextOverflow
+                                                                                    .ellipsis,
+                                                                                maxLines:
+                                                                                3,
                                                                             style: TextStyle(
                                                                                 color: Colors.black54,
-                                                                                fontFamily: "Roboto",
+                                                                                fontFamily: FONT_TEXT_SECONDARY,
                                                                                 fontWeight: FontWeight.w300,
                                                                                 fontSize: 14),
                                                                           ),
@@ -749,7 +861,8 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                         child: Center(
                                                           child: new FlareActor(
                                                             "assets/animations/loading_Untitled.flr",
-                                                            animation: "Untitled",
+                                                            animation:
+                                                            "Untitled",
                                                             fit: BoxFit.contain,
                                                           ),
                                                         ),
@@ -820,10 +933,11 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
+                                            fontFamily: FONT_TEXT_PRIMARY,
                                             fontSize: 25,
                                           ))),
                                   decoration: BoxDecoration(
-                                    color: Colors.deepOrange,
+                                    color: SECONDARY_COLOR_1,
                                     boxShadow: [
                                       BoxShadow(
                                           color: Colors.black,
