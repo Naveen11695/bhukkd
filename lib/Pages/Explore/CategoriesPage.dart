@@ -113,41 +113,45 @@ class CategoriesPageState extends State<CategoriesPage> {
                       elevation: 2,
                       child: Column(
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: rests[index].featured_image == null ||
-                                rests[index].featured_image == ""
-                                ? Image.asset(
-                              "assets/images/default.jpg",
-                              fit: BoxFit.cover,
-                              height:
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * 0.15,
-                            )
-                                : CachedNetworkImage(
-                              imageUrl: rests[index].featured_image,
-                              fit: BoxFit.fill,
-                              height:
-                              MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * 0.15,
-                              placeholder: (context, url) =>
-                                  Container(
-                                    height: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * 0.15,
-                                    child: FlareActor(
-                                      "assets/animations/loading_Untitled.flr",
-                                      animation: "Untitled",
-                                      fit: BoxFit.contain,
+                          Container(
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width,
+                            child: Card(
+                              color: Colors.black,
+                              child: rests[index].featured_image == null ||
+                                  rests[index].featured_image == ""
+                                  ? Image.asset(
+                                "assets/images/default.jpg",
+                                fit: BoxFit.cover,
+                                height:
+                                MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.16,
+                              )
+                                  : CachedNetworkImage(
+                                imageUrl: rests[index].featured_image,
+                                fit: BoxFit.fitHeight,
+                                height:
+                                MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.16,
+                                placeholder: (context, url) =>
+                                    Image.asset(
+                                      "assets/images/default.jpg",
+                                      fit: BoxFit.cover,
+                                      height:
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height * 0.16,
                                     ),
-                                  ),
-                              errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                                errorWidget: (context, url, error) =>
+                                    Icon(Icons.error),
+                              ),
                             ),
                           ),
                           Text(

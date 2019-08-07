@@ -76,7 +76,6 @@ class _TrendingPageState extends State<TrendingPage>
   bool get wantKeepAlive => true;
 
   Widget build(BuildContext context) {
-    double c_width = MediaQuery.of(context).size.width * 0.5;
     super.build(context);
     return Scaffold(
       body: RefreshIndicator(
@@ -227,31 +226,47 @@ class _TrendingPageState extends State<TrendingPage>
                                 child: Column(
                                   verticalDirection: VerticalDirection.down,
                                   children: <Widget>[
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: rests[index].featured_image ==
-                                                  null ||
-                                              rests[index].featured_image == ""
-                                          ? Image.asset(
-                                              "assets/images/default.jpg",
-                                              fit: BoxFit.cover,
-                                              height: c_width * 0.6,
-                                            )
-                                          : CachedNetworkImage(
-                                              imageUrl:
-                                                  rests[index].featured_image,
-                                              fit: BoxFit.cover,
-                                              height: c_width * 0.6,
-                                        placeholder: (context, url) =>
-                                            Image.asset(
+                                    Container(
+                                      width: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .width,
+                                      child: Card(
+                                        color: Colors.black,
+                                        child: rests[index].featured_image ==
+                                            null ||
+                                            rests[index].featured_image == ""
+                                            ? Image.asset(
+                                          "assets/images/default.jpg",
+                                          fit: BoxFit.cover,
+                                          height:
+                                          MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.16,
+                                        )
+                                            : CachedNetworkImage(
+                                          imageUrl: rests[index].featured_image,
+                                          fit: BoxFit.fitHeight,
+                                          height:
+                                          MediaQuery
+                                              .of(context)
+                                              .size
+                                              .height * 0.16,
+                                          placeholder: (context, url) =>
+                                              Image.asset(
                                                 "assets/images/default.jpg",
                                                 fit: BoxFit.cover,
-                                                height: c_width * 0.6,
+                                                height:
+                                                MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height * 0.16,
                                               ),
-                                        errorWidget:
-                                            (context, url, error) =>
-                                            Icon(Icons.error),
-                                            ),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
+                                        ),
+                                      ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 5.0),
@@ -398,9 +413,13 @@ class _TrendingPageState extends State<TrendingPage>
         var apiKey = key.elementAt(0);
 
         if (!isInitializingRequest) {
-          setState(() {
-            isInitializingRequest = true;
-          });
+          try {
+            setState(() {
+              isInitializingRequest = true;
+            });
+          } catch (e) {
+            print("exception <categories>: " + e.toString());
+          }
           if (sorting != null && id != null) {
             http.Response response = await http.get(
                 "https://developers.zomato.com/api/v2.1/search?entity_id=$city_id&entity_type=city&q=$q&order=$sorting&start=$start&sort=rating",
