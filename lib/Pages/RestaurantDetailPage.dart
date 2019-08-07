@@ -34,17 +34,12 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
   final _resPhotosCache = new AsyncMemoizer();
   final _resMenu = new AsyncMemoizer();
   final _resComments = new AsyncMemoizer();
-
   var restruant_Photo_url;
   var Menu;
-
   double c_height = 0;
   double c_width = 0;
-
   double _initialScale = 2;
-
   var coverImage;
-
   var restruantInfo;
 
   Future resDetailPageCache() => _resDetailPageCache.runOnce(() async {
