@@ -12,6 +12,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:toast/toast.dart';
 
 class CategoriesPage extends StatefulWidget {
   final int id;
@@ -32,21 +33,33 @@ class CategoriesPageState extends State<CategoriesPage> {
   bool isInitializingRequest = false;
   List<dynamic> rests = [];
 
+  var _status = "Active";
+
   @override
   void initState() {
     super.initState();
     callit();
     _controller.addListener(() async {
       if (_controller.position.pixels == _controller.position.maxScrollExtent) {
-        await fetchRestByCategoryID(widget.id, widget.name.toLowerCase(),
-            sorting: null);
+        if (_status.compareTo("Active") == 0) {
+          Toast.show(
+              "loading! more results", context, duration: Toast.LENGTH_LONG,
+              gravity: Toast.BOTTOM);
+          await fetchRestByCategoryID(widget.id, widget.name.toLowerCase());
+        }
+        else {
+          Toast.show(
+              "Sorry! no more results", context, duration: Toast.LENGTH_LONG,
+              gravity: Toast.BOTTOM);
+        }
       }
     });
   }
 
   Future callit() async {
-    await fetchRestByCategoryID(widget.id, widget.name.toLowerCase(),
-        sorting: null);
+    await Future.delayed(Duration(seconds: 15), () =>
+        fetchRestByCategoryID(widget.id, widget.name.toLowerCase(),
+            sorting: null));
   }
 
   @override
@@ -97,8 +110,8 @@ class CategoriesPageState extends State<CategoriesPage> {
                                   )));
                     },
                     child: Card(
+                      elevation: 2,
                       child: Column(
-                        verticalDirection: VerticalDirection.down,
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(5.0),
@@ -122,10 +135,16 @@ class CategoriesPageState extends State<CategoriesPage> {
                                   .size
                                   .height * 0.15,
                               placeholder: (context, url) =>
-                                  FlareActor(
-                                    "assets/animations/loading_Untitled.flr",
-                                    animation: "Untitled",
-                                    fit: BoxFit.contain,
+                                  Container(
+                                    height: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * 0.15,
+                                    child: FlareActor(
+                                      "assets/animations/loading_Untitled.flr",
+                                      animation: "Untitled",
+                                      fit: BoxFit.contain,
+                                    ),
                                   ),
                               errorWidget: (context, url, error) =>
                                   Icon(Icons.error),
@@ -186,11 +205,14 @@ class CategoriesPageState extends State<CategoriesPage> {
                 SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                 delegate:
                 SliverChildBuilderDelegate((BuildContext context, int index) {
-                  return Center(
-                    child: new FlareActor(
-                      "assets/animations/loading_Untitled.flr",
-                      animation: "Untitled",
-                      fit: BoxFit.contain,
+                  return Card(
+                    elevation: 2,
+                    child: Center(
+                      child: new FlareActor(
+                        "assets/animations/loading_Untitled.flr",
+                        animation: "Untitled",
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   );
                 }, childCount: 6, addRepaintBoundaries: true))
@@ -198,7 +220,7 @@ class CategoriesPageState extends State<CategoriesPage> {
     }
   }
 
-  Future fetchRestByCategoryID(int id, String q, {String sorting}) async {
+  fetchRestByCategoryID(int id, String q, {String sorting}) async {
     try {
       String city_id;
       await getNearByRestaurants().then((res) {
@@ -218,18 +240,29 @@ class CategoriesPageState extends State<CategoriesPage> {
           });
           if (sorting == null && id != null) {
             http.Response response = await http.get(
-                "https://developers.zomato.com/api/v2.1/search?entity_id=$city_id&entity_type=city&q=$q&order=$sorting&start=1",
+                "https://developers.zomato.com/api/v2.1/search?entity_id=$city_id&entity_type=city&q=$q&order=$sorting&start=$start",
                 headers: {"Accept": "application/json", "user-key": apiKey});
             start += 20;
             SearchRestraunts searchByCategory =
             SearchRestraunts.fromJson(json.decode(response.body));
             copydata = List.from(searchByCategory.restaurants);
-            List<dynamic> addRest =
-            new List.generate(20, (index) => copydata[index]);
-            setState(() {
-              rests.addAll(addRest);
-              isInitializingRequest = false;
-            });
+            List<dynamic> addRest = [];
+            if (copydata.length == 20)
+              addRest = new List.generate(20, (index) => copydata[index]);
+            else {
+              _status = "finished";
+              Toast.show("Sorry! no more results", context,
+                  duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+            }
+            try {
+              setState(() {
+                rests.addAll(addRest);
+                isInitializingRequest = false;
+              });
+            }
+            catch (e) {
+              print("exception <categories>: " + e.toString());
+            }
           }
         }
       }

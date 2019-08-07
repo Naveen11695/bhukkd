@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import "package:geolocator/geolocator.dart";
 import 'package:http/http.dart' as http;
+import 'package:toast/toast.dart';
 
 List<dynamic> copydata = [];
 
@@ -70,6 +71,8 @@ class _TrendingPageState extends State<TrendingPage>
   int start = 0;
 
   ListView listBuilder;
+
+  String _status = "Active";
 
   @override
   bool get wantKeepAlive => true;
@@ -204,7 +207,7 @@ class _TrendingPageState extends State<TrendingPage>
                       ),
                     ]),
                   ),
-                  rests != null
+                  (rests.toString().compareTo("[]") != 0)
                       ? SliverGrid(
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
@@ -287,26 +290,24 @@ class _TrendingPageState extends State<TrendingPage>
                           },
                               childCount: rests.length,
                               addRepaintBoundaries: true))
-                      : Container(
-                          child: ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 20,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Container(
-                                    color: Colors.grey.shade100,
-                                    height: 100,
-                                    width: 300,
-                                    child: new Padding(
-                                      padding: EdgeInsets.only(top: 10),
-                                      child: new FlareActor(
-                                        "assets/animations/top_restaurant_loading.flr",
-                                        animation: "circular_loading",
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ));
-                              }),
-                        ),
+                      : SliverGrid(
+                      gridDelegate:
+                      SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2),
+                      delegate: SliverChildBuilderDelegate(
+                              (BuildContext context, int index) {
+                            return Card(
+                              child: Center(
+                                child: FlareActor(
+                                  "assets/animations/near_by_rest_loading.flr",
+                                  animation: "loading",
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          },
+                          childCount: 6,
+                          addRepaintBoundaries: true))
                 ],
               ),
               new Container(
@@ -326,7 +327,6 @@ class _TrendingPageState extends State<TrendingPage>
                       borderRadius: BorderRadius.circular(30.0),
                       child: InkWell(
                         onTap: () {
-//                          print("Search");
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -378,7 +378,8 @@ class _TrendingPageState extends State<TrendingPage>
   }
 
   Future callit() async {
-    await fetchRestByCollectionID(1, sorting: null);
+    await Future.delayed(
+        Duration(seconds: 10), () => fetchRestByCollectionID(1, "", "desc"));
   }
 
   @override
@@ -387,8 +388,13 @@ class _TrendingPageState extends State<TrendingPage>
     _controller.dispose();
   }
 
-  Future fetchRestByCollectionID(int id, {String sorting}) async {
+
+  Future fetchRestByCollectionID(int id, String q, String sorting) async {
     try {
+      String city_id;
+      await getNearByRestaurants().then((res) {
+        city_id = res[0].near_by_restaurants_location["city_id"].toString();
+      });
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         print("<fetchRestByCollectionID>");
@@ -397,35 +403,34 @@ class _TrendingPageState extends State<TrendingPage>
             (await parseJsonFromAssets('assets/api/config.json')).values;
         var apiKey = key.elementAt(0);
 
-        double latitude, longitude;
-        await StoreUserLocation.get_CurrentLocation().then((loc) {
-          latitude = double.parse(loc[0]);
-          longitude = double.parse(loc[1]);
-        });
-
         if (!isInitializingRequest) {
           setState(() {
             isInitializingRequest = true;
           });
-          if (sorting == null && id != null) {
+          if (sorting != null && id != null) {
             http.Response response = await http.get(
-                "https://developers.zomato.com/api/v2.1/search?lat=${latitude
-                    .toString()}&lon=${longitude
-                    .toString()}&start=$start&sort=rating&order=desc",
+                "https://developers.zomato.com/api/v2.1/search?entity_id=$city_id&entity_type=city&q=$q&order=$sorting&start=$start&sort=rating",
                 headers: {"Accept": "application/json", "user-key": apiKey});
             start += 20;
             SearchRestraunts searchByCategory =
             SearchRestraunts.fromJson(json.decode(response.body));
             copydata = List.from(searchByCategory.restaurants);
-            List<dynamic> addRest =
-            new List.generate(20, (index) => copydata[index]);
+            List<dynamic> addRest = [];
+            if (copydata.length == 20)
+              addRest = new List.generate(20, (index) => copydata[index]);
+            else {
+              _status = "finished";
+              Toast.show("Sorry! no more results", context,
+                  duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+            }
             try {
               setState(() {
                 rests.addAll(addRest);
                 isInitializingRequest = false;
               });
-            } catch (e) {
-              print("exception: " + e.toString());
+            }
+            catch (e) {
+              print("exception <categories>: " + e.toString());
             }
           }
         }
@@ -454,7 +459,19 @@ class _TrendingPageState extends State<TrendingPage>
     callit();
     _controller.addListener(() async {
       if (_controller.position.pixels == _controller.position.maxScrollExtent) {
-        await fetchRestByCollectionID(1, sorting: null);
+        print("status: " + _status);
+        if (_status.compareTo("Active") == 0) {
+          Toast.show(
+              "loading! more results", context, duration: Toast.LENGTH_LONG,
+              gravity: Toast.BOTTOM);
+          await fetchRestByCollectionID(1, "", "desc");
+        }
+        else {
+          Toast.show(
+              "Sorry! no more results", context, duration: Toast.LENGTH_LONG,
+              gravity: Toast.BOTTOM);
+        }
+
       }
     });
   }
@@ -474,7 +491,7 @@ class _TrendingPageState extends State<TrendingPage>
             locality.postalCode;
       }
     });
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(seconds: 2));
     setState(() {
       CustomHorizontalScroll();
       HorizontalScroll();
@@ -482,7 +499,7 @@ class _TrendingPageState extends State<TrendingPage>
       _controller.addListener(() async {
         if (_controller.position.pixels ==
             _controller.position.maxScrollExtent) {
-          await fetchRestByCollectionID(1, sorting: null);
+          await fetchRestByCollectionID(1, "", "desc");
         }
       });
     });
