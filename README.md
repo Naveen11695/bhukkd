@@ -11,15 +11,16 @@ As this application is under development phase, soon you can also book the table
   <a href="https://imgur.com/Mw28Pwg.jpg"><img src="https://imgur.com/Mw28Pwg.jpg" width="50"></a>
 <p><b>Appicon</b></p>
   
-<a href="https://i.imgur.com/aUqTcLv.jpg"><img src="https://i.imgur.com/aUqTcLv.jpg" width="250"></a>
-<a href="https://imgur.com/Dg6QVpJ.jpg"><img src="https://imgur.com/Dg6QVpJ.jpg" width="250"></a>
-<a href="https://imgur.com/JbdnFLW.jpg"><img src="https://imgur.com/JbdnFLW.jpg" width="250"></a>
-<a href="https://imgur.com/chcpZFf.jpg"><img src="https://imgur.com/chcpZFf.jpg" width="250"></a>
-<a href="https://imgur.com/wmt5xB3.jpg"><img src="https://imgur.com/wmt5xB3.jpg" width="250"></a>
-<a href="https://imgur.com/0qvc86o.jpg"><img src="https://imgur.com/0qvc86o.jpg" width="250"></a>
-<a href="https://imgur.com/kARJKUm.jpg"><img src="https://imgur.com/kARJKUm.jpg" width="250"></a>
-<a href="https://imgur.com/V33ppho.jpg"><img src="https://imgur.com/V33ppho.jpg" width="250"></a>
-<a href="https://imgur.com/x2aNKyA.jpg"><img src="https://imgur.com/x2aNKyA.jpg" width="250"></a>
+<a href="https://imgur.com/HCjFdaJ.jpg" width="250"></a>
+<a href="https://imgur.com/KouDASP.jpg"><img src="https://imgur.com/KouDASP.jpg" width="250"></a>
+<a href="https://imgur.com/8VyUrSz.jpg"><img src="https://imgur.com/8VyUrSz.jpg" width="250"></a>
+<a href="https://imgur.com/FvNqfKU.jpg"><img src="https://imgur.com/FvNqfKU.jpg" width="250"></a>
+<a href="https://imgur.com/qT65auw.jpg"><img src="https://imgur.com/qT65auw.jpg" width="250"></a>
+<a href="https://imgur.com/KA6Ne3g.jpg"><img src="https://imgur.com/KA6Ne3g.jpg" width="250"></a>
+<a href="https://imgur.com/8nHHNkj.jpg"><img src="https://imgur.com/8nHHNkj.jpg" width="250"></a>
+<a href="https://imgur.com/77z8SmG.jpg"><img src="https://imgur.com/77z8SmG.jpg" width="250"></a>
+<a href="https://imgur.com/devAatO.jpg"><img src="https://imgur.com/devAatO.jpg" width="250"></a>
+<a href="https://imgur.com/aBQs1GL.jpg"><img src="https://imgur.com/aBQs1GL.jpg" width="250"></a>
 </p>
 
 ## Support:
