@@ -44,7 +44,7 @@ Future<Placemark> getLocationName() async {
       return null;
     }
   } catch (e) {
-    print("error <Trending Page>: " + e.message);
+    print("error <Trending Page>: " + e.toString());
     if (e.message.toString().compareTo("grpc failed") == 0) {
       return null;
     }

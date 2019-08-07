@@ -19,6 +19,16 @@ void getKey() async {
   /*print('api-key : $api_key');*/
 }
 
+String map_api_key;
+
+void getMapKey() async {
+  Iterable<dynamic> key =
+      (await parseJsonFromAssets('assets/api/config.json')).values;
+  map_api_key = key.elementAt(1);
+  print('api-key : $api_key');
+}
+
+
 Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
   return rootBundle
       .loadString(assetsPath)
@@ -58,10 +68,11 @@ Restaurant parseRestaurant(String responseBody) {
 
 //Restaurant restaurant;
 Future fetchRestaurant(String res_id) async {
+  getMapKey();
   Future<dynamic> rest;
   var fireStore = Firestore.instance;
   DocumentReference snapshot =
-      fireStore.collection('Restaurant').document(res_id);
+  fireStore.collection('Restaurant').document(res_id);
   await snapshot.get().then((dataSnapshot) {
     if (dataSnapshot.exists) {
       rest = requestRestaurant(dataSnapshot.data[res_id]);
