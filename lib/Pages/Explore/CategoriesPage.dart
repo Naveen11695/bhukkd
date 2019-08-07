@@ -208,10 +208,10 @@ class CategoriesPageState extends State<CategoriesPage> {
                   return Card(
                     elevation: 2,
                     child: Center(
-                      child: new FlareActor(
-                        "assets/animations/loading_Untitled.flr",
-                        animation: "Untitled",
-                        fit: BoxFit.contain,
+                      child: FlareActor(
+                        "assets/animations/near_by_rest_loading.flr",
+                        animation: "loading",
+                        fit: BoxFit.cover,
                       ),
                     ),
                   );

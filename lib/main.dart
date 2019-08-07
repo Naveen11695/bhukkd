@@ -78,8 +78,6 @@ class SplashScreenState extends State<SplashScreen>
                 _setData(dataSnapshot);
               }
             });
-          } else {
-            print("not ");
           }
         });
       }
