@@ -22,18 +22,13 @@ class Api {
     String _url = "https://developers.zomato.com/api/v2.1/search?q=$query&lat=$latitude&lon=$longitude&radius=1000000";
     Iterable<dynamic> key =
         (await parseJsonFromAssets('assets/api/config.json')).values;
-    print("key: " + key.elementAt(0));
     final jsonResponse = await http
         .get(Uri.encodeFull(_url), headers: {"user-key": key.elementAt(0)});
 
     if (jsonResponse.statusCode == 200) {
-      print("result :"+ jsonResponse.body);
       parseSearchRestraunts(jsonResponse.body).then((searchResult){
         searchRestraunts = searchResult;
       });
-      print(".............................................................................................");
-      print("Search Count: "+ searchRestraunts.results_shown.toString());
-      print(".............................................................................................");
       return searchRestraunts.restaurants;
     }
    else{

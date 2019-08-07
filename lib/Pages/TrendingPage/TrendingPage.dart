@@ -59,8 +59,6 @@ class TrendingPage extends StatefulWidget {
   _TrendingPageState createState() => new _TrendingPageState();
 }
 
-//.......................................important........................................//
-
 class _TrendingPageState extends State<TrendingPage>
     with AutomaticKeepAliveClientMixin {
   String address;
@@ -305,9 +303,7 @@ class _TrendingPageState extends State<TrendingPage>
                                 ),
                               ),
                             );
-                          },
-                          childCount: 6,
-                          addRepaintBoundaries: true))
+                          }, childCount: 6, addRepaintBoundaries: true))
                 ],
               ),
               new Container(
@@ -388,7 +384,6 @@ class _TrendingPageState extends State<TrendingPage>
     _controller.dispose();
   }
 
-
   Future fetchRestByCollectionID(int id, String q, String sorting) async {
     try {
       String city_id;
@@ -398,7 +393,6 @@ class _TrendingPageState extends State<TrendingPage>
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
         print("<fetchRestByCollectionID>");
-        print('connected');
         Iterable<dynamic> key =
             (await parseJsonFromAssets('assets/api/config.json')).values;
         var apiKey = key.elementAt(0);
@@ -428,8 +422,7 @@ class _TrendingPageState extends State<TrendingPage>
                 rests.addAll(addRest);
                 isInitializingRequest = false;
               });
-            }
-            catch (e) {
+            } catch (e) {
               print("exception <categories>: " + e.toString());
             }
           }
@@ -461,17 +454,13 @@ class _TrendingPageState extends State<TrendingPage>
       if (_controller.position.pixels == _controller.position.maxScrollExtent) {
         print("status: " + _status);
         if (_status.compareTo("Active") == 0) {
-          Toast.show(
-              "loading! more results", context, duration: Toast.LENGTH_LONG,
-              gravity: Toast.BOTTOM);
+          Toast.show("loading! more results", context,
+              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
           await fetchRestByCollectionID(1, "", "desc");
+        } else {
+          Toast.show("Sorry! no more results", context,
+              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         }
-        else {
-          Toast.show(
-              "Sorry! no more results", context, duration: Toast.LENGTH_LONG,
-              gravity: Toast.BOTTOM);
-        }
-
       }
     });
   }
@@ -506,5 +495,3 @@ class _TrendingPageState extends State<TrendingPage>
     return null;
   }
 }
-
-//.......................................important........................................//
