@@ -12,7 +12,7 @@ As this application is under development phase, soon you can also book the table
 <p><b>Appicon</b></p>
   
 <a href="https://imgur.com/HCjFdaJ.jpg" width="250"></a>
-<a href="https://imgur.com/KouDASP.jpg"><img src="https://imgur.com/KouDASP.jpg" width="250"></a>
+<a href="https://imgur.com/mEZhK1u.jpg"><img src="https://imgur.com/mEZhK1u.jpg" width="250"></a>
 <a href="https://imgur.com/8VyUrSz.jpg"><img src="https://imgur.com/8VyUrSz.jpg" width="250"></a>
 <a href="https://imgur.com/FvNqfKU.jpg"><img src="https://imgur.com/FvNqfKU.jpg" width="250"></a>
 <a href="https://imgur.com/qT65auw.jpg"><img src="https://imgur.com/qT65auw.jpg" width="250"></a>
