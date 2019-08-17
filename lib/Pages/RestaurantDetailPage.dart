@@ -887,7 +887,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                       snapshot.data.restruant_Name,
                                       textDirection: TextDirection.ltr,
                                       overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
+                                      maxLines: 2,
                                       textAlign: TextAlign.start,
                                       style: new TextStyle(
                                         color: Colors.white,
