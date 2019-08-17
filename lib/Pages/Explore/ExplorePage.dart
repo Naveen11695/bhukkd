@@ -132,6 +132,9 @@ class _ExplorePage extends State<ExplorePage> {
                                                     snapshot.data
                                                         .categoriesName[index],
                                                     textAlign: TextAlign.center,
+                                                    overflow: TextOverflow
+                                                        .ellipsis,
+                                                    maxLines: 2,
                                                     style: TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 40,

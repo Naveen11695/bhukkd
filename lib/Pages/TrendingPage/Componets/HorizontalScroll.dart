@@ -59,7 +59,6 @@ class HorizontalScrollState extends State<HorizontalScroll>
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                         color: Colors.grey.shade100,
-                        // height: 100,
                         width: 180,
                         child: new Padding(
                           padding: EdgeInsets.only(top: 10),
@@ -78,119 +77,113 @@ class HorizontalScrollState extends State<HorizontalScroll>
                 scrollDirection: Axis.horizontal,
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            topRight: Radius.circular(7),
-                            bottomLeft: Radius.circular(15),
-                            bottomRight: Radius.circular(7)),
+                  return ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(7),
+                        bottomLeft: Radius.circular(15),
+                        bottomRight: Radius.circular(7)),
+                    child: new Container(
+                      constraints: BoxConstraints.expand(
+                        width: 185.0,
+                      ),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              HorizontalTransition(
+                                  builder: (BuildContext context) =>
+                                      RestaurantDetailPage(
+                                        productid: snapshot.data[index].id,
+                                      )));
+                        },
                         child: new Container(
-                          constraints: BoxConstraints.expand(
-                            width: 185.0,
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  HorizontalTransition(
-                                      builder: (BuildContext context) =>
-                                          RestaurantDetailPage(
-                                            productid: snapshot.data[index].id,
-                                          )));
-                            },
-                            child: new Container(
-                              child: Card(
-                                margin:
-                                    EdgeInsets.only(left: 5, top: 2, bottom: 2),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(4)),
-                                elevation: 10,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(0.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                        child: new Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Expanded(
-                                              flex: 1,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: (snapshot.data[index]
-                                                            .thumb ==
-                                                        "")
-                                                    ? new Image.asset(
-                                                        "assets/images/default.jpg",
-                                                        fit: BoxFit.cover,
-                                                        width: 150,
-                                                        height: 105,
-                                                      )
-                                                    : CachedNetworkImage(
-                                                        imageUrl: snapshot
-                                                            .data[index].thumb,
-                                                        fit: BoxFit.cover,
-                                                        width: 150,
-                                                        height: 105,
-                                                        placeholder: (context, url) =>
-                                                            new Image.asset(
-                                                          "assets/images/default.jpg",
-                                                          fit: BoxFit.cover,
-                                                          width: 150,
-                                                          height: 105,
-                                                        ),
-                                                      ),
-                                              ),
-                                            ),
-                                          ],
+                          child: Card(
+                            margin:
+                            EdgeInsets.only(left: 5, top: 2, bottom: 2),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4)),
+                            elevation: 10,
+                            child: Column(
+                              crossAxisAlignment:
+                              CrossAxisAlignment.center,
+                              children: <Widget>[
+                                new Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.all(8.0),
+                                        child: (snapshot.data[index]
+                                            .thumb ==
+                                            "")
+                                            ? new Image.asset(
+                                          "assets/images/default.jpg",
+                                          fit: BoxFit.cover,
+                                          width: 150,
+                                          height: 105,
+                                        )
+                                            : CachedNetworkImage(
+                                          imageUrl: snapshot
+                                              .data[index].thumb,
+                                          fit: BoxFit.cover,
+                                          width: 150,
+                                          height: 105,
+                                          placeholder: (context, url) =>
+                                          new Image.asset(
+                                            "assets/images/default.jpg",
+                                            fit: BoxFit.cover,
+                                            width: 150,
+                                            height: 105,
+                                          ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 5.0, left: 5.0, right: 5.0),
-                                        child: new Text(
-                                          snapshot.data[index].name,
-                                          textDirection: TextDirection.ltr,
-                                          textAlign: TextAlign.center,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: new TextStyle(
-                                              fontFamily: FONT_TEXT_PRIMARY,
-                                              color: TEXT_PRIMARY_COLOR,
-                                              fontSize: 14,
-                                              shadows: [
-                                                Shadow(
-                                                    offset: Offset(0.5, 0.1),
-                                                    color: Colors.grey),
-                                              ]),
-                                          softWrap: true,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: new Text(
-                                          snapshot.data[index].cuisines,
-                                          textAlign: TextAlign.center,
-                                          style: new TextStyle(
-                                              fontSize: 12.0,
-                                              color: TEXT_SECONDARY_COLOR,
-                                              fontFamily: FONT_TEXT_SECONDARY),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 5.0, left: 5.0, right: 5.0),
+                                  child: new Text(
+                                    snapshot.data[index].name,
+                                    textDirection: TextDirection.ltr,
+                                    textAlign: TextAlign.center,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: new TextStyle(
+                                        fontFamily: FONT_TEXT_PRIMARY,
+                                        color: TEXT_PRIMARY_COLOR,
+                                        fontSize: 14,
+                                        shadows: [
+                                          Shadow(
+                                              offset: Offset(0.5, 0.1),
+                                              color: Colors.grey),
+                                        ]),
+                                    softWrap: true,
                                   ),
                                 ),
-                              ),
+                                Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: new Text(
+                                    snapshot.data[index].cuisines,
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: new TextStyle(
+                                        fontSize: 12.0,
+                                        color: TEXT_SECONDARY_COLOR,
+                                        fontFamily: FONT_TEXT_SECONDARY),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                      ));
+                      ),
+                    ),
+                  );
                 });
           }
         } else {

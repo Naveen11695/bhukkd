@@ -195,7 +195,7 @@ Widget titleBar(String text, double sizeWidth) {
     children: <Widget>[
       Padding(
         padding: const EdgeInsets.only(
-            top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
+            top: 5.0, bottom: 5.0, left: 10.0, right: 5.0),
         child: Container(
           color: SECONDARY_COLOR_1,
           child: Padding(
@@ -234,10 +234,11 @@ Widget titleBar(String text, double sizeWidth) {
         ),
       ),
       Padding(
-        padding: const EdgeInsets.only(top: 10.0, bottom: 5.0, right: 10.0),
+        padding: const EdgeInsets.only(top: 10.0, bottom: 5.0, right: 5.0),
         child: Container(
           height: 2,
-          width: sizeWidth * 1.2,
+          alignment: Alignment.centerRight,
+          width: sizeWidth * 0.75,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               // Where the linear gradient begins and ends

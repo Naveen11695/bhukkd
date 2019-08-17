@@ -314,39 +314,44 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    width: c_width * 0.4,
+                                                    width: c_width * 0.25,
                                                   ),
-                                                  snapshot.data
-                                                              .restruant_Is_delivery_now ==
-                                                          0
-                                                      ? Text(
-                                                          "Closed",
-                                                          style: TextStyle(
-                                                            color: Colors.red,
-                                                            fontFamily:
-                                                            FONT_TEXT_PRIMARY,
-                                                            fontSize: 25,
-                                                            fontStyle: FontStyle
-                                                                .normal,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            letterSpacing: 1.1,
-                                                          ),
-                                                        )
-                                                      : Text(
-                                                          "Open",
-                                                          style: TextStyle(
-                                                            color: Colors.green,
-                                                            fontFamily:
-                                                            FONT_TEXT_PRIMARY,
-                                                            fontSize: 25,
-                                                            fontStyle: FontStyle
-                                                                .normal,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            letterSpacing: 1.1,
-                                                          ),
-                                                        ),
+                                                  Container(
+                                                    width: c_width * 0.5,
+                                                    child: snapshot.data
+                                                        .restruant_Is_delivery_now ==
+                                                        0
+                                                        ? Text(
+                                                      "Closed",
+                                                      overflow: TextOverflow
+                                                          .ellipsis,
+                                                      style: TextStyle(
+                                                        color: Colors.red,
+                                                        fontFamily:
+                                                        FONT_TEXT_PRIMARY,
+                                                        fontSize: 25,
+                                                        fontStyle: FontStyle
+                                                            .normal,
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        letterSpacing: 1.1,
+                                                      ),
+                                                    )
+                                                        : Text(
+                                                      "Open",
+                                                      style: TextStyle(
+                                                        color: Colors.green,
+                                                        fontFamily:
+                                                        FONT_TEXT_PRIMARY,
+                                                        fontSize: 25,
+                                                        fontStyle: FontStyle
+                                                            .normal,
+                                                        fontWeight:
+                                                        FontWeight.bold,
+                                                        letterSpacing: 1.1,
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ],
                                               )),
                                           Padding(
@@ -872,16 +877,17 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                               ),
                             ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Padding(
                                   padding: EdgeInsets.only(left: 10),
                                   child: Container(
-                                    width: c_width * 1.3,
+                                    width: c_width * 1.2,
                                     child: new Text(
                                       snapshot.data.restruant_Name,
                                       textDirection: TextDirection.ltr,
                                       overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
+                                      maxLines: 1,
                                       textAlign: TextAlign.start,
                                       style: new TextStyle(
                                         color: Colors.white,
@@ -892,22 +898,22 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                         wordSpacing: 0.5,
                                         shadows: [
                                           Shadow(
-                                              // bottomLeft
+                                            // bottomLeft
                                               offset: Offset(1.5, 1.5),
                                               color: Colors.white,
                                               blurRadius: 20),
                                           Shadow(
-                                              // bottomRight
+                                            // bottomRight
                                               offset: Offset(1.5, 1.5),
                                               color: Colors.black54,
                                               blurRadius: 5),
                                           Shadow(
-                                              // topRight
+                                            // topRight
                                               offset: Offset(1.5, 1.5),
                                               color: Colors.black54,
                                               blurRadius: 5),
                                           Shadow(
-                                              // topLeft
+                                            // topLeft
                                               offset: Offset(1.5, 1.5),
                                               color: Colors.black54,
                                               blurRadius: 5),

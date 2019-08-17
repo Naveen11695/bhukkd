@@ -232,7 +232,7 @@ class _BookingMainState extends State<BookingMain> {
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.only(left: 10.0),
-                    width: c_width * 1.4,
+                    width: c_width * 1.2,
                     child: Text(
                       widget.restruantInfo.restruant_Location.address,
                       textDirection: TextDirection.ltr,
@@ -367,55 +367,57 @@ class _BookingMainState extends State<BookingMain> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  _n.toString(),
-                  style: _textStyle(30, Colors.white, "Pacifico"),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Text(
-                    " X ",
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    _n.toString(),
                     style: _textStyle(30, Colors.white, "Pacifico"),
                   ),
-                ),
-                Text(
-                  widget.restruantInfo.currency +
-                      _securityPerPerson().toString(),
-                  style: _textStyle(30, Colors.white, "Pacifico"),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Text(
-                    " = ",
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      " X ",
+                      style: _textStyle(30, Colors.white, "Pacifico"),
+                    ),
+                  ),
+                  Text(
+                    widget.restruantInfo.currency +
+                        _securityPerPerson().toString(),
                     style: _textStyle(30, Colors.white, "Pacifico"),
                   ),
-                ),
-                Text(
-                  widget.restruantInfo.currency +
-                      ((_totalSecurity() < 999)
-                          ? _totalSecurity().toString()
-                          : formatter.format(_totalSecurity())),
-                  style: _textStyle(30, Colors.white, "Pacifico"),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      " = ",
+                      style: _textStyle(30, Colors.white, "Pacifico"),
+                    ),
+                  ),
+                  Text(
+                    widget.restruantInfo.currency +
+                        ((_totalSecurity() < 999)
+                            ? _totalSecurity().toString()
+                            : formatter.format(_totalSecurity())),
+                    style: _textStyle(30, Colors.white, "Pacifico"),
+                  ),
+                ],
+              ),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "* Average cost per person: " +
-                      ((widget.restruantInfo.restruant_Avg_cost_for_two / 2))
-                          .toString(),
-                  style: _textStyle(25, Colors.white, "Pacifico"),
-                ),
-              ),
-            ],
+
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              "* Average cost per person: " +
+                  ((widget.restruantInfo.restruant_Avg_cost_for_two / 2))
+                      .toString(),
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              style: _textStyle(25, Colors.white, "Pacifico"),
+            ),
           ),
         ],
       ),
@@ -434,32 +436,36 @@ class _BookingMainState extends State<BookingMain> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    FlatButton(
-                        onPressed: () {
-                          DatePicker.showDatePicker(context,
-                              showTitleActions: true,
-                              minTime: DateTime.now(),
-                              maxTime: DateTime.now().add(Duration(days: 7)),
-                              onChanged: (date) {}, onConfirm: (date) {
-                            setState(() {
-                              _date = date;
-                            });
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      FlatButton(
+                          onPressed: () {
+                            DatePicker.showDatePicker(context,
+                                showTitleActions: true,
+                                minTime: DateTime.now(),
+                                maxTime: DateTime.now().add(Duration(days: 7)),
+                                onChanged: (date) {},
+                                onConfirm: (date) {
+                                  setState(() {
+                                    _date = date;
+                                  });
+                                },
+                                currentTime: DateTime.now(),
+                                locale: LocaleType.en);
                           },
-                              currentTime: DateTime.now(),
-                              locale: LocaleType.en);
-                        },
-                        child: Text(
-                          _formatDate(),
-                          style: _textStyle(25, Colors.white, "Pacifico"),
-                        )),
-                  ],
-                ),
-              ],
+                          child: Text(
+                            _formatDate(),
+                            style: _textStyle(25, Colors.white, "Pacifico"),
+                          )),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -479,201 +485,209 @@ class _BookingMainState extends State<BookingMain> {
             padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
             child: blackTitle("Time Slot:", 20),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
-                  color: btnColor_1,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  padding: EdgeInsets.all(10.0),
-                  child: new Text(
-                    "9:45 AM",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontFamily: "Montserrat-Bold"),
-                  ),
-                  onPressed: () {
-                    _timeSlot = "9:45 AM";
-                    selectedChange();
-                  },
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Column(children: <Widget>[
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FlatButton(
+                        color: btnColor_1,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)),
+                        padding: EdgeInsets.all(10.0),
+                        child: new Text(
+                          "9:45 AM",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontFamily: "Montserrat-Bold"),
+                        ),
+                        onPressed: () {
+                          _timeSlot = "9:45 AM";
+                          selectedChange();
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FlatButton(
+                        color: btnColor_2,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)),
+                        padding: EdgeInsets.all(10.0),
+                        child: new Text(
+                          "10:00 AM",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontFamily: "Montserrat-Bold"),
+                        ),
+                        onPressed: () {
+                          _timeSlot = "10:00 AM";
+                          selectedChange();
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FlatButton(
+                        color: btnColor_3,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)),
+                        padding: EdgeInsets.all(10.0),
+                        child: new Text(
+                          "11:00 AM",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontFamily: "Montserrat-Bold"),
+                        ),
+                        onPressed: () {
+                          _timeSlot = "11:00 AM";
+                          selectedChange();
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
-                  color: btnColor_2,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  padding: EdgeInsets.all(10.0),
-                  child: new Text(
-                    "10:00 AM",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontFamily: "Montserrat-Bold"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15),
+                    child: FlatButton(
+                      color: btnColor_4,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      padding: EdgeInsets.all(10.0),
+                      child: new Text(
+                        "12:00 PM",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontFamily: "Montserrat-Bold"),
+                      ),
+                      onPressed: () {
+                        _timeSlot = "12:00 PM";
+                        selectedChange();
+                      },
+                    ),
                   ),
-                  onPressed: () {
-                    _timeSlot = "10:00 AM";
-                    selectedChange();
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
-                  color: btnColor_3,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  padding: EdgeInsets.all(10.0),
-                  child: new Text(
-                    "11:00 AM",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontFamily: "Montserrat-Bold"),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: FlatButton(
+                      color: btnColor_5,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      padding: EdgeInsets.all(10.0),
+                      child: new Text(
+                        "2:45 PM",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontFamily: "Montserrat-Bold"),
+                      ),
+                      onPressed: () {
+                        _timeSlot = "2:45 PM";
+                        selectedChange();
+                      },
+                    ),
                   ),
-                  onPressed: () {
-                    _timeSlot = "11:00 AM";
-                    selectedChange();
-                  },
-                ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: FlatButton(
+                      color: btnColor_6,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      padding: EdgeInsets.all(10.0),
+                      child: new Text(
+                        "4:00 PM",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontFamily: "Montserrat-Bold"),
+                      ),
+                      onPressed: () {
+                        _timeSlot = "4:00 PM";
+                        selectedChange();
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FlatButton(
+                      color: btnColor_7,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      padding: EdgeInsets.all(10.0),
+                      child: new Text(
+                        "6:00 PM",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontFamily: "Montserrat-Bold"),
+                      ),
+                      onPressed: () {
+                        _timeSlot = "6:00 PM";
+                        selectedChange();
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FlatButton(
+                      color: btnColor_8,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      padding: EdgeInsets.all(10.0),
+                      child: new Text(
+                        "8:00 PM",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontFamily: "Montserrat-Bold"),
+                      ),
+                      onPressed: () {
+                        _timeSlot = "8:00 PM";
+                        selectedChange();
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: FlatButton(
+                      color: btnColor_9,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      padding: EdgeInsets.all(10.0),
+                      child: new Text(
+                        "11:00 PM",
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontFamily: "Montserrat-Bold"),
+                      ),
+                      onPressed: () {
+                        _timeSlot = "11:00 PM";
+                        selectedChange();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ],),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: FlatButton(
-                  color: btnColor_4,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  padding: EdgeInsets.all(10.0),
-                  child: new Text(
-                    "12:00 PM",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontFamily: "Montserrat-Bold"),
-                  ),
-                  onPressed: () {
-                    _timeSlot = "12:00 PM";
-                    selectedChange();
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: FlatButton(
-                  color: btnColor_5,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  padding: EdgeInsets.all(10.0),
-                  child: new Text(
-                    "2:45 PM",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontFamily: "Montserrat-Bold"),
-                  ),
-                  onPressed: () {
-                    _timeSlot = "2:45 PM";
-                    selectedChange();
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: FlatButton(
-                  color: btnColor_6,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  padding: EdgeInsets.all(10.0),
-                  child: new Text(
-                    "4:00 PM",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontFamily: "Montserrat-Bold"),
-                  ),
-                  onPressed: () {
-                    _timeSlot = "4:00 PM";
-                    selectedChange();
-                  },
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
-                  color: btnColor_7,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  padding: EdgeInsets.all(10.0),
-                  child: new Text(
-                    "6:00 PM",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontFamily: "Montserrat-Bold"),
-                  ),
-                  onPressed: () {
-                    _timeSlot = "6:00 PM";
-                    selectedChange();
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
-                  color: btnColor_8,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  padding: EdgeInsets.all(10.0),
-                  child: new Text(
-                    "8:00 PM",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontFamily: "Montserrat-Bold"),
-                  ),
-                  onPressed: () {
-                    _timeSlot = "8:00 PM";
-                    selectedChange();
-                  },
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
-                  color: btnColor_9,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0)),
-                  padding: EdgeInsets.all(10.0),
-                  child: new Text(
-                    "11:00 PM",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontFamily: "Montserrat-Bold"),
-                  ),
-                  onPressed: () {
-                    _timeSlot = "11:00 PM";
-                    selectedChange();
-                  },
-                ),
-              ),
-            ],
-          ),
+
         ],
       ),
     );

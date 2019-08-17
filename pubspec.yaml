@@ -50,16 +50,6 @@ dependencies:
   google_sign_in: ^4.0.0
 
 
-  # Api- key 1:0bc8d74fdefd3601d84a0d52ffa01901
-  # Api- key 2:021a533947da652345753f4825586fd4
-  # Api- key 3:8266ad12c4e2c8e8b48c63f9bb7a6d1b
-  # Map- Api key:sk.eyJ1IjoibmF2ZWVuMTE2OTUiLCJhIjoiY2p5c21iMDB3MDF4MDNsbXk5emV3eGlwYyJ9.ceo9CMq7F791AdpT4mME2Q
-
-  # Email: naveen.satyam.developers@gmail.com
-  # Password: bhukkd_satyam_naveen
-
-  # SHA1: 87:ED:D5:9E:68:84:07:AB:AA:B7:A0:CC:EB:70:E9:84:4E:B6:AA:91
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
@@ -68,13 +58,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-#  flutter_launcher_icons: any
   progress_indicators: ^0.1.2
-#
-#flutter_icons:
-#  image_path: "assets/images/icon.png"
-#  android: true
-#  ios: true
+
 
 
 # For information on the generic Dart part of this file, see the
@@ -107,6 +92,7 @@ flutter:
   - assets/animations/near_by_rest_loading.flr
   - assets/animations/restaurant_details.flr
   - assets/animations/Search Loading.flr
+  - assets/animations/searching.flr
   - assets/animations/Loading animation.flr
   - assets/animations/loading_Untitled.flr
   - assets/animations/dotLoader.flr

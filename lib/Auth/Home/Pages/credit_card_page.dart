@@ -224,7 +224,7 @@ class CreditCardPage extends StatelessWidget {
                   color: Colors.white,
                 ),
                 label: Padding(
-                  padding: const EdgeInsets.only(left: 100, right: 100.0),
+                  padding: const EdgeInsets.only(left: 50, right: 50.0),
                   child: Text(
                     "ADD THE CARD",
                     style: TextStyle(color: Colors.white),

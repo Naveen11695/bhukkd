@@ -15,25 +15,35 @@ class HeaderText extends StatelessWidget {
         decoration: BoxDecoration(
             color: Color.fromRGBO(44, 57, 73, opacity),
             borderRadius: BorderRadius.circular(50)),
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 8.0, left: 8.0),
-          child: Row(
-            children: <Widget>[
-              Container(
-                height: 50,
-                width: 50,
-                decoration: new BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(50),
-                  image: DecorationImage(
-                      image: new AssetImage(imagePath), fit: BoxFit.fill),
-                ),
+        child: Row(
+          children: <Widget>[
+            Container(
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .height * 0.07,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width * 0.15,
+              decoration: new BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(50),
+                image: DecorationImage(
+                    image: new AssetImage(imagePath), fit: BoxFit.fill),
               ),
-              SizedBox(
-                width: 16,
-              ),
-              Text(
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Container(
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width * 0.30,
+              child: Text(
                 text,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 20.0,
                   fontFamily: "Pacifico",
@@ -44,8 +54,8 @@ class HeaderText extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -212,22 +212,26 @@ class _AccountState extends State<Account> {
                     ),
                   ),
                 ),
-                Card(
-                  elevation: 10,
-                  child: RadioButtonGroup(
-                      labels: <String>[
-                        "Male",
-                        "Female",
-                        "Others",
-                      ],
-                      picked: _gender,
-                      activeColor: Color.fromRGBO(249, 129, 42, 1),
-                      orientation: GroupedButtonsOrientation.HORIZONTAL,
-                      onSelected: (String selected) {
-                        setState(() {
-                          _gender = selected;
-                        });
-                      }),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Card(
+                    elevation: 10,
+                    child: RadioButtonGroup(
+                        labels: <String>[
+                          "Male",
+                          "Female",
+                          "Others",
+                        ],
+                        picked: _gender,
+                        margin: EdgeInsets.all(8.0),
+                        activeColor: Color.fromRGBO(249, 129, 42, 1),
+                        orientation: GroupedButtonsOrientation.HORIZONTAL,
+                        onSelected: (String selected) {
+                          setState(() {
+                            _gender = selected;
+                          });
+                        }),
+                  ),
                 ),
                 _Text("SECONDARY DETAILS"),
                 Card(
@@ -262,45 +266,48 @@ class _AccountState extends State<Account> {
                             null,
                             "Value Can\'t Be Empty",
                             TextCapitalization.characters),
-                        Row(
-                          children: <Widget>[
-                            _buildText(
-                                "Address *",
-                                "Enter your address",
-                                FontAwesomeIcons.home,
-                                _addressController,
-                                false,
-                                TextInputType.text,
-                                3,
-                                0.70,
-                                _validateAddress,
-                                null,
-                                "Value Can\'t Be Empty",
-                                TextCapitalization.sentences),
-                            InkWell(
-                              splashColor: Colors.white24,
-                              highlightColor: Colors.white10,
-                              child: Icon(
-                                Icons.location_searching,
-                                color: Color.fromRGBO(249, 129, 42, 1),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: <Widget>[
+                              _buildText(
+                                  "Address *",
+                                  "Enter your address",
+                                  FontAwesomeIcons.home,
+                                  _addressController,
+                                  false,
+                                  TextInputType.text,
+                                  3,
+                                  0.70,
+                                  _validateAddress,
+                                  null,
+                                  "Value Can\'t Be Empty",
+                                  TextCapitalization.sentences),
+                              InkWell(
+                                splashColor: Colors.white24,
+                                highlightColor: Colors.white10,
+                                child: Icon(
+                                  Icons.location_searching,
+                                  color: Color.fromRGBO(249, 129, 42, 1),
+                                ),
+                                onTap: () {
+                                  getLocationName().then((locality) {
+                                    if (locality != null) {
+                                      _addressController.text = locality.name +
+                                          " " +
+                                          locality.subLocality +
+                                          " " +
+                                          locality.subAdministrativeArea +
+                                          ", " +
+                                          locality.locality +
+                                          " " +
+                                          locality.postalCode;
+                                    }
+                                  });
+                                },
                               ),
-                              onTap: () {
-                                getLocationName().then((locality) {
-                                  if (locality != null) {
-                                    _addressController.text = locality.name +
-                                        " " +
-                                        locality.subLocality +
-                                        " " +
-                                        locality.subAdministrativeArea +
-                                        ", " +
-                                        locality.locality +
-                                        " " +
-                                        locality.postalCode;
-                                  }
-                                });
-                              },
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),

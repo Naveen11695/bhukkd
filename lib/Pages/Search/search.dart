@@ -3,10 +3,14 @@ import 'dart:async';
 import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:bhukkd/Pages/Search/api.dart';
 import 'package:bhukkd/Pages/Search/item.dart';
+import 'package:bhukkd/Pages/TrendingPage/TrendingPage.dart';
+import 'package:bhukkd/Services/HttpRequest.dart';
 import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:latlong/latlong.dart';
 
 class SearchList extends StatefulWidget {
   SearchList({Key key}) : super(key: key);
@@ -24,13 +28,49 @@ class _SearchState extends State<SearchList> {
 
   Timer debounceTimer;
 
+  Widget waitingWidget = Stack(
+    children: <Widget>[
+      FlutterMap(
+        options: new MapOptions(
+          center: new LatLng(latitude, longitude),
+          zoom: 14.0,
+        ),
+        layers: [
+          new TileLayerOptions(
+            urlTemplate: "https://api.tiles.mapbox.com/v4/"
+                "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
+            additionalOptions: {
+              'accessToken': map_api_key,
+              'id': 'mapbox.streets',
+            },
+          ),
+        ],
+      ),
+      Container(
+        height: double.infinity,
+        width: double.infinity,
+        color: Color.fromRGBO(44, 57, 73, 50),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(50.0),
+        child: FlareActor(
+          "assets/animations/searching.flr",
+          fit: BoxFit.scaleDown,
+          animation: "Untitled",
+        ),
+      ),
+    ],
+  );
+
   _SearchState() {
     _searchQuery.addListener(() {
       if (debounceTimer != null) {
         debounceTimer.cancel();
       }
       debounceTimer = Timer(Duration(milliseconds: 100), () {
-        if (this.mounted) {
+        if (this.mounted &&
+            _searchQuery.text[_searchQuery.text.length - 1].compareTo(" ") !=
+                0) {
           performSearch(_searchQuery.text);
         }
       });
@@ -53,15 +93,16 @@ class _SearchState extends State<SearchList> {
       _results = List();
     });
 
-    final repos = await Api.getRepositoriesWithSearchQuery(query);
-    if (this._searchQuery.text == query && this.mounted) {
-      setState(() {
-        _isSearching = false;
-        if (repos != null) {
-          _results = repos;
-        }
-      });
-    }
+    await getRepositoriesWithSearchQuery(query.trim()).then((repos) async {
+      if (this._searchQuery.text == query && this.mounted) {
+        setState(() {
+          _isSearching = false;
+          if (repos != null) {
+            _results = repos;
+          } else {}
+        });
+      }
+    });
   }
 
   @override
@@ -100,25 +141,18 @@ class _SearchState extends State<SearchList> {
 
   Widget buildBody(BuildContext context) {
     if (_isSearching) {
-      return Padding(
-        padding: const EdgeInsets.all(50.0),
-        child: FlareActor(
-          "assets/animations/Search Loading.flr",
-          fit: BoxFit.scaleDown,
-          animation: "default",
-        ),
-      );
+      return waitingWidget;
     } else if (_error != null) {
-      return CenterTitle(_error);
-    } else if (_searchQuery.text.isEmpty) {
-      return Padding(
-        padding: const EdgeInsets.all(50.0),
-        child: FlareActor(
-          "assets/animations/Search Loading.flr",
-          fit: BoxFit.scaleDown,
-          animation: "default",
+      return Container(
+        child: Center(
+          child: Image.asset(
+            "assets/images/not_found.gif",
+            fit: BoxFit.fill,
+          ),
         ),
       );
+    } else if (_searchQuery.text.isEmpty) {
+      return waitingWidget;
     } else {
       return ListView.builder(
           itemCount: _results.length,

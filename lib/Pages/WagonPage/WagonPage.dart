@@ -211,6 +211,9 @@ class _WagonPageState extends State<WagonPage> {
               color:
                   (snapShort["_status"].toString().compareTo("canceled") == 0)
                       ? Colors.red
+                      : !(_islessThanNow(
+                      snapShort["_bookingDate"], snapShort["_status"]))
+                      ? Colors.green
                       : SECONDARY_COLOR_1,
             ),
             trailing: new Text(
@@ -252,10 +255,14 @@ class _WagonPageState extends State<WagonPage> {
                   splashColor: Colors.white24,
                   highlightColor: Colors.white10,
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 10.0),
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.30,
                     child: Center(
                       child: Text(
                         "View The Details",
+                        textAlign: TextAlign.center,
                         style: new TextStyle(
                             fontSize: 15.0,
                             fontFamily: FONT_TEXT_PRIMARY,
@@ -273,7 +280,8 @@ class _WagonPageState extends State<WagonPage> {
                     ? Row(
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            padding: const EdgeInsets.only(
+                                left: 8.0, right: 8.0),
                             child: Text(
                               " | ",
                               style: new TextStyle(
@@ -293,10 +301,14 @@ class _WagonPageState extends State<WagonPage> {
                             splashColor: Colors.white24,
                             highlightColor: Colors.white10,
                             child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 10.0),
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width * 0.30,
                               child: Center(
                                 child: Text(
                                   "Cancel The Bookings",
+                                  textAlign: TextAlign.center,
                                   style: new TextStyle(
                                       fontSize: 15.0,
                                       fontFamily: FONT_TEXT_PRIMARY,
@@ -336,9 +348,8 @@ class _WagonPageState extends State<WagonPage> {
   }
 
   _islessThanNow(String date, String status) {
-    if ((DateTime(_getDate(date, 2), _getDate(date, 1), _getDate(date, 0)) ==
-        DateTime(
-            DateTime.now().year, DateTime.now().month, DateTime.now().day))) {
+    if (DateTime.now().isAfter(
+        DateTime(_getDate(date, 2), _getDate(date, 1), _getDate(date, 0)))) {
       return true;
     } else {
       if ((status.compareTo("canceled") == 0)) {

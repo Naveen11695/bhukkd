@@ -22,9 +22,8 @@ import 'package:toast/toast.dart';
 List<dynamic> copydata = [];
 
 bool isReloading = false;
-
+double latitude, longitude;
 Future<Placemark> getLocationName() async {
-  double latitude, longitude;
   try {
     await StoreUserLocation.get_CurrentLocation().then((loc) {
       latitude = double.parse(loc[0]);
@@ -88,37 +87,59 @@ class _TrendingPageState extends State<TrendingPage>
                 slivers: <Widget>[
                   new SliverAppBar(
                     floating: false,
-                    title: Column(
-                      children: <Widget>[
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.020,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                          child: Align(
-                              alignment: FractionalOffset(0.1, 1),
-                              child: Column(children: <Widget>[
-                                Text("Your Location",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontFamily: FONT_TEXT_PRIMARY,
-                                    )),
-                                Text(
-                                    address == null
-                                        ? "Fetching Your Location.."
-                                        : address,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.white,
-                                      fontFamily: FONT_TEXT_PRIMARY,
-                                    )),
-                              ])),
-                        ),
-                      ],
+                    title: Container(
+                      margin: EdgeInsets.only(
+                          top: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.01,
+                          right: 5,
+                          left: 5),
+                      child: Column(
+                        children: <Widget>[
+                          Text("Your Location",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontFamily: FONT_TEXT_PRIMARY,
+                              )),
+                          Text(
+                              "----------------------------------------------",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(
+                                fontSize: 10,
+                                letterSpacing: 2.0,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                                fontFamily: FONT_TEXT_SECONDARY,
+                              )),
+                          Text(
+                              address == null
+                                  ? "Fetching Your Location.."
+                                  : address,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                                fontFamily: FONT_TEXT_SECONDARY,
+                              )),
+                          Text(
+                              "----------------------------------------------",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(
+                                fontSize: 10,
+                                letterSpacing: 2.0,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300,
+                                fontFamily: FONT_TEXT_SECONDARY,
+                              )),
+                        ],
+                      ),
                     ),
                     backgroundColor: SECONDARY_COLOR_1,
                     leading: Padding(
@@ -132,7 +153,10 @@ class _TrendingPageState extends State<TrendingPage>
                       ),
                     ),
                     titleSpacing: 0.4,
-                    expandedHeight: MediaQuery.of(context).size.height * 0.13,
+                    expandedHeight: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.10,
                     pinned: true,
                     primary: true,
                   ),
@@ -231,45 +255,51 @@ class _TrendingPageState extends State<TrendingPage>
                                           .of(context)
                                           .size
                                           .width,
-                                      child: Card(
-                                        color: Colors.black,
-                                        child: rests[index].featured_image ==
-                                            null ||
-                                            rests[index].featured_image == ""
-                                            ? Image.asset(
-                                          "assets/images/default.jpg",
-                                          fit: BoxFit.cover,
-                                          height:
-                                          MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height * 0.16,
-                                        )
-                                            : CachedNetworkImage(
-                                          imageUrl: rests[index].featured_image,
-                                          fit: BoxFit.fitHeight,
-                                          height:
-                                          MediaQuery
-                                              .of(context)
-                                              .size
-                                              .height * 0.16,
-                                          placeholder: (context, url) =>
-                                              Image.asset(
-                                                "assets/images/default.jpg",
-                                                fit: BoxFit.cover,
-                                                height:
-                                                MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height * 0.16,
-                                              ),
-                                          errorWidget: (context, url, error) =>
-                                              Icon(Icons.error),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(3.0),
+                                        child: Card(
+                                          color: Colors.black,
+                                          child: rests[index].featured_image ==
+                                              null ||
+                                              rests[index].featured_image == ""
+                                              ? Image.asset(
+                                            "assets/images/default.jpg",
+                                            fit: BoxFit.cover,
+                                            height:
+                                            MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.14,
+                                          )
+                                              : CachedNetworkImage(
+                                            imageUrl: rests[index]
+                                                .featured_image,
+                                            fit: BoxFit.fitHeight,
+                                            height:
+                                            MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height * 0.14,
+                                            placeholder: (context, url) =>
+                                                Image.asset(
+                                                  "assets/images/default.jpg",
+                                                  fit: BoxFit.cover,
+                                                  height:
+                                                  MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .height * 0.14,
+                                                ),
+                                            errorWidget: (context, url,
+                                                error) =>
+                                                Icon(Icons.error),
+                                          ),
                                         ),
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 5.0),
+                                      padding: const EdgeInsets.only(
+                                          top: 5.0, left: 2.0, right: 2.0),
                                       child: Text(
                                         rests[index].name,
                                         textAlign: TextAlign.center,
@@ -283,11 +313,10 @@ class _TrendingPageState extends State<TrendingPage>
                                       ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 2.0),
+                                      padding: const EdgeInsets.all(2.0),
                                       child: Text(
                                         rests[index].cuisines,
                                         textAlign: TextAlign.center,
-                                        maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                             fontSize: 12,
@@ -324,41 +353,51 @@ class _TrendingPageState extends State<TrendingPage>
               new Container(
                 height: 50,
                 margin: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.13,
+                    top: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.11,
                     right: 15,
                     left: 15),
                 child: Material(
                   type: MaterialType.canvas,
                   elevation: 10.0,
                   borderRadius: BorderRadius.circular(25.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(0.0),
-                    child: Material(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30.0),
-                      child: InkWell(
-                        onTap: () {
+                  child: Material(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(30.0),
+                    child: InkWell(
+                      onTap: () {
+                        if (address.isNotEmpty) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => SearchList(),
                               ));
-                        },
-                        splashColor: Colors.white24,
-                        highlightColor: Colors.white10,
-                        child: Container(
-                          child: new Row(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Icons.search,
-                                  color: Color.fromRGBO(249, 129, 42, 1),
-                                ),
+                        }
+                      },
+                      splashColor: Colors.white24,
+                      highlightColor: Colors.white10,
+                      child: Container(
+                        child: new Row(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Icon(
+                                Icons.search,
+                                color: Color.fromRGBO(249, 129, 42, 1),
                               ),
-                              Center(
+                            ),
+                            Container(
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height * 0.36,
+                              child: Center(
                                 child: Text(
                                   "Search for trending restraunts nearby",
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                   style: new TextStyle(
                                       fontFamily: FONT_TEXT_SECONDARY,
                                       fontWeight: FontWeight.w400,
@@ -372,8 +411,8 @@ class _TrendingPageState extends State<TrendingPage>
                                       ]),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -455,6 +494,7 @@ class _TrendingPageState extends State<TrendingPage>
   @override
   void initState() {
     super.initState();
+    getMapKey();
     getLocationName().then((locality) {
       if (locality != null) {
         address = locality.name +
@@ -468,7 +508,7 @@ class _TrendingPageState extends State<TrendingPage>
             locality.postalCode;
       }
     });
-    callit();
+    fetchRestByCollectionID(1, "", "desc");
     _controller.addListener(() async {
       if (_controller.position.pixels == _controller.position.maxScrollExtent) {
         print("status: " + _status);

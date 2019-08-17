@@ -75,7 +75,6 @@ class _WelcomePageState extends State<WelcomePage>
   @override
   void initState() {
     super.initState();
-
     _screenController = new AnimationController(
         duration: new Duration(milliseconds: 2000), vsync: this);
 
@@ -136,6 +135,13 @@ class _WelcomePageState extends State<WelcomePage>
         Tween<double>(begin: collapsedHeightFactor, end: expendedHeightFactor)
             .animate(_controller);
     _screenController.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    _screenController.dispose();
+    super.dispose();
   }
 
   @override
@@ -256,7 +262,7 @@ class _WelcomePageState extends State<WelcomePage>
                   )),
             ),
             SizedBox(
-              width: 16,
+              width: 10,
             ),
             Transform(
               transform: Matrix4.translationValues(

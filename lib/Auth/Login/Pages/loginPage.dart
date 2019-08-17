@@ -113,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 255, 255, 250),
       body: Padding(
-        padding: EdgeInsets.only(top: size.height * 0.21, left: 24, right: 24),
+        padding: EdgeInsets.only(top: size.height * 0.20, left: 24, right: 24),
         child: Stack(
           children: <Widget>[
             SafeArea(
@@ -123,7 +123,10 @@ class _LoginPageState extends State<LoginPage> {
                       ? _buildLoginForm(textTheme)
                       : _buildRegistrationForm(textTheme),
                   SizedBox(
-                    height: 50.0,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.05,
                   ),
                   Padding(
                     padding: const EdgeInsets.all(5.0),
@@ -336,7 +339,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buttonContainer(Size size, TextTheme textTheme) {
     return Padding(
-      padding: EdgeInsets.only(top: size.height * 0.73),
+      padding: EdgeInsets.only(top: size.height * 0.70,),
       child: Container(
         width: double.infinity,
         child: Column(
