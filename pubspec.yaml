@@ -91,7 +91,6 @@ flutter:
   assets:
   - assets/animations/near_by_rest_loading.flr
   - assets/animations/restaurant_details.flr
-  - assets/animations/Search Loading.flr
   - assets/animations/searching.flr
   - assets/animations/Loading animation.flr
   - assets/animations/loading_Untitled.flr
