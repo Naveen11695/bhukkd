@@ -30,7 +30,7 @@ class ListData extends StatelessWidget {
         children: <Widget>[
           new Container(
               margin: new EdgeInsets.only(
-                  left: 20.0, top: 10.0, bottom: 10.0, right: 20.0),
+                  left: 20.0, top: 5.0, bottom: 5.0, right: 20.0),
               width: 60.0,
               height: 60.0,
               decoration:
@@ -49,14 +49,16 @@ class ListData extends StatelessWidget {
                       fontFamily: FONT_TEXT_SECONDARY),
                 ),
                 new Padding(
-                  padding: new EdgeInsets.only(top: 10.0),
+                  padding: new EdgeInsets.only(top: 5.0),
                   child: new Text(
                     subtitle,
                     style: new TextStyle(
                       color: TEXT_SECONDARY_COLOR,
                       fontSize: 14.0,
-                      fontWeight: FontWeight.w700,
-                      fontFamily: FONT_TEXT_PRIMARY,),
+                      wordSpacing: 0.5,
+                      letterSpacing: 0.5,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: FONT_TEXT_SECONDARY,),
                   ),
                 ),
               ],

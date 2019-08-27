@@ -183,6 +183,9 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                           child: PhotoViewGallery.builder(
                                             scrollPhysics:
                                                 const BouncingScrollPhysics(),
+                                            backgroundDecoration: BoxDecoration(
+                                              color: SECONDARY_COLOR_1,
+                                            ),
                                             builder: (BuildContext context,
                                                 int index) {
                                               return PhotoViewGalleryPageOptions(
@@ -249,7 +252,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                   child: new IconButton(
                                     icon: new Icon(
                                       FontAwesomeIcons.arrowLeft,
-                                      color: SECONDARY_COLOR_1,
+                                      color: Colors.white,
                                       size: 20.0,
                                     ),
                                     onPressed: () =>

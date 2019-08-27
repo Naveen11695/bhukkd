@@ -40,16 +40,6 @@ class ListViewContent extends StatelessWidget {
                 child: homeOptionBox(listTileWidth, "Account",
                     "Address, email, password or delete your account.", user),
               ),
-
-              InkWell(
-                onTap: () {
-                  print("Privacy");
-                },
-                splashColor: Colors.black45,
-                highlightColor: Colors.black45,
-                child:
-                homeOptionBox(listTileWidth, "Privacy", "Hide your profile from search engines", privacy),
-              ),
               InkWell(
                 onTap: () {
                   Navigator.push(

@@ -4,7 +4,7 @@ class HorizontalTransition extends MaterialPageRoute{
   HorizontalTransition({WidgetBuilder builder, RouteSettings settings}):super(builder:builder, settings:settings);
 
   @override
-  Duration get transitionDuration => const Duration(milliseconds: 550);
+  Duration get transitionDuration => const Duration(milliseconds: 200);
 
 
   @override

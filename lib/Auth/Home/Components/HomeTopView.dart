@@ -1,5 +1,4 @@
 import 'package:avataaar_image/avataaar_image.dart';
-import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -75,22 +74,8 @@ class _ImageBackground extends State<ImageBackground> {
     Size screenSize = MediaQuery.of(context).size;
     return (new Container(
         width: screenSize.width,
-        height: screenSize.height / 3.0,
+        height: screenSize.height / 4.0,
         child: new Container(
-          decoration: new BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(100),
-                  bottomLeft: Radius.circular(100)),
-              gradient: new LinearGradient(
-                colors: <Color>[
-                  Colors.white,
-                  SECONDARY_COLOR,
-                ],
-                stops: [0.2, 1.0],
-                begin: const FractionalOffset(0.0, 0.0),
-                end: const FractionalOffset(0.0, 0.9),
-              )),
           child: new Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -104,28 +89,37 @@ class _ImageBackground extends State<ImageBackground> {
                 splashColor: Colors.white24,
                 highlightColor: Colors.white10,
                 child: Container(
-                  padding: EdgeInsets.only(top: 20.0),
                   child: FutureBuilder(
                     future: _setAvtaaar(),
                     builder: (BuildContext context, AsyncSnapshot snapShot) {
                       if (snapShot.connectionState == ConnectionState.done) {
                         if (snapShot.data != null) {
-                          return Center(
+                          return ClipOval(
                             child: Container(
-                              child: _userImage = AvataaarImage(
-                                avatar: _avataarList[int.parse((snapShot.data
-                                    .toString()
-                                    .trim()
-                                    .compareTo("null") ==
-                                    0)
-                                    ? "0"
-                                    : snapShot.data.toString())],
-                                errorImage: Icon(Icons.error),
-                                placeholder: CircularProgressIndicator(
-                                  valueColor: new AlwaysStoppedAnimation<Color>(
-                                      Colors.white),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                gradient: RadialGradient(
+                                  colors: [Colors.grey, Colors.white],
                                 ),
-                                width: 200.0,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: _userImage = AvataaarImage(
+                                  avatar: _avataarList[int.parse((snapShot.data
+                                      .toString()
+                                      .trim()
+                                      .compareTo("null") ==
+                                      0)
+                                      ? "0"
+                                      : snapShot.data.toString())],
+                                  errorImage: Icon(Icons.error),
+                                  placeholder: CircularProgressIndicator(
+                                    valueColor:
+                                    new AlwaysStoppedAnimation<Color>(
+                                        Colors.white),
+                                  ),
+                                  width: 150.0,
+                                ),
                               ),
                             ),
                           );
@@ -261,6 +255,8 @@ class _ImageBackground extends State<ImageBackground> {
         });
       }
     });
-    setState(() {});
+    setState(() {
+      Navigator.pop(context);
+    });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterBookingDetails.dart';
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterUserDetails.dart';
 import 'package:bhukkd/Auth/Home/Pages/DetailPage.dart';
+import 'package:bhukkd/Auth/Login/Components/trapozoid_cut_colored_image.dart';
 import 'package:bhukkd/Auth/Onboarding/Pages/onboarding_page.dart';
 import 'package:bhukkd/Booking/Pages/TransitionPage.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
@@ -93,60 +94,32 @@ class _BookingMainState extends State<BookingMain> {
   Widget build(BuildContext context) {
     c_height = MediaQuery.of(context).size.height * 0.5;
     c_width = MediaQuery.of(context).size.width * 0.5;
+    final Size size = MediaQuery
+        .of(context)
+        .size;
+    final TextTheme textTheme = Theme
+        .of(context)
+        .textTheme;
     return Scaffold(
+      backgroundColor: SECONDARY_COLOR_1,
       key: booking_scaffoldKey,
-      body: CustomScrollView(
-        controller: _scrollController,
-        scrollDirection: Axis.vertical,
-        slivers: <Widget>[
-          SliverAppBar(
-            backgroundColor: SECONDARY_COLOR_1,
-            expandedHeight: 260.0,
-            primary: true,
-            pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-              title: _isScrollLimitReached
-                  ? ConstrainedBox(
-                      constraints: BoxConstraints(maxWidth: 200),
-                      child: Text(
-                        widget.restruantInfo.restruant_Name,
-                        textDirection: TextDirection.ltr,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        textAlign: TextAlign.start,
-                        style: new TextStyle(
-                          color: Colors.white,
-                          fontFamily: FONT_TEXT_PRIMARY,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.2,
-                          wordSpacing: 0.5,
-                          shadows: [
-                            Shadow(
-                                // bottomLeft
-                                offset: Offset(1.5, 1.5),
-                                color: SECONDARY_COLOR_1,
-                                blurRadius: 20),
-                            Shadow(
-                                // bottomRight
-                                offset: Offset(1.5, 1.5),
-                                color: Colors.white,
-                                blurRadius: 5),
-                            Shadow(
-                                // topRight
-                                offset: Offset(1.5, 1.5),
-                                color: SECONDARY_COLOR_1,
-                                blurRadius: 5),
-                            Shadow(
-                                // topLeft
-                                offset: Offset(1.5, 1.5),
-                                color: SECONDARY_COLOR_1,
-                                blurRadius: 5),
-                          ],
-                        ),
-                      ),
-                    )
-                  : Text(
+      body: Stack(
+        children: <Widget>[
+          _trapoziodView(size, textTheme),
+          CustomScrollView(
+            controller: _scrollController,
+            scrollDirection: Axis.vertical,
+            slivers: <Widget>[
+              SliverAppBar(
+                backgroundColor: SECONDARY_COLOR_1,
+                expandedHeight: 260.0,
+                primary: true,
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  title: _isScrollLimitReached
+                      ? ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: 200),
+                    child: Text(
                       widget.restruantInfo.restruant_Name,
                       textDirection: TextDirection.ltr,
                       overflow: TextOverflow.ellipsis,
@@ -161,49 +134,99 @@ class _BookingMainState extends State<BookingMain> {
                         wordSpacing: 0.5,
                         shadows: [
                           Shadow(
-                              // bottomLeft
+                            // bottomLeft
                               offset: Offset(1.5, 1.5),
                               color: SECONDARY_COLOR_1,
                               blurRadius: 20),
                           Shadow(
-                              // bottomRight
+                            // bottomRight
                               offset: Offset(1.5, 1.5),
                               color: Colors.white,
                               blurRadius: 5),
                           Shadow(
-                              // topRight
+                            // topRight
                               offset: Offset(1.5, 1.5),
                               color: SECONDARY_COLOR_1,
                               blurRadius: 5),
                           Shadow(
-                              // topLeft
+                            // topLeft
                               offset: Offset(1.5, 1.5),
                               color: SECONDARY_COLOR_1,
                               blurRadius: 5),
                         ],
                       ),
                     ),
-              centerTitle: false,
-              background: CachedNetworkImage(
-                imageUrl: widget.restruant_photo_url,
-                fit: BoxFit.fitWidth,
-                placeholder: (context, url) => new Image.asset(
-                  "assets/images/default.jpg",
-                  fit: BoxFit.cover,
+                  )
+                      : Text(
+                    widget.restruantInfo.restruant_Name,
+                    textDirection: TextDirection.ltr,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    textAlign: TextAlign.start,
+                    style: new TextStyle(
+                      color: Colors.white,
+                      fontFamily: FONT_TEXT_PRIMARY,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.2,
+                      wordSpacing: 0.5,
+                      shadows: [
+                        Shadow(
+                          // bottomLeft
+                            offset: Offset(1.5, 1.5),
+                            color: SECONDARY_COLOR_1,
+                            blurRadius: 20),
+                        Shadow(
+                          // bottomRight
+                            offset: Offset(1.5, 1.5),
+                            color: Colors.white,
+                            blurRadius: 5),
+                        Shadow(
+                          // topRight
+                            offset: Offset(1.5, 1.5),
+                            color: SECONDARY_COLOR_1,
+                            blurRadius: 5),
+                        Shadow(
+                          // topLeft
+                            offset: Offset(1.5, 1.5),
+                            color: SECONDARY_COLOR_1,
+                            blurRadius: 5),
+                      ],
+                    ),
+                  ),
+                  centerTitle: false,
+                  background: CachedNetworkImage(
+                    imageUrl: widget.restruant_photo_url,
+                    fit: BoxFit.fitWidth,
+                    placeholder: (context, url) =>
+                    new Image.asset(
+                      "assets/images/default.jpg",
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  collapseMode: CollapseMode.parallax,
                 ),
               ),
-              collapseMode: CollapseMode.parallax,
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                return booking_Form(context, c_width, c_height);
-              },
-              childCount: 1,
-            ),
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                    return booking_Form(context, c_width, c_height);
+                  },
+                  childCount: 1,
+                ),
+              ),
+            ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _trapoziodView(Size size, TextTheme textTheme) {
+    return TrapozoidTopBar(
+      child: Container(
+        height: size.height * 0.68,
+        color: Colors.white,
       ),
     );
   }
@@ -219,60 +242,64 @@ class _BookingMainState extends State<BookingMain> {
       ),
       child: Padding(
         padding: const EdgeInsets.only(
-            top: 10.0, bottom: 20.0, left: 10.0, right: 10.0),
+            top: 20.0, bottom: 20.0, left: 20.0, right: 20.0),
         child: Column(
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: SECONDARY_COLOR_1,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(left: 10.0),
-                    width: c_width * 1.2,
-                    child: Text(
-                      widget.restruantInfo.restruant_Location.address,
-                      textDirection: TextDirection.ltr,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      textAlign: TextAlign.start,
-                      style: new TextStyle(
-                        color: Colors.white,
-                        fontFamily: FONT_TEXT_SECONDARY,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.2,
-                        wordSpacing: 0.5,
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 20.0, bottom: 20.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: SECONDARY_COLOR_2,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(left: 10.0),
+                      width: c_width * 1.2,
+                      child: Text(
+                        widget.restruantInfo.restruant_Location.address,
+                        textDirection: TextDirection.ltr,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        textAlign: TextAlign.start,
+                        style: new TextStyle(
+                          color: Colors.white,
+                          fontFamily: FONT_TEXT_SECONDARY,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.2,
+                          wordSpacing: 0.5,
+                        ),
                       ),
                     ),
-                  ),
-                  DecoratedBox(
-                    child: Padding(
-                        padding: EdgeInsets.all(20),
-                        child: Text(
-                            widget.restruantInfo.restruant_User_rating
-                                .aggregate_rating,
-                            style: TextStyle(
-                              fontFamily: FONT_TEXT_PRIMARY,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
-                            ))),
-                    decoration: BoxDecoration(
-                      color: SECONDARY_COLOR_1,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black,
-                            offset: Offset(5.0, 5.0),
-                            blurRadius: 20)
-                      ],
-                      shape: BoxShape.circle,
+                    DecoratedBox(
+                      child: Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Text(
+                              widget.restruantInfo.restruant_User_rating
+                                  .aggregate_rating,
+                              style: TextStyle(
+                                fontFamily: FONT_TEXT_PRIMARY,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                              ))),
+                      decoration: BoxDecoration(
+                        color: SECONDARY_COLOR_1,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black,
+                              offset: Offset(5.0, 5.0),
+                              blurRadius: 20)
+                        ],
+                        shape: BoxShape.circle,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -311,7 +338,7 @@ class _BookingMainState extends State<BookingMain> {
   _buildPartySize() {
     return Card(
       elevation: 10,
-      color: SECONDARY_COLOR_4,
+      color: Colors.white70,
       child: Column(
         children: <Widget>[
           Padding(
@@ -374,25 +401,25 @@ class _BookingMainState extends State<BookingMain> {
                 children: <Widget>[
                   Text(
                     _n.toString(),
-                    style: _textStyle(30, Colors.white, "Pacifico"),
+                    style: _textStyle(30, TEXT_PRIMARY_COLOR, "Pacifico"),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
                     child: Text(
                       " X ",
-                      style: _textStyle(30, Colors.white, "Pacifico"),
+                      style: _textStyle(30, TEXT_PRIMARY_COLOR, "Pacifico"),
                     ),
                   ),
                   Text(
                     widget.restruantInfo.currency +
                         _securityPerPerson().toString(),
-                    style: _textStyle(30, Colors.white, "Pacifico"),
+                    style: _textStyle(30, TEXT_PRIMARY_COLOR, "Pacifico"),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
                     child: Text(
                       " = ",
-                      style: _textStyle(30, Colors.white, "Pacifico"),
+                      style: _textStyle(30, TEXT_PRIMARY_COLOR, "Pacifico"),
                     ),
                   ),
                   Text(
@@ -400,13 +427,13 @@ class _BookingMainState extends State<BookingMain> {
                         ((_totalSecurity() < 999)
                             ? _totalSecurity().toString()
                             : formatter.format(_totalSecurity())),
-                    style: _textStyle(30, Colors.white, "Pacifico"),
+                    style: _textStyle(30, Color.fromRGBO(
+                        15 * _Crindex, 0, 0, _Crindex * 5.0), "Pacifico"),
                   ),
                 ],
               ),
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -416,7 +443,7 @@ class _BookingMainState extends State<BookingMain> {
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               maxLines: 2,
-              style: _textStyle(25, Colors.white, "Pacifico"),
+              style: _textStyle(25, TEXT_PRIMARY_COLOR, "Pacifico"),
             ),
           ),
         ],
@@ -427,7 +454,7 @@ class _BookingMainState extends State<BookingMain> {
   _buildDate() {
     return Card(
       elevation: 10,
-      color: SECONDARY_COLOR_4,
+      color: Colors.white70,
       child: Column(
         children: <Widget>[
           Padding(
@@ -460,7 +487,8 @@ class _BookingMainState extends State<BookingMain> {
                           },
                           child: Text(
                             _formatDate(),
-                            style: _textStyle(25, Colors.white, "Pacifico"),
+                            style: _textStyle(
+                                25, TEXT_PRIMARY_COLOR, "Pacifico"),
                           )),
                     ],
                   ),
@@ -476,7 +504,7 @@ class _BookingMainState extends State<BookingMain> {
   _buildTimeSlot() {
     return Card(
       elevation: 10,
-      color: SECONDARY_COLOR_4,
+      color: Colors.white70,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -487,207 +515,208 @@ class _BookingMainState extends State<BookingMain> {
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Column(children: <Widget>[
-              Center(
-                child: Row(
+            child: Column(
+              children: <Widget>[
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FlatButton(
+                          color: btnColor_1,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0)),
+                          padding: EdgeInsets.all(10.0),
+                          child: new Text(
+                            "9:45 AM",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontFamily: "Montserrat-Bold"),
+                          ),
+                          onPressed: () {
+                            _timeSlot = "9:45 AM";
+                            selectedChange();
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FlatButton(
+                          color: btnColor_2,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0)),
+                          padding: EdgeInsets.all(10.0),
+                          child: new Text(
+                            "10:00 AM",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontFamily: "Montserrat-Bold"),
+                          ),
+                          onPressed: () {
+                            _timeSlot = "10:00 AM";
+                            selectedChange();
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: FlatButton(
+                          color: btnColor_3,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0)),
+                          padding: EdgeInsets.all(10.0),
+                          child: new Text(
+                            "11:00 AM",
+                            style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.white,
+                                fontFamily: "Montserrat-Bold"),
+                          ),
+                          onPressed: () {
+                            _timeSlot = "11:00 AM";
+                            selectedChange();
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(right: 15),
                       child: FlatButton(
-                        color: btnColor_1,
+                        color: btnColor_4,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)),
                         padding: EdgeInsets.all(10.0),
                         child: new Text(
-                          "9:45 AM",
+                          "12:00 PM",
                           style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,
                               fontFamily: "Montserrat-Bold"),
                         ),
                         onPressed: () {
-                          _timeSlot = "9:45 AM";
+                          _timeSlot = "12:00 PM";
                           selectedChange();
                         },
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(left: 15, right: 15),
                       child: FlatButton(
-                        color: btnColor_2,
+                        color: btnColor_5,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)),
                         padding: EdgeInsets.all(10.0),
                         child: new Text(
-                          "10:00 AM",
+                          "2:45 PM",
                           style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,
                               fontFamily: "Montserrat-Bold"),
                         ),
                         onPressed: () {
-                          _timeSlot = "10:00 AM";
+                          _timeSlot = "2:45 PM";
                           selectedChange();
                         },
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(left: 15),
                       child: FlatButton(
-                        color: btnColor_3,
+                        color: btnColor_6,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0)),
                         padding: EdgeInsets.all(10.0),
                         child: new Text(
-                          "11:00 AM",
+                          "4:00 PM",
                           style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,
                               fontFamily: "Montserrat-Bold"),
                         ),
                         onPressed: () {
-                          _timeSlot = "11:00 AM";
+                          _timeSlot = "4:00 PM";
                           selectedChange();
                         },
                       ),
                     ),
                   ],
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(right: 15),
-                    child: FlatButton(
-                      color: btnColor_4,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                      padding: EdgeInsets.all(10.0),
-                      child: new Text(
-                        "12:00 PM",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontFamily: "Montserrat-Bold"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FlatButton(
+                        color: btnColor_7,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)),
+                        padding: EdgeInsets.all(10.0),
+                        child: new Text(
+                          "6:00 PM",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontFamily: "Montserrat-Bold"),
+                        ),
+                        onPressed: () {
+                          _timeSlot = "6:00 PM";
+                          selectedChange();
+                        },
                       ),
-                      onPressed: () {
-                        _timeSlot = "12:00 PM";
-                        selectedChange();
-                      },
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    child: FlatButton(
-                      color: btnColor_5,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                      padding: EdgeInsets.all(10.0),
-                      child: new Text(
-                        "2:45 PM",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontFamily: "Montserrat-Bold"),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FlatButton(
+                        color: btnColor_8,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)),
+                        padding: EdgeInsets.all(10.0),
+                        child: new Text(
+                          "8:00 PM",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontFamily: "Montserrat-Bold"),
+                        ),
+                        onPressed: () {
+                          _timeSlot = "8:00 PM";
+                          selectedChange();
+                        },
                       ),
-                      onPressed: () {
-                        _timeSlot = "2:45 PM";
-                        selectedChange();
-                      },
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15),
-                    child: FlatButton(
-                      color: btnColor_6,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                      padding: EdgeInsets.all(10.0),
-                      child: new Text(
-                        "4:00 PM",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontFamily: "Montserrat-Bold"),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: FlatButton(
+                        color: btnColor_9,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)),
+                        padding: EdgeInsets.all(10.0),
+                        child: new Text(
+                          "11:00 PM",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontFamily: "Montserrat-Bold"),
+                        ),
+                        onPressed: () {
+                          _timeSlot = "11:00 PM";
+                          selectedChange();
+                        },
                       ),
-                      onPressed: () {
-                        _timeSlot = "4:00 PM";
-                        selectedChange();
-                      },
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FlatButton(
-                      color: btnColor_7,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                      padding: EdgeInsets.all(10.0),
-                      child: new Text(
-                        "6:00 PM",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontFamily: "Montserrat-Bold"),
-                      ),
-                      onPressed: () {
-                        _timeSlot = "6:00 PM";
-                        selectedChange();
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FlatButton(
-                      color: btnColor_8,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                      padding: EdgeInsets.all(10.0),
-                      child: new Text(
-                        "8:00 PM",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontFamily: "Montserrat-Bold"),
-                      ),
-                      onPressed: () {
-                        _timeSlot = "8:00 PM";
-                        selectedChange();
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FlatButton(
-                      color: btnColor_9,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                      padding: EdgeInsets.all(10.0),
-                      child: new Text(
-                        "11:00 PM",
-                        style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                            fontFamily: "Montserrat-Bold"),
-                      ),
-                      onPressed: () {
-                        _timeSlot = "11:00 PM";
-                        selectedChange();
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ],),
+                  ],
+                ),
+              ],
+            ),
           ),
-
         ],
       ),
     );

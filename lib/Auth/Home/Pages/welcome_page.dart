@@ -159,41 +159,39 @@ class _WelcomePageState extends State<WelcomePage>
                 //.........................................//Home Start//......................................................//
                 GetterSetterUserDetails.emailId =
                     snapshot.data.email.toString();
-                return Container(
-                  color: SECONDARY_COLOR,
-                  child: Stack(children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        new ImageBackground(
-                          backgroundImage: backgroundImage,
-                          containerGrowAnimation: containerGrowAnimation,
-                          profileImage: profileImage,
-                          email: GetterSetterUserDetails.emailId,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Card(
+                return SafeArea(
+                  child: Container(
+                    color: SECONDARY_COLOR,
+                    child: Stack(children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          new ImageBackground(
+                            backgroundImage: backgroundImage,
+                            containerGrowAnimation: containerGrowAnimation,
+                            profileImage: profileImage,
+                            email: GetterSetterUserDetails.emailId,
+                          ),
+                          Card(
                               elevation: 20,
                               child: new Calender(
                                   margin: listSlidePosition.value * 0)),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: new EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * .45,
-                          left: 10,
-                          right: 10),
-                      child: Card(
-                        elevation: 20,
-                        child: ListView(
-                          children: <Widget>[
-                            bottomView(context),
-                          ],
+                        ],
+                      ),
+                      Padding(
+                        padding: new EdgeInsets.only(
+                            top: MediaQuery
+                                .of(context)
+                                .size
+                                .height * .37,
+                            left: 10,
+                            right: 10),
+                        child: Card(
+                          elevation: 10,
+                          child: bottomView(context),
                         ),
                       ),
-                    ),
-                  ]),
+                    ]),
+                  ),
                 );
                 //.........................................//Home Start//......................................................//
 
@@ -308,37 +306,38 @@ class _WelcomePageState extends State<WelcomePage>
   }
 
   Widget bottomView(BuildContext context) {
-    return Column(
+    return ListView(
       children: <Widget>[
-        new ListViewContent(
+        SizedBox(
+          width: 100,
+          height: MediaQuery
+              .of(context)
+              .size
+              .height / 30,
+        ),
+        ListViewContent(
           listSlideAnimation: listSlideAnimation,
           listSlidePosition: listSlidePosition,
           listTileWidth: listTileWidth,
         ),
         Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Material(
-            color: Color.fromRGBO(0, 0, 0, 50),
-            borderRadius: BorderRadius.circular(
-              20.0,
-            ),
-            child: semi_circlar_button(
-              'Sign out',
-              () async {
-                buttonLoading = buttonSignin;
-                final FirebaseUser user = await _auth.currentUser();
-                if (user == null) {
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: const Text('No one has signed in.'),
-                  ));
-                  return;
-                }
-                _signOut();
+          child: semi_circlar_button(
+            'Sign out',
+                () async {
+              buttonLoading = buttonSignin;
+              final FirebaseUser user = await _auth.currentUser();
+              if (user == null) {
                 Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text('Signed Out'),
+                  content: const Text('No one has signed in.'),
                 ));
-              },
-            ),
+                return;
+              }
+              _signOut();
+              Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text('Signed Out'),
+              ));
+            },
           ),
         ),
       ],
