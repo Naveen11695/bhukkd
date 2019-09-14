@@ -2,9 +2,26 @@
 > A spicy hot place to find food that lets you book a table in nearby restaurants.
 
 ## Application detail
-This application is developed on **flutter v1.5.4** for android and ios platform. Initially you can get details about all the restaurants near your location.
-<br>
-As this application is under development phase, soon you can also book the tables in the restaurants.
+This application is developed on **flutter v1.10.2** for android and ios platform. You can get details about all the restaurants near your location. Moreover this application is modeled for booking the tables in the restaurants.
+
+## Database
+Firebase cloud-storage is used as the database source. and the data is originally from Zomato API.
+
+## Instructions
+1. Clone the repository.
+2. Create a project on firebase and get "google-services.json" file from <a href="https://console.firebase.google.com/" width="250">  console.firebase.google</a>.
+3. Paste the "google-services.json" file in "bhukkd\android\app\".
+4. Get the Zomato API key from <a href="https://developers.zomato.com/api" width="250">developers.zomato</a>
+5. Get the Leaflet API key from <a href="https://account.mapbox.com" width="250">mapbox</a>.
+6. Create a "config.json" file in "bhukkd\assets\api\" and paste
+<pre>
+{
+  "api_key": "YOUR_ZOMATO_API_KEY",
+  "map_api_key": "YOUR_LEAFLET_API_KEY",
+}
+</pre>
+7. Run the command using "flutter run" to install and run the application on your phone.
+  
 
 ## ScreenShorts:
 <p float="left">
@@ -25,7 +42,12 @@ As this application is under development phase, soon you can also book the table
 
 ## Support:
 https://flutter.dev/docs
+<br>
 https://firebase.google.com/support/
+<br>
+https://developers.zomato.com/contact
+<br>
+https://docs.mapbox.com/help/
 
 ## License:
 Copyright 2019 Google, Inc. Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE file distributed with this work for additional information regarding copyright ownership. The ASF licenses this file to you under the Apache License, Version 2.0 (the “License”); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
