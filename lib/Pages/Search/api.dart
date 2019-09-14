@@ -34,7 +34,9 @@ getRepositoriesWithSearchQuery(String query) async {
     fireStore.collection('SearchRestaurants').document(
         query);
     await snapshot.get().then((dataSnapshot) async {
-      if (dataSnapshot.exists) {
+      if (dataSnapshot.exists && DateTime
+          .now()
+          .day != 1) {
         final response = dataSnapshot.data["source"];
         await parseSearchRestraunts(response).then((searchResult) async {
           searchRestraunts = searchResult;

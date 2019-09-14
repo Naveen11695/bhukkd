@@ -311,7 +311,9 @@ Future getNearByRestaurants() async {
     fireStore.collection('NearByRestaurants').document(
         entity_type + "-" + entity_id);
     await snapshot.get().then((dataSnapshot) {
-      if (dataSnapshot.exists) {
+      if (dataSnapshot.exists && DateTime
+          .now()
+          .day != 1) {
         final response = dataSnapshot.data[entity_type + "-" + entity_id];
         jsonParsed = json.decode(response);
       }

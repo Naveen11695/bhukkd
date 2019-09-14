@@ -225,7 +225,9 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll>
       fireStore.collection('TopRestaurants').document(
           entity_type + "-" + entity_id);
       await snapshot.get().then((dataSnapshot) {
-        if (dataSnapshot.exists) {
+        if (dataSnapshot.exists && DateTime
+            .now()
+            .day != 1) {
           final response = dataSnapshot.data[entity_type + "-" + entity_id];
           jsonParsed = json.decode(response);
         }
@@ -240,7 +242,7 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll>
             "https://developers.zomato.com/api/v2.1/location_details?entity_id=$entity_id&entity_type=$entity_type";
         final response = await http.get(Uri.encodeFull(url),
             headers: {"Accept": "application/json", "user-key": api_key});
-        print(response.body);
+//        print(response.body);
         if (response.statusCode == 200) {
           jsonParsed = json.decode(response.body);
           saveTopByRestaurants(entity_type + "-" + entity_id, response.body);
