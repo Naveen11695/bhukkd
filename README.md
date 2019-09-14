@@ -5,7 +5,7 @@
 This application is developed on **flutter v1.10.2** for android and ios platform. You can get details about all the restaurants near your location. Moreover this application is modeled for booking the tables in the restaurants.
 
 ## Database
-Firebase cloud-storage is used as the database source. and the data is originally from Zomato API.
+Firebase cloud-storage is used as the database. and the data is originally from Zomato API.
 
 ## Instructions
 1. Clone the repository.
