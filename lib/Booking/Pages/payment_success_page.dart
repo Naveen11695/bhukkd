@@ -1,13 +1,16 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterBookingDetails.dart';
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterUserDetails.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
+import 'package:bhukkd/Services/HttpRequest.dart';
 import 'package:date_format/date_format.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 
 class PaymentSuccessPage extends StatefulWidget {
   @override
@@ -89,7 +92,40 @@ class PaymentSuccessPageState extends State<PaymentSuccessPage> {
     });
   }
 
+  sendMessage() async {
+    Iterable<dynamic> key =
+        (await parseJsonFromAssets('assets/api/config.json')).values;
+    String apiKey = key.elementAt(7);
+    String message =
+        "hi ${GetterSetterUserDetails.firstName.toLowerCase()}, "
+        "Your booking order-id is \"${GetterSetterBookingDetails.bookingId}\n\""
+        "Thank you, a member of staff will process your booking request and will confirm with you shortly.";
+    String sender = "TXTLCL";
+    String number = GetterSetterUserDetails.phoneNumber.trim();
+
+    try {
+      getKey();
+      final response =
+      await http.get(Uri.encodeFull("https://api.textlocal.in/send/?"
+          "apikey=$apiKey"
+          "&message=$message"
+          "&sender=$sender"
+          "&numbers=$number"));
+      if (response.statusCode == 200) {
+        print("Sucessfully delivered " + response.body);
+      } else {
+        print("SMS failed to delivered");
+        print(response.statusCode);
+        print(response.body);
+      }
+    } catch (e) {
+      print("<SMS exception>" + e.toString());
+      return "error";
+    }
+  }
+
   goToDialog() {
+    sendMessage();
     setState(() {
       isDataAvailable = true;
       Navigator.of(context)

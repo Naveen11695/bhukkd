@@ -229,10 +229,12 @@ Future getEntityFromLocations() async {
     longitude = double.parse(loc[1]);
   });
 
+
   try {
     String nameOfTheLocation;
     await getLocationName().then((loc) {
-      nameOfTheLocation = loc.subLocality;
+      nameOfTheLocation = loc.locality;
+      print("locality Name + " + nameOfTheLocation);
     });
     if (nameOfTheLocation == "") {
       return "error";
@@ -258,7 +260,7 @@ Future getEntityFromLocations() async {
     });
 
     if(flag) {
-      print("NearByRestaurants Api Key: " + api_key);
+      print("<location_suggestions>");
       String url =
           "https://developers.zomato.com/api/v2.1/locations?query=$nameOfTheLocation";
       final response = await http.get(Uri.encodeFull(url),
@@ -333,7 +335,6 @@ Future getNearByRestaurants() async {
         jsonParsed = json.decode(response.body);
       } else {
         print("<NearByRestaurants> Problem");
-        print(response.body);
         return "error";
       }
     }

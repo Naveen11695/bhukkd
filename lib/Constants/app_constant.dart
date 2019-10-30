@@ -23,6 +23,7 @@ const TEXT_PRIMARY_COLOR = Color.fromRGBO(44, 57, 73, 1);
 
 const FONT_TEXT_PRIMARY = "Montserrat-Bold";
 const FONT_TEXT_SECONDARY = "Roboto";
+const FONT_TEXT_EXTRA = "Pacifico";
 
 const IMAGE_LOGIN_PATH = "assets/images/2.png";
 const IMAGE_WELCOME_PATH = "assets/images/2.png";

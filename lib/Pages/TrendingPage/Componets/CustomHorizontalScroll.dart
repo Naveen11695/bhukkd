@@ -242,13 +242,11 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll>
             "https://developers.zomato.com/api/v2.1/location_details?entity_id=$entity_id&entity_type=$entity_type";
         final response = await http.get(Uri.encodeFull(url),
             headers: {"Accept": "application/json", "user-key": api_key});
-//        print(response.body);
         if (response.statusCode == 200) {
           jsonParsed = json.decode(response.body);
           saveTopByRestaurants(entity_type + "-" + entity_id, response.body);
         } else {
           print("<TopRestaurants> Problem");
-          print(response.body);
           return "error";
         }
       }

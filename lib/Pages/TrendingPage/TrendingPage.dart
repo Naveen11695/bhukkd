@@ -442,7 +442,10 @@ class _TrendingPageState extends State<TrendingPage>
     try {
       String city_id;
       await getNearByRestaurants().then((res) {
-        city_id = res[0].near_by_restaurants_location["city_id"].toString();
+        if (res.toString().trim().compareTo("error") != 0) {
+          city_id = res[0].near_by_restaurants_location["city_id"].toString();
+        }
+
       });
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {

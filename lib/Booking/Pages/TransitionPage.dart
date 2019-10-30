@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterBookingDetails.dart';
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterUserDetails.dart';
@@ -92,12 +93,27 @@ class TransitionState extends State<Transition> {
   }
 
   void sendDataToFireStore() async {
+    var rndnumber = "";
+    var rnd = new Random();
+    for (var i = 0; i < 6; i++) {
+      rndnumber = rndnumber + rnd.nextInt(9).toString();
+    }
+    GetterSetterBookingDetails.bookingId = uid +
+        "-" +
+        GetterSetterBookingDetails.resId +
+        "-" +
+        GetterSetterBookingDetails.bookingDate.replaceAll(":", "") +
+        "-" +
+        GetterSetterBookingDetails.timeSlot.split(" ")[0] +
+        "-" +
+        rndnumber;
+    print(rndnumber);
     Firestore.instance
         .collection("BookingDetails")
-        .document(uid + "-" + GetterSetterBookingDetails.resId)
+        .document(GetterSetterBookingDetails.bookingId)
         .setData({
       "OrderId":
-          uid + "-" + GetterSetterBookingDetails.resId.trim().toUpperCase(),
+      uid + "-" + GetterSetterBookingDetails.resId.trim().toUpperCase(),
       "FirstName": GetterSetterUserDetails.firstName.trim().toUpperCase(),
       "MiddleName": GetterSetterUserDetails.middleName.trim().toUpperCase(),
       "LastName": GetterSetterUserDetails.lastName.trim().toUpperCase(),

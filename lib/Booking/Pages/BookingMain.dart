@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterBookingDetails.dart';
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterUserDetails.dart';
 import 'package:bhukkd/Auth/Home/Pages/DetailPage.dart';
@@ -8,8 +10,11 @@ import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flare_flutter/flare_actor.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
@@ -52,9 +57,9 @@ class _BookingMainState extends State<BookingMain> {
         color: color);
   }
 
-  var _n = 2;
+  var _n = 1;
 
-  DateTime _date;
+  DateTime _date = new DateTime.now();
 
   String _timeSlot;
 
@@ -112,23 +117,28 @@ class _BookingMainState extends State<BookingMain> {
             slivers: <Widget>[
               SliverAppBar(
                 backgroundColor: SECONDARY_COLOR_1,
-                expandedHeight: 260.0,
+                expandedHeight: 150.0,
                 primary: true,
                 pinned: true,
                 flexibleSpace: FlexibleSpaceBar(
                   title: _isScrollLimitReached
                       ? ConstrainedBox(
-                    constraints: BoxConstraints(maxWidth: 200),
+                    constraints: BoxConstraints(
+                        maxWidth:
+                        MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.5),
                     child: Text(
                       widget.restruantInfo.restruant_Name,
                       textDirection: TextDirection.ltr,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      textAlign: TextAlign.start,
+                      maxLines: 2,
+                      textAlign: TextAlign.end,
                       style: new TextStyle(
                         color: Colors.white,
-                        fontFamily: FONT_TEXT_PRIMARY,
-                        fontSize: 25,
+                        fontFamily: FONT_TEXT_EXTRA,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1.2,
                         wordSpacing: 0.5,
@@ -161,12 +171,12 @@ class _BookingMainState extends State<BookingMain> {
                     widget.restruantInfo.restruant_Name,
                     textDirection: TextDirection.ltr,
                     overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
+                    maxLines: 2,
                     textAlign: TextAlign.start,
                     style: new TextStyle(
                       color: Colors.white,
-                      fontFamily: FONT_TEXT_PRIMARY,
-                      fontSize: 25,
+                      fontFamily: FONT_TEXT_EXTRA,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.2,
                       wordSpacing: 0.5,
@@ -222,6 +232,48 @@ class _BookingMainState extends State<BookingMain> {
     );
   }
 
+  Widget getChairWidgets(int size, int resevered_chairs, int rowSize) {
+    var Size = double.parse(size.toString());
+    var list = [];
+    var sub = 0;
+    if (resevered_chairs > 0) {
+      sub = resevered_chairs;
+    }
+    if (resevered_chairs >= 7) {
+      resevered_chairs = 7;
+    }
+    for (int i = 1; i <= resevered_chairs; i++) {
+      list.add("r");
+    }
+    for (int i = 1; i <= Size - sub; i++) {
+      list.add("s");
+    }
+    for (int i = list.length; i < rowSize; i++) {
+      list.add("u");
+    }
+    return new Row(
+        children: list
+            .map((item) =>
+            Container(
+                height: 45,
+                width: 45,
+                child: item == "r"
+                    ? Image.asset(
+                  "assets/images/icons/chair_red.png",
+                  fit: BoxFit.fill,
+                )
+                    : item == "s"
+                    ? Image.asset(
+                  "assets/images/icons/chair_green.png",
+                  fit: BoxFit.fill,
+                )
+                    : Image.asset(
+                  "assets/images/icons/chair_gray.png",
+                  fit: BoxFit.fill,
+                )))
+            .toList());
+  }
+
   Widget _trapoziodView(Size size, TextTheme textTheme) {
     return TrapozoidTopBar(
       child: Container(
@@ -246,70 +298,6 @@ class _BookingMainState extends State<BookingMain> {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(
-                  top: 20.0, bottom: 20.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: SECONDARY_COLOR_2,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(left: 10.0),
-                      width: c_width * 1.2,
-                      child: Text(
-                        widget.restruantInfo.restruant_Location.address,
-                        textDirection: TextDirection.ltr,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        textAlign: TextAlign.start,
-                        style: new TextStyle(
-                          color: Colors.white,
-                          fontFamily: FONT_TEXT_SECONDARY,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.2,
-                          wordSpacing: 0.5,
-                        ),
-                      ),
-                    ),
-                    DecoratedBox(
-                      child: Padding(
-                          padding: EdgeInsets.all(20),
-                          child: Text(
-                              widget.restruantInfo.restruant_User_rating
-                                  .aggregate_rating,
-                              style: TextStyle(
-                                fontFamily: FONT_TEXT_PRIMARY,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                              ))),
-                      decoration: BoxDecoration(
-                        color: SECONDARY_COLOR_1,
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black,
-                              offset: Offset(5.0, 5.0),
-                              blurRadius: 20)
-                        ],
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                top: 10.0,
-                bottom: 20.0,
-              ),
-              child: _buildPartySize(),
-            ),
-            Padding(
               padding: EdgeInsets.only(
                 top: 10.0,
                 bottom: 20.0,
@@ -324,10 +312,43 @@ class _BookingMainState extends State<BookingMain> {
               child: _buildTimeSlot(),
             ),
             Padding(
+              padding: EdgeInsets.only(
+                top: 10.0,
+                bottom: 20.0,
+              ),
+              child: _buildPartySize(),
+            ),
+            Padding(
               padding: const EdgeInsets.only(
                 bottom: 8.0,
               ),
-              child: semi_circlar_button("Find the Table", findTable),
+              child:
+              InkWell(
+                onTap: (reserved != 20) ? findTable : null,
+                splashColor: Colors.white24,
+                highlightColor: Colors.white10,
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 20.0),
+                  child: Center(
+                    child: Text(
+                      "Find the Table",
+                      style: new TextStyle(
+                          fontSize: 25.0,
+                          fontFamily: FONT_TEXT_PRIMARY,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.5,
+                          wordSpacing: 2.0,
+                          textBaseline: TextBaseline.ideographic,
+                          color: (reserved != 20) ? Colors.white : Colors
+                              .white10),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                    color: SECONDARY_COLOR_1,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
@@ -335,7 +356,24 @@ class _BookingMainState extends State<BookingMain> {
     );
   }
 
+  var count1 = 0;
+  var count2 = 0;
+  var count3 = 0;
+  var reserved = 0;
+
   _buildPartySize() {
+    var selected = _n;
+    var total = reserved + selected;
+    if (total <= 7 && count1 <= 7) {
+      count1 = total;
+      count2 = 0;
+      count3 = 0;
+    } else if (total <= 14 && count2 <= 14) {
+      count2 = total - 7;
+      count3 = 0;
+    } else if (total <= 20) {
+      count3 = total - 14;
+    }
     return Card(
       elevation: 10,
       color: Colors.white70,
@@ -345,109 +383,286 @@ class _BookingMainState extends State<BookingMain> {
             padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
             child: blackTitle("Party Size:", 20),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: new FloatingActionButton(
-                  heroTag: "btn1",
-                  onPressed: minus,
-                  child: new Icon(
-                      const IconData(0xe15b, fontFamily: 'MaterialIcons'),
-                      color: Colors.red),
-                  backgroundColor: Colors.white,
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(bottom: 8.0, left: 40, right: 40),
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(50)),
-                  width: 100,
-                  height: 100,
-                  child: Center(
-                    child: new Text('$_n',
-                        style: TextStyle(
-                            fontSize: 60.0,
-                            fontFamily: FONT_TEXT_PRIMARY,
-                            color: Color.fromRGBO(
-                                15 * _Crindex, 0, 0, _Crindex * 5.0))),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: new FloatingActionButton(
-                  heroTag: "btn2",
-                  onPressed: add,
-                  child: new Icon(
-                    Icons.add,
-                    color: Colors.green,
-                  ),
-                  backgroundColor: Colors.white,
-                ),
-              ),
-            ],
-          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    _n.toString(),
-                    style: _textStyle(30, TEXT_PRIMARY_COLOR, "Pacifico"),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Text(
-                      " X ",
-                      style: _textStyle(30, TEXT_PRIMARY_COLOR, "Pacifico"),
+            child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 3.0),
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                ),
+                child: (reserved != 20)
+                    ? Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20.0),
+                      child: Table(
+                        children: [
+                          TableRow(
+                            children: [
+                              TableCell(
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    getChairWidgets(count1, reserved, 7),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              TableCell(
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    getChairWidgets(
+                                        count2, reserved - 7, 7),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              TableCell(
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    getChairWidgets(
+                                        count3, reserved - 14, 6),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Text(
-                    widget.restruantInfo.currency +
-                        _securityPerPerson().toString(),
-                    style: _textStyle(30, TEXT_PRIMARY_COLOR, "Pacifico"),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Text(
-                      " = ",
-                      style: _textStyle(30, TEXT_PRIMARY_COLOR, "Pacifico"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: new FloatingActionButton(
+                            heroTag: "btn1",
+                            onPressed: minus,
+                            child: new Icon(
+                                const IconData(0xe15b,
+                                    fontFamily: 'MaterialIcons'),
+                                color: Colors.red),
+                            backgroundColor: Colors.white,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: 8.0, left: 40, right: 40),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50)),
+                            width: 100,
+                            height: 100,
+                            child: Center(
+                              child: new Text('$_n',
+                                  style: TextStyle(
+                                      fontSize: 60.0,
+                                      fontFamily: FONT_TEXT_PRIMARY,
+                                      color: Color.fromRGBO(12 * _Crindex,
+                                          0, 0, _Crindex * 1.0))),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: new FloatingActionButton(
+                            heroTag: "btn2",
+                            onPressed: add,
+                            child: new Icon(
+                              Icons.add,
+                              color: Colors.green,
+                            ),
+                            backgroundColor: Colors.white,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Text(
-                    widget.restruantInfo.currency +
-                        ((_totalSecurity() < 999)
-                            ? _totalSecurity().toString()
-                            : formatter.format(_totalSecurity())),
-                    style: _textStyle(30, Color.fromRGBO(
-                        15 * _Crindex, 0, 0, _Crindex * 5.0), "Pacifico"),
-                  ),
-                ],
-              ),
-            ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
+                              _n.toString(),
+                              style: _textStyle(
+                                  30, TEXT_PRIMARY_COLOR, "Pacifico"),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: Text(
+                                " X ",
+                                style: _textStyle(
+                                    30, TEXT_PRIMARY_COLOR, "Pacifico"),
+                              ),
+                            ),
+                            Text(
+                              widget.restruantInfo.currency +
+                                  _securityPerPerson().toString(),
+                              style: _textStyle(
+                                  30, TEXT_PRIMARY_COLOR, "Pacifico"),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: Text(
+                                " = ",
+                                style: _textStyle(
+                                    30, TEXT_PRIMARY_COLOR, "Pacifico"),
+                              ),
+                            ),
+                            Text(
+                              widget.restruantInfo.currency +
+                                  ((_totalSecurity() < 999)
+                                      ? _totalSecurity().toString()
+                                      : formatter
+                                      .format(_totalSecurity())),
+                              style: _textStyle(
+                                  30,
+                                  Color.fromRGBO(12 * _Crindex, 0, 0,
+                                      _Crindex * 1.0),
+                                  "Pacifico"),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        "* Average cost per person: " +
+                            ((widget.restruantInfo
+                                .restruant_Avg_cost_for_two /
+                                2))
+                                .toString(),
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        style: _textStyle(
+                            25, TEXT_PRIMARY_COLOR, "Pacifico"),
+                      ),
+                    ),
+                  ],
+                )
+                    : Stack(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20.0),
+                      child: Table(
+                        children: [
+                          TableRow(
+                            children: [
+                              TableCell(
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    getChairWidgets(count1, reserved, 7),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              TableCell(
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    getChairWidgets(
+                                        count2, reserved - 7, 7),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          TableRow(
+                            children: [
+                              TableCell(
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    getChairWidgets(
+                                        count3, reserved - 14, 6),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20.0),
+                      child: Container(
+                        height: 120,
+                        child: Center(
+                          child: new FlareActor(
+                            "assets/animations/warning.flr",
+                            animation: "Play",
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              "* Average cost per person: " +
-                  ((widget.restruantInfo.restruant_Avg_cost_for_two / 2))
-                      .toString(),
+              "No seats available",
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               maxLines: 2,
-              style: _textStyle(25, TEXT_PRIMARY_COLOR, "Pacifico"),
+              style: _textStyle(
+                  25, TEXT_PRIMARY_COLOR, FONT_TEXT_PRIMARY),
             ),
+          ),
+          Row(
+            children: <Widget>[
+              _messages("Already taken", "chair_red"),
+              _messages("Selected", "chair_green"),
+              _messages("UnReserved", "chair_gray"),
+            ],
           ),
         ],
       ),
+    );
+  }
+
+  _messages(String text, String image) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          height: 45,
+          width: 45,
+          child: Image.asset(
+            "assets/images/icons/" + image + ".png",
+            fit: BoxFit.scaleDown,
+          ),
+        ),
+        Text(
+          text,
+          textAlign: TextAlign.center,
+          style: _textStyle(12, Colors.black45, FONT_TEXT_PRIMARY),
+        ),
+      ],
     );
   }
 
@@ -478,18 +693,43 @@ class _BookingMainState extends State<BookingMain> {
                                 maxTime: DateTime.now().add(Duration(days: 7)),
                                 onChanged: (date) {},
                                 onConfirm: (date) {
-                                  setState(() {
-                                    _date = date;
+                                  reserved = 0;
+                                  _date = date;
+                                  _getUserBooking().then((val) async {
+                                    setState(() {});
                                   });
                                 },
                                 currentTime: DateTime.now(),
                                 locale: LocaleType.en);
                           },
-                          child: Text(
-                            _formatDate(),
-                            style: _textStyle(
-                                25, TEXT_PRIMARY_COLOR, "Pacifico"),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(width: 3.0),
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(5.0)),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  _formatDate(),
+                                  style: _textStyle(
+                                      25, TEXT_PRIMARY_COLOR, "Pacifico"),
+                                ),
+                              ),
+                            ),
                           )),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        child: Text(
+                          "* Booking Avaliable for next 7 days only.",
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          style: _textStyle(15, Colors.grey, FONT_TEXT_PRIMARY),
+                        ),
+                      ),
                     ],
                   ),
                 ],
@@ -515,206 +755,217 @@ class _BookingMainState extends State<BookingMain> {
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Column(
-              children: <Widget>[
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FlatButton(
-                          color: btnColor_1,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0)),
-                          padding: EdgeInsets.all(10.0),
-                          child: new Text(
-                            "9:45 AM",
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontFamily: "Montserrat-Bold"),
-                          ),
-                          onPressed: () {
-                            _timeSlot = "9:45 AM";
-                            selectedChange();
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FlatButton(
-                          color: btnColor_2,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0)),
-                          padding: EdgeInsets.all(10.0),
-                          child: new Text(
-                            "10:00 AM",
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontFamily: "Montserrat-Bold"),
-                          ),
-                          onPressed: () {
-                            _timeSlot = "10:00 AM";
-                            selectedChange();
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FlatButton(
-                          color: btnColor_3,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0)),
-                          padding: EdgeInsets.all(10.0),
-                          child: new Text(
-                            "11:00 AM",
-                            style: TextStyle(
-                                fontSize: 18,
-                                color: Colors.white,
-                                fontFamily: "Montserrat-Bold"),
-                          ),
-                          onPressed: () {
-                            _timeSlot = "11:00 AM";
-                            selectedChange();
-                          },
-                        ),
-                      ),
-                    ],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(width: 3.0),
+                  borderRadius: BorderRadius.all(Radius.circular(
+                      5.0) //                 <--- border radius here
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Column(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: FlatButton(
-                        color: btnColor_4,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)),
-                        padding: EdgeInsets.all(10.0),
-                        child: new Text(
-                          "12:00 PM",
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontFamily: "Montserrat-Bold"),
-                        ),
-                        onPressed: () {
-                          _timeSlot = "12:00 PM";
-                          selectedChange();
-                        },
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: FlatButton(
+                              color: btnColor_1,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0)),
+                              padding: EdgeInsets.all(10.0),
+                              child: new Text(
+                                "9:45 AM",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontFamily: "Montserrat-Bold"),
+                              ),
+                              onPressed: () {
+                                _timeSlot = "9:45 AM";
+                                selectedChange();
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: FlatButton(
+                              color: btnColor_2,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0)),
+                              padding: EdgeInsets.all(10.0),
+                              child: new Text(
+                                "10:00 AM",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontFamily: "Montserrat-Bold"),
+                              ),
+                              onPressed: () {
+                                _timeSlot = "10:00 AM";
+                                selectedChange();
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: FlatButton(
+                              color: btnColor_3,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0)),
+                              padding: EdgeInsets.all(10.0),
+                              child: new Text(
+                                "11:00 AM",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontFamily: "Montserrat-Bold"),
+                              ),
+                              onPressed: () {
+                                _timeSlot = "11:00 AM";
+                                selectedChange();
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: FlatButton(
-                        color: btnColor_5,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)),
-                        padding: EdgeInsets.all(10.0),
-                        child: new Text(
-                          "2:45 PM",
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontFamily: "Montserrat-Bold"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(right: 15),
+                          child: FlatButton(
+                            color: btnColor_4,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0)),
+                            padding: EdgeInsets.all(10.0),
+                            child: new Text(
+                              "12:00 PM",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontFamily: "Montserrat-Bold"),
+                            ),
+                            onPressed: () {
+                              _timeSlot = "12:00 PM";
+                              selectedChange();
+                            },
+                          ),
                         ),
-                        onPressed: () {
-                          _timeSlot = "2:45 PM";
-                          selectedChange();
-                        },
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15, right: 15),
+                          child: FlatButton(
+                            color: btnColor_5,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0)),
+                            padding: EdgeInsets.all(10.0),
+                            child: new Text(
+                              "2:45 PM",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontFamily: "Montserrat-Bold"),
+                            ),
+                            onPressed: () {
+                              _timeSlot = "2:45 PM";
+                              selectedChange();
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15),
+                          child: FlatButton(
+                            color: btnColor_6,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0)),
+                            padding: EdgeInsets.all(10.0),
+                            child: new Text(
+                              "4:00 PM",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontFamily: "Montserrat-Bold"),
+                            ),
+                            onPressed: () {
+                              _timeSlot = "4:00 PM";
+                              selectedChange();
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: FlatButton(
-                        color: btnColor_6,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)),
-                        padding: EdgeInsets.all(10.0),
-                        child: new Text(
-                          "4:00 PM",
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontFamily: "Montserrat-Bold"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FlatButton(
+                            color: btnColor_7,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0)),
+                            padding: EdgeInsets.all(10.0),
+                            child: new Text(
+                              "6:00 PM",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontFamily: "Montserrat-Bold"),
+                            ),
+                            onPressed: () {
+                              _timeSlot = "6:00 PM";
+                              selectedChange();
+                            },
+                          ),
                         ),
-                        onPressed: () {
-                          _timeSlot = "4:00 PM";
-                          selectedChange();
-                        },
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FlatButton(
+                            color: btnColor_8,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0)),
+                            padding: EdgeInsets.all(10.0),
+                            child: new Text(
+                              "8:00 PM",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontFamily: "Montserrat-Bold"),
+                            ),
+                            onPressed: () {
+                              _timeSlot = "8:00 PM";
+                              selectedChange();
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FlatButton(
+                            color: btnColor_9,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0)),
+                            padding: EdgeInsets.all(10.0),
+                            child: new Text(
+                              "11:00 PM",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                  fontFamily: "Montserrat-Bold"),
+                            ),
+                            onPressed: () {
+                              _timeSlot = "11:00 PM";
+                              selectedChange();
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FlatButton(
-                        color: btnColor_7,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)),
-                        padding: EdgeInsets.all(10.0),
-                        child: new Text(
-                          "6:00 PM",
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontFamily: "Montserrat-Bold"),
-                        ),
-                        onPressed: () {
-                          _timeSlot = "6:00 PM";
-                          selectedChange();
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FlatButton(
-                        color: btnColor_8,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)),
-                        padding: EdgeInsets.all(10.0),
-                        child: new Text(
-                          "8:00 PM",
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontFamily: "Montserrat-Bold"),
-                        ),
-                        onPressed: () {
-                          _timeSlot = "8:00 PM";
-                          selectedChange();
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: FlatButton(
-                        color: btnColor_9,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)),
-                        padding: EdgeInsets.all(10.0),
-                        child: new Text(
-                          "11:00 PM",
-                          style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.white,
-                              fontFamily: "Montserrat-Bold"),
-                        ),
-                        onPressed: () {
-                          _timeSlot = "11:00 PM";
-                          selectedChange();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
           ),
         ],
@@ -724,7 +975,7 @@ class _BookingMainState extends State<BookingMain> {
 
   void add() {
     setState(() {
-      if (_n < 15) {
+      if (_n + reserved < 20) {
         _n++;
         _Crindex = _n;
       }
@@ -740,38 +991,61 @@ class _BookingMainState extends State<BookingMain> {
     });
   }
 
-  void selectedChange() {
-    setState(() {
-      deSelectAll();
-      switch (_timeSlot) {
-        case "9:45 AM":
-          btnColor_1 = selectedColor;
-          break;
-        case "10:00 AM":
-          btnColor_2 = selectedColor;
-          break;
-        case "11:00 AM":
-          btnColor_3 = selectedColor;
-          break;
-        case "12:00 PM":
-          btnColor_4 = selectedColor;
-          break;
-        case "2:45 PM":
-          btnColor_5 = selectedColor;
-          break;
-        case "4:00 PM":
-          btnColor_6 = selectedColor;
-          break;
-        case "6:00 PM":
-          btnColor_7 = selectedColor;
-          break;
-        case "8:00 PM":
-          btnColor_8 = selectedColor;
-          break;
-        case "11:00 PM":
-          btnColor_9 = selectedColor;
-          break;
+  Future _getUserBooking() async {
+    var snapShort = [];
+    QuerySnapshot querySnapshot =
+    await Firestore.instance.collection("BookingDetails").getDocuments();
+    var list = querySnapshot.documents;
+    for (var val in list) {
+      if (val.data["_resId"] == widget.restruantInfo.restruant_Id &&
+          val.data["_bookingDate"].toString().compareTo(_date.day.toString() +
+              ":" +
+              _date.month.toString() +
+              ":" +
+              _date.year.toString()) ==
+              0 &&
+          _timeSlot != null &&
+          val.data["_timeSlot"].toString().compareTo(_timeSlot) == 0) {
+        reserved = reserved + val.data["_noOfTables"];
       }
+    }
+  }
+
+  void selectedChange() {
+    reserved = 0;
+    _getUserBooking().then((val) {
+      setState(() {
+        deSelectAll();
+        switch (_timeSlot) {
+          case "9:45 AM":
+            btnColor_1 = selectedColor;
+            break;
+          case "10:00 AM":
+            btnColor_2 = selectedColor;
+            break;
+          case "11:00 AM":
+            btnColor_3 = selectedColor;
+            break;
+          case "12:00 PM":
+            btnColor_4 = selectedColor;
+            break;
+          case "2:45 PM":
+            btnColor_5 = selectedColor;
+            break;
+          case "4:00 PM":
+            btnColor_6 = selectedColor;
+            break;
+          case "6:00 PM":
+            btnColor_7 = selectedColor;
+            break;
+          case "8:00 PM":
+            btnColor_8 = selectedColor;
+            break;
+          case "11:00 PM":
+            btnColor_9 = selectedColor;
+            break;
+        }
+      });
     });
   }
 
@@ -811,7 +1085,7 @@ class _BookingMainState extends State<BookingMain> {
         } else {
           Route route = HorizontalTransition(
               builder: (BuildContext context) =>
-                  new OnBoardingPage("BookingPage"));
+              new OnBoardingPage("BookingPage"));
           Navigator.push(context, route);
         }
       });
@@ -832,7 +1106,7 @@ class _BookingMainState extends State<BookingMain> {
         widget.restruantInfo.restruant_User_rating.aggregate_rating;
     GetterSetterBookingDetails.noOfTables = _n;
     GetterSetterBookingDetails.avgCost =
-        (widget.restruantInfo.restruant_Avg_cost_for_two / 2);
+    (widget.restruantInfo.restruant_Avg_cost_for_two / 2);
     GetterSetterBookingDetails.securityPerPerson = _securityPerPerson();
     GetterSetterBookingDetails.totalSecrityCost = _totalSecurity();
     if (_date == null) {
@@ -854,17 +1128,17 @@ class _BookingMainState extends State<BookingMain> {
 
   _securityPerPerson() {
     return double.parse(((double.parse(widget
-                    .restruantInfo.restruant_Avg_cost_for_two
-                    .toString()) /
-                (2.0 * AVERAGE_TABLE_COST)) <
-            999)
+        .restruantInfo.restruant_Avg_cost_for_two
+        .toString()) /
+        (2.0 * AVERAGE_TABLE_COST)) <
+        999)
         ? (double.parse(widget.restruantInfo.restruant_Avg_cost_for_two
-                    .toString()) /
-                (2.0 * AVERAGE_TABLE_COST))
-            .toString()
+        .toString()) /
+        (2.0 * AVERAGE_TABLE_COST))
+        .toString()
         : formatter.format(double.parse(
-                widget.restruantInfo.restruant_Avg_cost_for_two.toString()) /
-            (2.0 * AVERAGE_TABLE_COST)));
+        widget.restruantInfo.restruant_Avg_cost_for_two.toString()) /
+        (2.0 * AVERAGE_TABLE_COST)));
   }
 
   double _totalSecurity() {
@@ -874,18 +1148,18 @@ class _BookingMainState extends State<BookingMain> {
   String _formatDate() {
     return (_date == null)
         ? formatDate(
-            DateTime.now(),
-            (DateTime.now().day == 1)
-                ? ['DD', ' , ', 'd', 'st ', 'MM', ' ', 'yy']
-                : (DateTime.now().day == 2)
-                    ? ['DD', ' , ', 'd', 'nd ', 'MM', ' ', 'yy']
-                    : ['DD', ' , ', 'd', 'th ', 'MM', ' ', 'yy'])
+        DateTime.now(),
+        (DateTime.now().day == 1)
+            ? ['DD', ' , ', 'd', 'st ', 'MM', ' ', 'yy']
+            : (DateTime.now().day == 2)
+            ? ['DD', ' , ', 'd', 'nd ', 'MM', ' ', 'yy']
+            : ['DD', ' , ', 'd', 'th ', 'MM', ' ', 'yy'])
         : formatDate(
-            _date,
-            (_date.day == 1)
-                ? ['DD', ' , ', 'd', 'st ', 'MM', ' ', 'yy']
-                : (_date.day == 2)
-                    ? ['DD', ' , ', 'd', 'nd ', 'MM', ' ', 'yy']
-                    : ['DD', ' , ', 'd', 'th ', 'MM', ' ', 'yy']);
+        _date,
+        (_date.day == 1)
+            ? ['DD', ' , ', 'd', 'st ', 'MM', ' ', 'yy']
+            : (_date.day == 2)
+            ? ['DD', ' , ', 'd', 'nd ', 'MM', ' ', 'yy']
+            : ['DD', ' , ', 'd', 'th ', 'MM', ' ', 'yy']);
   }
 }

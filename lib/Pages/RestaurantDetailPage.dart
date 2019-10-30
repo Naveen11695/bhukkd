@@ -447,6 +447,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                         ConnectionState.done) {
                                                       if (snapShot.data !=
                                                           null) {
+
                                                         return Material(
                                                           child:
                                                               ListView.builder(
@@ -472,11 +473,14 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                                                   scrollPhysics: const BouncingScrollPhysics(),
                                                                                   builder: (BuildContext context, int index) {
                                                                                     return PhotoViewGalleryPageOptions(
-                                                                                      imageProvider: NetworkImage(snapShot.data[index]),
+                                                                                      imageProvider: NetworkImage(
+                                                                                        snapShot
+                                                                                            .data[index],
+                                                                                      ),
                                                                                       initialScale: PhotoViewComputedScale.contained * 1,
                                                                                       minScale: PhotoViewComputedScale.contained * 1,
                                                                                       maxScale: PhotoViewComputedScale.contained * 2,
-                                                                                      //heroTag: galleryItems[index].id,
+                                                                                      heroTag: index,
                                                                                     );
                                                                                   },
                                                                                   itemCount: snapShot.data.length,
@@ -772,20 +776,43 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                                   ],
                                                                 ),
                                                                 child:
-                                                                    CircleAvatar(
-                                                                  maxRadius: 30,
-                                                                  backgroundImage:
-                                                                      NetworkImage(
-                                                                    snapShot
+                                                                ClipOval(
+                                                                  child: CachedNetworkImage(
+                                                                    imageUrl: snapShot
                                                                         .data
                                                                         .user_reviews[
-                                                                            index]
+                                                                    index]
                                                                         .review
                                                                         .user
                                                                         .profile_image,
+                                                                    fit: BoxFit
+                                                                        .fitHeight,
+                                                                    height:
+                                                                    MediaQuery
+                                                                        .of(
+                                                                        context)
+                                                                        .size
+                                                                        .height *
+                                                                        0.14,
+                                                                    placeholder: (
+                                                                        context,
+                                                                        url) =>
+                                                                        Image
+                                                                            .asset(
+                                                                          "assets/images/icons/default_userImage.png",
+                                                                          fit: BoxFit
+                                                                              .cover,
+                                                                        ),
+                                                                    errorWidget: (
+                                                                        context,
+                                                                        url,
+                                                                        error) =>
+                                                                        Icon(
+                                                                            Icons
+                                                                                .error),
                                                                   ),
                                                                 ),
-                                                              ),
+                                                                  ),
                                                               title: Column(
                                                                   crossAxisAlignment:
                                                                       CrossAxisAlignment
@@ -812,7 +839,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                                             color:
                                                                             TEXT_PRIMARY_COLOR,
                                                                         fontFamily:
-                                                                        FONT_TEXT_PRIMARY,
+                                                                        FONT_TEXT_EXTRA,
                                                                         fontWeight:
                                                                             FontWeight.w600,
                                                                         fontSize:
@@ -894,8 +921,8 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                       textAlign: TextAlign.start,
                                       style: new TextStyle(
                                         color: Colors.white,
-                                        fontFamily: "Montserrat-Bold",
-                                        fontSize: 35,
+                                        fontFamily: FONT_TEXT_EXTRA,
+                                        fontSize: 25,
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 1.2,
                                         wordSpacing: 0.5,

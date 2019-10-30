@@ -10,7 +10,7 @@ description: A spicy hot place to find food that lets you book a table in nearby
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.0.0 <3.0.0"
 
 dependencies:
   splashscreen: ^1.2.0
@@ -41,6 +41,7 @@ dependencies:
   flutter_masked_text: ^0.8.0
   rflutter_alert: ^1.0.3
   toast: ^0.1.5
+  flutter_mailer: ^0.4.1+2
 
 
 
@@ -92,6 +93,7 @@ flutter:
   - assets/animations/near_by_rest_loading.flr
   - assets/animations/restaurant_details.flr
   - assets/animations/searching.flr
+  - assets/animations/warning.flr
   - assets/animations/Loading animation.flr
   - assets/animations/loading_Untitled.flr
   - assets/animations/dotLoader.flr
@@ -117,6 +119,10 @@ flutter:
   - assets/images/icons/dinner.png
   - assets/images/icons/pubs_bars.png
   - assets/images/icons/friendly_delivery.png
+  - assets/images/icons/default_userImage.png
+  - assets/images/icons/chair_red.png
+  - assets/images/icons/chair_green.png
+  - assets/images/icons/chair_gray.png
   - assets/images/icons/club_lounges.png
   - assets/images/not_found.gif
   - assets/images/

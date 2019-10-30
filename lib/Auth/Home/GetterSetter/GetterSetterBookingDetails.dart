@@ -1,4 +1,5 @@
 class GetterSetterBookingDetails {
+  static String _bookingId;
   static String _resId;
   static String _resImageUrl;
   static String _resName;
@@ -11,6 +12,13 @@ class GetterSetterBookingDetails {
   static String _bookingDate;
   static String _timeSlot;
   static String _status;
+
+
+  static String get bookingId => _bookingId;
+
+  static set bookingId(String value) {
+    _bookingId = value;
+  }
 
   static String get resId => _resId;
 
