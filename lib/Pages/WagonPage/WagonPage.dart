@@ -11,11 +11,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class WagonPage extends StatefulWidget {
-  WagonPage({Key key}) : super(key: key);
+  const WagonPage({Key key}) : super(key: key);
 
   @override
   _WagonPageState createState() => new _WagonPageState();
 }
+
 
 class _WagonPageState extends State<WagonPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;

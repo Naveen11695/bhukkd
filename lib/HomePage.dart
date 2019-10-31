@@ -1,11 +1,11 @@
 import 'package:bhukkd/Auth/Onboarding/Pages/onboarding_page.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:bhukkd/Pages/Explore/ExplorePage.dart';
-import 'package:bhukkd/Pages/TrendingPage/Componets/HorizontalScroll.dart';
 import 'package:bhukkd/Pages/TrendingPage/TrendingPage.dart';
 import 'package:bhukkd/Pages/WagonPage/WagonPage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class HomePage extends StatefulWidget {
   @override
@@ -17,7 +17,7 @@ AsyncSnapshot saveGeoCodeRest=AsyncSnapshot.nothing();
 
 class _HomePage extends State<HomePage> {
 
-  int selectedIndex = 0;
+  int _selectedIndex = 0;
 
 
   List<Widget> bottomNavigation = [
@@ -27,53 +27,60 @@ class _HomePage extends State<HomePage> {
     new OnBoardingPage("LoginPage"),
   ];
 
+
+  final PageStorageBucket bucket = PageStorageBucket();
+
   @override
   void initState() {
-    // TODO: implement initState
-
     super.initState();
   }
-  @override
-  Widget build(BuildContext context) {
-    final bottomNavColor = SECONDARY_COLOR_1;
-    return new Scaffold(
-      body: bottomNavigation[selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
+
+  final bottomNavColor = SECONDARY_COLOR_1;
+
+  Widget _bottomNavigationBar(int selectedIndex) =>
+      BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        onTap: (int index) {
-          setState(() {
-            saveGeoCodeRest = fetchRestByGeoCodeData;
-            this.selectedIndex = index;
-          });
-        },
-        fixedColor: Colors.grey,
+        onTap: (int index) => setState(() => _selectedIndex = index),
         currentIndex: selectedIndex,
-        items: <BottomNavigationBarItem>[
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.trending_up,
-                color: bottomNavColor,
-              ),
-              title: new Text("Trending", textAlign: TextAlign.center,style: new TextStyle(
-                  color: bottomNavColor, fontFamily: FONT_TEXT_PRIMARY
-              ),),),
+            icon: Icon(
+              Icons.trending_up,
+              color: SECONDARY_COLOR_1,
+            ),
+            title: const Text(
+              "Trending", textAlign: TextAlign.center, style: const TextStyle(
+                color: SECONDARY_COLOR_1, fontFamily: FONT_TEXT_PRIMARY
+            ),),),
           BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.periscope, color:bottomNavColor),
-              title: new Text("Explore",textAlign: TextAlign.center,style: new TextStyle(
-                  color: bottomNavColor, fontFamily: FONT_TEXT_PRIMARY
-              ),),),
+            icon: Icon(FontAwesomeIcons.periscope, color: SECONDARY_COLOR_1),
+            title: const Text(
+              "Explore", textAlign: TextAlign.center, style: const TextStyle(
+                color: SECONDARY_COLOR_1, fontFamily: FONT_TEXT_PRIMARY
+            ),),),
           BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.chair, color:bottomNavColor),
-              title: new Text("Bookings",textAlign: TextAlign.center,style: new TextStyle(
-                  color: bottomNavColor, fontFamily: FONT_TEXT_PRIMARY
-              ),),),
+            icon: Icon(FontAwesomeIcons.chair, color: SECONDARY_COLOR_1),
+            title: const Text(
+              "Bookings", textAlign: TextAlign.center, style: const TextStyle(
+                color: SECONDARY_COLOR_1, fontFamily: FONT_TEXT_PRIMARY
+            ),),),
           BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.userCircle, color: bottomNavColor),
-            title: new Text("Account", textAlign: TextAlign.center,style: new TextStyle(
-                color: bottomNavColor, fontFamily: FONT_TEXT_PRIMARY
-              ),),
+            icon: Icon(FontAwesomeIcons.userCircle, color: SECONDARY_COLOR_1),
+            title: const Text(
+              "Account", textAlign: TextAlign.center, style: const TextStyle(
+                color: SECONDARY_COLOR_1, fontFamily: FONT_TEXT_PRIMARY
+            ),),
           ),
         ],
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: _bottomNavigationBar(_selectedIndex),
+      body: PageStorage(
+        child: bottomNavigation[_selectedIndex],
+        bucket: bucket,
       ),
     );
   }

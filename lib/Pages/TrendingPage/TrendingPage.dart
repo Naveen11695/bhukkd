@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:async/async.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:bhukkd/Pages/RestaurantDetailPage.dart';
@@ -23,6 +24,16 @@ List<dynamic> copydata = [];
 
 bool isReloading = false;
 double latitude, longitude;
+
+
+final _getLocationName = new AsyncMemoizer();
+
+Future LocationName() =>
+    _getLocationName.runOnce(() {
+      return getLocationName();
+    });
+
+// ignore: missing_return
 Future<Placemark> getLocationName() async {
   try {
     await StoreUserLocation.get_CurrentLocation().then((loc) {
@@ -53,8 +64,7 @@ Future<Placemark> getLocationName() async {
 String getSortingValue() {}
 
 class TrendingPage extends StatefulWidget {
-  TrendingPage({Key key}) : super(key: key);
-
+  const TrendingPage({Key key}) : super(key: key);
   _TrendingPageState createState() => new _TrendingPageState();
 }
 
@@ -427,10 +437,18 @@ class _TrendingPageState extends State<TrendingPage>
     );
   }
 
-  Future callit() async {
-    await Future.delayed(
-        Duration(seconds: 10), () => fetchRestByCollectionID(1, "", "desc"));
-  }
+
+  final _callit = new AsyncCache<List<String>>(const Duration(hours: 1));
+
+  get _callitAsync =>
+      _callit.fetch(() {
+        try {
+          return fetchRestByCollectionID(1, "", "desc");
+        }
+        catch (e) {
+          return null;
+        }
+      });
 
   @override
   void dispose() {
@@ -498,7 +516,7 @@ class _TrendingPageState extends State<TrendingPage>
   void initState() {
     super.initState();
     getMapKey();
-    getLocationName().then((locality) {
+    LocationName().then((locality) {
       if (locality != null) {
         address = locality.name +
             " " +
@@ -511,14 +529,15 @@ class _TrendingPageState extends State<TrendingPage>
             locality.postalCode;
       }
     });
-    fetchRestByCollectionID(1, "", "desc");
+    _callitAsync;
+    ;
     _controller.addListener(() async {
       if (_controller.position.pixels == _controller.position.maxScrollExtent) {
         print("status: " + _status);
         if (_status.compareTo("Active") == 0) {
           Toast.show("loading! more results", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-          await fetchRestByCollectionID(1, "", "desc");
+          _callitAsync;
         } else {
           Toast.show("Sorry! no more results", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -529,7 +548,7 @@ class _TrendingPageState extends State<TrendingPage>
 
   Future<Null> refresh() async {
     isReloading = true;
-    getLocationName().then((locality) {
+    LocationName().then((locality) {
       if (locality != null) {
         address = locality.name +
             " " +
@@ -546,11 +565,11 @@ class _TrendingPageState extends State<TrendingPage>
     setState(() {
       CustomHorizontalScroll();
       HorizontalScroll();
-      callit();
+      _callitAsync;
       _controller.addListener(() async {
         if (_controller.position.pixels ==
             _controller.position.maxScrollExtent) {
-          await fetchRestByCollectionID(1, "", "desc");
+          _callitAsync;
         }
       });
     });

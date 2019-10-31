@@ -348,9 +348,9 @@ class _WelcomePageState extends State<WelcomePage>
     removeData();
     try {
       _auth.signOut();
-      _googleSignIn.disconnect();
-      print("Signed Out");
       setState(() {});
+      //_googleSignIn.disconnect();
+      print("Signed Out");
     } catch (e) {
       print(e.toString());
     }

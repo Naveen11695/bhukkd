@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class OnBoardingPage extends StatefulWidget {
   final String _key;
 
-  OnBoardingPage(this._key);
+  const OnBoardingPage(this._key);
 
   @override
   _OnBoardingPageState createState() => _OnBoardingPageState();

@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:async/async.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:bhukkd/Pages/RestaurantDetailPage.dart';
@@ -18,33 +20,35 @@ class CustomHorizontalScroll extends StatefulWidget {
   _CustomHorizontalScrollState createState() => _CustomHorizontalScrollState();
 }
 
-AsyncSnapshot getTopRestaurants;
+final _fetchRestGeoCode = new AsyncMemoizer();
+
+Future fetchRestGeoCode() =>
+    _fetchRestGeoCode.runOnce(() {
+      return getTopRestaurants();
+    });
 
 class _CustomHorizontalScrollState extends State<CustomHorizontalScroll>
     with AutomaticKeepAliveClientMixin {
-  Future<dynamic> fetchRestGeoCode;
+
   int count = 1;
 
   @override
   void initState() {
     super.initState();
-    fetchRestGeoCode = getTopRestaurants();
   }
 
   TrendingPage trendingPage;
+
   @override
   Widget build(BuildContext context) {
     double c_width = MediaQuery.of(context).size.width * 0.4;
     return Container(
         height: 150,
         child: FutureBuilder(
-          future: count == 1 || isReloading == true
-              ? getTopRestaurants()
-              : fetchRestGeoCode,
+          future: fetchRestGeoCode(),
           // ignore: missing_return
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              fetchRestByGeoCodeData = snapshot;
               count++;
               isReloading = false;
               if (snapshot.data == "error") {
@@ -206,66 +210,64 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll>
         ));
   }
 
-
-
-  Future getTopRestaurants() async {
-    try {
-      getKey();
-      String entity_id;
-      String entity_type;
-      await getEntityFromLocations().then((loc){
-        entity_id=loc.entity_id.toString();
-        entity_type=loc.entity_type.toString();
-      });
-
-      bool flag = false;
-      Map<String, dynamic> jsonParsed;
-      var fireStore = Firestore.instance;
-      DocumentReference snapshot =
-      fireStore.collection('TopRestaurants').document(
-          entity_type + "-" + entity_id);
-      await snapshot.get().then((dataSnapshot) {
-        if (dataSnapshot.exists && DateTime
-            .now()
-            .day != 1) {
-          final response = dataSnapshot.data[entity_type + "-" + entity_id];
-          jsonParsed = json.decode(response);
-        }
-        else {
-          flag = true;
-        }
-      });
-
-      if(flag) {
-        print("<TopRestaurants>");
-        String url =
-            "https://developers.zomato.com/api/v2.1/location_details?entity_id=$entity_id&entity_type=$entity_type";
-        final response = await http.get(Uri.encodeFull(url),
-            headers: {"Accept": "application/json", "user-key": api_key});
-        if (response.statusCode == 200) {
-          jsonParsed = json.decode(response.body);
-          saveTopByRestaurants(entity_type + "-" + entity_id, response.body);
-        } else {
-          print("<TopRestaurants> Problem");
-          return "error";
-        }
-      }
-      List<dynamic> bestRestaurants = jsonParsed['best_rated_restaurant'];
-      List<NearByRestaurants> bestRest = [];
-      for (var r in bestRestaurants) {
-        NearByRestaurants res = NearByRestaurants.fromJson(r);
-        bestRest.add(res);
-      }
-      return bestRest;
-    }catch(e){
-      print("<TopRestaurants> Problem");
-      return "error";
-    }
-  }
-
   @override
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
+}
+
+Future getTopRestaurants() async {
+  try {
+    getKey();
+    String entity_id;
+    String entity_type;
+    await getEntityFromLocations().then((loc) {
+      entity_id = loc.entity_id.toString();
+      entity_type = loc.entity_type.toString();
+    });
+
+    bool flag = false;
+    Map<String, dynamic> jsonParsed;
+    var fireStore = Firestore.instance;
+    DocumentReference snapshot =
+    fireStore.collection('TopRestaurants').document(
+        entity_type + "-" + entity_id);
+    await snapshot.get().then((dataSnapshot) {
+      if (dataSnapshot.exists && DateTime
+          .now()
+          .day != 1) {
+        final response = dataSnapshot.data[entity_type + "-" + entity_id];
+        jsonParsed = json.decode(response);
+      }
+      else {
+        flag = true;
+      }
+    });
+
+    if (flag) {
+      print("<TopRestaurants>");
+      String url =
+          "https://developers.zomato.com/api/v2.1/location_details?entity_id=$entity_id&entity_type=$entity_type";
+      final response = await http.get(Uri.encodeFull(url),
+          headers: {"Accept": "application/json", "user-key": api_key});
+      if (response.statusCode == 200) {
+        jsonParsed = json.decode(response.body);
+        saveTopByRestaurants(entity_type + "-" + entity_id, response.body);
+      } else {
+        print("<TopRestaurants> Problem");
+        return "error";
+      }
+    }
+    List<dynamic> bestRestaurants = jsonParsed['best_rated_restaurant'];
+    List<NearByRestaurants> bestRest = [];
+    for (var r in bestRestaurants) {
+      NearByRestaurants res = NearByRestaurants.fromJson(r);
+      bestRest.add(res);
+    }
+    return bestRest;
+  } catch (e) {
+    print("<TopRestaurants> Problem");
+    return "error";
+  }
 }
 
 void saveTopByRestaurants(String entity_id_type, String data) {
@@ -276,7 +278,6 @@ void saveTopByRestaurants(String entity_id_type, String data) {
     entity_id_type: data
   });
 }
-
 
 
 Widget getStarWidgets(String size) {

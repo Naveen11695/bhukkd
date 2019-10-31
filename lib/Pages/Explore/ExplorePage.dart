@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:async/async.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:bhukkd/Pages/Explore/CategoriesPage.dart';
@@ -13,24 +14,30 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ExplorePage extends StatefulWidget {
-  ExplorePage({Key key}) : super(key: key);
+  const ExplorePage({Key key}) : super(key: key);
 
   @override
   _ExplorePage createState() => _ExplorePage();
 }
+
+
+final _fetchCategories = new AsyncMemoizer();
+
+Future asyncfetchCategories() =>
+    _fetchCategories.runOnce(() {
+      return fetchCategories();
+    });
 
 class _ExplorePage extends State<ExplorePage> {
   GeoCode geoCode;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 
@@ -40,7 +47,7 @@ class _ExplorePage extends State<ExplorePage> {
       body: Container(
         color: Colors.white,
         child: FutureBuilder(
-            future: fetchCategories(),
+            future: asyncfetchCategories(),
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {

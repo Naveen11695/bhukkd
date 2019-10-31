@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:async/async.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:bhukkd/Pages/RestaurantDetailPage.dart';
@@ -21,17 +23,21 @@ class HorizontalScroll extends StatefulWidget {
   }
 }
 
-AsyncSnapshot fetchRestByGeoCodeData;
+final _fetchRestByGeoCodeData = new AsyncMemoizer();
+
+Future fetchRestByGeoCodeData() =>
+    _fetchRestByGeoCodeData.runOnce(() {
+      return getNearByRestaurants();
+    });
+
 
 class HorizontalScrollState extends State<HorizontalScroll>
     with AutomaticKeepAliveClientMixin {
-  Future<dynamic> fetchRestGeoCode;
-  int count = 1;
+  var count = 1;
 
   @override
   void initState() {
     super.initState();
-    fetchRestGeoCode = getNearByRestaurants();
   }
 
   @override
@@ -41,13 +47,10 @@ class HorizontalScrollState extends State<HorizontalScroll>
   Widget build(BuildContext context) {
     super.build(context);
     return FutureBuilder(
-      future: count == 1 || isReloading == true
-          ? getNearByRestaurants()
-          : fetchRestGeoCode,
+      future: fetchRestByGeoCodeData(),
       // ignore: missing_return
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          fetchRestByGeoCodeData = snapshot;
           count++;
           isReloading = false;
           if (snapshot.data == "error") {
@@ -232,9 +235,8 @@ Future getEntityFromLocations() async {
 
   try {
     String nameOfTheLocation;
-    await getLocationName().then((loc) {
+    LocationName().then((loc) {
       nameOfTheLocation = loc.locality;
-      print("locality Name + " + nameOfTheLocation);
     });
     if (nameOfTheLocation == "") {
       return "error";
