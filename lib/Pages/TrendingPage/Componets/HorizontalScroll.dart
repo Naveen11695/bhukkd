@@ -262,7 +262,6 @@ Future getEntityFromLocations() async {
     });
 
     if(flag) {
-      print("<location_suggestions>");
       String url =
           "https://developers.zomato.com/api/v2.1/locations?query=$nameOfTheLocation";
       final response = await http.get(Uri.encodeFull(url),
@@ -344,7 +343,10 @@ Future getNearByRestaurants() async {
     List<NearByRestaurants> bestRest = [];
     for (var r in bestRestaurants) {
       NearByRestaurants res = NearByRestaurants.fromJson(r);
-      bestRest.add(res);
+
+      if (res.thumb.length != 0) {
+        bestRest.add(res);
+      }
     }
     return bestRest;
   } catch (e) {

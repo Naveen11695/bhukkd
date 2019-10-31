@@ -244,8 +244,12 @@ class _TrendingPageState extends State<TrendingPage>
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2),
                           delegate: SliverChildBuilderDelegate(
+                            // ignore: missing_return
                               (BuildContext context, int index) {
-                            return InkWell(
+                                if (rests[index].featured_image
+                                    .toString()
+                                    .length != 0)
+                                  return InkWell(
                               onTap: () {
                                 Navigator.push(
                                     context,
@@ -269,19 +273,7 @@ class _TrendingPageState extends State<TrendingPage>
                                         padding: const EdgeInsets.all(3.0),
                                         child: Card(
                                           color: Colors.black,
-                                          child: rests[index].featured_image ==
-                                              null ||
-                                              rests[index].featured_image == ""
-                                              ? Image.asset(
-                                            "assets/images/default.jpg",
-                                            fit: BoxFit.cover,
-                                            height:
-                                            MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height * 0.14,
-                                          )
-                                              : CachedNetworkImage(
+                                          child: CachedNetworkImage(
                                             imageUrl: rests[index]
                                                 .featured_image,
                                             fit: BoxFit.fitHeight,
@@ -438,16 +430,11 @@ class _TrendingPageState extends State<TrendingPage>
   }
 
 
-  final _callit = new AsyncCache<List<String>>(const Duration(hours: 1));
+  final _callit = new AsyncCache(const Duration(hours: 1));
 
   get _callitAsync =>
       _callit.fetch(() {
-        try {
           return fetchRestByCollectionID(1, "", "desc");
-        }
-        catch (e) {
-          return null;
-        }
       });
 
   @override

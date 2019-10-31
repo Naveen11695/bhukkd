@@ -261,7 +261,9 @@ Future getTopRestaurants() async {
     List<NearByRestaurants> bestRest = [];
     for (var r in bestRestaurants) {
       NearByRestaurants res = NearByRestaurants.fromJson(r);
-      bestRest.add(res);
+      if (res.thumb.length != 0) {
+        bestRest.add(res);
+      }
     }
     return bestRest;
   } catch (e) {
