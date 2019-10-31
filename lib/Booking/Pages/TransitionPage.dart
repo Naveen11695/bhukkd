@@ -113,7 +113,7 @@ class TransitionState extends State<Transition> {
         .document(GetterSetterBookingDetails.bookingId)
         .setData({
       "OrderId":
-      uid + "-" + GetterSetterBookingDetails.resId.trim().toUpperCase(),
+      GetterSetterBookingDetails.bookingId,
       "FirstName": GetterSetterUserDetails.firstName.trim().toUpperCase(),
       "MiddleName": GetterSetterUserDetails.middleName.trim().toUpperCase(),
       "LastName": GetterSetterUserDetails.lastName.trim().toUpperCase(),

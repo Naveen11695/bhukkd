@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+const MaxPartySize = 20;
 const PHONE_AUTH_HINT = "User Name";
 const PHONE_AUTH_VALIDATION_EMPTY = "Your phone number can\'t be empty!";
 const PHONE_AUTH_VALIDATION_INVALID = 'This phone number is invalid!';

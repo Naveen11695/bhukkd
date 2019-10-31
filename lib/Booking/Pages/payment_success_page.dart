@@ -29,6 +29,12 @@ class PaymentSuccessPageState extends State<PaymentSuccessPage> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     showSuccessDialog();
     return Scaffold(
@@ -120,17 +126,16 @@ class PaymentSuccessPageState extends State<PaymentSuccessPage> {
       }
     } catch (e) {
       print("<SMS exception>" + e.toString());
-      return "error";
     }
   }
 
+
   goToDialog() {
-    sendMessage();
-    setState(() {
+    //sendMessage();  <------ Send SMS to User---------------------------------------------------------------------------------------------------------
+
       isDataAvailable = true;
       Navigator.of(context)
           .pushNamedAndRemoveUntil('/HomePage', (Route r) => r == null);
-    });
     showDialog(
         context: context,
         barrierDismissible: true,

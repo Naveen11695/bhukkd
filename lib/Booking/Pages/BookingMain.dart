@@ -232,31 +232,23 @@ class _BookingMainState extends State<BookingMain> {
     );
   }
 
-  Widget getChairWidgets(int size, int resevered_chairs, int rowSize) {
-    var Size = double.parse(size.toString());
+  Widget getChairWidgets(int resevered_chairs, int selected, int rowSize) {
     var list = [];
-    var sub = 0;
-    if (resevered_chairs > 0) {
-      sub = resevered_chairs;
-    }
-    if (resevered_chairs >= 7) {
-      resevered_chairs = 7;
-    }
     for (int i = 1; i <= resevered_chairs; i++) {
       list.add("r");
     }
-    for (int i = 1; i <= Size - sub; i++) {
+    for (int i = resevered_chairs; i < resevered_chairs + selected; i++) {
       list.add("s");
     }
-    for (int i = list.length; i < rowSize; i++) {
+    for (int i = resevered_chairs + selected; i < rowSize; i++) {
       list.add("u");
     }
-    return new Row(
+    return new Wrap(
         children: list
             .map((item) =>
             Container(
-                height: 45,
-                width: 45,
+                height: 50,
+                width: 50,
                 child: item == "r"
                     ? Image.asset(
                   "assets/images/icons/chair_red.png",
@@ -324,7 +316,7 @@ class _BookingMainState extends State<BookingMain> {
               ),
               child:
               InkWell(
-                onTap: (reserved != 20) ? findTable : null,
+                onTap: (reserved != MaxPartySize) ? findTable : null,
                 splashColor: Colors.white24,
                 highlightColor: Colors.white10,
                 child: Container(
@@ -339,7 +331,9 @@ class _BookingMainState extends State<BookingMain> {
                           letterSpacing: 1.5,
                           wordSpacing: 2.0,
                           textBaseline: TextBaseline.ideographic,
-                          color: (reserved != 20) ? Colors.white : Colors
+                          color: (reserved != MaxPartySize)
+                              ? Colors.white
+                              : Colors
                               .white10),
                     ),
                   ),
@@ -356,24 +350,9 @@ class _BookingMainState extends State<BookingMain> {
     );
   }
 
-  var count1 = 0;
-  var count2 = 0;
-  var count3 = 0;
   var reserved = 0;
 
   _buildPartySize() {
-    var selected = _n;
-    var total = reserved + selected;
-    if (total <= 7 && count1 <= 7) {
-      count1 = total;
-      count2 = 0;
-      count3 = 0;
-    } else if (total <= 14 && count2 <= 14) {
-      count2 = total - 7;
-      count3 = 0;
-    } else if (total <= 20) {
-      count3 = total - 14;
-    }
     return Card(
       elevation: 10,
       color: Colors.white70,
@@ -390,56 +369,12 @@ class _BookingMainState extends State<BookingMain> {
                   border: Border.all(width: 3.0),
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 ),
-                child: (reserved != 20)
+                child: (reserved != MaxPartySize)
                     ? Column(
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: Table(
-                        children: [
-                          TableRow(
-                            children: [
-                              TableCell(
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    getChairWidgets(count1, reserved, 7),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              TableCell(
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    getChairWidgets(
-                                        count2, reserved - 7, 7),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              TableCell(
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    getChairWidgets(
-                                        count3, reserved - 14, 6),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: getChairWidgets(reserved, _n, MaxPartySize),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -560,51 +495,8 @@ class _BookingMainState extends State<BookingMain> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: Table(
-                        children: [
-                          TableRow(
-                            children: [
-                              TableCell(
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    getChairWidgets(count1, reserved, 7),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              TableCell(
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    getChairWidgets(
-                                        count2, reserved - 7, 7),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                          TableRow(
-                            children: [
-                              TableCell(
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
-                                  children: <Widget>[
-                                    getChairWidgets(
-                                        count3, reserved - 14, 6),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                      child: Center(
+                          child: getChairWidgets(reserved, 0, MaxPartySize)),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
@@ -975,7 +867,7 @@ class _BookingMainState extends State<BookingMain> {
 
   void add() {
     setState(() {
-      if (_n + reserved < 20) {
+      if (_n + reserved < MaxPartySize) {
         _n++;
         _Crindex = _n;
       }
