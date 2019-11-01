@@ -31,28 +31,20 @@ Future fetchRestByGeoCodeData() =>
     });
 
 
-class HorizontalScrollState extends State<HorizontalScroll>
-    with AutomaticKeepAliveClientMixin {
-  var count = 1;
-
+class HorizontalScrollState extends State<HorizontalScroll> {
   @override
   void initState() {
     super.initState();
   }
 
-  @override
-  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return FutureBuilder(
       future: fetchRestByGeoCodeData(),
       // ignore: missing_return
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          count++;
-          isReloading = false;
           if (snapshot.data == "error") {
             return Container(
               child: ListView.builder(
@@ -75,8 +67,7 @@ class HorizontalScrollState extends State<HorizontalScroll>
             );
           } else if (snapshot.data != null) {
             return ListView.builder(
-                addAutomaticKeepAlives: true,
-                cacheExtent: 10,
+                cacheExtent: 10.0,
                 scrollDirection: Axis.horizontal,
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -194,7 +185,7 @@ class HorizontalScrollState extends State<HorizontalScroll>
             child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                itemCount: 20,
+                itemCount: 10,
                 itemBuilder: (BuildContext context, int index) {
                   return Container(
                       color: Colors.grey.shade100,
@@ -235,7 +226,7 @@ Future getEntityFromLocations() async {
 
   try {
     String nameOfTheLocation;
-    LocationName().then((loc) {
+    getLocationName().then((loc) {
       nameOfTheLocation = loc.locality;
     });
     if (nameOfTheLocation == "") {
@@ -316,7 +307,7 @@ Future getNearByRestaurants() async {
     await snapshot.get().then((dataSnapshot) {
       if (dataSnapshot.exists && DateTime
           .now()
-          .day != 1) {
+          .day != 2) {
         final response = dataSnapshot.data[entity_type + "-" + entity_id];
         jsonParsed = json.decode(response);
       }

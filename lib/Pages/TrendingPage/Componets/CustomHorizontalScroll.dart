@@ -20,17 +20,14 @@ class CustomHorizontalScroll extends StatefulWidget {
   _CustomHorizontalScrollState createState() => _CustomHorizontalScrollState();
 }
 
-final _fetchRestGeoCode = new AsyncMemoizer();
+final fetchRestGeoCode = new AsyncMemoizer();
 
-Future fetchRestGeoCode() =>
-    _fetchRestGeoCode.runOnce(() {
+Future asyncfetchRestGeoCode() =>
+    fetchRestGeoCode.runOnce(() {
       return getTopRestaurants();
     });
 
-class _CustomHorizontalScrollState extends State<CustomHorizontalScroll>
-    with AutomaticKeepAliveClientMixin {
-
-  int count = 1;
+class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
 
   @override
   void initState() {
@@ -41,16 +38,17 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll>
 
   @override
   Widget build(BuildContext context) {
-    double c_width = MediaQuery.of(context).size.width * 0.4;
+    double c_width = MediaQuery
+        .of(context)
+        .size
+        .width * 0.4;
     return Container(
         height: 150,
         child: FutureBuilder(
-          future: fetchRestGeoCode(),
+          future: asyncfetchRestGeoCode(),
           // ignore: missing_return
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              count++;
-              isReloading = false;
               if (snapshot.data == "error") {
                 return Container(
                   child: ListView.builder(
@@ -77,6 +75,7 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll>
                 return ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
+                  reverse: false,
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
@@ -85,7 +84,10 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll>
                         child: Container(
                           margin: EdgeInsets.only(left: 10, top: 5, bottom: 5),
                           height: 100,
-                          width: MediaQuery.of(context).size.width * 0.8,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.8,
                           child: Padding(
                             padding: const EdgeInsets.all(5.0),
                             child: Row(
@@ -96,7 +98,8 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll>
                                     fit: BoxFit.cover,
                                     width: 100,
                                     height: 105,
-                                    placeholder: (context, url) => new Image.asset(
+                                    placeholder: (context, url) =>
+                                    new Image.asset(
                                       "assets/images/default.jpg",
                                       fit: BoxFit.cover,
                                       width: 100,
@@ -209,11 +212,8 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll>
           },
         ));
   }
-
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
 }
+
 
 Future getTopRestaurants() async {
   try {
@@ -234,7 +234,7 @@ Future getTopRestaurants() async {
     await snapshot.get().then((dataSnapshot) {
       if (dataSnapshot.exists && DateTime
           .now()
-          .day != 1) {
+          .day != 2) {
         final response = dataSnapshot.data[entity_type + "-" + entity_id];
         jsonParsed = json.decode(response);
       }
@@ -265,9 +265,10 @@ Future getTopRestaurants() async {
         bestRest.add(res);
       }
     }
+
     return bestRest;
   } catch (e) {
-    print("<TopRestaurants> Problem");
+    print("<TopRestaurants> Problem" + e.toString());
     return "error";
   }
 }
@@ -293,7 +294,8 @@ Widget getStarWidgets(String size) {
   }
   return new Row(
       children: list
-          .map((item) => item == "s"
+          .map((item) =>
+      item == "s"
           ? Icon(Icons.star, color: SECONDARY_COLOR_1, size: 20,)
           : Icon(Icons.star, color: Colors.black12))
           .toList());

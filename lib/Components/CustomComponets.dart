@@ -168,6 +168,8 @@ var catagoriesPhotoList = [
   'friendly_delivery.png',
   'club_lounges.png',
 ];
+
+
 final random = new Random();
 
 Widget buttonLoading2 = Container(

@@ -25,7 +25,6 @@ List<dynamic> copydata = [];
 bool isReloading = false;
 double latitude, longitude;
 
-
 final _getLocationName = new AsyncMemoizer();
 
 Future LocationName() =>
@@ -55,7 +54,7 @@ Future<Placemark> getLocationName() async {
     }
   } catch (e) {
     print("error <Trending Page>: " + e.toString());
-    if (e.message.toString().compareTo("grpc failed") == 0) {
+    if (e.toString().compareTo("grpc failed") == 0) {
       return null;
     }
   }
@@ -65,6 +64,7 @@ String getSortingValue() {}
 
 class TrendingPage extends StatefulWidget {
   const TrendingPage({Key key}) : super(key: key);
+
   _TrendingPageState createState() => new _TrendingPageState();
 }
 
@@ -114,8 +114,7 @@ class _TrendingPageState extends State<TrendingPage>
                                 color: Colors.white,
                                 fontFamily: FONT_TEXT_PRIMARY,
                               )),
-                          Text(
-                              "----------------------------------------------",
+                          Text("----------------------------------------------",
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: TextStyle(
@@ -137,8 +136,7 @@ class _TrendingPageState extends State<TrendingPage>
                                 fontWeight: FontWeight.w300,
                                 fontFamily: FONT_TEXT_SECONDARY,
                               )),
-                          Text(
-                              "----------------------------------------------",
+                          Text("----------------------------------------------",
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: TextStyle(
@@ -173,7 +171,10 @@ class _TrendingPageState extends State<TrendingPage>
                   SliverList(
                     delegate: SliverChildListDelegate([
                       SizedBox(
-                        height: 30,
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.05,
                       ),
                       Container(
                         width: MediaQuery.of(context).size.height * 0.92,
@@ -192,9 +193,22 @@ class _TrendingPageState extends State<TrendingPage>
                         ),
                       ),
                       Container(
-                          width: MediaQuery.of(context).size.width * 0.92,
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 1.0,
                           height: 175,
                           child: HorizontalScroll()),
+                      SizedBox(
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.02,
+                      ),
+                      /*  Center(child: buildSlider(context)),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.02,
+                      ),*/
                       Container(
                         width: MediaQuery.of(context).size.height * 0.92,
                         alignment: AlignmentDirectional.topStart,
@@ -248,89 +262,95 @@ class _TrendingPageState extends State<TrendingPage>
                               (BuildContext context, int index) {
                                 if (rests[index].featured_image
                                     .toString()
-                                    .length != 0)
+                                    .length !=
+                                    0)
                                   return InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    HorizontalTransition(
-                                        builder: (BuildContext context) =>
-                                            RestaurantDetailPage(
-                                              productid: rests[index].id,
-                                            )));
-                              },
-                              child: Card(
-                                elevation: 10,
-                                child: Column(
-                                  verticalDirection: VerticalDirection.down,
-                                  children: <Widget>[
-                                    Container(
-                                      width: MediaQuery
-                                          .of(context)
-                                          .size
-                                          .width,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(3.0),
-                                        child: Card(
-                                          color: Colors.black,
-                                          child: CachedNetworkImage(
-                                            imageUrl: rests[index]
-                                                .featured_image,
-                                            fit: BoxFit.fitHeight,
-                                            height:
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          HorizontalTransition(
+                                              builder: (BuildContext context) =>
+                                                  RestaurantDetailPage(
+                                                    productid: rests[index].id,
+                                                  )));
+                                    },
+                                    child: Card(
+                                      elevation: 10,
+                                      child: Column(
+                                        verticalDirection: VerticalDirection
+                                            .down,
+                                        children: <Widget>[
+                                          Container(
+                                            width:
                                             MediaQuery
                                                 .of(context)
                                                 .size
-                                                .height * 0.14,
-                                            placeholder: (context, url) =>
-                                                Image.asset(
-                                                  "assets/images/default.jpg",
-                                                  fit: BoxFit.cover,
-                                                  height:
-                                                  MediaQuery
+                                                .width,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                  3.0),
+                                              child: Card(
+                                                color: Colors.black,
+                                                child: CachedNetworkImage(
+                                                  imageUrl:
+                                                  rests[index].featured_image,
+                                                  fit: BoxFit.fitHeight,
+                                                  height: MediaQuery
                                                       .of(context)
                                                       .size
-                                                      .height * 0.14,
+                                                      .height *
+                                                      0.14,
+                                                  placeholder: (context, url) =>
+                                                      Image.asset(
+                                                        "assets/images/default.jpg",
+                                                        fit: BoxFit.cover,
+                                                        height: MediaQuery
+                                                            .of(context)
+                                                            .size
+                                                            .height *
+                                                            0.14,
+                                                      ),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                      Icon(Icons.error),
                                                 ),
-                                            errorWidget: (context, url,
-                                                error) =>
-                                                Icon(Icons.error),
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 5.0,
+                                                left: 2.0,
+                                                right: 2.0),
+                                            child: Text(
+                                              rests[index].name,
+                                              textAlign: TextAlign.center,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontFamily: FONT_TEXT_PRIMARY,
+                                                  color: TEXT_PRIMARY_COLOR),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: Text(
+                                              rests[index].cuisines,
+                                              textAlign: TextAlign.center,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w300,
+                                                  fontFamily: FONT_TEXT_SECONDARY,
+                                                  color: TEXT_SECONDARY_COLOR),
+                                            ),
+                                          )
+                                        ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 5.0, left: 2.0, right: 2.0),
-                                      child: Text(
-                                        rests[index].name,
-                                        textAlign: TextAlign.center,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w500,
-                                            fontFamily: FONT_TEXT_PRIMARY,
-                                            color: TEXT_PRIMARY_COLOR),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(2.0),
-                                      child: Text(
-                                        rests[index].cuisines,
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w300,
-                                            fontFamily: FONT_TEXT_SECONDARY,
-                                            color: TEXT_SECONDARY_COLOR),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
+                                  );
                           },
                               childCount: rests.length,
                               addRepaintBoundaries: true))
@@ -429,12 +449,11 @@ class _TrendingPageState extends State<TrendingPage>
     );
   }
 
-
   final _callit = new AsyncCache(const Duration(hours: 1));
 
   get _callitAsync =>
       _callit.fetch(() {
-          return fetchRestByCollectionID(1, "", "desc");
+        return fetchRestByCollectionID(1, "", "desc");
       });
 
   @override
@@ -450,7 +469,6 @@ class _TrendingPageState extends State<TrendingPage>
         if (res.toString().trim().compareTo("error") != 0) {
           city_id = res[0].near_by_restaurants_location["city_id"].toString();
         }
-
       });
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {

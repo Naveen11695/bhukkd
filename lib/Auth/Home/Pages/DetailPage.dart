@@ -291,7 +291,7 @@ class _AccountState extends State<Account> {
                                   color: Color.fromRGBO(249, 129, 42, 1),
                                 ),
                                 onTap: () {
-                                  LocationName().then((locality) {
+                                  getLocationName().then((locality) {
                                     if (locality != null) {
                                       _addressController.text = locality.name +
                                           " " +

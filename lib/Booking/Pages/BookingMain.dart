@@ -92,7 +92,7 @@ class _BookingMainState extends State<BookingMain> {
 
   final booking_scaffoldKey = GlobalKey<ScaffoldState>();
 
-  bool _isScrollLimitReached = false;
+  bool _isScrollLimitReached = true;
   ScrollController _scrollController;
 
   @override

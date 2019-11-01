@@ -13,6 +13,7 @@ import 'package:progress_indicators/progress_indicators.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import './models/GeoCodeInfo/GeoCode.dart';
+import 'Constants/app_constant.dart';
 
 void main() {
   runApp(new Bhukkd());
@@ -30,8 +31,11 @@ class Bhukkd extends StatelessWidget {
           routes: <String, WidgetBuilder>{
             '/HomePage': (BuildContext context) => new HomePage(),
           },
-          theme:
-          new ThemeData(bottomAppBarColor: Color.fromRGBO(249, 129, 42, 1)),
+          theme: new ThemeData(
+            bottomAppBarColor: Color.fromRGBO(249, 129, 42, 1),
+            primaryColor: SECONDARY_COLOR_1,
+            accentColor: SECONDARY_COLOR_1,
+          ),
         ));
   }
 }
