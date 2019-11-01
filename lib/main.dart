@@ -32,9 +32,9 @@ class Bhukkd extends StatelessWidget {
             '/HomePage': (BuildContext context) => new HomePage(),
           },
           theme: new ThemeData(
-            bottomAppBarColor: Color.fromRGBO(249, 129, 42, 1),
+            bottomAppBarColor: SECONDARY_COLOR_1,
             primaryColor: SECONDARY_COLOR_1,
-            accentColor: SECONDARY_COLOR_1,
+            accentColor: Color.fromRGBO(249, 129, 42, 1),
           ),
         ));
   }

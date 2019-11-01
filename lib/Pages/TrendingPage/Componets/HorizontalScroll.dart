@@ -307,7 +307,7 @@ Future getNearByRestaurants() async {
     await snapshot.get().then((dataSnapshot) {
       if (dataSnapshot.exists && DateTime
           .now()
-          .day != 2) {
+          .day != 1) {
         final response = dataSnapshot.data[entity_type + "-" + entity_id];
         jsonParsed = json.decode(response);
       }

@@ -31,7 +31,6 @@ class RestaurantDetailPage extends StatefulWidget {
 class RestaurantDetailPageState extends State<RestaurantDetailPage>
     with SingleTickerProviderStateMixin {
   final _resDetailPageCache = new AsyncMemoizer();
-  final _resMenu = new AsyncMemoizer();
   final _resComments = new AsyncMemoizer();
   var restruant_Photo_url;
   var Menu;
@@ -52,9 +51,13 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
         return fetchPhotos(restruant_Photo_url);
       });
 
-  Future resMenu() => _resMenu.runOnce(() async {
+  final resMenu = new AsyncCache(const Duration(hours: 1));
+
+  get _resMenu =>
+      resMenu.fetch(() {
         return fetchMenu(Menu);
       });
+
 
   Future resComments() => _resComments.runOnce(() async {
         return fetchReviews(widget.productid);
@@ -64,10 +67,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
   Animation<double> _heightFactorAnimation;
   final double collapsedHeightFactor = 0.37;
   final double expendedHeightFactor = 0.842;
-  bool isAnimationCompleted = false;
 
-  bool _isScrollLimitReached = true;
-  ScrollController _scrollController;
 
   void initState() {
     super.initState();
@@ -77,33 +77,10 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
         Tween<double>(begin: collapsedHeightFactor, end: expendedHeightFactor)
             .animate(_controller);
 
-    _scrollController = ScrollController();
-    _scrollController.addListener(() {
-      final newState = _scrollController.offset <=
-          (_scrollController.position.minScrollExtent + 120.0);
-
-      if (newState != _isScrollLimitReached) {
-        setState(() {
-          _isScrollLimitReached = newState;
-        });
-      }
-    });
   }
 
   int i = 0;
 
-  onBottomPartTap() {
-    setState(() {
-      if (isAnimationCompleted) {
-        _controller.reverse();
-        _initialScale = 2;
-      } else {
-        _controller.forward();
-        _initialScale = 1;
-      }
-      isAnimationCompleted = !isAnimationCompleted;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +142,6 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                   Menu = snapshot.data.restruant_Menu;
                   coverImage = snapshot.data.restruant_Thumb;
                   return CustomScrollView(
-                    controller: _scrollController,
                     scrollDirection: Axis.vertical,
                     slivers: <Widget>[
                       SliverAppBar(
@@ -174,56 +150,6 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                         primary: true,
                         pinned: true,
                         flexibleSpace: FlexibleSpaceBar(
-                          title: _isScrollLimitReached
-                              ? ConstrainedBox(
-                            constraints: BoxConstraints(
-                                maxWidth:
-                                MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width *
-                                    0.5),
-                            child: Text(
-                              "",
-                            ),
-                          )
-                              : Text(
-                            snapshot.data.restruant_Name,
-                            textDirection: TextDirection.ltr,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            textAlign: TextAlign.start,
-                            style: new TextStyle(
-                              color: Colors.white,
-                              fontFamily: FONT_TEXT_EXTRA,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.2,
-                              wordSpacing: 0.5,
-                              shadows: [
-                                Shadow(
-                                  // bottomLeft
-                                    offset: Offset(1.5, 1.5),
-                                    color: SECONDARY_COLOR_1,
-                                    blurRadius: 20),
-                                Shadow(
-                                  // bottomRight
-                                    offset: Offset(1.5, 1.5),
-                                    color: Colors.white,
-                                    blurRadius: 5),
-                                Shadow(
-                                  // topRight
-                                    offset: Offset(1.5, 1.5),
-                                    color: SECONDARY_COLOR_1,
-                                    blurRadius: 5),
-                                Shadow(
-                                  // topLeft
-                                    offset: Offset(1.5, 1.5),
-                                    color: SECONDARY_COLOR_1,
-                                    blurRadius: 5),
-                              ],
-                            ),
-                          ),
                           centerTitle: false,
                           background: FutureBuilder(
                               future: _resPhotosCache,
@@ -245,7 +171,6 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                     );
                                   } else if (_snapShot.data != null) {
                                     return Container(
-                                      height: 1000,
                                       color: SECONDARY_COLOR_1,
                                       child: buildSlider(context, _snapShot),
                                     );
@@ -457,7 +382,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                               padding:
                                               const EdgeInsets.all(2.0),
                                               child: FutureBuilder(
-                                                  future: resMenu(),
+                                                  future: _resMenu,
                                                   // ignore: missing_return
                                                   builder: (BuildContext
                                                   context,
@@ -467,7 +392,6 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                         ConnectionState.done) {
                                                       if (snapShot.data !=
                                                           null) {
-
                                                         return Material(
                                                           child:
                                                           ListView.builder(
@@ -544,6 +468,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                                       2.0),
                                                                   child:
                                                                   Container(
+                                                                    color: SECONDARY_COLOR_1,
                                                                     child:
                                                                     CachedNetworkImage(
                                                                       imageUrl:
@@ -573,7 +498,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                                                   "assets/animations/loading_Untitled.flr",
                                                                                   animation: "Untitled",
                                                                                   fit: BoxFit
-                                                                                      .contain,
+                                                                                      .fitHeight,
                                                                                 ),
                                                                               ),
                                                                             ),
