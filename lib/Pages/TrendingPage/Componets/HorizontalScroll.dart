@@ -2,10 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:async/async.dart';
+import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
-import 'package:bhukkd/Pages/RestaurantDetailPage.dart';
-import 'package:bhukkd/Pages/TrendingPage/TrendingPage.dart';
+import 'package:bhukkd/HomePage.dart';
+import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
 import 'package:bhukkd/Services/SharedPreference.dart';
 import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
@@ -30,13 +31,11 @@ Future fetchRestByGeoCodeData() =>
       return getNearByRestaurants();
     });
 
-
 class HorizontalScrollState extends State<HorizontalScroll> {
   @override
   void initState() {
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -93,26 +92,21 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                         },
                         child: new Container(
                           child: Card(
-                            margin:
-                            EdgeInsets.only(left: 5, top: 2, bottom: 2),
+                            margin: EdgeInsets.only(left: 5, top: 2, bottom: 2),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4)),
                             elevation: 10,
                             child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 new Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Expanded(
                                       flex: 1,
                                       child: Padding(
-                                        padding:
-                                        const EdgeInsets.all(8.0),
-                                        child: (snapshot.data[index]
-                                            .thumb ==
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: (snapshot.data[index].thumb ==
                                             "")
                                             ? new Image.asset(
                                           "assets/images/default.jpg",
@@ -120,19 +114,41 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                           width: 150,
                                           height: 105,
                                         )
-                                            : CachedNetworkImage(
-                                          imageUrl: snapshot
-                                              .data[index].thumb,
-                                          fit: BoxFit.cover,
-                                          width: 150,
-                                          height: 105,
-                                          placeholder: (context, url) =>
-                                          new Image.asset(
-                                            "assets/images/default.jpg",
-                                            fit: BoxFit.cover,
-                                            width: 150,
-                                            height: 105,
-                                          ),
+                                            : Stack(
+                                          children: <Widget>[
+                                            CachedNetworkImage(
+                                              imageUrl: snapshot
+                                                  .data[index].thumb,
+                                              fit: BoxFit.fitWidth,
+                                              width: 160,
+                                              height: 105,
+                                              placeholder:
+                                                  (context, url) =>
+                                              new Image.asset(
+                                                "assets/images/default.jpg",
+                                                fit: BoxFit.cover,
+                                                width: 150,
+                                                height: 105,
+                                              ),
+                                            ),
+                                            Container(
+                                              height:
+                                              MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height *
+                                                  .130,
+                                              alignment:
+                                              Alignment.bottomRight,
+                                              child: ClipOval(
+                                                child: getRating(snapshot
+                                                    .data[index]
+                                                    .user_rating
+                                                    .aggregate_rating
+                                                    .toString()),
+                                              ),
+                                            )
+                                          ],
                                         ),
                                       ),
                                     ),
@@ -140,7 +156,7 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      top: 5.0, left: 5.0, right: 5.0),
+                                      top: 2.0, left: 2.0, right: 2.0),
                                   child: new Text(
                                     snapshot.data[index].name,
                                     textDirection: TextDirection.ltr,
@@ -207,22 +223,19 @@ class HorizontalScrollState extends State<HorizontalScroll> {
   }
 }
 
-
 void saveNearByRestaurantsLocation(String nameOfTheLocation, String data) {
   Firestore.instance
       .collection("Location")
       .document(nameOfTheLocation)
-      .setData({
-    nameOfTheLocation: data
-  });
+      .setData({nameOfTheLocation: data});
 }
+
 Future getEntityFromLocations() async {
   double latitude, longitude;
   await StoreUserLocation.get_CurrentLocation().then((loc) {
     latitude = double.parse(loc[0]);
     longitude = double.parse(loc[1]);
   });
-
 
   try {
     String nameOfTheLocation;
@@ -246,13 +259,12 @@ Future getEntityFromLocations() async {
         Map<String, dynamic> jsonParsed = json.decode(_response);
         List<dynamic> data = jsonParsed["location_suggestions"];
         location_suggestion_data = data[0];
-      }
-      else {
-        flag =true;
+      } else {
+        flag = true;
       }
     });
 
-    if(flag) {
+    if (flag) {
       String url =
           "https://developers.zomato.com/api/v2.1/locations?query=$nameOfTheLocation";
       final response = await http.get(Uri.encodeFull(url),
@@ -301,17 +313,16 @@ Future getNearByRestaurants() async {
     bool flag = false;
     Map<String, dynamic> jsonParsed;
     var fireStore = Firestore.instance;
-    DocumentReference snapshot =
-    fireStore.collection('NearByRestaurants').document(
-        entity_type + "-" + entity_id);
+    DocumentReference snapshot = fireStore
+        .collection('NearByRestaurants')
+        .document(entity_type + "-" + entity_id);
     await snapshot.get().then((dataSnapshot) {
       if (dataSnapshot.exists && DateTime
           .now()
           .day != 1) {
         final response = dataSnapshot.data[entity_type + "-" + entity_id];
         jsonParsed = json.decode(response);
-      }
-      else {
+      } else {
         flag = true;
       }
     });
@@ -346,19 +357,9 @@ Future getNearByRestaurants() async {
   }
 }
 
-
 void saveNearByRestaurants(String entity_id_type, String data) {
   Firestore.instance
       .collection("NearByRestaurants")
       .document(entity_id_type)
-      .setData({
-    entity_id_type: data
-  });
+      .setData({entity_id_type: data});
 }
-
-
-
-
-
-
-

@@ -1,5 +1,6 @@
 import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -28,6 +29,23 @@ Widget buildSlider(BuildContext context, AsyncSnapshot snapshot) {
           ),
         ),
       ],
+    ),
+  );
+}
+
+Widget buildSliderWaiting() {
+  return Container(
+    color: SECONDARY_COLOR_1,
+    child: Center(
+      child: Container(
+        height: 50,
+        width: 50,
+        child: new FlareActor(
+          "assets/animations/dotLoader.flr",
+          animation: "load",
+          fit: BoxFit.contain,
+        ),
+      ),
     ),
   );
 }

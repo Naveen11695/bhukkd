@@ -170,6 +170,35 @@ var catagoriesPhotoList = [
 ];
 
 
+Widget getRating(String rating) {
+  double aggRating = double.parse(rating);
+  return Container(
+    color: Color.fromARGB(
+        240, 200 - int.parse(aggRating.toString()[0]) * 100, 80, 0),
+    child: Padding(
+      padding:
+      const EdgeInsets
+          .all(8.0),
+      child: Text(
+          aggRating.toString(),
+          style: TextStyle(
+              fontFamily:
+              FONT_TEXT_PRIMARY,
+              color:
+              Colors.white,
+              fontSize: 20,
+              shadows: [
+                Shadow(
+                    offset: Offset(
+                        0.5,
+                        0.1),
+                    color: Colors
+                        .grey),
+              ])),
+    ),
+  );
+}
+
 final random = new Random();
 
 Widget buttonLoading2 = Container(

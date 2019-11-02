@@ -229,11 +229,11 @@ class _WagonPageState extends State<WagonPage> {
               padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
               child: Text(
                 snapShort["_noOfTables"].toString() +
-                    " X " +
+                    " X " + '₹ ' +
                     ((snapShort["_securityPerPerson"] < 999)
                         ? snapShort["_securityPerPerson"].toString()
                         : formatter.format(snapShort["_securityPerPerson"])) +
-                    " = " +
+                    " = " + '₹ ' +
                     ((snapShort["_totalSecrityCost"] < 999)
                         ? snapShort["_totalSecrityCost"].toString()
                         : formatter.format(snapShort["_totalSecrityCost"])),
@@ -437,7 +437,7 @@ class _WagonPageState extends State<WagonPage> {
               leading: Icon(FontAwesomeIcons.ccVisa),
               title: Text('Payment'),
               subtitle: Text(
-                "Rs. " + snapshot["_totalSecrityCost"].toString().toUpperCase(),
+                '₹ ' + snapshot["_totalSecrityCost"].toString().toUpperCase(),
               ),
             ),
             ListTile(

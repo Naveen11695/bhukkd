@@ -11,6 +11,7 @@ import 'package:bhukkd/models/GeoCodeInfo/GeoCode.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:http/http.dart' as http;
 
 class ExplorePage extends StatefulWidget {
@@ -51,111 +52,141 @@ class _ExplorePage extends State<ExplorePage> {
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
-                  return CustomScrollView(
-                    slivers: <Widget>[
-                      SliverAppBar(
-                        elevation: 10,
-                        floating: false,
-                        pinned: true,
-                        expandedHeight: 160,
-                        backgroundColor: SECONDARY_COLOR_1,
-                        title: Text(
-                          "Categories",
-                          style: TextStyle(
-                              fontFamily: FONT_TEXT_PRIMARY,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              wordSpacing: 2.0,
-                              letterSpacing: 1.0,
-                              color: Colors.white),
+                  return Stack(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 100.0),
+                        child: CustomScrollView(
+                          physics: BouncingScrollPhysics(),
+                          slivers: <Widget>[
+                            SliverToBoxAdapter(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0, vertical: 15.0),
+                              ),
+                            ),
+                            SliverGrid(
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2, childAspectRatio: 1),
+                              delegate: SliverChildBuilderDelegate(
+                                    (BuildContext context, int index) {
+                                  return Container(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(top: 10),
+                                      child: Card(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                            BorderRadius.all(
+                                                Radius.circular(20)),
+                                          ),
+                                          child:
+                                          Stack(
+                                              fit: StackFit.expand, children: [
+                                            Material(
+                                              elevation: 10,
+                                              type: MaterialType.canvas,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              child: InkWell(
+                                                  onTap: () {
+                                                    Navigator.of(context).push(
+                                                        MaterialPageRoute(
+                                                            builder: (
+                                                                BuildContext
+                                                                context) =>
+                                                                CategoriesPage(
+                                                                    id: snapshot
+                                                                        .data
+                                                                        .categoriesId[
+                                                                    index],
+                                                                    name: snapshot
+                                                                        .data
+                                                                        .categoriesName[
+                                                                    index],
+                                                                    photo:
+                                                                    catagoriesPhotoList[
+                                                                    index])));
+                                                  },
+                                                  child: Stack(
+                                                    fit: StackFit.expand,
+                                                    children: <Widget>[
+                                                      Hero(
+                                                        transitionOnUserGestures:
+                                                        true,
+                                                        tag: snapshot
+                                                            .data
+                                                            .categoriesId[index],
+                                                        child: ClipRRect(
+                                                            borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    20)),
+                                                            child: Image.asset(
+                                                              "assets/images/icons/" +
+                                                                  catagoriesPhotoList[
+                                                                  index],
+                                                              fit: BoxFit.cover,
+                                                            )),
+                                                      ),
+                                                      Center(
+                                                        child: new Text(
+                                                          snapshot.data
+                                                              .categoriesName[index],
+                                                          textAlign: TextAlign
+                                                              .center,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 2,
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .white,
+                                                              fontSize: 40,
+                                                              fontFamily: "Pacifico"),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )),
+                                            ),
+                                          ])),
+                                    ),
+                                  );
+                                },
+                                childCount: snapshot.data.categoriesId.length,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      SliverGrid(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, childAspectRatio: 1),
-                        delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.white,
-                                      offset: Offset(10, 0),
-                                      blurRadius: 50.0)
-                                ],
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 10),
-                                child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                    ),
-                                    child:
-                                    Stack(fit: StackFit.expand, children: [
-                                      Material(
-                                        elevation: 10,
-                                        type: MaterialType.canvas,
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20)),
-                                        child: InkWell(
-                                            onTap: () {
-                                              Navigator.of(context).push(MaterialPageRoute(
-                                                  builder: (BuildContext
-                                                  context) =>
-                                                      CategoriesPage(
-                                                          id: snapshot.data
-                                                                  .categoriesId[
-                                                              index],
-                                                          name: snapshot.data
-                                                                  .categoriesName[
-                                                              index],
-                                                          photo:
-                                                              catagoriesPhotoList[
-                                                                  index])));
-                                            },
-                                            child: Stack(
-                                              fit: StackFit.expand,
-                                              children: <Widget>[
-                                                Hero(
-                                                  transitionOnUserGestures:
-                                                  true,
-                                                  tag: snapshot
-                                                      .data.categoriesId[index],
-                                                  child: ClipRRect(
-                                                      borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(
-                                                              20)),
-                                                      child: Image.asset(
-                                                        "assets/images/icons/" +
-                                                            catagoriesPhotoList[
-                                                            index],
-                                                        fit: BoxFit.cover,
-                                                      )),
-                                                ),
-                                                Center(
-                                                  child: new Text(
-                                                    snapshot.data
-                                                        .categoriesName[index],
-                                                    textAlign: TextAlign.center,
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    maxLines: 2,
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 40,
-                                                        fontFamily: "Pacifico"),
-                                                  ),
-                                                ),
-                                              ],
-                                            )),
-                                      ),
-                                    ])),
-                              ),
-                            );
-                          },
-                          childCount: snapshot.data.categoriesId.length,
+                      ClipPath(
+                        clipper: WaveClipperTwo(),
+                        child: Container(
+                          color: SECONDARY_COLOR_1,
+                          height: 150,
+                          width: double.infinity,
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 50.0, left: 20.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  "Categories",
+                                  style: TextStyle(
+                                      fontFamily: FONT_TEXT_PRIMARY,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                      wordSpacing: 2.0,
+                                      letterSpacing: 1.0,
+                                      color: Colors.white),
+                                ),
+                                Text("Select a category", style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16.0
+                                ),),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ],

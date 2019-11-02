@@ -18,6 +18,7 @@ class SearchRestraunts extends Model {
 
     List<NearByRestaurants> restrauntList;
 
+
     if (restraunt != null) {
       restrauntList =
           restraunt.map((i) => NearByRestaurants.fromJson(i)).toList();

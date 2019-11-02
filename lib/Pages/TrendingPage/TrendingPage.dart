@@ -3,20 +3,21 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:async/async.dart';
+import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
-import 'package:bhukkd/Pages/RestaurantDetailPage.dart';
+import 'package:bhukkd/Pages/Explore/CategoriesPage.dart';
+import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
 import 'package:bhukkd/Pages/Search/SearchRestaurant.dart';
 import 'package:bhukkd/Pages/Search/search.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/CustomHorizontalScroll.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/HorizontalScroll.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
-import 'package:bhukkd/Services/SharedPreference.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import "package:geolocator/geolocator.dart";
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
 
@@ -25,52 +26,17 @@ List<dynamic> copydata = [];
 bool isReloading = false;
 double latitude, longitude;
 
-final _getLocationName = new AsyncMemoizer();
-
-Future LocationName() =>
-    _getLocationName.runOnce(() {
-      return getLocationName();
-    });
-
-// ignore: missing_return
-Future<Placemark> getLocationName() async {
-  try {
-    await StoreUserLocation.get_CurrentLocation().then((loc) {
-      latitude = double.parse(loc[0]);
-      longitude = double.parse(loc[1]);
-    });
-
-    Geolocator geolocator = Geolocator()
-      ..forceAndroidLocationManager = true;
-    GeolocationStatus geolocationStatus =
-    await geolocator.checkGeolocationPermissionStatus();
-    if (geolocationStatus == GeolocationStatus.granted) {
-      List<Placemark> placemark =
-      await Geolocator().placemarkFromCoordinates(latitude, longitude);
-      return placemark[0];
-    } else {
-      print("Location denied ");
-      return null;
-    }
-  } catch (e) {
-    print("error <Trending Page>: " + e.toString());
-    if (e.toString().compareTo("grpc failed") == 0) {
-      return null;
-    }
-  }
-}
-
-String getSortingValue() {}
 
 class TrendingPage extends StatefulWidget {
-  const TrendingPage({Key key}) : super(key: key);
+  final String address;
+  final Key key;
 
+  const TrendingPage(this.key, this.address) : super(key: key);
   _TrendingPageState createState() => new _TrendingPageState();
 }
 
 class _TrendingPageState extends State<TrendingPage>
     with AutomaticKeepAliveClientMixin {
-  String address;
   ScrollController _controller = new ScrollController();
   bool isInitializingRequest = false;
   List<dynamic> rests = [];
@@ -125,9 +91,9 @@ class _TrendingPageState extends State<TrendingPage>
                                 fontFamily: FONT_TEXT_SECONDARY,
                               )),
                           Text(
-                              address == null
+                              widget.address == null
                                   ? "Fetching Your Location.."
-                                  : address,
+                                  : widget.address,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: TextStyle(
@@ -277,49 +243,80 @@ class _TrendingPageState extends State<TrendingPage>
                                     child: Card(
                                       elevation: 10,
                                       child: Column(
-                                        verticalDirection: VerticalDirection
-                                            .down,
+                                        crossAxisAlignment: CrossAxisAlignment
+                                            .center,
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .center,
                                         children: <Widget>[
-                                          Container(
-                                            width:
-                                            MediaQuery
-                                                .of(context)
-                                                .size
-                                                .width,
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(
-                                                  3.0),
-                                              child: Card(
+                                          Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: Stack(
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .only(
+                                                      left: 5.0, right: 5.0),
+                                                  child: Container(
                                                 color: Colors.black,
-                                                child: CachedNetworkImage(
-                                                  imageUrl:
-                                                  rests[index].featured_image,
-                                                  fit: BoxFit.fitHeight,
-                                                  height: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height *
-                                                      0.14,
-                                                  placeholder: (context, url) =>
-                                                      Image.asset(
-                                                        "assets/images/default.jpg",
-                                                        fit: BoxFit.cover,
-                                                        height: MediaQuery
+                                                    child: Center(
+                                                      child: CachedNetworkImage(
+                                                        imageUrl: rests[index]
+                                                            .featured_image,
+                                                        fit: BoxFit.fill,
+                                                        height:
+                                                        MediaQuery
                                                             .of(context)
                                                             .size
                                                             .height *
                                                             0.14,
+                                                        width:
+                                                        MediaQuery
+                                                            .of(context)
+                                                            .size
+                                                            .width *
+                                                            0.5,
+                                                        placeholder:
+                                                            (context, url) =>
+                                                            Image.asset(
+                                                              "assets/images/default.jpg",
+                                                              fit: BoxFit.cover,
+                                                              height:
+                                                              MediaQuery
+                                                                  .of(context)
+                                                                  .size
+                                                                  .height *
+                                                                  0.14,
+                                                            ),
+                                                        errorWidget:
+                                                            (context, url,
+                                                            error) =>
+                                                            Icon(Icons.error),
                                                       ),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                      Icon(Icons.error),
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
+                                                Container(
+                                                  height: MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .height *
+                                                      .150,
+                                                  alignment:
+                                                  Alignment.bottomRight,
+                                                  child: ClipOval(
+                                                    child: getRating(
+                                                        rests[index]
+                                                            .user_rating
+                                                            .aggregate_rating
+                                                            .toString()),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                top: 5.0,
+                                                top: 2.0,
                                                 left: 2.0,
                                                 right: 2.0),
                                             child: Text(
@@ -390,7 +387,7 @@ class _TrendingPageState extends State<TrendingPage>
                     borderRadius: BorderRadius.circular(30.0),
                     child: InkWell(
                       onTap: () {
-                        if (address.isNotEmpty) {
+                        if (widget.address.isNotEmpty) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -465,50 +462,76 @@ class _TrendingPageState extends State<TrendingPage>
   Future fetchRestByCollectionID(int id, String q, String sorting) async {
     try {
       String city_id;
+      SearchRestraunts searchByCategory;
       await getNearByRestaurants().then((res) {
-        if (res.toString().trim().compareTo("error") != 0) {
+        if (res != null) {
           city_id = res[0].near_by_restaurants_location["city_id"].toString();
         }
       });
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        print("<fetchRestByCollectionID>");
-        Iterable<dynamic> key =
-            (await parseJsonFromAssets('assets/api/config.json')).values;
-        var apiKey = key.elementAt(0);
+        bool flag = false;
+        var fireStore = Firestore.instance;
+        DocumentReference snapshot = fireStore
+            .collection('Recommended')
+            .document(city_id + "-city-" + "Popular" + '-' + start.toString());
+        await snapshot.get().then((dataSnapshot) {
+          if (dataSnapshot.exists &&
+              DateTime
+                  .now()
+                  .day != 1 &&
+              dataSnapshot.data[start.toString()] != null) {
+            var _response = dataSnapshot.data[start.toString()];
+            searchByCategory =
+                SearchRestraunts.fromJson(json.decode(_response));
+          } else {
+            flag = true;
+          }
+        });
 
-        if (!isInitializingRequest) {
+        if (flag) {
+          print("<fetchRestByCollectionID>");
+          Iterable<dynamic> key =
+              (await parseJsonFromAssets('assets/api/config.json')).values;
+          var apiKey = key.elementAt(0);
+          if (!isInitializingRequest) {
+            try {
+              setState(() {
+                isInitializingRequest = true;
+              });
+            } catch (e) {
+              print("<Categories Exception> " + e.toString());
+            }
+            if (sorting != null && id != null) {
+              http.Response _response = await http.get(
+                  "https://developers.zomato.com/api/v2.1/search?entity_id=$city_id&entity_type=city&q=$q&order=$sorting&start=$start&sort=rating",
+                  headers: {"Accept": "application/json", "user-key": apiKey});
+              saveRecommended(city_id + "-city-" + "Popular", start.toString(),
+                  _response.body);
+              searchByCategory =
+                  SearchRestraunts.fromJson(json.decode(_response.body));
+            }
+          }
+        }
+
+        if (searchByCategory != null) {
+          start += 20;
+          copydata = List.from(searchByCategory.restaurants);
+          List<dynamic> addRest = [];
+          if (copydata.length == 20)
+            addRest = new List.generate(20, (index) => copydata[index]);
+          else {
+            _status = "finished";
+            Toast.show("Sorry! no more results", context,
+                duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+          }
           try {
             setState(() {
-              isInitializingRequest = true;
+              rests.addAll(addRest);
+              isInitializingRequest = false;
             });
           } catch (e) {
             print("exception <categories>: " + e.toString());
-          }
-          if (sorting != null && id != null) {
-            http.Response response = await http.get(
-                "https://developers.zomato.com/api/v2.1/search?entity_id=$city_id&entity_type=city&q=$q&order=$sorting&start=$start&sort=rating",
-                headers: {"Accept": "application/json", "user-key": apiKey});
-            start += 20;
-            SearchRestraunts searchByCategory =
-            SearchRestraunts.fromJson(json.decode(response.body));
-            copydata = List.from(searchByCategory.restaurants);
-            List<dynamic> addRest = [];
-            if (copydata.length == 20)
-              addRest = new List.generate(20, (index) => copydata[index]);
-            else {
-              _status = "finished";
-              Toast.show("Sorry! no more results", context,
-                  duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-            }
-            try {
-              setState(() {
-                rests.addAll(addRest);
-                isInitializingRequest = false;
-              });
-            } catch (e) {
-              print("exception <categories>: " + e.toString());
-            }
           }
         }
       }
@@ -517,32 +540,19 @@ class _TrendingPageState extends State<TrendingPage>
     }
   }
 
+
   @override
   void initState() {
     super.initState();
     getMapKey();
-    LocationName().then((locality) {
-      if (locality != null) {
-        address = locality.name +
-            " " +
-            locality.subLocality +
-            " " +
-            locality.subAdministrativeArea +
-            ", " +
-            locality.locality +
-            " " +
-            locality.postalCode;
-      }
-    });
     _callitAsync;
-    ;
     _controller.addListener(() async {
       if (_controller.position.pixels == _controller.position.maxScrollExtent) {
         print("status: " + _status);
         if (_status.compareTo("Active") == 0) {
           Toast.show("loading! more results", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-          _callitAsync;
+          fetchRestByCollectionID(1, "", "desc");
         } else {
           Toast.show("Sorry! no more results", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -553,19 +563,6 @@ class _TrendingPageState extends State<TrendingPage>
 
   Future<Null> refresh() async {
     isReloading = true;
-    LocationName().then((locality) {
-      if (locality != null) {
-        address = locality.name +
-            " " +
-            locality.subLocality +
-            " " +
-            locality.subAdministrativeArea +
-            ", " +
-            locality.locality +
-            " " +
-            locality.postalCode;
-      }
-    });
     await Future.delayed(Duration(seconds: 2));
     setState(() {
       CustomHorizontalScroll();

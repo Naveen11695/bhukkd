@@ -1,8 +1,7 @@
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
-import 'package:bhukkd/Pages/RestaurantDetailPage.dart';
-import 'package:bhukkd/Pages/TrendingPage/Componets/CustomHorizontalScroll.dart';
+import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
 import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +9,7 @@ import 'package:flutter/material.dart';
 class RestaurantData extends StatelessWidget {
   final NearByRestaurants repo;
 
-  RestaurantData(this.repo);
+  const RestaurantData(this.repo);
 
   @override
   Widget build(BuildContext context) {
@@ -39,26 +38,40 @@ class RestaurantData extends StatelessWidget {
                     children: <Widget>[
                       new Container(
                         child: Padding(
-                          padding: const EdgeInsets.only(top:8.0,left: 15.0, right: 8.0),
-                          child: ClipOval(child:CachedNetworkImage(
-                            imageUrl: repo.thumb,
-                            fit: BoxFit.cover,
-                            width: 110,
-                            height: 100,
-                            placeholder: (context, url) => new Image.asset(
-                              "assets/images/default.jpg",
-                              fit: BoxFit.cover,
-                              width: 110,
-                              height: 100,
-                            ),
+                          padding: const EdgeInsets.only(
+                              top: 8.0, left: 15.0, right: 8.0, bottom: 8.0),
+                          child: Stack(
+                            children: <Widget>[
+                              ClipOval(
+                                child: CachedNetworkImage(
+                                  imageUrl: repo.thumb,
+                                  fit: BoxFit.cover,
+                                  width: 100,
+                                  height: 105,
+                                  placeholder: (context, url) =>
+                                  new Image.asset(
+                                    "assets/images/default.jpg",
+                                    fit: BoxFit.cover,
+                                    width: 100,
+                                    height: 105,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height:
+                                MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * .125,
+                                alignment: Alignment.bottomRight,
+                                child: ClipOval(
+                                  child: getRating(
+                                      repo.user_rating.aggregate_rating
+                                          .toString()),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 5.0, bottom: 5.0, left: 5.0),
-                        child: getStarWidgets(
-                          repo.user_rating.aggregate_rating.toString(),
                         ),
                       ),
                     ],
@@ -115,9 +128,10 @@ class RestaurantData extends StatelessWidget {
                                   child: new Text(
                                     " ₹ " +
                                         ((repo.average_cost_for_two < 999)
-                                            ? repo.average_cost_for_two.toString()
-                                            : formatter
-                                            .format(repo.average_cost_for_two)) +
+                                            ? repo.average_cost_for_two
+                                            .toString()
+                                            : formatter.format(
+                                            repo.average_cost_for_two)) +
                                         " for two person (approx.)",
                                     textAlign: TextAlign.left,
                                     style: TextStyle(

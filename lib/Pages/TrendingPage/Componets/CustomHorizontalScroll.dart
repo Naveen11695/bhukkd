@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:async/async.dart';
+import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
-import 'package:bhukkd/Pages/RestaurantDetailPage.dart';
+import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/HorizontalScroll.dart';
 import 'package:bhukkd/Pages/TrendingPage/TrendingPage.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
@@ -92,20 +93,40 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                             padding: const EdgeInsets.all(5.0),
                             child: Row(
                               children: <Widget>[
-                                new ClipOval(
-                                  child: CachedNetworkImage(
-                                    imageUrl: snapshot.data[index].thumb,
-                                    fit: BoxFit.cover,
-                                    width: 100,
-                                    height: 105,
-                                    placeholder: (context, url) =>
-                                    new Image.asset(
-                                      "assets/images/default.jpg",
-                                      fit: BoxFit.cover,
-                                      width: 100,
-                                      height: 105,
+                                Stack(
+                                  children: <Widget>[
+                                    ClipOval(
+                                      child: CachedNetworkImage(
+                                        imageUrl: snapshot.data[index].thumb,
+                                        fit: BoxFit.cover,
+                                        width: 100,
+                                        height: 105,
+                                        placeholder: (context, url) =>
+                                        new Image.asset(
+                                          "assets/images/default.jpg",
+                                          fit: BoxFit.cover,
+                                          width: 100,
+                                          height: 105,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    Container(
+                                      height:
+                                      MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height *
+                                          .125,
+                                      alignment:
+                                      Alignment.bottomRight,
+                                      child: ClipOval(
+                                        child: getRating(snapshot
+                                            .data[index]
+                                            .user_rating
+                                            .aggregate_rating.toString()),
+                                      ),
+                                    )
+                                  ],
                                 ),
                                 new SizedBox(
                                   width: 20,

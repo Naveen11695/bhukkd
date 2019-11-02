@@ -445,7 +445,7 @@ class _BookingMainState extends State<BookingMain> {
                               ),
                             ),
                             Text(
-                              widget.restruantInfo.currency +
+                              '₹ ' +
                                   _securityPerPerson().toString(),
                               style: _textStyle(
                                   30, TEXT_PRIMARY_COLOR, "Pacifico"),
@@ -459,7 +459,7 @@ class _BookingMainState extends State<BookingMain> {
                               ),
                             ),
                             Text(
-                              widget.restruantInfo.currency +
+                              '₹ ' +
                                   ((_totalSecurity() < 999)
                                       ? _totalSecurity().toString()
                                       : formatter

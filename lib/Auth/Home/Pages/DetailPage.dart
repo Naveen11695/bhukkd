@@ -4,7 +4,7 @@ import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterUserDetails.dart';
 import 'package:bhukkd/Auth/Home/Pages/welcome_page.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
-import 'package:bhukkd/Pages/TrendingPage/TrendingPage.dart';
+import 'package:bhukkd/HomePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';

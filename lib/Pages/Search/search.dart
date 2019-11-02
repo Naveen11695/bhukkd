@@ -13,7 +13,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong/latlong.dart';
 
 class SearchList extends StatefulWidget {
-  SearchList({Key key}) : super(key: key);
+  const SearchList({Key key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _SearchState();
@@ -68,7 +68,7 @@ class _SearchState extends State<SearchList> {
         debounceTimer.cancel();
       }
       debounceTimer = Timer(Duration(milliseconds: 100), () {
-        if (this.mounted &&
+        if (this.mounted && _searchQuery.text.length > 0 &&
             _searchQuery.text[_searchQuery.text.length - 1].compareTo(" ") !=
                 0) {
           performSearch(_searchQuery.text);
@@ -87,11 +87,10 @@ class _SearchState extends State<SearchList> {
       return;
     }
 
-    setState(() {
+
       _isSearching = true;
       _error = null;
       _results = List();
-    });
 
     await getRepositoriesWithSearchQuery(query.trim()).then((repos) async {
       if (this._searchQuery.text == query && this.mounted) {
@@ -99,7 +98,7 @@ class _SearchState extends State<SearchList> {
           _isSearching = false;
           if (repos != null) {
             _results = repos;
-          } else {}
+          }
         });
       }
     });
@@ -156,6 +155,7 @@ class _SearchState extends State<SearchList> {
     } else {
       return ListView.builder(
           itemCount: _results.length,
+          // ignore: missing_return
           itemBuilder: (BuildContext context, int index) {
             return RestaurantData(_results[index]);
           });

@@ -52,6 +52,7 @@ class NearByRestaurants{
       this.has_table_booking, this.book_url, this.events_url, this.url, this.all_reviews, this.user_rating, this.zomato_events});
 
 
+  // ignore: missing_return
   factory NearByRestaurants.fromJson(Map<String, dynamic> _json) {
     Map<String, dynamic> loc = _json["restaurant"]["location"];
     var event = _json["restaurant"]['zomato_events'] as List;
@@ -113,6 +114,8 @@ class NearByRestaurants{
       user_rating: rate,
       zomato_events: zomatoEvents,
     );
+
+
 
   }
 }
