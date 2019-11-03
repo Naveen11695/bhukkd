@@ -44,6 +44,7 @@ dependencies:
   flutter_mailer: ^0.4.1+2
   flutter_swiper: ^1.1.4
   flutter_custom_clippers: ^0.1.1
+  permission_handler: ^3.3.0
 
 
 
@@ -96,6 +97,7 @@ flutter:
   - assets/animations/restaurant_details.flr
   - assets/animations/searching.flr
   - assets/animations/warning.flr
+  - assets/animations/search_location.flr
   - assets/animations/Loading animation.flr
   - assets/animations/loading_Untitled.flr
   - assets/animations/dotLoader.flr

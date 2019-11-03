@@ -438,7 +438,6 @@ class _LoginPageState extends State<LoginPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future _signInWithEmailAndPassword() async {
-    print("..........: " + widget.screenKey);
     formKey.currentState.save();
     try {
       final FirebaseUser user = await _auth.signInWithEmailAndPassword(
@@ -467,35 +466,38 @@ class _LoginPageState extends State<LoginPage> {
         Scaffold.of(context).showSnackBar(snackBar);
       }
     } catch (e) {
-      setState(() {
-        var _handleError = e.code.toString();
-        print(e.message.toString());
-        switch (e.code) {
-          case "ERROR_USER_NOT_FOUND":
-            handleError =
-                "Email Id doesn't exist. Please check the email address.";
-            break;
-          case "ERROR_WRONG_PASSWORD":
-            handleError =
-                "Password incorrect. Please check the password again.";
-            break;
-          case "ERROR_INVALID_EMAIL":
-            handleError = "The E-mail Address must be a valid email address.";
-            break;
-          case "ERROR_INVALID_PASSWORD":
-            handleError =
-                "Password incorrect. Please check the password again.";
-            break;
-          case "ERROR_NETWORK_REQUEST_FAILED":
-            handleError =
-                "A network timeout. Please connect to more stable network.";
-            break;
-          case "error":
-            handleError = "Given fields should not be empty.";
-        }
-        snackBar = SnackBar(content: Text(handleError));
-        Scaffold.of(context).showSnackBar(snackBar);
-      });
+      if (this.mounted) {
+        setState(() {
+          var _handleError = e.code.toString();
+          print(e.message.toString());
+          switch (e.code) {
+            case "ERROR_USER_NOT_FOUND":
+              handleError =
+              "Email Id doesn't exist. Please check the email address.";
+              break;
+            case "ERROR_WRONG_PASSWORD":
+              handleError =
+              "Password incorrect. Please check the password again.";
+              break;
+            case "ERROR_INVALID_EMAIL":
+              handleError = "The E-mail Address must be a valid email address.";
+              break;
+            case "ERROR_INVALID_PASSWORD":
+              handleError =
+              "Password incorrect. Please check the password again.";
+              break;
+            case "ERROR_NETWORK_REQUEST_FAILED":
+              handleError =
+              "A network timeout. Please connect to more stable network.";
+              break;
+            case "error":
+              handleError = "Given fields should not be empty.";
+          }
+          snackBar = SnackBar(content: Text(handleError));
+          Scaffold.of(context).showSnackBar(snackBar);
+        });
+      }
+
     }
   }
 
@@ -588,16 +590,18 @@ class _LoginPageState extends State<LoginPage> {
       _success = true;
       _userID = user.uid;
       print("signIn Successfull");
-      setState(() {
-        _getDataFromFireStore();
-        snackBar = SnackBar(content: Text("SignIn Successful"));
-        Scaffold.of(context).showSnackBar(snackBar);
-        if (widget.screenKey.compareTo("LoginPage") == 0) {
-          widget.goToWelcomeListener.onGoToWelcomeTap();
-        } else {
-          Navigator.pop(context);
-        }
-      });
+      if (this.mounted) {
+        setState(() {
+          _getDataFromFireStore();
+          snackBar = SnackBar(content: Text("SignIn Successful"));
+          Scaffold.of(context).showSnackBar(snackBar);
+          if (widget.screenKey.compareTo("LoginPage") == 0) {
+            widget.goToWelcomeListener.onGoToWelcomeTap();
+          } else {
+            Navigator.pop(context);
+          }
+        });
+      }
     } else {
       _success = false;
       print("signIn failed");

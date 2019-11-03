@@ -3,6 +3,7 @@ import 'package:bhukkd/Auth/Home/Components/Calender.dart';
 import 'package:bhukkd/Auth/Home/Components/HomeTopView.dart';
 import 'package:bhukkd/Auth/Home/Components/ListViewContainer.dart';
 import 'package:bhukkd/Auth/Home/Components/welcome_animation.dart';
+import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterAppConstant.dart';
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterUserDetails.dart';
 import 'package:bhukkd/Auth/Login/components/forward_button.dart';
 import 'package:bhukkd/Auth/Login/components/header_text.dart';
@@ -144,80 +145,126 @@ class _WelcomePageState extends State<WelcomePage>
     super.dispose();
   }
 
+  islogin() {
+    return _auth.currentUser().then((val) {
+      if (val == null) {
+        return false;
+      }
+      else {
+        GetterSetterUserDetails.emailId = val.email.toString();
+        return true;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final TextTheme textTheme = Theme.of(context).textTheme;
-
-    return Container(
-      child: FutureBuilder(
-          future: _auth.currentUser(),
-          // ignore: missing_return
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.data != null) {
-                //.........................................//Home Start//......................................................//
-                GetterSetterUserDetails.emailId =
-                    snapshot.data.email.toString();
-                return SafeArea(
-                  child: Container(
-                    color: SECONDARY_COLOR,
-                    child: Stack(children: <Widget>[
-                      Column(
-                        children: <Widget>[
-                          new ImageBackground(
-                            backgroundImage: backgroundImage,
-                            containerGrowAnimation: containerGrowAnimation,
-                            profileImage: profileImage,
-                            email: GetterSetterUserDetails.emailId,
-                          ),
-                          Card(
-                              elevation: 20,
-                              child: new Calender(
-                                  margin: listSlidePosition.value * 0)),
-                        ],
-                      ),
-                      Padding(
-                        padding: new EdgeInsets.only(
-                            top: MediaQuery
-                                .of(context)
-                                .size
-                                .height * .37,
-                            left: 10,
-                            right: 10),
-                        child: Card(
-                          elevation: 10,
-                          child: bottomView(context),
+    if (GetterSetterUserDetails.emailId != null) {
+      return SafeArea(
+        child: Container(
+          color: SECONDARY_COLOR,
+          child: Stack(children: <Widget>[
+            Column(
+              children: <Widget>[
+                new ImageBackground(
+                  backgroundImage: backgroundImage,
+                  containerGrowAnimation: containerGrowAnimation,
+                  profileImage: profileImage,
+                  email: GetterSetterUserDetails.emailId,
+                ),
+                Card(
+                    elevation: 20,
+                    child: new Calender(
+                        margin: listSlidePosition.value * 0)),
+              ],
+            ),
+            Padding(
+              padding: new EdgeInsets.only(
+                  top: MediaQuery
+                      .of(context)
+                      .size
+                      .height * .37,
+                  left: 10,
+                  right: 10),
+              child: Card(
+                elevation: 10,
+                child: bottomView(context),
+              ),
+            ),
+          ]),
+        ),
+      );
+    } else {
+      return Container(
+        child: FutureBuilder(
+            future: _auth.currentUser(),
+            // ignore: missing_return
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                if (snapshot.data != null) {
+                  //.........................................//Home Start//......................................................//
+                  GetterSetterUserDetails.emailId =
+                      snapshot.data.email.toString();
+                  return SafeArea(
+                    child: Container(
+                      color: SECONDARY_COLOR,
+                      child: Stack(children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            new ImageBackground(
+                              backgroundImage: backgroundImage,
+                              containerGrowAnimation: containerGrowAnimation,
+                              profileImage: profileImage,
+                              email: GetterSetterUserDetails.emailId,
+                            ),
+                            Card(
+                                elevation: 20,
+                                child: new Calender(
+                                    margin: listSlidePosition.value * 0)),
+                          ],
                         ),
-                      ),
-                    ]),
-                  ),
-                );
-                //.........................................//Home Start//......................................................//
+                        Padding(
+                          padding: new EdgeInsets.only(
+                              top: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height * .37,
+                              left: 10,
+                              right: 10),
+                          child: Card(
+                            elevation: 10,
+                            child: bottomView(context),
+                          ),
+                        ),
+                      ]),
+                    ),
+                  );
+                  //.........................................//Home Start//......................................................//
 
+                } else {
+                  return Stack(
+                    children: <Widget>[
+                      _trapoziodView(size, textTheme),
+                      _buttonContainer(size),
+                    ],
+                  );
+                }
               } else {
-                print("nope");
-                return Stack(
-                  children: <Widget>[
-                    _trapoziodView(size, textTheme),
-                    _buttonContainer(size),
-                  ],
+                return Container(
+                  child: Center(
+                    child: new FlareActor(
+                      "assets/animations/loading_2.flr",
+                      animation: "Untitled",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 );
               }
-            } else {
-              print("no connection");
-              return Container(
-                child: Center(
-                  child: new FlareActor(
-                    "assets/animations/loading_2.flr",
-                    animation: "Untitled",
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              );
-            }
-          }),
-    );
+            }),
+      );
+    }
   }
 
   Widget _trapoziodView(Size size, TextTheme textTheme) {
@@ -333,7 +380,9 @@ class _WelcomePageState extends State<WelcomePage>
                 ));
                 return;
               }
-              _signOut();
+              setState(() {
+                _signOut();
+              });
               Scaffold.of(context).showSnackBar(SnackBar(
                 content: Text('Signed Out'),
               ));
@@ -366,5 +415,7 @@ class _WelcomePageState extends State<WelcomePage>
     GetterSetterUserDetails.emailId = null;
     GetterSetterUserDetails.address = null;
     GetterSetterUserDetails.description = null;
+
+    GetterSetterAppConstant.avataaarImage = null;
   }
 }

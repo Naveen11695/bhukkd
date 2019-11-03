@@ -5,11 +5,8 @@ import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:bhukkd/Pages/Explore/ExplorePage.dart';
 import 'package:bhukkd/Pages/TrendingPage/TrendingPage.dart';
 import 'package:bhukkd/Pages/WagonPage/WagonPage.dart';
-import 'package:bhukkd/Services/SharedPreference.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geolocator/geolocator.dart';
 
 class HomePage extends StatefulWidget {
   static final String path = "lib/src/pages/misc/navybar.dart";
@@ -32,177 +29,20 @@ class _HomePage extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-          future: getLocationName(),
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              if (snapshot.data == "error") {
-                return Center(
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.topCenter,
-                          height: 600,
-                          width: 400,
-                          child: Center(
-                            child: FlareActor(
-                              "assets/animations/no_connection.flr",
-                              animation: "Untitled",
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 20.0),
-                          child: Text("No Connection",
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontFamily: FONT_TEXT_EXTRA,
-                                  letterSpacing: 2,
-                                  wordSpacing: 2
-                              )),
-                        ),
-                        RaisedButton.icon(
-                          onPressed: () {
-                            setState(() {});
-                          },
-                          color: SECONDARY_COLOR_1,
-                          label: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Text('Retry', style: TextStyle(
-                                fontSize: 15.0, color: Colors.white)),
-                          ),
-                          icon: Icon(Icons.refresh, color: Colors.white,),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              } else if (snapshot.data != null) {
-                String address;
-                if (snapshot.data.locality != null) {
-                  address = snapshot.data.name +
-                      " " +
-                      snapshot.data.subLocality +
-                      " " +
-                      snapshot.data.subAdministrativeArea +
-                      ", " +
-                      snapshot.data.locality +
-                      " " +
-                      snapshot.data.postalCode;
-                }
-                return PageView(
-                  physics: NeverScrollableScrollPhysics(),
-                  onPageChanged: (index) {
-                    indexcontroller.add(index);
-                  },
-                  controller: pageController,
-                  children: <Widget>[
-                    new TrendingPage(PageStorageKey("TrendingPage"), address),
-                    new ExplorePage(key: PageStorageKey("ExplorePage")),
-                    new WagonPage(key: PageStorageKey("WagonPage")),
-                    new OnBoardingPage("LoginPage"),
-                  ],
-                );
-              } else {
-                return Center(
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.topCenter,
-                          height: 600,
-                          width: 400,
-                          child: Center(
-                            child: FlareActor(
-                              "assets/animations/no_connection.flr",
-                              animation: "Untitled",
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 20.0),
-                          child: Text("No Connection",
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontFamily: FONT_TEXT_EXTRA,
-                                  letterSpacing: 2,
-                                  wordSpacing: 2
-                              )),
-                        ),
-                        RaisedButton.icon(
-                          onPressed: () {
-                            setState(() {});
-                          },
-                          color: SECONDARY_COLOR_1,
-                          label: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Text('Retry', style: TextStyle(
-                                fontSize: 15.0, color: Colors.white)),
-                          ),
-                          icon: Icon(Icons.refresh, color: Colors.white,),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              }
-            } else {
-              return Center(
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        alignment: Alignment.topCenter,
-                        height: 600,
-                        width: 400,
-                        child: Center(
-                          child: FlareActor(
-                            "assets/animations/no_connection.flr",
-                            animation: "Untitled",
-                            fit: BoxFit.fitHeight,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 20.0),
-                        child: Text("No Connection",
-                            style: TextStyle(
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontFamily: FONT_TEXT_EXTRA,
-                                letterSpacing: 2,
-                                wordSpacing: 2
-                            )),
-                      ),
-                      RaisedButton.icon(
-                        onPressed: () {
-                          setState(() {});
-                        },
-                        color: SECONDARY_COLOR_1,
-                        label: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Text('Retry', style: TextStyle(
-                              fontSize: 15.0, color: Colors.white)),
-                        ),
-                        icon: Icon(Icons.refresh, color: Colors.white,),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }
-          }),
+      body: PageView(
+        physics: NeverScrollableScrollPhysics(),
+        onPageChanged: (index) {
+          indexcontroller.add(index);
+        },
+        controller: pageController,
+        children: <Widget>[
+          new TrendingPage(key: PageStorageKey("TrendingPage")),
+          new ExplorePage(key: PageStorageKey("ExplorePage")),
+          new WagonPage(key: PageStorageKey("WagonPage")),
+          new OnBoardingPage("LoginPage"),
+        ],
+      ),
+
       bottomNavigationBar: StreamBuilder<Object>(
           initialData: 0,
           stream: indexcontroller.stream,
@@ -270,33 +110,6 @@ class _HomePage extends State<HomePage> {
   }
 }
 
-// ignore: missing_return
-Future getLocationName() async {
-  try {
-    await StoreUserLocation.get_CurrentLocation().then((loc) {
-      latitude = double.parse(loc[0]);
-      longitude = double.parse(loc[1]);
-    });
-
-    Geolocator geolocator = Geolocator()
-      ..forceAndroidLocationManager = true;
-    GeolocationStatus geolocationStatus =
-    await geolocator.checkGeolocationPermissionStatus();
-    if (geolocationStatus == GeolocationStatus.granted) {
-      List<Placemark> placemark =
-      await Geolocator().placemarkFromCoordinates(latitude, longitude);
-      return placemark[0];
-    } else {
-      print("Location denied ");
-      return null;
-    }
-  } catch (e) {
-    print("error <Trending Page>: " + e.toString());
-    if (e.toString().compareTo("grpc failed") == 0) {
-      return null;
-    }
-  }
-}
 
 class FancyBottomNavigation extends StatefulWidget {
   final int currentIndex;

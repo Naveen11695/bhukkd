@@ -1,10 +1,7 @@
-import 'package:bhukkd/Auth/Home/Components/Animation/styles.dart';
-import 'package:bhukkd/Auth/Home/Components/HomeTopView.dart';
+import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterAppConstant.dart';
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterUserDetails.dart';
-import 'package:bhukkd/Auth/Home/Pages/welcome_page.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
-import 'package:bhukkd/HomePage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_format/date_format.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -43,49 +40,19 @@ class _AccountState extends State<Account> {
     return Scaffold(
       key: scaffoldKey,
       body: Container(
+        color: SECONDARY_COLOR_1,
         child: Stack(
           children: <Widget>[
-            new ListView(
-              children: <Widget>[
-                widget.screenKey.compareTo("LoginPage") == 0
-                    ? Center(
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * .35,
-                          color: Color.fromRGBO(44, 57, 73, 50),
-                          child: new ImageBackground(
-                            backgroundImage: backgroundImage,
-                            containerGrowAnimation: containerGrowAnimation,
-                            profileImage: profileImage,
-                            email: GetterSetterUserDetails.emailId,
-                          ),
-                        ),
-                      )
-                    : Container(),
-                new Container(
-                  height: MediaQuery.of(context).size.height * .35,
-                  color: Color.fromRGBO(44, 57, 73, 50),
-                )
-              ],
-            ),
-            Container(
-              alignment: Alignment.topCenter,
-              padding: new EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height *
-                      ((widget.screenKey.compareTo("LoginPage") == 0)
-                          ? 0.35
-                          : 0.10),
-                  right: 5.0,
-                  left: 5.0),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Card(
-                  elevation: 10,
-                  child: _buildForm(),
-                ),
+            Padding(
+              padding: const EdgeInsets.only(top: 50.0, left: 10, right: 10),
+              child: Card(
+                color: Colors.white,
+                elevation: 10,
+                child: _buildForm(),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 40.0, left: 10.0),
+              padding: const EdgeInsets.only(top: 60.0, left: 20.0),
               child: Container(
                 child: new IconButton(
                   icon: new Icon(
@@ -291,19 +258,8 @@ class _AccountState extends State<Account> {
                                   color: Color.fromRGBO(249, 129, 42, 1),
                                 ),
                                 onTap: () {
-                                  getLocationName().then((locality) {
-                                    if (locality != null) {
-                                      _addressController.text = locality.name +
-                                          " " +
-                                          locality.subLocality +
-                                          " " +
-                                          locality.subAdministrativeArea +
-                                          ", " +
-                                          locality.locality +
-                                          " " +
-                                          locality.postalCode;
-                                    }
-                                  });
+                                  _addressController.text =
+                                      GetterSetterAppConstant.address;
                                 },
                               ),
                             ],

@@ -1,12 +1,18 @@
 import 'dart:async';
 
 import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 Position position;
 
-Future<Position> getCurrentPosition() async {
-
+Future getCurrentPosition() async {
+  ServiceStatus serviceStatus = await PermissionHandler().checkServiceStatus(
+      PermissionGroup.location);
+  bool enabled = (serviceStatus == ServiceStatus.enabled);
+  if (!enabled) {
+    return null;
+  }
   Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   Geolocator geolocator = Geolocator()..forceAndroidLocationManager = true;
   SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -15,7 +21,6 @@ Future<Position> getCurrentPosition() async {
     position.longitude.toString(),
     position.timestamp.toString(),
   ]);
-  print("pos"+position.toString());
   return position;
 }
 

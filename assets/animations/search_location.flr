@@ -1,0 +1,432 @@
+{
+	"version": 23,
+	"artboards": [
+		{
+			"name": "Artboard",
+			"translation": [
+				15,
+				8
+			],
+			"width": 600,
+			"height": 300,
+			"origin": [
+				0,
+				0
+			],
+			"clipContents": true,
+			"color": [
+				0.364705890417099,
+				0.364705890417099,
+				0.364705890417099,
+				1
+			],
+			"nodes": [
+				{
+					"name": "pin",
+					"translation": [
+						299.8333435058594,
+						140.99996948242188
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"type": "node"
+				},
+				{
+					"name": "Ellipse",
+					"parent": 0,
+					"translation": [
+						0.166656494140625,
+						-49.000152587890625
+					],
+					"rotation": 0,
+					"scale": [
+						1.388201355934143,
+						1.388201355934143
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 4,
+					"transformAffectsStroke": false,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 1,
+					"opacity": 1,
+					"color": [
+						1,
+						1,
+						1,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Ellipse Path",
+					"parent": 1,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 62,
+					"height": 62,
+					"type": "ellipse"
+				},
+				{
+					"name": "Ellipse",
+					"parent": 0,
+					"translation": [
+						0.166656494140625,
+						-45.999969482421875
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 3,
+					"transformAffectsStroke": false,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 4,
+					"opacity": 1,
+					"color": [
+						0.1725490242242813,
+						0.2235294133424759,
+						0.2862745225429535,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Ellipse Path",
+					"parent": 4,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"bones": [],
+					"isVisible": true,
+					"isClosed": true,
+					"points": [
+						{
+							"pointType": 2,
+							"translation": [
+								0,
+								-84.5
+							],
+							"in": [
+								-46.668060302734375,
+								-84.5
+							],
+							"out": [
+								46.668060302734375,
+								-84.5
+							]
+						},
+						{
+							"pointType": 2,
+							"translation": [
+								84.5,
+								0
+							],
+							"in": [
+								84.5,
+								-46.668060302734375
+							],
+							"out": [
+								84.5,
+								68.66806030273438
+							]
+						},
+						{
+							"pointType": 0,
+							"translation": [
+								0,
+								142.5
+							],
+							"radius": 0
+						},
+						{
+							"pointType": 2,
+							"translation": [
+								-84.5,
+								0
+							],
+							"in": [
+								-84.5,
+								67.66806030273438
+							],
+							"out": [
+								-84.5,
+								-46.668060302734375
+							]
+						}
+					],
+					"type": "path"
+				},
+				{
+					"name": "Ellipse",
+					"parent": 0,
+					"translation": [
+						-0.015167236328125,
+						95.00021362304688
+					],
+					"rotation": 0,
+					"scale": [
+						0.4514281749725342,
+						0.4514281749725342
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 2,
+					"transformAffectsStroke": false,
+					"type": "shape"
+				},
+				{
+					"name": "Ellipse Path",
+					"parent": 7,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 145,
+					"height": 18,
+					"type": "ellipse"
+				},
+				{
+					"name": "Color",
+					"parent": 7,
+					"opacity": 1,
+					"color": [
+						0.15238095819950104,
+						0.15238095819950104,
+						0.15238095819950104,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Ellipse",
+					"translation": [
+						299.81817626953125,
+						235.66580200195312
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"isVisible": true,
+					"blendMode": 3,
+					"drawOrder": 1,
+					"transformAffectsStroke": false,
+					"type": "shape"
+				},
+				{
+					"name": "Color",
+					"parent": 10,
+					"opacity": 0.2549999999999999,
+					"color": [
+						0,
+						0,
+						0,
+						1
+					],
+					"fillRule": 1,
+					"type": "colorFill"
+				},
+				{
+					"name": "Ellipse Path",
+					"parent": 10,
+					"translation": [
+						0,
+						0
+					],
+					"rotation": 0,
+					"scale": [
+						1,
+						1
+					],
+					"opacity": 1,
+					"isCollapsed": false,
+					"clips": [],
+					"width": 700,
+					"height": 85,
+					"type": "ellipse"
+				}
+			],
+			"animations": [
+				{
+					"name": "searching",
+					"fps": 60,
+					"duration": 2,
+					"isLooping": true,
+					"keyed": [
+						{
+							"component": 10,
+							"scaleX": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 0.8499995470046997
+									},
+									{
+										"time": 1,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 0.7980000000000002
+									},
+									{
+										"time": 2,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 0.8499995470046997
+									}
+								]
+							],
+							"scaleY": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1
+									},
+									{
+										"time": 1,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 0.7990000000000003
+									},
+									{
+										"time": 2,
+										"interpolatorType": 1,
+										"value": 1
+									}
+								]
+							]
+						},
+						{
+							"component": 11,
+							"fillOpacity": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 0.20500000000000002
+									},
+									{
+										"time": 1,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 0.10499999999999995
+									},
+									{
+										"time": 2,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 0.20500000000000002
+									}
+								]
+							]
+						},
+						{
+							"component": 12,
+							"width": [
+								[
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 700
+									},
+									{
+										"time": 2,
+										"interpolatorType": 1,
+										"value": 700
+									}
+								]
+							]
+						}
+					],
+					"animationStart": 0,
+					"animationEnd": 2,
+					"type": "animation"
+				}
+			],
+			"type": "artboard"
+		}
+	]
+}

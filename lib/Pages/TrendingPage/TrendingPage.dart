@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:async/async.dart';
+import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterAppConstant.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
@@ -10,6 +11,7 @@ import 'package:bhukkd/Pages/Explore/CategoriesPage.dart';
 import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
 import 'package:bhukkd/Pages/Search/SearchRestaurant.dart';
 import 'package:bhukkd/Pages/Search/search.dart';
+import 'package:bhukkd/Pages/TrendingPage/Componets/ClipTop.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/CustomHorizontalScroll.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/HorizontalScroll.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
@@ -26,12 +28,9 @@ List<dynamic> copydata = [];
 bool isReloading = false;
 double latitude, longitude;
 
-
 class TrendingPage extends StatefulWidget {
-  final String address;
-  final Key key;
+  const TrendingPage({Key key}) : super(key: key);
 
-  const TrendingPage(this.key, this.address) : super(key: key);
   _TrendingPageState createState() => new _TrendingPageState();
 }
 
@@ -91,9 +90,9 @@ class _TrendingPageState extends State<TrendingPage>
                                 fontFamily: FONT_TEXT_SECONDARY,
                               )),
                           Text(
-                              widget.address == null
+                              GetterSetterAppConstant.address == null
                                   ? "Fetching Your Location.."
-                                  : widget.address,
+                                  : GetterSetterAppConstant.address,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                               style: TextStyle(
@@ -136,17 +135,17 @@ class _TrendingPageState extends State<TrendingPage>
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate([
-                      SizedBox(
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.05,
+                      ClipPath(
+                        clipper: ClipTop(),
+                        child: Container(
+                          color: SECONDARY_COLOR_1,
+                          height: 80,
+                        ),
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.height * 0.92,
                         alignment: AlignmentDirectional.topStart,
                         padding:
-                            EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                        EdgeInsets.symmetric(horizontal: 18, vertical: 5),
                         child: new Text(
                           "Near By Restaurants",
                           textAlign: TextAlign.start,
@@ -159,27 +158,15 @@ class _TrendingPageState extends State<TrendingPage>
                         ),
                       ),
                       Container(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 1.0,
-                          height: 175,
+                          height: 180,
                           child: HorizontalScroll()),
-                      SizedBox(
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height * 0.02,
-                      ),
-                      /*  Center(child: buildSlider(context)),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
-                      ),*/
+
+
                       Container(
                         width: MediaQuery.of(context).size.height * 0.92,
                         alignment: AlignmentDirectional.topStart,
                         padding:
-                            EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                        EdgeInsets.symmetric(horizontal: 18, vertical: 5),
                         child: new Text(
                           "Top Restraunts",
                           textAlign: TextAlign.start,
@@ -195,7 +182,7 @@ class _TrendingPageState extends State<TrendingPage>
                       Container(
                         color: Colors.grey.shade100,
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(5, 5, 0, 5),
+                          padding: EdgeInsets.fromLTRB(5, 2, 0, 2),
                           child: CustomHorizontalScroll(),
                         ),
                       ),
@@ -203,7 +190,7 @@ class _TrendingPageState extends State<TrendingPage>
                         width: MediaQuery.of(context).size.height * 0.92,
                         alignment: AlignmentDirectional.topStart,
                         padding:
-                            EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                        EdgeInsets.symmetric(horizontal: 18, vertical: 5),
                         child: new Text(
                           "Recommended",
                           textAlign: TextAlign.start,
@@ -243,8 +230,8 @@ class _TrendingPageState extends State<TrendingPage>
                                     child: Card(
                                       elevation: 10,
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .center,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                         mainAxisAlignment: MainAxisAlignment
                                             .center,
                                         children: <Widget>[
@@ -301,8 +288,8 @@ class _TrendingPageState extends State<TrendingPage>
                                                       .size
                                                       .height *
                                                       .150,
-                                                  alignment:
-                                                  Alignment.bottomRight,
+                                                  alignment: Alignment
+                                                      .bottomRight,
                                                   child: ClipOval(
                                                     child: getRating(
                                                         rests[index]
@@ -332,16 +319,26 @@ class _TrendingPageState extends State<TrendingPage>
                                             ),
                                           ),
                                           Padding(
-                                            padding: const EdgeInsets.all(2.0),
-                                            child: Text(
-                                              rests[index].cuisines,
-                                              textAlign: TextAlign.center,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w300,
-                                                  fontFamily: FONT_TEXT_SECONDARY,
-                                                  color: TEXT_SECONDARY_COLOR),
+                                            padding: const EdgeInsets.only(
+                                                top: 2.0,
+                                                left: 10.0,
+                                                right: 10.0),
+                                            child: Container(
+                                              width: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .width * 0.75,
+                                              child: Text(
+                                                rests[index].cuisines,
+                                                textAlign: TextAlign.center,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.w300,
+                                                    fontFamily: FONT_TEXT_SECONDARY,
+                                                    color: TEXT_SECONDARY_COLOR),
+                                              ),
                                             ),
                                           )
                                         ],
@@ -387,7 +384,7 @@ class _TrendingPageState extends State<TrendingPage>
                     borderRadius: BorderRadius.circular(30.0),
                     child: InkWell(
                       onTap: () {
-                        if (widget.address.isNotEmpty) {
+                        if (GetterSetterAppConstant.address.isNotEmpty) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -539,7 +536,6 @@ class _TrendingPageState extends State<TrendingPage>
       print('not connected');
     }
   }
-
 
   @override
   void initState() {

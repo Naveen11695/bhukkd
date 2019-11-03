@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:async/async.dart';
+import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterAppConstant.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
-import 'package:bhukkd/HomePage.dart';
 import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
 import 'package:bhukkd/Services/SharedPreference.dart';
@@ -105,7 +105,7 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                     Expanded(
                                       flex: 1,
                                       child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.all(7.0),
                                         child: (snapshot.data[index].thumb ==
                                             "")
                                             ? new Image.asset(
@@ -156,7 +156,7 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      top: 2.0, left: 2.0, right: 2.0),
+                                      left: 2.0, right: 2.0),
                                   child: new Text(
                                     snapshot.data[index].name,
                                     textDirection: TextDirection.ltr,
@@ -177,14 +177,21 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.all(2.0),
-                                  child: new Text(
-                                    snapshot.data[index].cuisines,
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: new TextStyle(
-                                        fontSize: 12.0,
-                                        color: TEXT_SECONDARY_COLOR,
-                                        fontFamily: FONT_TEXT_SECONDARY),
+                                  child: Container(
+                                    width: MediaQuery
+                                        .of(context)
+                                        .size
+                                        .width * 0.75,
+                                    child: new Text(
+                                      snapshot.data[index].cuisines,
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      style: new TextStyle(
+                                          fontSize: 12.0,
+                                          color: TEXT_SECONDARY_COLOR,
+                                          fontFamily: FONT_TEXT_SECONDARY),
+                                    ),
                                   ),
                                 ),
                               ],
@@ -238,10 +245,7 @@ Future getEntityFromLocations() async {
   });
 
   try {
-    String nameOfTheLocation;
-    getLocationName().then((loc) {
-      nameOfTheLocation = loc.locality;
-    });
+    String nameOfTheLocation = GetterSetterAppConstant.locality;
     if (nameOfTheLocation == "") {
       return "error";
     }

@@ -151,7 +151,7 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                                       padding: const EdgeInsets.only(
                                           top: 5.0, bottom: 5.0),
                                       child: Container(
-                                        width: c_width,
+                                        width: c_width * 0.75,
                                         child: new Text(
                                           snapshot.data[index]
                                               .near_by_restaurants_location[

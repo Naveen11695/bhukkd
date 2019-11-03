@@ -192,7 +192,6 @@ class _ExplorePage extends State<ExplorePage> {
                     ],
                   );
                 } else {
-                  print("nope");
                   return Container(
                     child: Center(
                       child: new FlareActor(
@@ -204,7 +203,6 @@ class _ExplorePage extends State<ExplorePage> {
                   );
                 }
               } else {
-                print("no connection");
                 return Container(
                   child: Center(
                     child: new FlareActor(

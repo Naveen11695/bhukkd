@@ -1,4 +1,5 @@
 import 'package:avataaar_image/avataaar_image.dart';
+import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterAppConstant.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +45,6 @@ class _ImageBackground extends State<ImageBackground> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _userImage = new Container(
       width: containerGrowAnimation.value * 150,
@@ -56,7 +56,7 @@ class _ImageBackground extends State<ImageBackground> {
     );
   }
 
-  Future _setAvtaaar() async {
+  _setAvtaaar() async {
     var response;
     var fireStore = Firestore.instance;
     DocumentReference snapshot =
@@ -89,11 +89,15 @@ class _ImageBackground extends State<ImageBackground> {
                 splashColor: Colors.white24,
                 highlightColor: Colors.white10,
                 child: Container(
-                  child: FutureBuilder(
+                  child: GetterSetterAppConstant.avataaarImage == null
+                      ? FutureBuilder(
                     future: _setAvtaaar(),
                     builder: (BuildContext context, AsyncSnapshot snapShot) {
                       if (snapShot.connectionState == ConnectionState.done) {
                         if (snapShot.data != null) {
+                          GetterSetterAppConstant.avataaarImage = snapShot.data
+                              .toString()
+                              .trim();
                           return ClipOval(
                             child: Container(
                               decoration: BoxDecoration(
@@ -153,6 +157,36 @@ class _ImageBackground extends State<ImageBackground> {
                         );
                       }
                     },
+                  )
+                      : ClipOval(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        gradient: RadialGradient(
+                          colors: [Colors.grey, Colors.white],
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: _userImage = AvataaarImage(
+                          avatar: _avataarList[int.parse(
+                              (GetterSetterAppConstant.avataaarImage.toString()
+                                  .trim()
+                                  .compareTo("null") ==
+                                  0)
+                                  ? "0"
+                                  : GetterSetterAppConstant.avataaarImage
+                                  .toString())],
+                          errorImage: Icon(Icons.error),
+                          placeholder: CircularProgressIndicator(
+                            valueColor:
+                            new AlwaysStoppedAnimation<Color>(
+                                Colors.white),
+                          ),
+                          width: 150.0,
+                        ),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -228,7 +262,10 @@ class _ImageBackground extends State<ImageBackground> {
               ),
             ),
           ),
-          onTap: () => _onTileClicked(i),
+          onTap: () {
+            GetterSetterAppConstant.avataaarImage = i.toString();
+            _onTileClicked(i);
+          },
         ),
       )));
     }
