@@ -29,7 +29,7 @@ class RestaurantDetailPage extends StatefulWidget {
 
 class RestaurantDetailPageState extends State<RestaurantDetailPage>
     with SingleTickerProviderStateMixin {
-  final _resDetailPageCache = new AsyncMemoizer();
+  final _resDetailPageCache = new AsyncCache(const Duration(days: 30));
 
   var restruant_Photo_url;
   var Menu;
@@ -39,17 +39,18 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
   var coverImage;
   var restruantInfo;
 
-  Future resDetailPageCache() => _resDetailPageCache.runOnce(() async {
-        return fetchRestaurant(widget.productid.toString());
-      });
 
-  final resPhotosCache = new AsyncCache(const Duration(hours: 1));
+  get resDetailPageCache => _resDetailPageCache.fetch(() {
+    return fetchRestaurant(widget.productid.toString());
+  });
+
+  final resPhotosCache = new AsyncCache(const Duration(days: 30));
 
   get _resPhotosCache => resPhotosCache.fetch(() {
         return fetchPhotos(restruant_Photo_url);
       });
 
-  final resMenu = new AsyncCache(const Duration(hours: 1));
+  final resMenu = new AsyncCache(const Duration(days: 30));
 
   get _resMenu => resMenu.fetch(() {
         return fetchMenu(Menu);
@@ -104,7 +105,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
         fit: StackFit.expand,
         children: <Widget>[
           new FutureBuilder(
-            future: resDetailPageCache(),
+            future: resDetailPageCache,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.data == "error") {
@@ -248,7 +249,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
 
                                             //----------------------------------------------------Menu----------------------------->
 
-                                            Padding(
+                                            /*Padding(
                                               padding: const EdgeInsets.only(
                                                   top: 2.0, bottom: 8.0),
                                               child: titleBar("Menu", c_width),
@@ -296,7 +297,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                       }
                                                     }),
                                               ),
-                                            ),
+                                            ),*/
 
                                             //----------------------------------------------------Menu-----------------------------<
 
