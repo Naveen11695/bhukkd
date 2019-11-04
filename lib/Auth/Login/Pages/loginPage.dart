@@ -2,7 +2,6 @@ import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterUserDetails.dart';
 import 'package:bhukkd/Auth/Login/Pages/otpPage.dart';
 import 'package:bhukkd/Auth/Login/components/Animation/login_animation.dart';
 import 'package:bhukkd/Auth/Login/components/forward_button.dart';
-import 'package:bhukkd/Auth/Login/components/header_text.dart';
 import 'package:bhukkd/Auth/Login/components/trapozoid_cut_colored_image.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
 import 'package:bhukkd/Components/CustomTransition.dart';
@@ -339,7 +338,9 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buttonContainer(Size size, TextTheme textTheme) {
     return Padding(
-      padding: EdgeInsets.only(top: size.height * 0.70,),
+      padding: EdgeInsets.only(
+        top: size.height * 0.70,
+      ),
       child: Container(
         width: double.infinity,
         child: Column(
@@ -497,7 +498,6 @@ class _LoginPageState extends State<LoginPage> {
           Scaffold.of(context).showSnackBar(snackBar);
         });
       }
-
     }
   }
 
@@ -631,11 +631,27 @@ class _LoginPageState extends State<LoginPage> {
       transform: Matrix4.translationValues(
           -widget.enterAnimation.Xtranslation.value * size.width, 0.0, 0.0),
       child: Padding(
-        padding: EdgeInsets.only(top: size.height * 0.15, left: 24, right: 24),
-        child: HeaderText(
-          text: (key == "LOGIN") ? TITLE_SIGNIN : TITLE_ACCOUNT,
-          imagePath: IMAGE_SLIPPER_PATH,
-          opacity: 50,
+        padding: EdgeInsets.only(top: size.height * 0.15, left: 20, right: 20),
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              color: SECONDARY_COLOR_2,
+              borderRadius: BorderRadius.all(Radius.circular(50.0))),
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                (key == "LOGIN") ? TITLE_SIGNIN : TITLE_ACCOUNT,
+                style: TextStyle(
+                    wordSpacing: 2.0,
+                    letterSpacing: 2.0,
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontFamily: FONT_TEXT_EXTRA),
+              ),
+            ),
+          ),
         ),
       ),
     );

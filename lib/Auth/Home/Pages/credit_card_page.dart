@@ -72,15 +72,23 @@ class CreditCardPage extends StatelessWidget {
                 bottom: 10.0,
                 child: StreamBuilder<String>(
                   stream: cardBloc.nameOutputStream,
-                  initialData: GetterSetterUserDetails.firstName +
+                  initialData: GetterSetterUserDetails.firstName == null
+                      ? ""
+                      : GetterSetterUserDetails.firstName +
                       ' ' +
-                      GetterSetterUserDetails.lastName,
+                      GetterSetterUserDetails.lastName == null
+                      ? ""
+                      : GetterSetterUserDetails.lastName,
                   builder: (context, snapshot) => Text(
                     snapshot.data.length > 0
                         ? snapshot.data.toUpperCase()
+                        : GetterSetterUserDetails.firstName == null
+                        ? ""
                         : GetterSetterUserDetails.firstName.toUpperCase() +
                             ' ' +
-                            GetterSetterUserDetails.lastName.toUpperCase(),
+                        GetterSetterUserDetails.lastName == null
+                        ? ""
+                        : GetterSetterUserDetails.lastName.toUpperCase(),
                     style: TextStyle(
                         color: Colors.white,
                         fontFamily: ralewayFont,
