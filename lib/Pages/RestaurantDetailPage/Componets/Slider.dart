@@ -1,9 +1,14 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 Widget buildSlider(BuildContext context, AsyncSnapshot snapshot) {
   return Container(
@@ -31,6 +36,12 @@ Widget buildSlider(BuildContext context, AsyncSnapshot snapshot) {
       ],
     ),
   );
+}
+
+Future<File> file(String filename) async {
+  Directory dir = await getApplicationDocumentsDirectory();
+  String pathName = p.join(dir.path, filename);
+  return File(pathName);
 }
 
 Widget buildSliderWaiting() {

@@ -44,8 +44,7 @@ Future requestZomatoApiRestaurant(requestUrl, res_id) async {
       Restaurant r = parseRestaurant(response.body);
       return r;
     } else {
-      print(response.statusCode);
-      print(response.body);
+      return "error";
     }
   } catch (e) {
     print("<Restaurant exception>" + e.toString());
@@ -102,7 +101,6 @@ Future fetchPhotos(String url) async {
     splittedUrl = photoLink.attributes['data-original'].split("?");
     restarauntPhotos.add(splittedUrl[0]);
   }
-
   return restarauntPhotos;
 }
 

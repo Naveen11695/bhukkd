@@ -96,6 +96,7 @@ flutter:
   - assets/animations/near_by_rest_loading.flr
   - assets/animations/restaurant_details.flr
   - assets/animations/searching.flr
+  - assets/animations/comment_loading_content_loading.flr
   - assets/animations/warning.flr
   - assets/animations/search_location.flr
   - assets/animations/Loading animation.flr
@@ -106,6 +107,7 @@ flutter:
   - assets/animations/top_restaurant_loading.flr
   - assets/api/config.json
   - assets/images/default.jpg
+  - assets/images/no_data.gif
   - assets/images/default-avatar.jpg
   - assets/images/icons/user.png
   - assets/images/icons/bookings.png

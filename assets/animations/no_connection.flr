@@ -4,11 +4,11 @@
 		{
 			"name": "Artboard",
 			"translation": [
-				1224,
-				334
+				1190.6680908203125,
+				467.8560791015625
 			],
-			"width": 375,
-			"height": 667,
+			"width": 220,
+			"height": 230,
 			"origin": [
 				0,
 				0
@@ -24,8 +24,8 @@
 				{
 					"name": "网络未连接",
 					"translation": [
-						101.8131103515625,
-						185.03781127929688
+						13.3883056640625,
+						8.568389892578125
 					],
 					"rotation": 0,
 					"scale": [
@@ -496,9 +496,9 @@
 					"parent": 11,
 					"opacity": 1,
 					"color": [
-						0.4274509847164154,
-						0.800000011920929,
-						0.6470588445663452,
+						0.364705890417099,
+						0.5960784554481506,
+						0.8705882430076599,
 						1
 					],
 					"fillRule": 0,
@@ -687,9 +687,9 @@
 					"parent": 14,
 					"opacity": 1,
 					"color": [
-						0.3333333432674408,
-						0.7019608020782471,
-						0.5607843399047852,
+						0.24705882370471954,
+						0.4470588266849518,
+						0.686274528503418,
 						1
 					],
 					"fillRule": 0,
@@ -818,9 +818,9 @@
 					"parent": 17,
 					"opacity": 1,
 					"color": [
-						0.4274509847164154,
-						0.800000011920929,
-						0.6470588445663452,
+						0.364705890417099,
+						0.5960784554481506,
+						0.8705882430076599,
 						1
 					],
 					"fillRule": 0,
@@ -1076,9 +1076,9 @@
 					"parent": 21,
 					"opacity": 1,
 					"color": [
-						0.3333333432674408,
-						0.7019608020782471,
-						0.5607843399047852,
+						0.24705882370471954,
+						0.4470588266849518,
+						0.686274528503418,
 						1
 					],
 					"fillRule": 0,
@@ -1327,9 +1327,9 @@
 					"parent": 24,
 					"opacity": 1,
 					"color": [
-						0.4274509847164154,
-						0.800000011920929,
-						0.6470588445663452,
+						0.36622223258018494,
+						0.5965124368667603,
+						0.8719576597213745,
 						1
 					],
 					"fillRule": 0,
@@ -1579,9 +1579,9 @@
 					"parent": 27,
 					"opacity": 1,
 					"color": [
-						0.3333333432674408,
-						0.7019608020782471,
-						0.5607843399047852,
+						0.24705882370471954,
+						0.4470588266849518,
+						0.686274528503418,
 						1
 					],
 					"fillRule": 0,
@@ -4007,8 +4007,8 @@
 				{
 					"name": "背景",
 					"translation": [
-						197.12803649902344,
-						300.603515625
+						108.70323181152344,
+						124.13409423828125
 					],
 					"rotation": 0,
 					"scale": [
@@ -4272,8 +4272,8 @@
 				{
 					"name": "Path-9",
 					"translation": [
-						141.0609130859375,
-						274.9092712402344
+						52.6361083984375,
+						98.43984985351562
 					],
 					"rotation": 0,
 					"scale": [
@@ -4375,8 +4375,8 @@
 				{
 					"name": "Root Bone",
 					"translation": [
-						185.5223388671875,
-						273.28045654296875
+						97.0975341796875,
+						96.81103515625
 					],
 					"rotation": 0,
 					"scale": [
@@ -5522,8 +5522,8 @@
 				{
 					"name": "Root Bone",
 					"translation": [
-						193.169677734375,
-						250.1781005859375
+						104.744873046875,
+						73.70867919921875
 					],
 					"rotation": 0,
 					"scale": [
@@ -5986,8 +5986,8 @@
 				{
 					"name": "Root Bone",
 					"translation": [
-						177.8739013671875,
-						246.31866455078125
+						89.4490966796875,
+						69.8492431640625
 					],
 					"rotation": 0,
 					"scale": [
@@ -6626,8 +6626,8 @@
 				{
 					"name": "Root Bone",
 					"translation": [
-						161.5391845703125,
-						255.71484375
+						73.1143798828125,
+						79.24542236328125
 					],
 					"rotation": -0.3560471674068429,
 					"scale": [
@@ -6932,8 +6932,8 @@
 				{
 					"name": "Root Bone",
 					"translation": [
-						178.788818359375,
-						262.9647216796875
+						90.364013671875,
+						86.49530029296875
 					],
 					"rotation": 0,
 					"scale": [
@@ -7238,7 +7238,7 @@
 			],
 			"animations": [
 				{
-					"name": "Untitled",
+					"name": "init",
 					"fps": 60,
 					"duration": 4.6,
 					"isLooping": true,
@@ -7337,7 +7337,7 @@
 										"cubicY1": 0,
 										"cubicX2": 0.58,
 										"cubicY2": 1,
-										"value": -1.7000000000000004
+										"value": -7.265215873718262
 									},
 									{
 										"time": 1.85,
@@ -8372,1110 +8372,36 @@
 							]
 						},
 						{
-							"component": 111,
-							"posX": [
-								[
-									{
-										"time": 0.06666666666666667,
-										"interpolatorType": 2,
-										"cubicX1": 0.5268817204301075,
-										"cubicY1": -0.010752688172043001,
-										"cubicX2": 0.58,
-										"cubicY2": 1,
-										"value": 162
-									},
-									{
-										"time": 0.38333333333333336,
-										"interpolatorType": 2,
-										"cubicX1": 0.42,
-										"cubicY1": 0,
-										"cubicX2": 0.58,
-										"cubicY2": 1,
-										"value": 160.5391845703125
-									},
-									{
-										"time": 3.1333333333333333,
-										"interpolatorType": 2,
-										"cubicX1": 0.42,
-										"cubicY1": 0,
-										"cubicX2": 0.58,
-										"cubicY2": 1,
-										"value": 160.5391845703125
-									},
-									{
-										"time": 3.6333333333333333,
-										"interpolatorType": 2,
-										"cubicX1": 0.5268817204301075,
-										"cubicY1": -0.010752688172043001,
-										"cubicX2": 0.58,
-										"cubicY2": 1,
-										"value": 162
-									}
-								]
-							],
-							"posY": [
-								[
-									{
-										"time": 0.06666666666666667,
-										"interpolatorType": 2,
-										"cubicX1": 0.5268817204301075,
-										"cubicY1": -0.010752688172043001,
-										"cubicX2": 0.58,
-										"cubicY2": 1,
-										"value": 255.71484375
-									},
-									{
-										"time": 0.38333333333333336,
-										"interpolatorType": 2,
-										"cubicX1": 0.42,
-										"cubicY1": 0,
-										"cubicX2": 0.58,
-										"cubicY2": 1,
-										"value": 251.71484375
-									},
-									{
-										"time": 3.1333333333333333,
-										"interpolatorType": 2,
-										"cubicX1": 0.42,
-										"cubicY1": 0,
-										"cubicX2": 0.58,
-										"cubicY2": 1,
-										"value": 251.71484375
-									},
-									{
-										"time": 3.6333333333333333,
-										"interpolatorType": 2,
-										"cubicX1": 0.5268817204301075,
-										"cubicY1": -0.010752688172043001,
-										"cubicX2": 0.58,
-										"cubicY2": 1,
-										"value": 255.71484375
-									}
-								]
-							]
-						},
-						{
-							"component": 112,
-							"scaleX": [
-								[
-									{
-										"time": 0,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.03333333333333333,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 0.06666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.11666666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 0.16666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.21666666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 0.26666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.31666666666666665,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 0.36666666666666664,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.41666666666666663,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 0.4666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.5166666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 0.5666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.6166666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 0.6666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.7166666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 0.7666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.8166666666666668,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 0.8666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.9166666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 0.9666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.0166666666666666,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 1.0666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.1166666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 1.1666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.2166666666666668,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 1.2666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.3166666666666669,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 1.3666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.4166666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 1.4666666666666668,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.5166666666666666,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 1.5666666666666669,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.6166666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 1.6666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.7166666666666668,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 1.7666666666666668,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.8166666666666669,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 1.8666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.9166666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 1.9666666666666668,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.0166666666666666,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 2.066666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.1166666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 2.166666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.216666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 2.2666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.316666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 2.3666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.416666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 2.466666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.5166666666666666,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 2.566666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.6166666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 2.666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.716666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 2.7666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.816666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 2.8666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.916666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 2.966666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.0166666666666666,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 3.066666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.1166666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 3.166666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.216666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 3.2666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.3166666666666664,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 3.3666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.4166666666666665,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 3.466666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.5166666666666666,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 3.5666666666666664,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.6166666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 3.6666666666666665,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.716666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 3.7666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.8166666666666664,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 3.8666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.9166666666666665,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 3.966666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.016666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 4.066666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.116666666666666,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 4.166666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.216666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 4.266666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.316666666666666,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 4.366666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.416666666666666,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 4.466666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.516666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 4.566666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.616666666666666,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 4.666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.716666666666667,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 4.766666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.816666666666666,
-										"interpolatorType": 1,
-										"value": 1.4020000000000001
-									},
-									{
-										"time": 4.866666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									}
-								]
-							],
-							"scaleY": [
-								[
-									{
-										"time": 0,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.03333333333333333,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 0.06666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.11666666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 0.16666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.21666666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 0.26666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.31666666666666665,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 0.36666666666666664,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.41666666666666663,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 0.4666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.5166666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 0.5666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.6166666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 0.6666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.7166666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 0.7666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.8166666666666668,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 0.8666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 0.9166666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 0.9666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.0166666666666666,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 1.0666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.1166666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 1.1666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.2166666666666668,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 1.2666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.3166666666666669,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 1.3666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.4166666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 1.4666666666666668,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.5166666666666666,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 1.5666666666666669,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.6166666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 1.6666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.7166666666666668,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 1.7666666666666668,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.8166666666666669,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 1.8666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 1.9166666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 1.9666666666666668,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.0166666666666666,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 2.066666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.1166666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 2.166666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.216666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 2.2666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.316666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 2.3666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.416666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 2.466666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.5166666666666666,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 2.566666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.6166666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 2.666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.716666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 2.7666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.816666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 2.8666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 2.916666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 2.966666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.0166666666666666,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 3.066666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.1166666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 3.166666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.216666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 3.2666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.3166666666666664,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 3.3666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.4166666666666665,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 3.466666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.5166666666666666,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 3.5666666666666664,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.6166666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 3.6666666666666665,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.716666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 3.7666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.8166666666666664,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 3.8666666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 3.9166666666666665,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 3.966666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.016666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 4.066666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.116666666666666,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 4.166666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.216666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 4.266666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.316666666666666,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 4.366666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.416666666666666,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 4.466666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.516666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 4.566666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.616666666666666,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 4.666666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.716666666666667,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 4.766666666666667,
-										"interpolatorType": 0,
-										"value": 1
-									},
-									{
-										"time": 4.816666666666666,
-										"interpolatorType": 1,
-										"value": 1.274
-									},
-									{
-										"time": 4.866666666666666,
-										"interpolatorType": 0,
-										"value": 1
-									}
-								]
-							]
-						},
-						{
 							"component": 119,
 							"posX": [
 								[
 									{
-										"time": 0.6333333333333333,
-										"interpolatorType": 2,
-										"cubicX1": 0.42,
-										"cubicY1": 0,
-										"cubicX2": 0.58,
-										"cubicY2": 1,
-										"value": 178.788818359375
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 73.9910888671875
 									},
 									{
-										"time": 0.95,
+										"time": 0.6166666666666667,
 										"interpolatorType": 2,
 										"cubicX1": 0.42,
 										"cubicY1": 0,
 										"cubicX2": 0.58,
 										"cubicY2": 1,
-										"value": 177.788818359375
+										"value": 72.8115234375
+									},
+									{
+										"time": 0.6666666666666666,
+										"interpolatorType": 1,
+										"value": 72.76692199707031
+									},
+									{
+										"time": 0.9333333333333333,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 89.538818359375
 									},
 									{
 										"time": 3.1333333333333333,
@@ -9484,7 +8410,7 @@
 										"cubicY1": 0,
 										"cubicX2": 0.58,
 										"cubicY2": 1,
-										"value": 177.788818359375
+										"value": 73.538818359375
 									},
 									{
 										"time": 3.6333333333333333,
@@ -9493,29 +8419,49 @@
 										"cubicY1": 0,
 										"cubicX2": 0.58,
 										"cubicY2": 1,
-										"value": 178.788818359375
+										"value": 90.788818359375
 									}
 								]
 							],
 							"posY": [
 								[
 									{
-										"time": 0.6333333333333333,
-										"interpolatorType": 2,
-										"cubicX1": 0.42,
-										"cubicY1": 0,
-										"cubicX2": 0.58,
-										"cubicY2": 1,
-										"value": 262.9647216796875
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 80.04559326171875
 									},
 									{
-										"time": 0.95,
+										"time": 0.6166666666666667,
 										"interpolatorType": 2,
 										"cubicX1": 0.42,
 										"cubicY1": 0,
 										"cubicX2": 0.58,
 										"cubicY2": 1,
-										"value": 260.9647216796875
+										"value": 75.50531005859375
+									},
+									{
+										"time": 0.6666666666666666,
+										"interpolatorType": 1,
+										"value": 75.92092895507812
+									},
+									{
+										"time": 0.7833333333333333,
+										"interpolatorType": 1,
+										"value": 70.4869613647461
+									},
+									{
+										"time": 0.9333333333333333,
+										"interpolatorType": 2,
+										"cubicX1": 0.42,
+										"cubicY1": 0,
+										"cubicX2": 0.58,
+										"cubicY2": 1,
+										"value": 85.2147216796875
+									},
+									{
+										"time": 1.9666666666666666,
+										"interpolatorType": 1,
+										"value": 72.03421783447266
 									},
 									{
 										"time": 3.1333333333333333,
@@ -9524,7 +8470,7 @@
 										"cubicY1": 0,
 										"cubicX2": 0.58,
 										"cubicY2": 1,
-										"value": 260.9647216796875
+										"value": 75.9647216796875
 									},
 									{
 										"time": 3.6333333333333333,
@@ -9533,7 +8479,7 @@
 										"cubicY1": 0,
 										"cubicX2": 0.58,
 										"cubicY2": 1,
-										"value": 262.9647216796875
+										"value": 88.2147216796875
 									}
 								]
 							]
@@ -9543,22 +8489,52 @@
 							"scaleX": [
 								[
 									{
-										"time": 0,
+										"time": -0.26666666666666666,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 0.016666666666666666,
+										"time": -0.25,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 0.06666666666666667,
+										"time": -0.2,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 0.1,
+										"time": -0.16666666666666666,
+										"interpolatorType": 1,
+										"value": 1.457
+									},
+									{
+										"time": -0.13333333333333333,
+										"interpolatorType": 1,
+										"value": 1
+									},
+									{
+										"time": -0.08333333333333333,
+										"interpolatorType": 1,
+										"value": 1.457
+									},
+									{
+										"time": -0.05,
+										"interpolatorType": 1,
+										"value": 1
+									},
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1.457
+									},
+									{
+										"time": 0.03333333333333333,
+										"interpolatorType": 1,
+										"value": 1
+									},
+									{
+										"time": 0.08333333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
@@ -9573,7 +8549,7 @@
 										"value": 1.457
 									},
 									{
-										"time": 0.21666666666666667,
+										"time": 0.23333333333333334,
 										"interpolatorType": 1,
 										"value": 1
 									},
@@ -9583,7 +8559,7 @@
 										"value": 1.457
 									},
 									{
-										"time": 0.31666666666666665,
+										"time": 0.3333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
@@ -9593,7 +8569,7 @@
 										"value": 1.457
 									},
 									{
-										"time": 0.4166666666666667,
+										"time": 0.43333333333333335,
 										"interpolatorType": 1,
 										"value": 1
 									},
@@ -9603,12 +8579,12 @@
 										"value": 1.457
 									},
 									{
-										"time": 0.5166666666666667,
+										"time": 0.5333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 0.5666666666666667,
+										"time": 0.55,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
@@ -9618,22 +8594,22 @@
 										"value": 1
 									},
 									{
-										"time": 0.6666666666666667,
+										"time": 0.6833333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 0.7166666666666667,
+										"time": 0.7333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 0.7666666666666666,
+										"time": 0.7833333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 0.8166666666666667,
+										"time": 0.8,
 										"interpolatorType": 1,
 										"value": 1
 									},
@@ -9643,22 +8619,22 @@
 										"value": 1.457
 									},
 									{
-										"time": 0.9166666666666666,
+										"time": 0.9333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 0.9666666666666666,
+										"time": 0.9833333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 1.0166666666666666,
+										"time": 1,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 1.0666666666666667,
+										"time": 1.0833333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
@@ -9668,22 +8644,22 @@
 										"value": 1
 									},
 									{
-										"time": 1.1666666666666667,
+										"time": 1.15,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 1.2166666666666666,
+										"time": 1.2333333333333334,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 1.2666666666666666,
+										"time": 1.25,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 1.3166666666666667,
+										"time": 1.3333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
@@ -9693,22 +8669,22 @@
 										"value": 1.457
 									},
 									{
-										"time": 1.4166666666666667,
+										"time": 1.4,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 1.4666666666666668,
+										"time": 1.4833333333333334,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 1.5166666666666666,
+										"time": 1.5,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 1.5666666666666667,
+										"time": 1.5833333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
@@ -9718,22 +8694,22 @@
 										"value": 1
 									},
 									{
-										"time": 1.6666666666666667,
+										"time": 1.65,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 1.7166666666666668,
+										"time": 1.7333333333333334,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 1.7666666666666668,
+										"time": 1.75,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 1.8166666666666667,
+										"time": 1.8333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
@@ -9743,212 +8719,202 @@
 										"value": 1.457
 									},
 									{
-										"time": 1.9166666666666667,
+										"time": 1.9,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 1.9666666666666668,
+										"time": 1.9833333333333334,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 2.0166666666666666,
+										"time": 2,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.066666666666667,
+										"time": 2.05,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 2.1166666666666667,
+										"time": 2.1333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.166666666666667,
+										"time": 2.183333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 2.216666666666667,
+										"time": 2.2333333333333334,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.2666666666666666,
+										"time": 2.25,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 2.316666666666667,
+										"time": 2.3,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.366666666666667,
+										"time": 2.3833333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 2.416666666666667,
+										"time": 2.433333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.466666666666667,
+										"time": 2.4833333333333334,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 2.5166666666666666,
+										"time": 2.5,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.566666666666667,
+										"time": 2.55,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 2.616666666666667,
+										"time": 2.6333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.666666666666667,
+										"time": 2.683333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 2.716666666666667,
+										"time": 2.7333333333333334,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.7666666666666666,
+										"time": 2.75,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 2.816666666666667,
+										"time": 2.8,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.866666666666667,
+										"time": 2.8833333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 2.916666666666667,
+										"time": 2.933333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.966666666666667,
+										"time": 2.9833333333333334,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 3.0166666666666666,
+										"time": 3,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.066666666666667,
+										"time": 3.05,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 3.116666666666667,
+										"time": 3.1333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.166666666666667,
+										"time": 3.183333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 3.216666666666667,
+										"time": 3.2333333333333334,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.266666666666667,
+										"time": 3.25,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 3.316666666666667,
+										"time": 3.3,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.366666666666667,
+										"time": 3.3833333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 3.4166666666666665,
+										"time": 3.433333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.466666666666667,
+										"time": 3.4833333333333334,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 3.5166666666666666,
+										"time": 3.5,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.5666666666666664,
+										"time": 3.55,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 3.6166666666666663,
+										"time": 3.6333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.6666666666666665,
+										"time": 3.683333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 3.716666666666667,
+										"time": 3.8,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.7666666666666666,
+										"time": 3.8833333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 3.8166666666666664,
+										"time": 3.933333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.8666666666666667,
-										"interpolatorType": 1,
-										"value": 1.457
-									},
-									{
-										"time": 3.9166666666666665,
-										"interpolatorType": 1,
-										"value": 1
-									},
-									{
-										"time": 3.966666666666667,
+										"time": 4,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
@@ -9958,22 +8924,22 @@
 										"value": 1
 									},
 									{
-										"time": 4.066666666666666,
+										"time": 4.083333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 4.116666666666667,
+										"time": 4.116666666666666,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 4.166666666666667,
+										"time": 4.183333333333334,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 4.216666666666667,
+										"time": 4.25,
 										"interpolatorType": 1,
 										"value": 1
 									},
@@ -9983,22 +8949,22 @@
 										"value": 1.457
 									},
 									{
-										"time": 4.316666666666666,
+										"time": 4.333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 4.366666666666667,
+										"time": 4.366666666666666,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
 									{
-										"time": 4.416666666666667,
+										"time": 4.433333333333334,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 4.466666666666667,
+										"time": 4.5,
 										"interpolatorType": 1,
 										"value": 1.457
 									},
@@ -10008,37 +8974,7 @@
 										"value": 1
 									},
 									{
-										"time": 4.566666666666666,
-										"interpolatorType": 1,
-										"value": 1.457
-									},
-									{
-										"time": 4.616666666666666,
-										"interpolatorType": 1,
-										"value": 1
-									},
-									{
-										"time": 4.666666666666666,
-										"interpolatorType": 1,
-										"value": 1.457
-									},
-									{
-										"time": 4.716666666666667,
-										"interpolatorType": 1,
-										"value": 1
-									},
-									{
-										"time": 4.766666666666667,
-										"interpolatorType": 1,
-										"value": 1.457
-									},
-									{
-										"time": 4.816666666666666,
-										"interpolatorType": 1,
-										"value": 1
-									},
-									{
-										"time": 4.866666666666666,
+										"time": 4.583333333333333,
 										"interpolatorType": 1,
 										"value": 1.457
 									}
@@ -10047,22 +8983,52 @@
 							"scaleY": [
 								[
 									{
-										"time": 0,
+										"time": -0.26666666666666666,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 0.016666666666666666,
+										"time": -0.25,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 0.06666666666666667,
+										"time": -0.2,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 0.1,
+										"time": -0.16666666666666666,
+										"interpolatorType": 1,
+										"value": 1.1340000000000001
+									},
+									{
+										"time": -0.13333333333333333,
+										"interpolatorType": 1,
+										"value": 1
+									},
+									{
+										"time": -0.08333333333333333,
+										"interpolatorType": 1,
+										"value": 1.1340000000000001
+									},
+									{
+										"time": -0.05,
+										"interpolatorType": 1,
+										"value": 1
+									},
+									{
+										"time": 0,
+										"interpolatorType": 1,
+										"value": 1.1340000000000001
+									},
+									{
+										"time": 0.03333333333333333,
+										"interpolatorType": 1,
+										"value": 1
+									},
+									{
+										"time": 0.08333333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
@@ -10077,7 +9043,7 @@
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 0.21666666666666667,
+										"time": 0.23333333333333334,
 										"interpolatorType": 1,
 										"value": 1
 									},
@@ -10087,7 +9053,7 @@
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 0.31666666666666665,
+										"time": 0.3333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
@@ -10097,7 +9063,7 @@
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 0.4166666666666667,
+										"time": 0.43333333333333335,
 										"interpolatorType": 1,
 										"value": 1
 									},
@@ -10107,12 +9073,12 @@
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 0.5166666666666667,
+										"time": 0.5333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 0.5666666666666667,
+										"time": 0.55,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
@@ -10122,22 +9088,22 @@
 										"value": 1
 									},
 									{
-										"time": 0.6666666666666667,
+										"time": 0.6833333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 0.7166666666666667,
+										"time": 0.7333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 0.7666666666666666,
+										"time": 0.7833333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 0.8166666666666667,
+										"time": 0.8,
 										"interpolatorType": 1,
 										"value": 1
 									},
@@ -10147,22 +9113,22 @@
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 0.9166666666666666,
+										"time": 0.9333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 0.9666666666666666,
+										"time": 0.9833333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 1.0166666666666666,
+										"time": 1,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 1.0666666666666667,
+										"time": 1.0833333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
@@ -10172,22 +9138,22 @@
 										"value": 1
 									},
 									{
-										"time": 1.1666666666666667,
+										"time": 1.15,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 1.2166666666666666,
+										"time": 1.2333333333333334,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 1.2666666666666666,
+										"time": 1.25,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 1.3166666666666667,
+										"time": 1.3333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
@@ -10197,22 +9163,22 @@
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 1.4166666666666667,
+										"time": 1.4,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 1.4666666666666668,
+										"time": 1.4833333333333334,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 1.5166666666666666,
+										"time": 1.5,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 1.5666666666666667,
+										"time": 1.5833333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
@@ -10222,22 +9188,22 @@
 										"value": 1
 									},
 									{
-										"time": 1.6666666666666667,
+										"time": 1.65,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 1.7166666666666668,
+										"time": 1.7333333333333334,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 1.7666666666666668,
+										"time": 1.75,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 1.8166666666666667,
+										"time": 1.8333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
@@ -10247,212 +9213,202 @@
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 1.9166666666666667,
+										"time": 1.9,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 1.9666666666666668,
+										"time": 1.9833333333333334,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 2.0166666666666666,
+										"time": 2,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.066666666666667,
+										"time": 2.05,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 2.1166666666666667,
+										"time": 2.1333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.166666666666667,
+										"time": 2.183333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 2.216666666666667,
+										"time": 2.2333333333333334,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.2666666666666666,
+										"time": 2.25,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 2.316666666666667,
+										"time": 2.3,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.366666666666667,
+										"time": 2.3833333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 2.416666666666667,
+										"time": 2.433333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.466666666666667,
+										"time": 2.4833333333333334,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 2.5166666666666666,
+										"time": 2.5,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.566666666666667,
+										"time": 2.55,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 2.616666666666667,
+										"time": 2.6333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.666666666666667,
+										"time": 2.683333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 2.716666666666667,
+										"time": 2.7333333333333334,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.7666666666666666,
+										"time": 2.75,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 2.816666666666667,
+										"time": 2.8,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.866666666666667,
+										"time": 2.8833333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 2.916666666666667,
+										"time": 2.933333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 2.966666666666667,
+										"time": 2.9833333333333334,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 3.0166666666666666,
+										"time": 3,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.066666666666667,
+										"time": 3.05,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 3.116666666666667,
+										"time": 3.1333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.166666666666667,
+										"time": 3.183333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 3.216666666666667,
+										"time": 3.2333333333333334,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.266666666666667,
+										"time": 3.25,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 3.316666666666667,
+										"time": 3.3,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.366666666666667,
+										"time": 3.3833333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 3.4166666666666665,
+										"time": 3.433333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.466666666666667,
+										"time": 3.4833333333333334,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 3.5166666666666666,
+										"time": 3.5,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.5666666666666664,
+										"time": 3.55,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 3.6166666666666663,
+										"time": 3.6333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.6666666666666665,
+										"time": 3.683333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 3.716666666666667,
+										"time": 3.8,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.7666666666666666,
+										"time": 3.8833333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 3.8166666666666664,
+										"time": 3.933333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 3.8666666666666667,
-										"interpolatorType": 1,
-										"value": 1.1340000000000001
-									},
-									{
-										"time": 3.9166666666666665,
-										"interpolatorType": 1,
-										"value": 1
-									},
-									{
-										"time": 3.966666666666667,
+										"time": 4,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
@@ -10462,22 +9418,22 @@
 										"value": 1
 									},
 									{
-										"time": 4.066666666666666,
+										"time": 4.083333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 4.116666666666667,
+										"time": 4.116666666666666,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 4.166666666666667,
+										"time": 4.183333333333334,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 4.216666666666667,
+										"time": 4.25,
 										"interpolatorType": 1,
 										"value": 1
 									},
@@ -10487,22 +9443,22 @@
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 4.316666666666666,
+										"time": 4.333333333333333,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 4.366666666666667,
+										"time": 4.366666666666666,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
 									{
-										"time": 4.416666666666667,
+										"time": 4.433333333333334,
 										"interpolatorType": 1,
 										"value": 1
 									},
 									{
-										"time": 4.466666666666667,
+										"time": 4.5,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
 									},
@@ -10512,39 +9468,27 @@
 										"value": 1
 									},
 									{
-										"time": 4.566666666666666,
+										"time": 4.583333333333333,
 										"interpolatorType": 1,
 										"value": 1.1340000000000001
-									},
+									}
+								]
+							],
+							"length": [
+								[
 									{
-										"time": 4.616666666666666,
+										"time": 1.65,
 										"interpolatorType": 1,
-										"value": 1
-									},
+										"value": 4.821430879527964
+									}
+								]
+							],
+							"rotation": [
+								[
 									{
-										"time": 4.666666666666666,
+										"time": 1.65,
 										"interpolatorType": 1,
-										"value": 1.1340000000000001
-									},
-									{
-										"time": 4.716666666666667,
-										"interpolatorType": 1,
-										"value": 1
-									},
-									{
-										"time": 4.766666666666667,
-										"interpolatorType": 1,
-										"value": 1.1340000000000001
-									},
-									{
-										"time": 4.816666666666666,
-										"interpolatorType": 1,
-										"value": 1
-									},
-									{
-										"time": 4.866666666666666,
-										"interpolatorType": 1,
-										"value": 1.1340000000000001
+										"value": -1.6911657237202304
 									}
 								]
 							]

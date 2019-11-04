@@ -133,17 +133,17 @@ class SplashScreenState extends State<SplashScreen>
                 return Center(
                   child: Container(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Container(
                           alignment: Alignment.topCenter,
-                          height: 600,
+                          height: 400,
                           width: 400,
                           child: Center(
                             child: FlareActor(
                               "assets/animations/no_connection.flr",
-                              animation: "Untitled",
-                              fit: BoxFit.fitHeight,
+                              animation: "init",
+                              fit: BoxFit.fill,
                             ),
                           ),
                         ),
@@ -196,11 +196,11 @@ class SplashScreenState extends State<SplashScreen>
                 return Center(
                   child: Container(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Container(
                           alignment: Alignment.topCenter,
-                          height: 600,
+                          height: 300,
                           width: 300,
                           child: Center(
                             child: FlareActor(

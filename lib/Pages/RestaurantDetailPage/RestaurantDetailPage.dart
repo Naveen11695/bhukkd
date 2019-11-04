@@ -14,6 +14,7 @@ import 'package:bhukkd/Pages/RestaurantDetailPage/Componets/WidgetSubDetails.dar
 import 'package:bhukkd/Services/HttpRequest.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 
 import '../../models/Reviews/Reviews.dart';
@@ -107,10 +108,63 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.data == "error") {
-                  return FlareActor(
-                    "assets/animations/restaurant_details.flr",
-                    animation: "image_loading",
-                    fit: BoxFit.fill,
+                  print("error");
+                  return Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                          alignment: Alignment.topCenter,
+                          child: Image.asset(
+                            "assets/images/no_data.gif",
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 50.0),
+                          child: Column(
+                            children: <Widget>[
+                              Text("Ooops!",
+                                  style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                      fontFamily: FONT_TEXT_PRIMARY,
+                                      letterSpacing: 2,
+                                      wordSpacing: 2)),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 50, vertical: 10),
+                                child: Text(
+                                    "Sorry no information available.",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.black45,
+                                        fontFamily: FONT_TEXT_SECONDARY,
+                                        letterSpacing: 2,
+                                        wordSpacing: 2)),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        InkWell(
+                            onTap: () {
+                              setState(() {
+                                Navigator.pop(context);
+                              });
+                            },
+                            splashColor: Colors.white24,
+                            highlightColor: Colors.white10,
+                            child: Icon(
+                              FontAwesomeIcons.arrowCircleLeft,
+                              color: SECONDARY_COLOR_1,
+                              size: 40,)
+                        ),
+                      ],
+                    ),
                   );
                 } else if (snapshot.data != null) {
                   restruant_Photo_url = snapshot.data.restruant_Photo_url;
