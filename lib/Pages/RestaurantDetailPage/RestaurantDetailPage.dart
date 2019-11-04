@@ -232,7 +232,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                     .height *
                                                 0.01,
                                             left: 10.0,
-                                            bottom: 80.0),
+                                            bottom: 50.0),
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.start,
@@ -250,19 +250,20 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
 
                                             Padding(
                                               padding: const EdgeInsets.only(
-                                                  top: 8.0, bottom: 8.0),
+                                                  top: 2.0, bottom: 8.0),
                                               child: titleBar("Menu", c_width),
                                             ),
 
                                             Container(
-                                              height: 200.0,
+                                              height: 180.0,
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
                                                   1.0,
                                               child: Padding(
                                                 padding:
-                                                    const EdgeInsets.all(2.0),
+                                                const EdgeInsets.only(
+                                                    left: 2.0, right: 2.0),
                                                 child: FutureBuilder(
                                                     future: _resMenu,
                                                     builder:
@@ -367,7 +368,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                     ),
                     bottomNavigationBar: Container(
                       padding: EdgeInsets.only(
-                          top: 20.0, left: 50.0, right: 50.0, bottom: 20.0),
+                          top: 10.0, left: 50.0, right: 50.0, bottom: 10.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(50.0),

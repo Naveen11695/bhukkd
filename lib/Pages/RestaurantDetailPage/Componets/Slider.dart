@@ -29,7 +29,7 @@ Widget buildSlider(BuildContext context, AsyncSnapshot snapshot) {
                 errorWidget: (context, url, error) => Icon(Icons.error),
               );
             },
-            itemCount: (snapshot.data.length > 15) ? 15 : snapshot.data.length,
+            itemCount: (snapshot.data.length > 10) ? 10 : snapshot.data.length,
             pagination: new SwiperPagination(),
           ),
         ),
