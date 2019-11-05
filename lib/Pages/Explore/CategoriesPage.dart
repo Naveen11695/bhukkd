@@ -56,7 +56,7 @@ class CategoriesPageState extends State<CategoriesPage> {
     });
   }
 
-  final _callit = new AsyncCache(const Duration(days: 1));
+  final _callit = new AsyncCache(const Duration(days: 30));
 
   get _callitAsync =>
       _callit.fetch(() {

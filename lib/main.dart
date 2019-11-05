@@ -2,19 +2,17 @@ import 'dart:async';
 
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterAppConstant.dart';
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterUserDetails.dart';
-import 'package:bhukkd/Components/CustomComponets.dart';
+import 'package:bhukkd/Components/FlareWaiting.dart';
 import 'package:bhukkd/HomePage.dart';
 import 'package:bhukkd/Pages/TrendingPage/TrendingPage.dart';
 import 'package:bhukkd/Services/LocationRequest.dart';
 import 'package:bhukkd/Services/SharedPreference.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import './models/GeoCodeInfo/GeoCode.dart';
@@ -135,48 +133,7 @@ class SplashScreenState extends State<SplashScreen>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Container(
-                          alignment: Alignment.topCenter,
-                          height: 400,
-                          width: 400,
-                          child: Center(
-                            child: FlareActor(
-                              "assets/animations/no_connection.flr",
-                              animation: "init",
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 50.0),
-                          child: Column(
-                            children: <Widget>[
-                              Text("Connection error!",
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontFamily: FONT_TEXT_PRIMARY,
-                                      letterSpacing: 2,
-                                      wordSpacing: 2)),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 50, vertical: 10),
-                                child: Text(
-                                    "Please check your internet connection.",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.black45,
-                                        fontFamily: FONT_TEXT_SECONDARY,
-                                        letterSpacing: 2,
-                                        wordSpacing: 2)),
-                              ),
-                            ],
-                          ),
-                        ),
-
+                        buildSplashScreenNoConnection(),
                         InkWell(
                             onTap: () {
                               setState(() {});
@@ -198,48 +155,7 @@ class SplashScreenState extends State<SplashScreen>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Container(
-                          alignment: Alignment.topCenter,
-                          height: 300,
-                          width: 300,
-                          child: Center(
-                            child: FlareActor(
-                              "assets/animations/search_location.flr",
-                              animation: "searching",
-                              fit: BoxFit.scaleDown,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 50.0),
-                          child: Column(
-                            children: <Widget>[
-                              Text("Location error!",
-                                  style: TextStyle(
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontFamily: FONT_TEXT_PRIMARY,
-                                      letterSpacing: 2,
-                                      wordSpacing: 2)),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 50, vertical: 10),
-                                child: Text(
-                                    "Please make sure you enable your gps or check for the pemission.",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.black45,
-                                        fontFamily: FONT_TEXT_SECONDARY,
-                                        letterSpacing: 2,
-                                        wordSpacing: 2)),
-                              ),
-                            ],
-                          ),
-                        ),
-
+                        buildSplashScreenLocationError(),
                         InkWell(
                             onTap: () {
                               setState(() {});
@@ -274,101 +190,23 @@ class SplashScreenState extends State<SplashScreen>
                       snapshot.data.postalCode;
                 }
                 delayTimer();
-                return Scaffold(
-                  body: Stack(
-                    fit: StackFit.passthrough,
-                    children: <Widget>[
-                      Positioned(
-                        top: 0,
-                        child: login_background(size),
-                      ),
-                      Container(
-                        color: Colors.black45,
-                      ),
-                      new SafeArea(
-                        child: ListView(
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.all(100.0),
-                              child: logo,
-                            ),
-                            SizedBox(
-                              height: c_height * 0.5,
-                            ),
-                            Center(
-                              child: splash_description,
-                            ),
-                            Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: CollectionScaleTransition(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.face,
-                                      color: Color(0xFFFFFFFF),
-                                    ),
-                                    Icon(
-                                      Icons.fastfood,
-                                      color: Color(0xFFFFFFFF),
-                                    ),
-                                    Icon(
-                                      Icons.favorite,
-                                      color: Color(0xFFFFFFFF),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
+                return buildSplashScreenWaiting(size, c_height);
               } else {
                 return Center(
                   child: Container(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Container(
-                          alignment: Alignment.topCenter,
-                          height: 600,
-                          width: 400,
-                          child: Center(
-                            child: FlareActor(
-                              "assets/animations/no_connection.flr",
-                              animation: "Untitled",
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 20.0),
-                          child: Text("No Connection",
-                              style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontFamily: FONT_TEXT_EXTRA,
-                                  letterSpacing: 2,
-                                  wordSpacing: 2)),
-                        ),
-                        RaisedButton.icon(
-                          onPressed: () {
-                            setState(() {});
-                          },
-                          color: SECONDARY_COLOR_1,
-                          label: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Text('Retry',
-                                style: TextStyle(
-                                    fontSize: 15.0, color: Colors.white)),
-                          ),
-                          icon: Icon(
-                            Icons.refresh,
-                            color: Colors.white,
-                          ),
+                        buildSplashScreenNoConnection(),
+                        InkWell(
+                            onTap: () {
+                              setState(() {});
+                            },
+                            splashColor: Colors.white24,
+                            highlightColor: Colors.white10,
+                            child: Icon(
+                              FontAwesomeIcons.redo, color: SECONDARY_COLOR_1,
+                              size: 40,)
                         ),
                       ],
                     ),
@@ -376,57 +214,7 @@ class SplashScreenState extends State<SplashScreen>
                 );
               }
             } else {
-              return Scaffold(
-                body: Stack(
-                  fit: StackFit.passthrough,
-                  children: <Widget>[
-                    Positioned(
-                      top: 0,
-                      child: login_background(size),
-                    ),
-                    Container(
-                      color: Colors.black45,
-                    ),
-                    new SafeArea(
-                      child: ListView(
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.all(100.0),
-                            child: logo,
-                          ),
-                          SizedBox(
-                            height: c_height * 0.5,
-                          ),
-                          Center(
-                            child: splash_description,
-                          ),
-                          Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: CollectionScaleTransition(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.face,
-                                    color: Color(0xFFFFFFFF),
-                                  ),
-                                  Icon(
-                                    Icons.fastfood,
-                                    color: Color(0xFFFFFFFF),
-                                  ),
-                                  Icon(
-                                    Icons.favorite,
-                                    color: Color(0xFFFFFFFF),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
+              return buildSplashScreenWaiting(size, c_height);
             }
           }),
     );
@@ -454,7 +242,6 @@ Future _saveLocation() async {
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 _getDataFromFireStore() async {
-  try {
     if (_auth.currentUser() != null) {
       _auth.currentUser().then((val) {
         if (val != null) {
@@ -473,9 +260,6 @@ _getDataFromFireStore() async {
         }
       });
     }
-  } catch (e) {
-    print("Error <Main>: " + e.toString());
-  }
 }
 
 _setData(DocumentSnapshot snapshot) async {
@@ -493,6 +277,7 @@ _setData(DocumentSnapshot snapshot) async {
 
 Future getLocationName() async {
   bool _flag = false;
+  Position position;
   try {
     // ignore: missing_return
     await _saveLocation().then((pos) {
@@ -500,6 +285,7 @@ Future getLocationName() async {
         _flag = true;
       }
       else {
+        position = pos;
         _flag = false;
       }
     });
@@ -508,23 +294,12 @@ Future getLocationName() async {
       return "<Error: Location Not Found>";
     }
 
-    await _getDataFromFireStore();
-    await StoreUserLocation.get_CurrentLocation().then((loc) {
-      latitude = double.parse(loc[0]);
-      longitude = double.parse(loc[1]);
-    });
-
-    Geolocator geolocator = Geolocator()
-      ..forceAndroidLocationManager = true;
-    GeolocationStatus geolocationStatus =
-    await geolocator.checkGeolocationPermissionStatus();
-    if (geolocationStatus == GeolocationStatus.granted) {
+    _getDataFromFireStore();
+    latitude = position.latitude;
+    longitude = position.longitude;
       List<Placemark> placemark =
       await Geolocator().placemarkFromCoordinates(latitude, longitude);
       return placemark[0];
-    } else {
-      return "<Error: Location Not Found>";
-    }
   } catch (e) {
     return "<Error: Connection Not Found>";
   }

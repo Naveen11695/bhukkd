@@ -139,13 +139,13 @@ class _TrendingPageState extends State<TrendingPage>
                         clipper: ClipTop(),
                         child: Container(
                           color: SECONDARY_COLOR_1,
-                          height: 80,
+                          height: 75,
                         ),
                       ),
                       Container(
                         alignment: AlignmentDirectional.topStart,
                         padding:
-                        EdgeInsets.symmetric(horizontal: 18, vertical: 5),
+                        EdgeInsets.only(left: 18.0, right: 18.0, bottom: 10.0),
                         child: new Text(
                           "Near By Restaurants",
                           textAlign: TextAlign.start,
@@ -158,7 +158,7 @@ class _TrendingPageState extends State<TrendingPage>
                         ),
                       ),
                       Container(
-                          height: 180,
+                          height: 185,
                           child: HorizontalScroll()),
 
 
@@ -166,7 +166,7 @@ class _TrendingPageState extends State<TrendingPage>
                         width: MediaQuery.of(context).size.height * 0.92,
                         alignment: AlignmentDirectional.topStart,
                         padding:
-                        EdgeInsets.symmetric(horizontal: 18, vertical: 5),
+                        EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                         child: new Text(
                           "Top Restraunts",
                           textAlign: TextAlign.start,
@@ -180,7 +180,7 @@ class _TrendingPageState extends State<TrendingPage>
                         ),
                       ),
                       Container(
-                        color: Colors.grey.shade100,
+                        height: 145,
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(5, 2, 0, 2),
                           child: CustomHorizontalScroll(),
@@ -190,7 +190,7 @@ class _TrendingPageState extends State<TrendingPage>
                         width: MediaQuery.of(context).size.height * 0.92,
                         alignment: AlignmentDirectional.topStart,
                         padding:
-                        EdgeInsets.symmetric(horizontal: 18, vertical: 5),
+                        EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                         child: new Text(
                           "Recommended",
                           textAlign: TextAlign.start,
@@ -228,23 +228,27 @@ class _TrendingPageState extends State<TrendingPage>
                                                   )));
                                     },
                                     child: Card(
-                                      elevation: 10,
+                                      elevation: 5,
                                       child: Column(
                                         crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                         mainAxisAlignment: MainAxisAlignment
-                                            .center,
+                                            .start,
                                         children: <Widget>[
                                           Padding(
-                                            padding: const EdgeInsets.all(2.0),
+                                            padding: const EdgeInsets.only(
+                                                top: 15.0,
+                                                left: 2.0,
+                                                right: 2.0,
+                                                bottom: 2.0),
                                             child: Stack(
                                               children: <Widget>[
                                                 Padding(
                                                   padding: const EdgeInsets
                                                       .only(
-                                                      left: 5.0, right: 5.0),
+                                                      left: 5.0, right: 10.0),
                                                   child: Container(
-                                                color: Colors.black,
+                                                    color: Colors.black,
                                                     child: Center(
                                                       child: CachedNetworkImage(
                                                         imageUrl: rests[index]
@@ -303,7 +307,6 @@ class _TrendingPageState extends State<TrendingPage>
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                top: 2.0,
                                                 left: 2.0,
                                                 right: 2.0),
                                             child: Text(
@@ -443,7 +446,7 @@ class _TrendingPageState extends State<TrendingPage>
     );
   }
 
-  final _callit = new AsyncCache(const Duration(hours: 1));
+  final _callit = new AsyncCache(const Duration(days: 30));
 
   get _callitAsync =>
       _callit.fetch(() {

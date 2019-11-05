@@ -90,112 +90,120 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                         productid: snapshot.data[index].id,
                                       )));
                         },
-                        child: new Container(
-                          child: Card(
-                            margin: EdgeInsets.only(left: 5, top: 2, bottom: 2),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(4)),
-                            elevation: 10,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                new Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                        child: Card(
+                          elevation: 5,
+                          child: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment
+                                .start,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 5.0, left: 5.0, right: 2.0),
+                                child: Stack(
                                   children: <Widget>[
-                                    Expanded(
-                                      flex: 1,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(7.0),
-                                        child: (snapshot.data[index].thumb ==
-                                            "")
-                                            ? new Image.asset(
-                                          "assets/images/default.jpg",
-                                          fit: BoxFit.cover,
-                                          width: 150,
-                                          height: 105,
-                                        )
-                                            : Stack(
-                                          children: <Widget>[
-                                            CachedNetworkImage(
-                                              imageUrl: snapshot
-                                                  .data[index].thumb,
-                                              fit: BoxFit.fitWidth,
-                                              width: 160,
-                                              height: 105,
-                                              placeholder:
-                                                  (context, url) =>
-                                              new Image.asset(
-                                                "assets/images/default.jpg",
-                                                fit: BoxFit.cover,
-                                                width: 150,
-                                                height: 105,
-                                              ),
-                                            ),
-                                            Container(
-                                              height:
-                                              MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height *
-                                                  .130,
-                                              alignment:
-                                              Alignment.bottomRight,
-                                              child: ClipOval(
-                                                child: getRating(snapshot
-                                                    .data[index]
-                                                    .user_rating
-                                                    .aggregate_rating
-                                                    .toString()),
-                                              ),
-                                            )
-                                          ],
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 2.0, right: 8.0),
+                                      child: Container(
+                                        color: Colors.black,
+                                        child: Center(
+                                          child: CachedNetworkImage(
+                                            imageUrl: snapshot.data[index]
+                                                .featured_image,
+                                            fit: BoxFit.fill,
+                                            height:
+                                            MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.135,
+                                            width:
+                                            MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width *
+                                                0.5,
+                                            placeholder:
+                                                (context, url) =>
+                                                Image.asset(
+                                                  "assets/images/default.jpg",
+                                                  fit: BoxFit.cover,
+                                                  height:
+                                                  MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .height *
+                                                      0.14,
+                                                ),
+                                            errorWidget:
+                                                (context, url,
+                                                error) =>
+                                                Icon(Icons.error),
+                                          ),
                                         ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height *
+                                          .145,
+                                      alignment: Alignment
+                                          .bottomRight,
+                                      child: ClipOval(
+                                        child: getRating(
+                                            snapshot.data[index]
+                                                .user_rating
+                                                .aggregate_rating
+                                                .toString()),
                                       ),
                                     ),
                                   ],
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 2.0, right: 2.0),
-                                  child: new Text(
-                                    snapshot.data[index].name,
-                                    textDirection: TextDirection.ltr,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2.0,
+                                    right: 2.0),
+                                child: Text(
+                                  snapshot.data[index].name,
+                                  textAlign: TextAlign.center,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: FONT_TEXT_PRIMARY,
+                                      color: TEXT_PRIMARY_COLOR),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 2.0,
+                                    left: 10.0,
+                                    right: 10.0),
+                                child: Container(
+                                  width: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width * 0.75,
+                                  child: Text(
+                                    snapshot.data[index].cuisines,
                                     textAlign: TextAlign.center,
-                                    maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: new TextStyle(
-                                        fontFamily: FONT_TEXT_PRIMARY,
-                                        color: TEXT_PRIMARY_COLOR,
-                                        fontSize: 14,
-                                        shadows: [
-                                          Shadow(
-                                              offset: Offset(0.5, 0.1),
-                                              color: Colors.grey),
-                                        ]),
-                                    softWrap: true,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: FONT_TEXT_SECONDARY,
+                                        color: TEXT_SECONDARY_COLOR),
                                   ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Container(
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .width * 0.75,
-                                    child: new Text(
-                                      snapshot.data[index].cuisines,
-                                      textAlign: TextAlign.center,
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 2,
-                                      style: new TextStyle(
-                                          fontSize: 12.0,
-                                          color: TEXT_SECONDARY_COLOR,
-                                          fontFamily: FONT_TEXT_SECONDARY),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              )
+                            ],
                           ),
                         ),
                       ),
@@ -353,6 +361,9 @@ Future getNearByRestaurants() async {
       if (res.thumb.length != 0) {
         bestRest.add(res);
       }
+      bestRest.sort((a, b) {
+        return a.name.compareTo(b.name);
+      });
     }
     return bestRest;
   } catch (e) {

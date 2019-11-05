@@ -249,7 +249,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
 
                                             //----------------------------------------------------Menu----------------------------->
 
-                                            /*Padding(
+                                            Padding(
                                               padding: const EdgeInsets.only(
                                                   top: 2.0, bottom: 8.0),
                                               child: titleBar("Menu", c_width),
@@ -297,7 +297,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                       }
                                                     }),
                                               ),
-                                            ),*/
+                                            ),
 
                                             //----------------------------------------------------Menu-----------------------------<
 
