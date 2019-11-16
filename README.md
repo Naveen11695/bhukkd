@@ -28,8 +28,7 @@ Firebase cloud-storage is used as the database. and the data is originally from 
   <a href="https://imgur.com/Mw28Pwg.jpg"><img src="https://imgur.com/Mw28Pwg.jpg" width="50"></a>
 <p><b>Appicon</b></p>
   
-<a href="https://imgur.com/HCjFdaJ.jpg" width="250"></a>
-<a href="https://imgur.com/mEZhK1u.jpg"><img src="https://imgur.com/mEZhK1u.jpg" width="250"></a>
+<a href="https://imgur.com/sNyNdpS.jpg"><img src="https://imgur.com/sNyNdpS.jpg" width="250"></a>
 <a href="https://imgur.com/8VyUrSz.jpg"><img src="https://imgur.com/8VyUrSz.jpg" width="250"></a>
 <a href="https://imgur.com/FvNqfKU.jpg"><img src="https://imgur.com/FvNqfKU.jpg" width="250"></a>
 <a href="https://imgur.com/qT65auw.jpg"><img src="https://imgur.com/qT65auw.jpg" width="250"></a>
