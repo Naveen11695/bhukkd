@@ -118,7 +118,7 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                                 .of(context)
                                                 .size
                                                 .height *
-                                                0.135,
+                                                0.130,
                                             width:
                                             MediaQuery
                                                 .of(context)

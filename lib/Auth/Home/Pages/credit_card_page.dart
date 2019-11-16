@@ -68,6 +68,17 @@ class CreditCardPage extends StatelessWidget {
                 ),
               ),
               Positioned(
+                left: 2.0,
+                child: new IconButton(
+                  icon: new Icon(
+                    FontAwesomeIcons.arrowLeft,
+                    color: Colors.white,
+                    size: 20.0,
+                  ),
+                  onPressed: () => Navigator.of(_context).pop(),
+                ),
+              ),
+              Positioned(
                 right: 10.0,
                 bottom: 10.0,
                 child: StreamBuilder<String>(
@@ -76,9 +87,9 @@ class CreditCardPage extends StatelessWidget {
                       ? ""
                       : GetterSetterUserDetails.firstName +
                       ' ' +
-                      GetterSetterUserDetails.lastName == null
+                      ((GetterSetterUserDetails.lastName == null)
                       ? ""
-                      : GetterSetterUserDetails.lastName,
+                          : GetterSetterUserDetails.lastName),
                   builder: (context, snapshot) => Text(
                     snapshot.data.length > 0
                         ? snapshot.data.toUpperCase()
@@ -199,7 +210,7 @@ class CreditCardPage extends StatelessWidget {
             ),
             TextField(
               keyboardType: TextInputType.text,
-              maxLength: 20,
+              maxLength: 30,
               style: TextStyle(fontFamily: ralewayFont, color: Colors.black),
               onChanged: (out) => cardBloc.nameInputSink.add(out),
               decoration: InputDecoration(
