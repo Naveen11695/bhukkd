@@ -11,7 +11,6 @@ import 'package:bhukkd/Pages/Explore/CategoriesPage.dart';
 import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
 import 'package:bhukkd/Pages/Search/SearchRestaurant.dart';
 import 'package:bhukkd/Pages/Search/search.dart';
-import 'package:bhukkd/Pages/TrendingPage/Componets/ClipTop.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/CustomHorizontalScroll.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/HorizontalScroll.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
@@ -20,8 +19,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:http/http.dart' as http;
-import 'package:toast/toast.dart';
+import 'package:intl/intl.dart' as prefix0;
 
 List<dynamic> copydata = [];
 
@@ -36,11 +36,10 @@ class TrendingPage extends StatefulWidget {
 
 class _TrendingPageState extends State<TrendingPage>
     with AutomaticKeepAliveClientMixin {
-  ScrollController _controller = new ScrollController();
   bool isInitializingRequest = false;
   List<dynamic> rests = [];
 
-  int start = 0;
+  int start;
 
   ListView listBuilder;
 
@@ -57,7 +56,6 @@ class _TrendingPageState extends State<TrendingPage>
           child: Stack(
             children: <Widget>[
               new CustomScrollView(
-                controller: _controller,
                 physics: ScrollPhysics(),
                 slivers: <Widget>[
                   new SliverAppBar(
@@ -93,7 +91,7 @@ class _TrendingPageState extends State<TrendingPage>
                               style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.white,
-                                fontWeight: FontWeight.w300,
+                                fontWeight: FontWeight.w200,
                                 fontFamily: FONT_TEXT_SECONDARY,
                               )),
                         ],
@@ -120,30 +118,36 @@ class _TrendingPageState extends State<TrendingPage>
                   ),
                   SliverList(
                     delegate: SliverChildListDelegate([
-                      ClipPath(
-                        clipper: ClipTop(),
-                        child: Container(
-                          color: SECONDARY_COLOR_1,
-                          height: 60,
-                        ),
-                      ),
-                      Container(
-                        alignment: AlignmentDirectional.topStart,
-                        padding:
-                        EdgeInsets.only(top: 5.0, left: 18.0, bottom: 5.0),
-                        child: new Text(
-                          "Near By Restaurants - - - - - - - - - - - - - - - - - - - -",
-                          textAlign: TextAlign.start,
-                          maxLines: 1,
-                          overflow: TextOverflow.clip,
-                          style: new TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w800,
-                            fontFamily: FONT_TEXT_EXTRA,
-                            letterSpacing: 0.8,
-                            wordSpacing: 0.0,
+                      Stack(
+                        children: <Widget>[
+                          ClipPath(
+                            clipper: WaveClipperTwo(),
+                            child: Container(
+                              color: SECONDARY_COLOR_1,
+                              height: 45,
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 35.0),
+                            child: Container(
+                              alignment: AlignmentDirectional.topStart,
+                              padding: EdgeInsets.only(left: 18.0, bottom: 5.0),
+                              child: new Text(
+                                "Near By Restaurants - - - - - - - - - - - - - - - - - - - -",
+                                textAlign: TextAlign.start,
+                                maxLines: 1,
+                                overflow: TextOverflow.clip,
+                                style: new TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w800,
+                                  fontFamily: FONT_TEXT_EXTRA,
+                                  letterSpacing: 0.8,
+                                  wordSpacing: 0.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       Container(height: 185, child: HorizontalScroll()),
                       Container(
@@ -179,19 +183,55 @@ class _TrendingPageState extends State<TrendingPage>
                         alignment: AlignmentDirectional.topStart,
                         padding:
                         EdgeInsets.only(top: 5, left: 18.0, bottom: 5.0),
-                        child: new Text(
-                          "Recommended - - - - - - - - - - - - - - - - - - - - - - - - - -",
-                          textAlign: TextAlign.start,
-                          maxLines: 1,
-                          overflow: TextOverflow.clip,
-                          style: new TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w800,
-                            fontFamily: FONT_TEXT_EXTRA,
-                            // fontWeight: FontWeight.w700,
-                            letterSpacing: 0.8,
-                            wordSpacing: 0.0,
-                          ),
+                        child: Row(
+                          children: <Widget>[
+                            Text(
+                              "Recommended ",
+                              textAlign: TextAlign.start,
+                              maxLines: 1,
+                              overflow: TextOverflow.clip,
+                              style: new TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: FONT_TEXT_EXTRA,
+                                // fontWeight: FontWeight.w700,
+                                letterSpacing: 0.8,
+                                wordSpacing: 0.0,
+                              ),
+                            ),
+                            Text(
+                              "(" + prefix0.DateFormat('EEEE').format(
+                                  DateTime.now()).toString() + " Special)",
+                              textAlign: TextAlign.start,
+                              maxLines: 1,
+                              overflow: TextOverflow.clip,
+                              style: new TextStyle(
+                                fontSize: 15.0,
+                                color: TEXT_SECONDARY_COLOR,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: FONT_TEXT_EXTRA,
+                                letterSpacing: 0.8,
+                                wordSpacing: 0.0,
+                              ),
+                            ),
+                            Flexible(
+                              fit: FlexFit.loose,
+                              child: Text(
+                                " - - - - - - - - - - - - - - - - -",
+                                textAlign: TextAlign.start,
+                                maxLines: 1,
+                                overflow: TextOverflow.clip,
+                                style: new TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w800,
+                                  fontFamily: FONT_TEXT_EXTRA,
+                                  // fontWeight: FontWeight.w700,
+                                  letterSpacing: 0.8,
+                                  wordSpacing: 0.0,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ]),
@@ -447,7 +487,6 @@ class _TrendingPageState extends State<TrendingPage>
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
   }
 
   Future fetchRestByCollectionID(int id, String q, String sorting) async {
@@ -513,8 +552,6 @@ class _TrendingPageState extends State<TrendingPage>
             addRest = new List.generate(20, (index) => copydata[index]);
           else {
             _status = "finished";
-            Toast.show("Sorry! no more results", context,
-                duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
           }
           try {
             setState(() {
@@ -534,21 +571,15 @@ class _TrendingPageState extends State<TrendingPage>
   @override
   void initState() {
     super.initState();
+    (DateTime
+        .now()
+        .weekday == 1)
+        ? start = 0
+        : start = DateTime
+        .now()
+        .weekday * 10;
     getMapKey();
     _callitAsync;
-    _controller.addListener(() async {
-      if (_controller.position.pixels == _controller.position.maxScrollExtent) {
-        print("status: " + _status);
-        if (_status.compareTo("Active") == 0) {
-          Toast.show("loading! more results", context,
-              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-          fetchRestByCollectionID(1, "", "desc");
-        } else {
-          Toast.show("Sorry! no more results", context,
-              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-        }
-      }
-    });
   }
 
   Future<Null> refresh() async {
@@ -558,12 +589,6 @@ class _TrendingPageState extends State<TrendingPage>
       CustomHorizontalScroll();
       HorizontalScroll();
       _callitAsync;
-      _controller.addListener(() async {
-        if (_controller.position.pixels ==
-            _controller.position.maxScrollExtent) {
-          _callitAsync;
-        }
-      });
     });
     return null;
   }

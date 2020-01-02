@@ -173,269 +173,318 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                   Menu = snapshot.data.restruant_Menu;
                   coverImage = snapshot.data.restruant_Thumb;
                   return Scaffold(
-                    body: CustomScrollView(
-                      scrollDirection: Axis.vertical,
-                      slivers: <Widget>[
-                        SliverAppBar(
-                          backgroundColor: SECONDARY_COLOR_1,
-                          expandedHeight: 300.0,
-                          primary: true,
-                          pinned: true,
-                          flexibleSpace: FlexibleSpaceBar(
-                            centerTitle: false,
-                            background: FutureBuilder(
-                                future: _resPhotosCache,
-                                builder: (BuildContext context,
-                                    AsyncSnapshot _snapShot) {
-                                  if (_snapShot.connectionState ==
-                                      ConnectionState.done) {
-                                    if (_snapShot.connectionState ==
-                                        ConnectionState.waiting) {
-                                      return buildSliderWaiting();
-                                    } else if (_snapShot.data != null) {
-                                      return Container(
-                                        color: SECONDARY_COLOR_1,
-                                        child: buildSlider(context, _snapShot),
-                                      );
-                                    } else {
-                                      return buildSliderWaiting();
-                                    }
-                                  } else {
-                                    return buildSliderWaiting();
-                                  }
-                                }),
-                            collapseMode: CollapseMode.parallax,
-                          ),
-                        ),
-                        SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                            (BuildContext context, int index) {
-                              return Stack(
-                                children: <Widget>[
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(40),
-                                        topRight: Radius.circular(40),
-                                      ),
-                                    ),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(40),
-                                          topRight: Radius.circular(40),
+                    body: Stack(
+                      children: <Widget>[
+                        CustomScrollView(
+                          scrollDirection: Axis.vertical,
+                          slivers: <Widget>[
+                            SliverAppBar(
+                              backgroundColor: SECONDARY_COLOR_1,
+                              expandedHeight: 300.0,
+                              primary: true,
+                              pinned: true,
+                              flexibleSpace: FlexibleSpaceBar(
+                                centerTitle: false,
+                                background: FutureBuilder(
+                                    future: _resPhotosCache,
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot _snapShot) {
+                                      if (_snapShot.connectionState ==
+                                          ConnectionState.done) {
+                                        if (_snapShot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return buildSliderWaiting();
+                                        } else if (_snapShot.data != null) {
+                                          return Container(
+                                            color: SECONDARY_COLOR_1,
+                                            child: buildSlider(
+                                                context, _snapShot),
+                                          );
+                                        } else {
+                                          return buildSliderWaiting();
+                                        }
+                                      } else {
+                                        return buildSliderWaiting();
+                                      }
+                                    }),
+                                collapseMode: CollapseMode.parallax,
+                              ),
+                            ),
+                            SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                                    (BuildContext context, int index) {
+                                  return Stack(
+                                    children: <Widget>[
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(40),
+                                            topRight: Radius.circular(40),
+                                          ),
                                         ),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                            top: MediaQuery.of(context)
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(40),
+                                              topRight: Radius.circular(40),
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding: EdgeInsets.only(
+                                                top: MediaQuery
+                                                    .of(context)
                                                     .size
                                                     .height *
-                                                0.01,
-                                            left: 10.0,
-                                            bottom: 50.0),
-                                        child: Column(
-                                          mainAxisAlignment:
+                                                    0.01,
+                                                left: 10.0,
+                                                bottom: 50.0),
+                                            child: Column(
+                                              mainAxisAlignment:
                                               MainAxisAlignment.start,
-                                          crossAxisAlignment:
+                                              crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            //----------------------------------------------------SubDetails----------------------------->
+                                              children: <Widget>[
+                                                //----------------------------------------------------SubDetails----------------------------->
 
-                                            buildSubDetails(
-                                                snapshot, context, c_width),
+                                                buildSubDetails(
+                                                    snapshot, context, c_width),
 
-                                            //----------------------------------------------------SubDetails-----------------------------<
+                                                //----------------------------------------------------SubDetails-----------------------------<
 
-                                            //----------------------------------------------------Menu----------------------------->
+                                                //----------------------------------------------------Menu----------------------------->
 
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 2.0, bottom: 8.0),
-                                              child: titleBar("Menu", c_width),
-                                            ),
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .only(
+                                                      top: 2.0, bottom: 8.0),
+                                                  child: titleBar("Menu",
+                                                      c_width),
+                                                ),
 
-                                            Container(
-                                              height: 180.0,
-                                              width: MediaQuery.of(context)
+                                                Container(
+                                                  height: 180.0,
+                                                  width: MediaQuery
+                                                      .of(context)
                                                       .size
                                                       .width *
-                                                  1.0,
-                                              child: Padding(
-                                                padding:
-                                                const EdgeInsets.only(
-                                                    left: 2.0, right: 2.0),
-                                                child: FutureBuilder(
-                                                    future: _resMenu,
-                                                    builder:
-                                                        (BuildContext context,
+                                                      1.0,
+                                                  child: Padding(
+                                                    padding:
+                                                    const EdgeInsets.only(
+                                                        left: 2.0, right: 2.0),
+                                                    child: FutureBuilder(
+                                                        future: _resMenu,
+                                                        builder:
+                                                            (
+                                                            BuildContext context,
                                                             AsyncSnapshot
-                                                                snapShot) {
-                                                      if (snapShot
+                                                            snapShot) {
+                                                          if (snapShot
                                                               .connectionState ==
-                                                          ConnectionState
-                                                              .done) {
-                                                        if (snapShot.data !=
-                                                            null) {
-                                                          return buildMenu(
-                                                              snapShot,
-                                                              context,
+                                                              ConnectionState
+                                                                  .done) {
+                                                            if (snapShot.data !=
+                                                                null) {
+                                                              return buildMenu(
+                                                                  snapShot,
+                                                                  context,
+                                                                  c_width);
+                                                            } else {
+                                                              return buildMenuWaiting(
+                                                                  c_width);
+                                                            }
+                                                          } else if (snapShot
+                                                              .connectionState ==
+                                                              ConnectionState
+                                                                  .waiting) {
+                                                            return buildMenuWaiting(
+                                                                c_width);
+                                                          } else {
+                                                            return buildMenuWaiting(
+                                                                c_width);
+                                                          }
+                                                        }),
+                                                  ),
+                                                ),
+
+                                                //----------------------------------------------------Menu-----------------------------<
+
+                                                //----------------------------------------------------Address----------------------------->
+
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .only(
+                                                      top: 8.0, bottom: 8.0),
+                                                  child:
+                                                  titleBar("Details", c_width),
+                                                ),
+
+                                                buildAddress(
+                                                    snapshot, context, c_width),
+
+                                                //----------------------------------------------------Address-----------------------------<
+
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+
+                                                //----------------------------------------------------ReView----------------------------->
+
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .only(
+                                                      top: 8.0),
+                                                  child:
+                                                  titleBar("Reviews", c_width),
+                                                ),
+
+                                                Padding(
+                                                  padding: const EdgeInsets
+                                                      .only(bottom: 50.0),
+                                                  child: FutureBuilder(
+                                                      future: resComments,
+                                                      builder: (
+                                                          BuildContext context,
+                                                          AsyncSnapshot snapShot) {
+                                                        if (snapShot
+                                                            .connectionState ==
+                                                            ConnectionState
+                                                                .done) {
+                                                          if (snapShot
+                                                              .hasData) {
+                                                            return buildReviews(
+                                                                snapShot,
+                                                                c_width);
+                                                          } else {
+                                                            return buildRatingWaiting(
+                                                                c_width);
+                                                          }
+                                                        } else if (snapShot
+                                                            .connectionState ==
+                                                            ConnectionState
+                                                                .waiting) {
+                                                          return buildRatingWaiting(
                                                               c_width);
                                                         } else {
-                                                          return buildMenuWaiting(
+                                                          return buildRatingWaiting(
                                                               c_width);
                                                         }
-                                                      } else if (snapShot
-                                                              .connectionState ==
-                                                          ConnectionState
-                                                              .waiting) {
-                                                        return buildMenuWaiting(
-                                                            c_width);
-                                                      } else {
-                                                        return buildMenuWaiting(
-                                                            c_width);
-                                                      }
-                                                    }),
-                                              ),
+                                                      }),
+                                                ),
+
+                                                //----------------------------------------------------ReView-----------------------------<
+                                              ],
                                             ),
-
-                                            //----------------------------------------------------Menu-----------------------------<
-
-                                            //----------------------------------------------------Address----------------------------->
-
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 8.0, bottom: 8.0),
-                                              child:
-                                                  titleBar("Details", c_width),
-                                            ),
-
-                                            buildAddress(
-                                                snapshot, context, c_width),
-
-                                            //----------------------------------------------------Address-----------------------------<
-
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-
-                                            //----------------------------------------------------ReView----------------------------->
-
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 8.0),
-                                              child:
-                                                  titleBar("Reviews", c_width),
-                                            ),
-
-                                            FutureBuilder(
-                                                future: resComments,
-                                                builder: (BuildContext context,
-                                                    AsyncSnapshot snapShot) {
-                                                  if (snapShot
-                                                          .connectionState ==
-                                                      ConnectionState.done) {
-                                                    if (snapShot.hasData) {
-                                                      return buildReviews(
-                                                          snapShot, c_width);
-                                                    } else {
-                                                      return buildRatingWaiting(
-                                                          c_width);
-                                                    }
-                                                  } else if (snapShot
-                                                          .connectionState ==
-                                                      ConnectionState.waiting) {
-                                                    return buildRatingWaiting(
-                                                        c_width);
-                                                  } else {
-                                                    return buildRatingWaiting(
-                                                        c_width);
-                                                  }
-                                                }),
-
-                                            //----------------------------------------------------ReView-----------------------------<
-                                          ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                            childCount: 1,
-                          ),
+                                    ],
+                                  );
+                                },
+                                childCount: 1,
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                    bottomNavigationBar: Container(
-                      padding: EdgeInsets.only(
-                          top: 10.0, left: 50.0, right: 50.0, bottom: 10.0),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(50.0),
-                            topRight: Radius.circular(50.0)),
-                        color: SECONDARY_COLOR_1,
-                      ),
-                      child: Row(
-                        children: <Widget>[
-                          Text(
-                            '₹ ' +
-                                _securityPerPerson(snapshot
-                                        .data.restruant_Avg_cost_for_two)
-                                    .toString(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: FONT_TEXT_PRIMARY,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18.0),
-                          ),
-                          const SizedBox(width: 20.0),
-                          Spacer(),
-                          RaisedButton(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 16.0),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            onPressed: () {
-                              if (coverImage != null) {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        BookingMain(
-                                            coverImage, restruantInfo)));
-                              } else {
-                                print("no");
-                              }
-                            },
-                            color: TEXT_SECONDARY_COLOR,
-                            textColor: Colors.white,
+                        Align(
+                          alignment: FractionalOffset.bottomCenter,
+                          child: Container(
+                            height: MediaQuery
+                                .of(context)
+                                .size
+                                .height * .08,
+                            alignment: Alignment.center,
+                            padding: EdgeInsets.only(
+                                top: 10.0,
+                                left: 50.0,
+                                right: 50.0,
+                                bottom: 10.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(50.0),
+                                  topRight: Radius.circular(50.0)),
+                              color: SECONDARY_COLOR_1,
+                            ),
                             child: Row(
-                              mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                Text(
-                                  "BOOK TABLE",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: FONT_TEXT_PRIMARY,
-                                      fontSize: 16.0),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      'Booking charges',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: FONT_TEXT_EXTRA,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 15.0),
+                                    ),
+                                    Text(
+                                      '₹ ' +
+                                          _securityPerPerson(snapshot
+                                              .data.restruant_Avg_cost_for_two)
+                                              .toString(),
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontFamily: FONT_TEXT_PRIMARY,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18.0),
+                                    ),
+                                  ],
                                 ),
                                 const SizedBox(width: 20.0),
-                                Container(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Colors.orange,
-                                    size: 16.0,
+                                Spacer(),
+                                RaisedButton(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 8.0, horizontal: 16.0),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          10.0)),
+                                  onPressed: () {
+                                    if (coverImage != null) {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  BookingMain(
+                                                      coverImage,
+                                                      restruantInfo)));
+                                    } else {
+                                      print("no");
+                                    }
+                                  },
+                                  color: TEXT_SECONDARY_COLOR,
+                                  textColor: Colors.white,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Text(
+                                        "BOOK TABLE",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: FONT_TEXT_PRIMARY,
+                                            fontSize: 16.0),
+                                      ),
+                                      const SizedBox(width: 20.0),
+                                      Container(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: Colors.orange,
+                                          size: 16.0,
+                                        ),
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                            BorderRadius.circular(10.0)),
+                                      ),
+                                    ],
                                   ),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.circular(10.0)),
                                 ),
                               ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   );
                 } else {

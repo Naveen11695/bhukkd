@@ -129,7 +129,7 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                                 (context, url) =>
                                                 Image.asset(
                                                   "assets/images/default.jpg",
-                                                  fit: BoxFit.fill,
+                                                  fit: BoxFit.cover,
                                                   height:
                                                   MediaQuery
                                                       .of(context)
@@ -150,7 +150,7 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                           .of(context)
                                           .size
                                           .height *
-                                          .145,
+                                          .140,
                                       alignment: Alignment
                                           .bottomRight,
                                       child: ClipOval(
@@ -254,6 +254,7 @@ Future getEntityFromLocations() async {
 
   try {
     String nameOfTheLocation = GetterSetterAppConstant.locality;
+    print("loc " + nameOfTheLocation);
     if (nameOfTheLocation == "") {
       return "error";
     }

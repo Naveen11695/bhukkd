@@ -87,104 +87,107 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                               .of(context)
                               .size
                               .width * 0.8,
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Row(
-                              children: <Widget>[
-                                Stack(
-                                  children: <Widget>[
-                                    ClipOval(
-                                      child: CachedNetworkImage(
-                                        imageUrl: snapshot.data[index].thumb,
+                          child: Row(
+                            children: <Widget>[
+                              Stack(
+                                children: <Widget>[
+                                  ClipOval(
+                                    child: CachedNetworkImage(
+                                      imageUrl: snapshot.data[index].thumb,
+                                      fit: BoxFit.cover,
+                                      width: 100,
+                                      height: 105,
+                                      placeholder: (context, url) =>
+                                      new Image.asset(
+                                        "assets/images/default.jpg",
                                         fit: BoxFit.cover,
                                         width: 100,
                                         height: 105,
-                                        placeholder: (context, url) =>
-                                        new Image.asset(
-                                          "assets/images/default.jpg",
-                                          fit: BoxFit.cover,
-                                          width: 100,
-                                          height: 105,
-                                        ),
                                       ),
                                     ),
-                                    Container(
-                                      height:
-                                      MediaQuery
-                                          .of(context)
-                                          .size
-                                          .height * .125,
-                                      alignment: Alignment.bottomRight,
-                                      child: ClipOval(
-                                        child: getRating(snapshot.data[index]
-                                            .user_rating.aggregate_rating
-                                            .toString()),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                new SizedBox(
-                                  width: 20,
-                                ),
-                                new Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Container(
-                                      width: c_width,
+                                  ),
+                                  Container(
+                                    height:
+                                    MediaQuery
+                                        .of(context)
+                                        .size
+                                        .height * .125,
+                                    alignment: Alignment.bottomRight,
+                                    child: ClipOval(
+                                      child: getRating(snapshot.data[index]
+                                          .user_rating.aggregate_rating
+                                          .toString()),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              new SizedBox(
+                                width: 20,
+                              ),
+                              new Container(
+                                height: 70,
+                                width: 1,
+                                color: TEXT_SECONDARY_COLOR,
+                              ),
+                              new SizedBox(width: 20),
+                              new Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Container(
+                                    width: c_width,
+                                    child: new Text(
+                                      snapshot.data[index].name,
+                                      overflow: TextOverflow.ellipsis,
+                                      softWrap: true,
+                                      style: TextStyle(
+                                          fontFamily: FONT_TEXT_EXTRA,
+                                          fontSize: 15,
+                                          color: TEXT_PRIMARY_COLOR),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 5.0, bottom: 5.0),
+                                    child: Container(
+                                      width: c_width * 0.75,
                                       child: new Text(
-                                        snapshot.data[index].name,
+                                        snapshot.data[index]
+                                            .near_by_restaurants_location[
+                                        "address"],
+                                        maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
-                                        softWrap: true,
                                         style: TextStyle(
-                                            fontFamily: FONT_TEXT_EXTRA,
-                                            fontSize: 15,
-                                            color: TEXT_PRIMARY_COLOR),
+                                            fontFamily: FONT_TEXT_SECONDARY,
+                                            fontSize: 11,
+                                            color: TEXT_SECONDARY_COLOR),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 5.0, bottom: 5.0),
-                                      child: Container(
-                                        width: c_width * 0.75,
-                                        child: new Text(
-                                          snapshot.data[index]
-                                              .near_by_restaurants_location[
-                                          "address"],
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontFamily: FONT_TEXT_SECONDARY,
-                                              fontSize: 11,
-                                              color: TEXT_SECONDARY_COLOR),
-                                        ),
-                                      ),
+                                  ),
+                                  new SizedBox(
+                                    height: 8,
+                                  ),
+                                  new Container(
+                                    height: 1,
+                                    width: 60,
+                                    color: TEXT_SECONDARY_COLOR,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: getStarWidgets(
+                                      snapshot.data[index].user_rating
+                                          .aggregate_rating,
                                     ),
-                                    new SizedBox(
-                                      height: 8,
-                                    ),
-                                    new Container(
-                                      height: 1,
-                                      width: 60,
-                                      color: TEXT_SECONDARY_COLOR,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: getStarWidgets(
-                                        snapshot.data[index].user_rating
-                                            .aggregate_rating,
-                                      ),
-                                    ),
-                                    new SizedBox(height: 8),
-                                    new Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .start,
-                                      children: <Widget>[],
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
+                                  ),
+                                  new SizedBox(height: 8),
+                                  new Row(
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .start,
+                                    children: <Widget>[],
+                                  )
+                                ],
+                              )
+                            ],
                           ),
                         ),
                       ),
