@@ -67,28 +67,23 @@ class _TrendingPageState extends State<TrendingPage>
                           top: MediaQuery
                               .of(context)
                               .size
-                              .height * 0.01,
+                              .height * 0.012,
                           right: 5,
                           left: 5),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text("Your Location",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontFamily: FONT_TEXT_PRIMARY,
-                              )),
-                          Text("----------------------------------------------",
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(
-                                fontSize: 10,
-                                letterSpacing: 2.0,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w300,
-                                fontFamily: FONT_TEXT_SECONDARY,
-                              )),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 2.0),
+                            child: Text("Your Location",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontFamily: FONT_TEXT_PRIMARY,
+                                )),
+                          ),
                           Text(
                               GetterSetterAppConstant.address == null
                                   ? "Fetching Your Location.."
@@ -97,16 +92,6 @@ class _TrendingPageState extends State<TrendingPage>
                               maxLines: 1,
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w300,
-                                fontFamily: FONT_TEXT_SECONDARY,
-                              )),
-                          Text("----------------------------------------------",
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(
-                                fontSize: 10,
-                                letterSpacing: 2.0,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w300,
                                 fontFamily: FONT_TEXT_SECONDARY,
@@ -139,40 +124,40 @@ class _TrendingPageState extends State<TrendingPage>
                         clipper: ClipTop(),
                         child: Container(
                           color: SECONDARY_COLOR_1,
-                          height: 75,
+                          height: 60,
                         ),
                       ),
                       Container(
                         alignment: AlignmentDirectional.topStart,
                         padding:
-                        EdgeInsets.only(left: 18.0, right: 18.0, bottom: 10.0),
+                        EdgeInsets.only(top: 5.0, left: 18.0, bottom: 5.0),
                         child: new Text(
-                          "Near By Restaurants",
+                          "Near By Restaurants - - - - - - - - - - - - - - - - - - - -",
                           textAlign: TextAlign.start,
+                          maxLines: 1,
+                          overflow: TextOverflow.clip,
                           style: new TextStyle(
                             fontSize: 20.0,
-                            fontFamily: FONT_TEXT_PRIMARY,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: FONT_TEXT_EXTRA,
                             letterSpacing: 0.8,
                             wordSpacing: 0.0,
                           ),
                         ),
                       ),
+                      Container(height: 185, child: HorizontalScroll()),
                       Container(
-                          height: 185,
-                          child: HorizontalScroll()),
-
-
-                      Container(
-                        width: MediaQuery.of(context).size.height * 0.92,
                         alignment: AlignmentDirectional.topStart,
                         padding:
-                        EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                        EdgeInsets.only(top: 5, left: 18.0, bottom: 5.0),
                         child: new Text(
-                          "Top Restraunts",
+                          "Top Restraunts - - - - - - - - - - - - - - - - - - - - - - - - - -",
                           textAlign: TextAlign.start,
+                          maxLines: 1,
+                          overflow: TextOverflow.clip,
                           style: new TextStyle(
                             fontSize: 20.0,
-                            fontFamily: FONT_TEXT_PRIMARY,
+                            fontFamily: FONT_TEXT_EXTRA,
                             fontWeight: FontWeight.w700,
                             letterSpacing: 0.8,
                             wordSpacing: 0.0,
@@ -180,7 +165,10 @@ class _TrendingPageState extends State<TrendingPage>
                         ),
                       ),
                       Container(
-                        height: 145,
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.19,
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(5, 2, 0, 2),
                           child: CustomHorizontalScroll(),
@@ -190,13 +178,16 @@ class _TrendingPageState extends State<TrendingPage>
                         width: MediaQuery.of(context).size.height * 0.92,
                         alignment: AlignmentDirectional.topStart,
                         padding:
-                        EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+                        EdgeInsets.only(top: 5, left: 18.0, bottom: 5.0),
                         child: new Text(
-                          "Recommended",
+                          "Recommended - - - - - - - - - - - - - - - - - - - - - - - - - -",
                           textAlign: TextAlign.start,
+                          maxLines: 1,
+                          overflow: TextOverflow.clip,
                           style: new TextStyle(
                             fontSize: 20.0,
-                            fontFamily: FONT_TEXT_PRIMARY,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: FONT_TEXT_EXTRA,
                             // fontWeight: FontWeight.w700,
                             letterSpacing: 0.8,
                             wordSpacing: 0.0,
@@ -307,8 +298,7 @@ class _TrendingPageState extends State<TrendingPage>
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 2.0,
-                                                right: 2.0),
+                                                left: 2.0, right: 2.0),
                                             child: Text(
                                               rests[index].name,
                                               textAlign: TextAlign.center,
@@ -317,7 +307,7 @@ class _TrendingPageState extends State<TrendingPage>
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   fontWeight: FontWeight.w500,
-                                                  fontFamily: FONT_TEXT_PRIMARY,
+                                                  fontFamily: FONT_TEXT_EXTRA,
                                                   color: TEXT_PRIMARY_COLOR),
                                             ),
                                           ),
@@ -330,7 +320,8 @@ class _TrendingPageState extends State<TrendingPage>
                                               width: MediaQuery
                                                   .of(context)
                                                   .size
-                                                  .width * 0.75,
+                                                  .width *
+                                                  0.75,
                                               child: Text(
                                                 rests[index].cuisines,
                                                 textAlign: TextAlign.center,
@@ -375,7 +366,7 @@ class _TrendingPageState extends State<TrendingPage>
                     top: MediaQuery
                         .of(context)
                         .size
-                        .height * 0.11,
+                        .height * 0.105,
                     right: 15,
                     left: 15),
                 child: Material(
@@ -404,7 +395,7 @@ class _TrendingPageState extends State<TrendingPage>
                               padding: const EdgeInsets.only(left: 8.0),
                               child: Icon(
                                 Icons.search,
-                                color: Color.fromRGBO(249, 129, 42, 1),
+                                color: TEXT_SECONDARY_COLOR,
                               ),
                             ),
                             Container(

@@ -37,7 +37,7 @@ class Bhukkd extends StatelessWidget {
           theme: new ThemeData(
             bottomAppBarColor: SECONDARY_COLOR_1,
             primaryColor: SECONDARY_COLOR_1,
-            accentColor: Color.fromRGBO(249, 129, 42, 1),
+            accentColor: TEXT_SECONDARY_COLOR,
           ),
         ));
   }
@@ -57,7 +57,6 @@ class SplashScreenState extends State<SplashScreen>
     Duration duration = new Duration(seconds: 1);
     return new Timer(duration, navigateTo);
   }
-
 
   void navigateTo() async {
     Navigator.pushReplacement(
@@ -88,8 +87,6 @@ class SplashScreenState extends State<SplashScreen>
               );
             }));
   }
-
-
 
   @override
   void initState() {
@@ -141,15 +138,15 @@ class SplashScreenState extends State<SplashScreen>
                             splashColor: Colors.white24,
                             highlightColor: Colors.white10,
                             child: Icon(
-                              FontAwesomeIcons.redo, color: SECONDARY_COLOR_1,
-                              size: 40,)
-                        ),
+                              FontAwesomeIcons.redo,
+                              color: SECONDARY_COLOR_1,
+                              size: 40,
+                            )),
                       ],
                     ),
                   ),
                 );
-              }
-              else if (snapshot.data == "<Error: Location Not Found>") {
+              } else if (snapshot.data == "<Error: Location Not Found>") {
                 return Center(
                   child: Container(
                     child: Column(
@@ -163,15 +160,15 @@ class SplashScreenState extends State<SplashScreen>
                             splashColor: Colors.white24,
                             highlightColor: Colors.white10,
                             child: Icon(
-                              FontAwesomeIcons.redo, color: SECONDARY_COLOR_1,
-                              size: 40,)
-                        ),
+                              FontAwesomeIcons.redo,
+                              color: SECONDARY_COLOR_1,
+                              size: 40,
+                            )),
                       ],
                     ),
                   ),
                 );
-              }
-              else if (snapshot.data != null) {
+              } else if (snapshot.data != null) {
                 if (snapshot.data.locality != null ||
                     snapshot.data.subLocality != null ||
                     snapshot.data.subAdministrativeArea != null ||
@@ -205,9 +202,10 @@ class SplashScreenState extends State<SplashScreen>
                             splashColor: Colors.white24,
                             highlightColor: Colors.white10,
                             child: Icon(
-                              FontAwesomeIcons.redo, color: SECONDARY_COLOR_1,
-                              size: 40,)
-                        ),
+                              FontAwesomeIcons.redo,
+                              color: SECONDARY_COLOR_1,
+                              size: 40,
+                            )),
                       ],
                     ),
                   ),
@@ -219,10 +217,7 @@ class SplashScreenState extends State<SplashScreen>
           }),
     );
   }
-
-
 }
-
 
 Future _saveLocation() async {
   var _position;
@@ -231,8 +226,7 @@ Future _saveLocation() async {
       StoreUserLocation.location = position;
       StoreUserLocation.setLocation();
       _position = position;
-    }
-    else {
+    } else {
       _position = "<Error: Location Not Found>";
     }
   });
@@ -242,24 +236,24 @@ Future _saveLocation() async {
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 _getDataFromFireStore() async {
-    if (_auth.currentUser() != null) {
-      _auth.currentUser().then((val) {
-        if (val != null) {
-          var fireStore = Firestore.instance;
-          DocumentReference snapshot =
-          fireStore.collection('UsersData').document(val.email);
-          try {
-            snapshot.get().then((dataSnapshot) {
-              if (dataSnapshot.exists) {
-                _setData(dataSnapshot);
-              }
-            });
-          } catch (e) {
-            print("Error <Main>: " + e.toString());
-          }
+  if (_auth.currentUser() != null) {
+    _auth.currentUser().then((val) {
+      if (val != null) {
+        var fireStore = Firestore.instance;
+        DocumentReference snapshot =
+        fireStore.collection('UsersData').document(val.email);
+        try {
+          snapshot.get().then((dataSnapshot) {
+            if (dataSnapshot.exists) {
+              _setData(dataSnapshot);
+            }
+          });
+        } catch (e) {
+          print("Error <Main>: " + e.toString());
         }
-      });
-    }
+      }
+    });
+  }
 }
 
 _setData(DocumentSnapshot snapshot) async {
@@ -274,7 +268,6 @@ _setData(DocumentSnapshot snapshot) async {
   GetterSetterUserDetails.description = snapshot.data['Description'];
 }
 
-
 Future getLocationName() async {
   bool _flag = false;
   Position position;
@@ -283,8 +276,7 @@ Future getLocationName() async {
     await _saveLocation().then((pos) {
       if (pos == "<Error: Location Not Found>") {
         _flag = true;
-      }
-      else {
+      } else {
         position = pos;
         _flag = false;
       }
@@ -297,9 +289,9 @@ Future getLocationName() async {
     _getDataFromFireStore();
     latitude = position.latitude;
     longitude = position.longitude;
-      List<Placemark> placemark =
-      await Geolocator().placemarkFromCoordinates(latitude, longitude);
-      return placemark[0];
+    List<Placemark> placemark =
+    await Geolocator().placemarkFromCoordinates(latitude, longitude);
+    return placemark[0];
   } catch (e) {
     return "<Error: Connection Not Found>";
   }

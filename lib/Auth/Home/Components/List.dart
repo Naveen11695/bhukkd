@@ -46,7 +46,7 @@ class ListData extends StatelessWidget {
                   new TextStyle(fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                       color: TEXT_PRIMARY_COLOR,
-                      fontFamily: FONT_TEXT_SECONDARY),
+                      fontFamily: FONT_TEXT_EXTRA),
                 ),
                 new Padding(
                   padding: new EdgeInsets.only(top: 5.0),

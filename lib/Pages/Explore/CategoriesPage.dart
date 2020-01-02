@@ -135,7 +135,7 @@ class CategoriesPageState extends State<CategoriesPage> {
                                       .of(context)
                                       .size
                                       .height *
-                                      0.16,
+                                      0.15,
                                 )
                                     : Stack(
                                   children: <Widget>[
@@ -178,7 +178,7 @@ class CategoriesPageState extends State<CategoriesPage> {
                                           .of(context)
                                           .size
                                           .height *
-                                          .150,
+                                          .140,
                                       alignment: Alignment.bottomRight,
                                       child: ClipOval(
                                         child: getRating(rests[index]
@@ -199,7 +199,7 @@ class CategoriesPageState extends State<CategoriesPage> {
                               style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
-                                  fontFamily: FONT_TEXT_PRIMARY,
+                                  fontFamily: FONT_TEXT_EXTRA,
                                   color: TEXT_PRIMARY_COLOR),
                             ),
                             Text(

@@ -76,6 +76,15 @@ class RestaurantData extends StatelessWidget {
                       ),
                     ],
                   ),
+                  new SizedBox(
+                    width: 10,
+                  ),
+                  new Container(
+                    height: 50,
+                    width: 1,
+                    color: SECONDARY_COLOR_1,
+                  ),
+                  new SizedBox(width: 5),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                     child: new Column(
@@ -88,39 +97,37 @@ class RestaurantData extends StatelessWidget {
                             child: new Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: new Text(
-                                    repo.name,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontFamily: FONT_TEXT_PRIMARY,
-                                      fontSize: 25,
-                                      color: TEXT_PRIMARY_COLOR,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
                                 new Text(
-                                  repo.near_by_restaurants_location[
-                                      "locality_verbose"],
+                                  repo.name,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                      fontFamily: FONT_TEXT_SECONDARY,
+                                    fontFamily: FONT_TEXT_EXTRA,
+                                    fontSize: 25,
+                                    color: TEXT_PRIMARY_COLOR,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                new Text(
+                                  repo.cuisines,
+                                  style: TextStyle(
+                                      fontFamily: FONT_TEXT_PRIMARY,
+                                      color: TEXT_SECONDARY_COLOR,
                                       fontSize: 12,
-                                      fontWeight: FontWeight.w300),
+                                      fontWeight: FontWeight.w600),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
+                                  padding: EdgeInsets.only(top: 5.0),
                                   child: new Text(
-                                    repo.cuisines,
+                                    repo.near_by_restaurants_location[
+                                    "locality_verbose"],
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                        fontFamily: FONT_TEXT_PRIMARY,
-                                        color: TEXT_SECONDARY_COLOR,
                                         fontSize: 12,
-                                        fontWeight: FontWeight.w600),
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: FONT_TEXT_SECONDARY,
+                                        color: TEXT_SECONDARY_COLOR),
                                   ),
                                 ),
                                 Padding(
@@ -144,15 +151,6 @@ class RestaurantData extends StatelessWidget {
                             ),
                           ),
                         ),
-                        new SizedBox(
-                          height: 20,
-                        ),
-                        new Container(
-                          height: 1,
-                          width: 50,
-                          color: SECONDARY_COLOR_1,
-                        ),
-                        new SizedBox(height: 8),
                       ],
                     ),
                   )

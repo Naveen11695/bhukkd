@@ -80,94 +80,106 @@ class _WagonPageState extends State<WagonPage> {
                                             SliverChildBuilderDelegate(
                                                   (BuildContext context,
                                                   int index) {
-                                                return ExpansionTile(
-                                                  key: PageStorageKey<String>(
-                                                      "list"),
-                                                  title: ListTile(
-                                                    title: Text(
-                                                      snapshot.data[index]
-                                                      ['_resName'],
-                                                      style: new TextStyle(
-                                                          fontSize: 25.0,
-                                                          fontFamily:
-                                                          FONT_TEXT_PRIMARY,
-                                                          fontWeight:
-                                                          FontWeight.w600,
-                                                          color:
-                                                          TEXT_PRIMARY_COLOR,
-                                                          fontStyle:
-                                                          FontStyle.normal),
-                                                    ),
-                                                    leading: ClipOval(
-                                                      child: CachedNetworkImage(
-                                                        imageUrl: snapshot
-                                                            .data[index]
-                                                        ['_resImageUrl'],
-                                                        fit: BoxFit.fill,
-                                                      ),
-                                                    ),
-                                                    trailing: Text(
-                                                      snapshot.data[index]
-                                                      ['_timeSlot']
-                                                          .toString(),
-                                                      style: new TextStyle(
-                                                          fontSize: 15.0,
-                                                          fontFamily:
-                                                          FONT_TEXT_PRIMARY,
-                                                          fontWeight:
-                                                          FontWeight.w300,
-                                                          fontStyle:
-                                                          FontStyle.italic),
-                                                    ),
-                                                    subtitle: Padding(
-                                                      padding:
-                                                      const EdgeInsets.only(
-                                                          top: 8.0,
-                                                          bottom: 8.0),
-                                                      child: Text(
-                                                        _formatDate(
-                                                          DateTime(
-                                                              _getDate(
-                                                                  snapshot.data[
-                                                                  index]
-                                                                  [
-                                                                  '_bookingDate'],
-                                                                  2),
-                                                              _getDate(
-                                                                  snapshot.data[
-                                                                  index]
-                                                                  [
-                                                                  '_bookingDate'],
-                                                                  1),
-                                                              _getDate(
-                                                                  snapshot.data[
-                                                                  index]
-                                                                  [
-                                                                  '_bookingDate'],
-                                                                  0)),
+                                                if (snapshot.data.length ==
+                                                    index) {
+                                                  return Container(
+                                                    height:
+                                                    MediaQuery
+                                                        .of(context)
+                                                        .size
+                                                        .height *
+                                                        .15,
+                                                  );
+                                                } else
+                                                  return Column(
+                                                    children: <Widget>[
+                                                      ExpansionTile(
+                                                        key: PageStorageKey<
+                                                            String>("list"),
+                                                        title: ListTile(
+                                                          title: Text(
+                                                            snapshot.data[index]
+                                                            ['_resName'],
+                                                            style: new TextStyle(
+                                                                fontSize: 20.0,
+                                                                fontFamily:
+                                                                FONT_TEXT_EXTRA,
+                                                                fontWeight:
+                                                                FontWeight.bold,
+                                                                color:
+                                                                TEXT_PRIMARY_COLOR,
+                                                                fontStyle:
+                                                                FontStyle
+                                                                    .normal),
+                                                          ),
+                                                          leading: ClipOval(
+                                                            child:
+                                                            CachedNetworkImage(
+                                                              imageUrl: snapshot
+                                                                  .data[
+                                                              index][
+                                                              '_resImageUrl'],
+                                                              fit: BoxFit.fill,
+                                                            ),
+                                                          ),
+                                                          trailing: Text(
+                                                            snapshot.data[index]
+                                                            [
+                                                            '_timeSlot']
+                                                                .toString(),
+                                                            style: new TextStyle(
+                                                                fontSize: 15.0,
+                                                                fontFamily:
+                                                                FONT_TEXT_PRIMARY,
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w300,
+                                                                fontStyle:
+                                                                FontStyle
+                                                                    .italic),
+                                                          ),
+                                                          subtitle: Padding(
+                                                            padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                top: 8.0,
+                                                                bottom:
+                                                                8.0),
+                                                            child: Text(
+                                                              _formatDate(
+                                                                  DateTime
+                                                                      .parse(
+                                                                      snapshot
+                                                                          .data[
+                                                                      index]
+                                                                      [
+                                                                      "_timeStamp"])),
+                                                              textAlign:
+                                                              TextAlign
+                                                                  .start,
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                                  fontFamily:
+                                                                  FONT_TEXT_SECONDARY,
+                                                                  color:
+                                                                  TEXT_SECONDARY_COLOR,
+                                                                  fontSize:
+                                                                  16.0),
+                                                            ),
+                                                          ),
                                                         ),
-                                                        style: TextStyle(
-                                                            fontWeight:
-                                                            FontWeight.w400,
-                                                            fontFamily:
-                                                            FONT_TEXT_SECONDARY,
-                                                            color:
-                                                            TEXT_SECONDARY_COLOR,
-                                                            fontSize: 18.0),
+                                                        children:
+                                                        _buildExpandableContent(
+                                                            snapshot.data[
+                                                            index]),
                                                       ),
-                                                    ),
-                                                  ),
-                                                  children: <Widget>[
-                                                    new Column(
-                                                      children:
-                                                      _buildExpandableContent(
-                                                          snapshot
-                                                              .data[index]),
-                                                    ),
-                                                  ],
-                                                );
+                                                    ],
+                                                  );
                                               },
-                                              childCount: snapshot.data.length,
+                                              childCount:
+                                              snapshot.data.length + 1,
                                             ),
                                           ),
                                         ],
@@ -197,8 +209,9 @@ class _WagonPageState extends State<WagonPage> {
                                                 child: Icon(
                                                   FontAwesomeIcons
                                                       .angleDoubleUp,
-                                                  color: _sort == "asc" ? Colors
-                                                      .white : Colors.white10,
+                                                  color: _sort == "asc"
+                                                      ? Colors.white
+                                                      : Colors.white10,
                                                   size: 30,
                                                 ),
                                               ),
@@ -300,6 +313,7 @@ class _WagonPageState extends State<WagonPage> {
 
   String _sort = "desc";
 
+
   _getUserBooking() async {
     var snapShort = [];
     QuerySnapshot querySnapshot =
@@ -309,14 +323,15 @@ class _WagonPageState extends State<WagonPage> {
       if (val.data["EmailId"] == _email.trim().toUpperCase())
         snapShort.add(val.data);
     }
-
     if (_sort == "asc") {
       snapShort.sort((a, b) {
-        return a['_bookingDate'].compareTo(b['_bookingDate']);
+        return DateTime.parse(a['_timeStamp'])
+            .compareTo(DateTime.parse(b['_timeStamp']));
       });
     } else {
       snapShort.sort((a, b) {
-        return b['_bookingDate'].compareTo(a['_bookingDate']);
+        return DateTime.parse(b['_timeStamp'])
+            .compareTo(DateTime.parse(a['_timeStamp']));
       });
     }
     if (snapShort.length != 0) {
@@ -537,20 +552,20 @@ class _WagonPageState extends State<WagonPage> {
 
   void _changeStatusToCanceled(String bookId) async {
     try {
-    var fireStore = Firestore.instance;
-    DocumentReference documentReference =
-    fireStore.collection('BookingDetails').document(bookId);
-    documentReference.get().then((dataSnapshot) {
-      if (dataSnapshot.exists) {
-
-        documentReference.updateData({"_status": "canceled"}).whenComplete(() {
-          GetterSetterBookingDetails.status = "canceled";
-          Navigator.pop(context);
-        }).catchError((e) {
-          print("Error: UserDetails update" + e.toString());
-        });
-      }
-    });
+      var fireStore = Firestore.instance;
+      DocumentReference documentReference =
+      fireStore.collection('BookingDetails').document(bookId);
+      documentReference.get().then((dataSnapshot) {
+        if (dataSnapshot.exists) {
+          documentReference
+              .updateData({"_status": "canceled"}).whenComplete(() {
+            GetterSetterBookingDetails.status = "canceled";
+            Navigator.pop(context);
+          }).catchError((e) {
+            print("Error: UserDetails update" + e.toString());
+          });
+        }
+      });
     } catch (e) {
       print("<Booking cancel exception>");
     }
@@ -600,8 +615,9 @@ class _WagonPageState extends State<WagonPage> {
                 subtitle: Text(
                   snapshot["_status"].toString().toUpperCase(),
                   style: TextStyle(
-                      color:
-                      (snapshot["_status"].toString().compareTo("canceled") ==
+                      color: (snapshot["_status"]
+                          .toString()
+                          .compareTo("canceled") ==
                           0)
                           ? Colors.red
                           : Colors.green),

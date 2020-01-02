@@ -42,7 +42,6 @@ class _HomePage extends State<HomePage> {
           new OnBoardingPage("LoginPage"),
         ],
       ),
-
       bottomNavigationBar: StreamBuilder<Object>(
           initialData: 0,
           stream: indexcontroller.stream,
@@ -109,7 +108,6 @@ class _HomePage extends State<HomePage> {
     );
   }
 }
-
 
 class FancyBottomNavigation extends StatefulWidget {
   final int currentIndex;

@@ -314,8 +314,7 @@ class _BookingMainState extends State<BookingMain> {
               padding: const EdgeInsets.only(
                 bottom: 8.0,
               ),
-              child:
-              InkWell(
+              child: InkWell(
                 onTap: (reserved != MaxPartySize) ? findTable : null,
                 splashColor: Colors.white24,
                 highlightColor: Colors.white10,
@@ -333,8 +332,7 @@ class _BookingMainState extends State<BookingMain> {
                           textBaseline: TextBaseline.ideographic,
                           color: (reserved != MaxPartySize)
                               ? Colors.white
-                              : Colors
-                              .white10),
+                              : Colors.white10),
                     ),
                   ),
                   decoration: BoxDecoration(
@@ -376,8 +374,7 @@ class _BookingMainState extends State<BookingMain> {
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: getChairWidgets(reserved, _n, MaxPartySize),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Wrap(
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -393,7 +390,7 @@ class _BookingMainState extends State<BookingMain> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
-                              bottom: 8.0, left: 40, right: 40),
+                              bottom: 8.0, left: 20, right: 20),
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Colors.white,
@@ -428,65 +425,77 @@ class _BookingMainState extends State<BookingMain> {
                       padding: const EdgeInsets.all(8.0),
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        child: Column(
                           children: <Widget>[
-                            Text(
-                              _n.toString(),
-                              style: _textStyle(
-                                  30, TEXT_PRIMARY_COLOR, "Pacifico"),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  _n.toString(),
+                                  style: _textStyle(
+                                      30, TEXT_PRIMARY_COLOR, "Pacifico"),
+                                ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(top: 10.0),
+                                  child: Text(
+                                    " X ",
+                                    style: _textStyle(30,
+                                        TEXT_PRIMARY_COLOR, "Pacifico"),
+                                  ),
+                                ),
+                                Text(
+                                  '₹ ' + _securityPerPerson().toString(),
+                                  style: _textStyle(
+                                      30, TEXT_PRIMARY_COLOR, "Pacifico"),
+                                ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(top: 10.0),
+                                  child: Text(
+                                    " = ",
+                                    style: _textStyle(30,
+                                        TEXT_PRIMARY_COLOR, "Pacifico"),
+                                  ),
+                                ),
+                                Text(
+                                  '₹ ' +
+                                      ((_totalSecurity() < 999)
+                                          ? _totalSecurity().toString()
+                                          : formatter
+                                          .format(_totalSecurity())),
+                                  style: _textStyle(
+                                      30,
+                                      Color.fromRGBO(12 * _Crindex, 0, 0,
+                                          _Crindex * 1.0),
+                                      "Pacifico"),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: <Widget>[
+                                _messages("Already taken", "chair_red"),
+                                _messages("Selected", "chair_green"),
+                                _messages("UnReserved", "chair_gray"),
+                              ],
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
+                              padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                " X ",
+                                "* Average cost per person: " +
+                                    ((widget.restruantInfo
+                                        .restruant_Avg_cost_for_two /
+                                        2))
+                                        .toString(),
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
                                 style: _textStyle(
-                                    30, TEXT_PRIMARY_COLOR, "Pacifico"),
+                                    25, TEXT_PRIMARY_COLOR, "Pacifico"),
                               ),
-                            ),
-                            Text(
-                              '₹ ' +
-                                  _securityPerPerson().toString(),
-                              style: _textStyle(
-                                  30, TEXT_PRIMARY_COLOR, "Pacifico"),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: Text(
-                                " = ",
-                                style: _textStyle(
-                                    30, TEXT_PRIMARY_COLOR, "Pacifico"),
-                              ),
-                            ),
-                            Text(
-                              '₹ ' +
-                                  ((_totalSecurity() < 999)
-                                      ? _totalSecurity().toString()
-                                      : formatter
-                                      .format(_totalSecurity())),
-                              style: _textStyle(
-                                  30,
-                                  Color.fromRGBO(12 * _Crindex, 0, 0,
-                                      _Crindex * 1.0),
-                                  "Pacifico"),
                             ),
                           ],
                         ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        "* Average cost per person: " +
-                            ((widget.restruantInfo
-                                .restruant_Avg_cost_for_two /
-                                2))
-                                .toString(),
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        style: _textStyle(
-                            25, TEXT_PRIMARY_COLOR, "Pacifico"),
                       ),
                     ),
                   ],
@@ -496,41 +505,64 @@ class _BookingMainState extends State<BookingMain> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20.0),
                       child: Center(
-                          child: getChairWidgets(reserved, 0, MaxPartySize)),
+                          child:
+                          getChairWidgets(reserved, 0, MaxPartySize)),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0),
-                      child: Container(
-                        height: 120,
-                        child: Center(
-                          child: new FlareActor(
-                            "assets/animations/warning.flr",
-                            animation: "Play",
-                            fit: BoxFit.contain,
-                          ),
+                    Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                          stops: [0.1, 0.2, 0.5, 0.6, 0.7, 0.8, 0.9],
+                          colors: [
+                            Colors.transparent,
+                            Colors.black26,
+                            Colors.black54,
+                            Colors.black54,
+                            Colors.black45,
+                            Colors.black26,
+                            Colors.transparent,
+                          ],
                         ),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            height:
+                            MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.23,
+                            child: new FlareActor(
+                              "assets/animations/warning.flr",
+                              animation: "Play",
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(
+                              "No seats available",
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              style: new TextStyle(
+                                fontSize: 25.0,
+                                fontFamily: FONT_TEXT_EXTRA,
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: 1.8,
+                                color: Colors.white,
+                                wordSpacing: 0.0,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 )),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "No seats available",
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              style: _textStyle(
-                  25, TEXT_PRIMARY_COLOR, FONT_TEXT_PRIMARY),
-            ),
-          ),
-          Row(
-            children: <Widget>[
-              _messages("Already taken", "chair_red"),
-              _messages("Selected", "chair_green"),
-              _messages("UnReserved", "chair_gray"),
-            ],
           ),
         ],
       ),
@@ -539,7 +571,7 @@ class _BookingMainState extends State<BookingMain> {
 
   _messages(String text, String image) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Container(
           height: 45,
@@ -1041,9 +1073,13 @@ class _BookingMainState extends State<BookingMain> {
     return (_date == null)
         ? formatDate(
         DateTime.now(),
-        (DateTime.now().day == 1)
+        (DateTime
+            .now()
+            .day == 1)
             ? ['DD', ' , ', 'd', 'st ', 'MM', ' ', 'yy']
-            : (DateTime.now().day == 2)
+            : (DateTime
+            .now()
+            .day == 2)
             ? ['DD', ' , ', 'd', 'nd ', 'MM', ' ', 'yy']
             : ['DD', ' , ', 'd', 'th ', 'MM', ' ', 'yy'])
         : formatDate(

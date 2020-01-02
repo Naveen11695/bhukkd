@@ -29,7 +29,6 @@ Future asyncfetchRestGeoCode() =>
     });
 
 class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
-
   @override
   void initState() {
     super.initState();
@@ -44,7 +43,6 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
         .size
         .width * 0.4;
     return Container(
-        height: 150,
         child: FutureBuilder(
           future: asyncfetchRestGeoCode(),
           // ignore: missing_return
@@ -115,15 +113,12 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                                       MediaQuery
                                           .of(context)
                                           .size
-                                          .height *
-                                          .125,
-                                      alignment:
-                                      Alignment.bottomRight,
+                                          .height * .125,
+                                      alignment: Alignment.bottomRight,
                                       child: ClipOval(
-                                        child: getRating(snapshot
-                                            .data[index]
-                                            .user_rating
-                                            .aggregate_rating.toString()),
+                                        child: getRating(snapshot.data[index]
+                                            .user_rating.aggregate_rating
+                                            .toString()),
                                       ),
                                     )
                                   ],
@@ -142,7 +137,7 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: true,
                                         style: TextStyle(
-                                            fontFamily: FONT_TEXT_PRIMARY,
+                                            fontFamily: FONT_TEXT_EXTRA,
                                             fontSize: 15,
                                             color: TEXT_PRIMARY_COLOR),
                                       ),
@@ -165,7 +160,6 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                                         ),
                                       ),
                                     ),
-
                                     new SizedBox(
                                       height: 8,
                                     ),
@@ -174,7 +168,6 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                                       width: 60,
                                       color: TEXT_SECONDARY_COLOR,
                                     ),
-
                                     Padding(
                                       padding: const EdgeInsets.only(top: 8.0),
                                       child: getStarWidgets(
@@ -184,8 +177,8 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                                     ),
                                     new SizedBox(height: 8),
                                     new Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .start,
                                       children: <Widget>[],
                                     )
                                   ],
@@ -235,7 +228,6 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
   }
 }
 
-
 Future getTopRestaurants() async {
   try {
     getKey();
@@ -249,17 +241,16 @@ Future getTopRestaurants() async {
     bool flag = false;
     Map<String, dynamic> jsonParsed;
     var fireStore = Firestore.instance;
-    DocumentReference snapshot =
-    fireStore.collection('TopRestaurants').document(
-        entity_type + "-" + entity_id);
+    DocumentReference snapshot = fireStore
+        .collection('TopRestaurants')
+        .document(entity_type + "-" + entity_id);
     await snapshot.get().then((dataSnapshot) {
       if (dataSnapshot.exists && DateTime
           .now()
           .day != 1) {
         final response = dataSnapshot.data[entity_type + "-" + entity_id];
         jsonParsed = json.decode(response);
-      }
-      else {
+      } else {
         flag = true;
       }
     });
@@ -298,11 +289,8 @@ void saveTopByRestaurants(String entity_id_type, String data) {
   Firestore.instance
       .collection("TopRestaurants")
       .document(entity_id_type)
-      .setData({
-    entity_id_type: data
-  });
+      .setData({entity_id_type: data});
 }
-
 
 Widget getStarWidgets(String size) {
   var Size = double.parse(size);
@@ -317,7 +305,11 @@ Widget getStarWidgets(String size) {
       children: list
           .map((item) =>
       item == "s"
-          ? Icon(Icons.star, color: SECONDARY_COLOR_1, size: 20,)
+          ? Icon(
+        Icons.star,
+        color: SECONDARY_COLOR_1,
+        size: 20,
+      )
           : Icon(Icons.star, color: Colors.black12))
           .toList());
 }

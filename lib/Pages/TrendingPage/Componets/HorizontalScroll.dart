@@ -129,13 +129,13 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                                 (context, url) =>
                                                 Image.asset(
                                                   "assets/images/default.jpg",
-                                                  fit: BoxFit.cover,
+                                                  fit: BoxFit.fill,
                                                   height:
                                                   MediaQuery
                                                       .of(context)
                                                       .size
                                                       .height *
-                                                      0.14,
+                                                      0.130,
                                                 ),
                                             errorWidget:
                                                 (context, url,
@@ -176,7 +176,7 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                   style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.w500,
-                                      fontFamily: FONT_TEXT_PRIMARY,
+                                      fontFamily: FONT_TEXT_EXTRA,
                                       color: TEXT_PRIMARY_COLOR),
                                 ),
                               ),

@@ -90,6 +90,7 @@ final splash_description = new RichText(
     style: TextStyle(
       color: Colors.white,
       fontSize: 25.0,
+      fontFamily: FONT_TEXT_EXTRA,
       fontWeight: FontWeight.bold,
     ),
   ),

@@ -112,8 +112,7 @@ class TransitionState extends State<Transition> {
         .collection("BookingDetails")
         .document(GetterSetterBookingDetails.bookingId)
         .setData({
-      "OrderId":
-      GetterSetterBookingDetails.bookingId,
+      "OrderId": GetterSetterBookingDetails.bookingId,
       "FirstName": GetterSetterUserDetails.firstName.trim().toUpperCase(),
       "MiddleName": GetterSetterUserDetails.middleName.trim().toUpperCase(),
       "LastName": GetterSetterUserDetails.lastName.trim().toUpperCase(),
@@ -133,6 +132,53 @@ class TransitionState extends State<Transition> {
       "_bookingDate": GetterSetterBookingDetails.bookingDate.trim(),
       "_timeSlot": GetterSetterBookingDetails.timeSlot.trim(),
       "_status": GetterSetterBookingDetails.status.trim(),
+      "_timeStamp": GetterSetterBookingDetails.bookingDate.split(":")[2] +
+          (GetterSetterBookingDetails.bookingDate.split(":")[1].length == 1
+              ? "0" + GetterSetterBookingDetails.bookingDate.split(":")[1]
+              : GetterSetterBookingDetails.bookingDate.split(":")[1]) +
+          (GetterSetterBookingDetails.bookingDate.split(":")[0].length == 1
+              ? "0" + GetterSetterBookingDetails.bookingDate.split(":")[0]
+              : GetterSetterBookingDetails.bookingDate.split(":")[0]) +
+          'T' +
+          (DateTime
+              .now()
+              .hour
+              .toString()
+              .length == 1
+              ? "0" + DateTime
+              .now()
+              .hour
+              .toString()
+              : DateTime
+              .now()
+              .hour
+              .toString()) +
+          (DateTime
+              .now()
+              .minute
+              .toString()
+              .length == 1
+              ? "0" + DateTime
+              .now()
+              .minute
+              .toString()
+              : DateTime
+              .now()
+              .minute
+              .toString()) +
+          (DateTime
+              .now()
+              .second
+              .toString()
+              .length == 1
+              ? "0" + DateTime
+              .now()
+              .second
+              .toString()
+              : DateTime
+              .now()
+              .second
+              .toString()),
     }).whenComplete(() {
       print("Successfull: BookingDetails add");
       Route route = HorizontalTransition(
