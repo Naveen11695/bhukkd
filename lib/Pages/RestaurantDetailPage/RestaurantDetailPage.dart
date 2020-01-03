@@ -237,6 +237,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                     .height *
                                                     0.01,
                                                 left: 10.0,
+                                                right: 10.0,
                                                 bottom: 50.0),
                                             child: Column(
                                               mainAxisAlignment:
@@ -253,59 +254,56 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
 
                                                 //----------------------------------------------------Menu----------------------------->
 
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(
-                                                      top: 2.0, bottom: 8.0),
-                                                  child: titleBar("Menu",
-                                                      c_width),
-                                                ),
-
-                                                Container(
-                                                  height: 180.0,
-                                                  width: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .width *
-                                                      1.0,
-                                                  child: Padding(
-                                                    padding:
-                                                    const EdgeInsets.only(
-                                                        left: 2.0, right: 2.0),
-                                                    child: FutureBuilder(
-                                                        future: _resMenu,
-                                                        builder:
-                                                            (
-                                                            BuildContext context,
-                                                            AsyncSnapshot
-                                                            snapShot) {
-                                                          if (snapShot
-                                                              .connectionState ==
-                                                              ConnectionState
-                                                                  .done) {
-                                                            if (snapShot.data !=
-                                                                null) {
-                                                              return buildMenu(
+                                                FutureBuilder(
+                                                    future: _resMenu,
+                                                    builder:
+                                                        (BuildContext context,
+                                                        AsyncSnapshot
+                                                        snapShot) {
+                                                      if (snapShot
+                                                          .connectionState ==
+                                                          ConnectionState
+                                                              .done) {
+                                                        if (snapShot.data !=
+                                                            null) {
+                                                          if (snapShot.data
+                                                              .toString() !=
+                                                              "[]") {
+                                                            return Container(
+                                                              height: 150,
+                                                              child: buildMenu(
                                                                   snapShot,
                                                                   context,
-                                                                  c_width);
-                                                            } else {
-                                                              return buildMenuWaiting(
-                                                                  c_width);
-                                                            }
-                                                          } else if (snapShot
-                                                              .connectionState ==
-                                                              ConnectionState
-                                                                  .waiting) {
-                                                            return buildMenuWaiting(
-                                                                c_width);
-                                                          } else {
-                                                            return buildMenuWaiting(
-                                                                c_width);
+                                                                  c_width),
+                                                            );
                                                           }
-                                                        }),
-                                                  ),
-                                                ),
+                                                          else {
+                                                            return Container();
+                                                          }
+                                                        } else {
+                                                          return Container(
+                                                            height: 150,
+                                                            child: buildMenuWaiting(
+                                                                c_width),
+                                                          );
+                                                        }
+                                                      } else if (snapShot
+                                                          .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return Container(
+                                                          height: 150,
+                                                          child: buildMenuWaiting(
+                                                              c_width),
+                                                        );
+                                                      } else {
+                                                        return Container(
+                                                          height: 150,
+                                                          child: buildMenuWaiting(
+                                                              c_width),
+                                                        );
+                                                      }
+                                                    }),
 
                                                 //----------------------------------------------------Menu-----------------------------<
 
