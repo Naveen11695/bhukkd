@@ -222,80 +222,57 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                             topRight: Radius.circular(40),
                                           ),
                                         ),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(40),
-                                              topRight: Radius.circular(40),
-                                            ),
-                                          ),
-                                          child: Padding(
-                                            padding: EdgeInsets.only(
-                                                top: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height *
-                                                    0.01,
-                                                left: 10.0,
-                                                right: 10.0,
-                                                bottom: 50.0),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                //----------------------------------------------------SubDetails----------------------------->
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                              top: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height *
+                                                  0.01,
+                                              left: 10.0,
+                                              right: 10.0,
+                                              bottom: 50.0),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              //----------------------------------------------------SubDetails----------------------------->
 
-                                                buildSubDetails(
-                                                    snapshot, context, c_width),
+                                              buildSubDetails(
+                                                  snapshot, context, c_width),
 
-                                                //----------------------------------------------------SubDetails-----------------------------<
+                                              //----------------------------------------------------SubDetails-----------------------------<
 
-                                                //----------------------------------------------------Menu----------------------------->
+                                              //----------------------------------------------------Menu----------------------------->
 
-                                                FutureBuilder(
-                                                    future: _resMenu,
-                                                    builder:
-                                                        (BuildContext context,
-                                                        AsyncSnapshot
-                                                        snapShot) {
-                                                      if (snapShot
-                                                          .connectionState ==
-                                                          ConnectionState
-                                                              .done) {
-                                                        if (snapShot.data !=
-                                                            null) {
-                                                          if (snapShot.data
-                                                              .toString() !=
-                                                              "[]") {
-                                                            return Container(
-                                                              height: 150,
-                                                              child: buildMenu(
-                                                                  snapShot,
-                                                                  context,
-                                                                  c_width),
-                                                            );
-                                                          }
-                                                          else {
-                                                            return Container();
-                                                          }
-                                                        } else {
+                                              FutureBuilder(
+                                                  future: _resMenu,
+                                                  builder:
+                                                      (BuildContext context,
+                                                      AsyncSnapshot
+                                                      snapShot) {
+                                                    if (snapShot
+                                                        .connectionState ==
+                                                        ConnectionState
+                                                            .done) {
+                                                      if (snapShot.data !=
+                                                          null) {
+                                                        if (snapShot.data
+                                                            .toString() !=
+                                                            "[]") {
                                                           return Container(
                                                             height: 150,
-                                                            child: buildMenuWaiting(
+                                                            child: buildMenu(
+                                                                snapShot,
+                                                                context,
                                                                 c_width),
                                                           );
                                                         }
-                                                      } else if (snapShot
-                                                          .connectionState ==
-                                                          ConnectionState
-                                                              .waiting) {
-                                                        return Container(
-                                                          height: 150,
-                                                          child: buildMenuWaiting(
-                                                              c_width),
-                                                        );
+                                                        else {
+                                                          return Container();
+                                                        }
                                                       } else {
                                                         return Container(
                                                           height: 150,
@@ -303,76 +280,91 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                               c_width),
                                                         );
                                                       }
-                                                    }),
+                                                    } else if (snapShot
+                                                        .connectionState ==
+                                                        ConnectionState
+                                                            .waiting) {
+                                                      return Container(
+                                                        height: 150,
+                                                        child: buildMenuWaiting(
+                                                            c_width),
+                                                      );
+                                                    } else {
+                                                      return Container(
+                                                        height: 150,
+                                                        child: buildMenuWaiting(
+                                                            c_width),
+                                                      );
+                                                    }
+                                                  }),
 
-                                                //----------------------------------------------------Menu-----------------------------<
+                                              //----------------------------------------------------Menu-----------------------------<
 
-                                                //----------------------------------------------------Address----------------------------->
+                                              //----------------------------------------------------Address----------------------------->
 
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(
-                                                      top: 8.0, bottom: 8.0),
-                                                  child:
-                                                  titleBar("Details", c_width),
-                                                ),
+                                              Padding(
+                                                padding: const EdgeInsets
+                                                    .only(
+                                                    top: 8.0, bottom: 8.0),
+                                                child:
+                                                titleBar("Details", c_width),
+                                              ),
 
-                                                buildAddress(
-                                                    snapshot, context, c_width),
+                                              buildAddress(
+                                                  snapshot, context, c_width),
 
-                                                //----------------------------------------------------Address-----------------------------<
+                                              //----------------------------------------------------Address-----------------------------<
 
-                                                SizedBox(
-                                                  height: 20,
-                                                ),
+                                              SizedBox(
+                                                height: 20,
+                                              ),
 
-                                                //----------------------------------------------------ReView----------------------------->
+                                              //----------------------------------------------------ReView----------------------------->
 
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(
-                                                      top: 8.0),
-                                                  child:
-                                                  titleBar("Reviews", c_width),
-                                                ),
+                                              Padding(
+                                                padding: const EdgeInsets
+                                                    .only(
+                                                    top: 8.0),
+                                                child:
+                                                titleBar("Reviews", c_width),
+                                              ),
 
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(bottom: 50.0),
-                                                  child: FutureBuilder(
-                                                      future: resComments,
-                                                      builder: (
-                                                          BuildContext context,
-                                                          AsyncSnapshot snapShot) {
+                                              Padding(
+                                                padding: const EdgeInsets
+                                                    .only(bottom: 50.0),
+                                                child: FutureBuilder(
+                                                    future: resComments,
+                                                    builder: (
+                                                        BuildContext context,
+                                                        AsyncSnapshot snapShot) {
+                                                      if (snapShot
+                                                          .connectionState ==
+                                                          ConnectionState
+                                                              .done) {
                                                         if (snapShot
-                                                            .connectionState ==
-                                                            ConnectionState
-                                                                .done) {
-                                                          if (snapShot
-                                                              .hasData) {
-                                                            return buildReviews(
-                                                                snapShot,
-                                                                c_width);
-                                                          } else {
-                                                            return buildRatingWaiting(
-                                                                c_width);
-                                                          }
-                                                        } else if (snapShot
-                                                            .connectionState ==
-                                                            ConnectionState
-                                                                .waiting) {
-                                                          return buildRatingWaiting(
+                                                            .hasData) {
+                                                          return buildReviews(
+                                                              snapShot,
                                                               c_width);
                                                         } else {
                                                           return buildRatingWaiting(
                                                               c_width);
                                                         }
-                                                      }),
-                                                ),
+                                                      } else if (snapShot
+                                                          .connectionState ==
+                                                          ConnectionState
+                                                              .waiting) {
+                                                        return buildRatingWaiting(
+                                                            c_width);
+                                                      } else {
+                                                        return buildRatingWaiting(
+                                                            c_width);
+                                                      }
+                                                    }),
+                                              ),
 
-                                                //----------------------------------------------------ReView-----------------------------<
-                                              ],
-                                            ),
+                                              //----------------------------------------------------ReView-----------------------------<
+                                            ],
                                           ),
                                         ),
                                       ),

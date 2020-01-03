@@ -13,6 +13,7 @@ import 'package:bhukkd/Pages/Search/SearchRestaurant.dart';
 import 'package:bhukkd/Pages/Search/search.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/CustomHorizontalScroll.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/HorizontalScroll.dart';
+import 'package:bhukkd/Pages/TrendingPage/Componets/RecommendedScroll.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -36,14 +37,8 @@ class TrendingPage extends StatefulWidget {
 
 class _TrendingPageState extends State<TrendingPage>
     with AutomaticKeepAliveClientMixin {
-  bool isInitializingRequest = false;
-  List<dynamic> rests = [];
 
-  int start;
 
-  ListView listBuilder;
-
-  String _status = "Active";
 
   @override
   bool get wantKeepAlive => true;
@@ -131,7 +126,7 @@ class _TrendingPageState extends State<TrendingPage>
                             padding: const EdgeInsets.only(top: 35.0),
                             child: Container(
                               alignment: AlignmentDirectional.topStart,
-                              padding: EdgeInsets.only(left: 18.0, bottom: 5.0),
+                              padding: EdgeInsets.only(top:10, left: 18.0),
                               child: new Text(
                                 "Near By Restaurants - - - - - - - - - - - - - - - - - - - -",
                                 textAlign: TextAlign.start,
@@ -149,11 +144,11 @@ class _TrendingPageState extends State<TrendingPage>
                           ),
                         ],
                       ),
-                      Container(height: 185, child: HorizontalScroll()),
+                      Container(height: 180, child: HorizontalScroll()),
                       Container(
                         alignment: AlignmentDirectional.topStart,
                         padding:
-                        EdgeInsets.only(top: 5, left: 18.0, bottom: 5.0),
+                        EdgeInsets.only(left: 18.0),
                         child: new Text(
                           "Top Restraunts - - - - - - - - - - - - - - - - - - - - - - - - - -",
                           textAlign: TextAlign.start,
@@ -174,15 +169,13 @@ class _TrendingPageState extends State<TrendingPage>
                             .size
                             .height * 0.19,
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(5, 2, 0, 2),
+                          padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
                           child: CustomHorizontalScroll(),
                         ),
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.height * 0.92,
-                        alignment: AlignmentDirectional.topStart,
                         padding:
-                        EdgeInsets.only(top: 5, left: 18.0, bottom: 5.0),
+                        EdgeInsets.only(left: 18.0),
                         child: Row(
                           children: <Widget>[
                             Text(
@@ -234,170 +227,15 @@ class _TrendingPageState extends State<TrendingPage>
                           ],
                         ),
                       ),
+                      Container(
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(5, 5, 0, 2),
+                          child: RecommendedScroll(),
+                        ),
+                      ),
+
                     ]),
                   ),
-                  (rests.toString().compareTo("[]") != 0)
-                      ? SliverGrid(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2),
-                          delegate: SliverChildBuilderDelegate(
-                            // ignore: missing_return
-                              (BuildContext context, int index) {
-                                if (rests[index].featured_image
-                                    .toString()
-                                    .length !=
-                                    0)
-                                  return InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          HorizontalTransition(
-                                              builder: (BuildContext context) =>
-                                                  RestaurantDetailPage(
-                                                    productid: rests[index].id,
-                                                  )));
-                                    },
-                                    child: Card(
-                                      elevation: 5,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .start,
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 15.0,
-                                                left: 2.0,
-                                                right: 2.0,
-                                                bottom: 2.0),
-                                            child: Stack(
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(
-                                                      left: 5.0, right: 10.0),
-                                                  child: Container(
-                                                    color: Colors.black,
-                                                    child: Center(
-                                                      child: CachedNetworkImage(
-                                                        imageUrl: rests[index]
-                                                            .featured_image,
-                                                        fit: BoxFit.fill,
-                                                        height:
-                                                        MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .height *
-                                                            0.14,
-                                                        width:
-                                                        MediaQuery
-                                                            .of(context)
-                                                            .size
-                                                            .width *
-                                                            0.5,
-                                                        placeholder:
-                                                            (context, url) =>
-                                                            Image.asset(
-                                                              "assets/images/default.jpg",
-                                                              fit: BoxFit.cover,
-                                                              height:
-                                                              MediaQuery
-                                                                  .of(context)
-                                                                  .size
-                                                                  .height *
-                                                                  0.14,
-                                                            ),
-                                                        errorWidget:
-                                                            (context, url,
-                                                            error) =>
-                                                            Icon(Icons.error),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  height: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height *
-                                                      .150,
-                                                  alignment: Alignment
-                                                      .bottomRight,
-                                                  child: ClipOval(
-                                                    child: getRating(
-                                                        rests[index]
-                                                            .user_rating
-                                                            .aggregate_rating
-                                                            .toString()),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 2.0, right: 2.0),
-                                            child: Text(
-                                              rests[index].name,
-                                              textAlign: TextAlign.center,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontFamily: FONT_TEXT_EXTRA,
-                                                  color: TEXT_PRIMARY_COLOR),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 2.0,
-                                                left: 10.0,
-                                                right: 10.0),
-                                            child: Container(
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .width *
-                                                  0.75,
-                                              child: Text(
-                                                rests[index].cuisines,
-                                                textAlign: TextAlign.center,
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 2,
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.w300,
-                                                    fontFamily: FONT_TEXT_SECONDARY,
-                                                    color: TEXT_SECONDARY_COLOR),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                          },
-                              childCount: rests.length,
-                              addRepaintBoundaries: true))
-                      : SliverGrid(
-                      gridDelegate:
-                      SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2),
-                      delegate: SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                            return Card(
-                              child: Center(
-                                child: FlareActor(
-                                  "assets/animations/near_by_rest_loading.flr",
-                                  animation: "loading",
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            );
-                          }, childCount: 6, addRepaintBoundaries: true))
                 ],
               ),
               new Container(
@@ -477,109 +315,18 @@ class _TrendingPageState extends State<TrendingPage>
     );
   }
 
-  final _callit = new AsyncCache(const Duration(days: 30));
 
-  get _callitAsync =>
-      _callit.fetch(() {
-        return fetchRestByCollectionID(1, "", "desc");
-      });
 
   @override
   void dispose() {
     super.dispose();
   }
 
-  Future fetchRestByCollectionID(int id, String q, String sorting) async {
-    try {
-      String city_id;
-      SearchRestraunts searchByCategory;
-      await getNearByRestaurants().then((res) {
-        if (res != null) {
-          city_id = res[0].near_by_restaurants_location["city_id"].toString();
-        }
-      });
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        bool flag = false;
-        var fireStore = Firestore.instance;
-        DocumentReference snapshot = fireStore
-            .collection('Recommended')
-            .document(city_id + "-city-" + "Popular" + '-' + start.toString());
-        await snapshot.get().then((dataSnapshot) {
-          if (dataSnapshot.exists &&
-              DateTime
-                  .now()
-                  .day != 1 &&
-              dataSnapshot.data[start.toString()] != null) {
-            var _response = dataSnapshot.data[start.toString()];
-            searchByCategory =
-                SearchRestraunts.fromJson(json.decode(_response));
-          } else {
-            flag = true;
-          }
-        });
-
-        if (flag) {
-          print("<fetchRestByCollectionID>");
-          Iterable<dynamic> key =
-              (await parseJsonFromAssets('assets/api/config.json')).values;
-          var apiKey = key.elementAt(0);
-          if (!isInitializingRequest) {
-            try {
-              setState(() {
-                isInitializingRequest = true;
-              });
-            } catch (e) {
-              print("<Categories Exception> " + e.toString());
-            }
-            if (sorting != null && id != null) {
-              http.Response _response = await http.get(
-                  "https://developers.zomato.com/api/v2.1/search?entity_id=$city_id&entity_type=city&q=$q&order=$sorting&start=$start&sort=rating",
-                  headers: {"Accept": "application/json", "user-key": apiKey});
-              saveRecommended(city_id + "-city-" + "Popular", start.toString(),
-                  _response.body);
-              searchByCategory =
-                  SearchRestraunts.fromJson(json.decode(_response.body));
-            }
-          }
-        }
-
-        if (searchByCategory != null) {
-          start += 20;
-          copydata = List.from(searchByCategory.restaurants);
-          List<dynamic> addRest = [];
-          if (copydata.length == 20)
-            addRest = new List.generate(20, (index) => copydata[index]);
-          else {
-            _status = "finished";
-          }
-          try {
-            setState(() {
-              rests.addAll(addRest);
-              isInitializingRequest = false;
-            });
-          } catch (e) {
-            print("exception <categories>: " + e.toString());
-          }
-        }
-      }
-    } on SocketException catch (_) {
-      print('not connected');
-    }
-  }
 
   @override
   void initState() {
     super.initState();
-    (DateTime
-        .now()
-        .weekday == 1)
-        ? start = 0
-        : start = DateTime
-        .now()
-        .weekday * 10;
     getMapKey();
-    _callitAsync;
   }
 
   Future<Null> refresh() async {
@@ -588,7 +335,7 @@ class _TrendingPageState extends State<TrendingPage>
     setState(() {
       CustomHorizontalScroll();
       HorizontalScroll();
-      _callitAsync;
+      RecommendedScroll();
     });
     return null;
   }

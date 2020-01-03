@@ -45,7 +45,6 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
     return Container(
         child: FutureBuilder(
           future: asyncfetchRestGeoCode(),
-          // ignore: missing_return
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.data == "error") {
@@ -202,6 +201,29 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                       },
                     );
                   },
+                );
+              }
+              else{
+                return Container(
+                  child: ListView.builder(
+                      cacheExtent: 10,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 20,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                            color: Colors.grey.shade100,
+                            height: 100,
+                            width: 300,
+                            child: new Padding(
+                              padding: EdgeInsets.only(top: 10),
+                              child: new FlareActor(
+                                "assets/animations/top_restaurant_loading.flr",
+                                animation: "circular_loading",
+                                fit: BoxFit.cover,
+                              ),
+                            ));
+                      }),
                 );
               }
             } else {

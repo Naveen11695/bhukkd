@@ -319,8 +319,15 @@ class CategoriesPageState extends State<CategoriesPage> {
           start += 20;
           copydata = List.from(searchByCategory.restaurants);
           List<dynamic> addRest = [];
-          if (copydata.length == 20)
-            addRest = new List.generate(20, (index) => copydata[index]);
+          if (copydata.length == 20) {
+            for(int i=0; i<copydata.length;i++){
+              if(copydata[i].featured_image.toString() == "") {
+              }
+              else{
+                addRest.add(copydata[i]);
+              }
+            }
+          }
           else {
             _status = "finished";
             Toast.show("Sorry! no more results", context,

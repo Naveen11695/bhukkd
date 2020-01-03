@@ -174,10 +174,16 @@ class SplashScreenState extends State<SplashScreen>
                     snapshot.data.subAdministrativeArea != null ||
                     snapshot.data.locality != null ||
                     snapshot.data.postalCode != null) {
-                  GetterSetterAppConstant.locality =
-                  snapshot.data.subLocality.toString().contains("Sector")
-                      ? snapshot.data.locality
-                      : snapshot.data.subLocality;
+                  if(snapshot.data.subLocality.toString() != "") {
+                    GetterSetterAppConstant.locality =
+                    snapshot.data.subLocality.toString().contains("Sector")
+                        ? snapshot.data.locality
+                        : snapshot.data.subLocality;
+                  }
+                  else{
+                    GetterSetterAppConstant.locality =
+                        snapshot.data.locality;
+                  }
 
                   GetterSetterAppConstant.address = snapshot.data.name +
                       " " +
