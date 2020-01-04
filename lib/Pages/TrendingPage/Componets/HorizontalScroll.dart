@@ -112,13 +112,13 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                           child: CachedNetworkImage(
                                             imageUrl: snapshot.data[index]
                                                 .featured_image,
-                                            fit: BoxFit.fill,
+                                            fit: BoxFit.cover,
                                             height:
                                             MediaQuery
                                                 .of(context)
                                                 .size
                                                 .height *
-                                                0.130,
+                                                0.110,
                                             width:
                                             MediaQuery
                                                 .of(context)
@@ -135,7 +135,7 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                                       .of(context)
                                                       .size
                                                       .height *
-                                                      0.130,
+                                                      0.110,
                                                 ),
                                             errorWidget:
                                                 (context, url,
@@ -150,7 +150,7 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                           .of(context)
                                           .size
                                           .height *
-                                          .140,
+                                          .115,
                                       alignment: Alignment
                                           .bottomRight,
                                       child: ClipOval(

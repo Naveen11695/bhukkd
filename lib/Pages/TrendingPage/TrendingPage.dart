@@ -1,27 +1,15 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
-import 'package:async/async.dart';
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterAppConstant.dart';
-import 'package:bhukkd/Components/CustomComponets.dart';
-import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
-import 'package:bhukkd/Pages/Explore/CategoriesPage.dart';
-import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
-import 'package:bhukkd/Pages/Search/SearchRestaurant.dart';
 import 'package:bhukkd/Pages/Search/search.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/CustomHorizontalScroll.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/HorizontalScroll.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/RecommendedScroll.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart' as prefix0;
 
 List<dynamic> copydata = [];
@@ -123,10 +111,11 @@ class _TrendingPageState extends State<TrendingPage>
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 35.0),
+                            padding: const EdgeInsets.only(top: 30.0),
                             child: Container(
                               alignment: AlignmentDirectional.topStart,
-                              padding: EdgeInsets.only(top:10, left: 18.0),
+                              padding: EdgeInsets.only(
+                                  top: 5.0, left: 18.0, bottom: 25.0),
                               child: new Text(
                                 "Near By Restaurants - - - - - - - - - - - - - - - - - - - -",
                                 textAlign: TextAlign.start,
@@ -144,11 +133,10 @@ class _TrendingPageState extends State<TrendingPage>
                           ),
                         ],
                       ),
-                      Container(height: 180, child: HorizontalScroll()),
+                      Container(height: 170, child: HorizontalScroll()),
                       Container(
-                        alignment: AlignmentDirectional.topStart,
                         padding:
-                        EdgeInsets.only(left: 18.0),
+                        EdgeInsets.only(left: 18.0, top: 10.0, bottom: 25.0),
                         child: new Text(
                           "Top Restraunts - - - - - - - - - - - - - - - - - - - - - - - - - -",
                           textAlign: TextAlign.start,
@@ -167,7 +155,7 @@ class _TrendingPageState extends State<TrendingPage>
                         height: MediaQuery
                             .of(context)
                             .size
-                            .height * 0.19,
+                            .height * 0.15,
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
                           child: CustomHorizontalScroll(),
@@ -175,7 +163,7 @@ class _TrendingPageState extends State<TrendingPage>
                       ),
                       Container(
                         padding:
-                        EdgeInsets.only(left: 18.0),
+                        EdgeInsets.only(left: 18.0, top: 10.0),
                         child: Row(
                           children: <Widget>[
                             Text(
@@ -233,7 +221,6 @@ class _TrendingPageState extends State<TrendingPage>
                           child: RecommendedScroll(),
                         ),
                       ),
-
                     ]),
                   ),
                 ],

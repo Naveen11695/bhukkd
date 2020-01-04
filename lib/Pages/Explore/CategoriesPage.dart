@@ -98,7 +98,7 @@ class CategoriesPageState extends State<CategoriesPage> {
             ),
             SliverGrid(
                 gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,),
                 delegate:
                 SliverChildBuilderDelegate((BuildContext context, int index) {
                   return Padding(

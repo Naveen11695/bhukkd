@@ -75,120 +75,146 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: snapshot.data.length,
                 gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 1.2,
                     crossAxisCount: 2),
                 cacheExtent: 20,
-                addAutomaticKeepAlives: true,
                 itemBuilder: (BuildContext context, int index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            HorizontalTransition(
-                                builder: (BuildContext context) =>
-                                    RestaurantDetailPage(
-                                      productid: snapshot.data[index].id,
-                                    )));
-                      },
-                      child: Card(
-                        elevation: 5,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 15.0,
-                                  left: 2.0,
-                                  right: 2.0,
-                                  bottom: 2.0),
-                              child: Stack(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 5.0, right: 10.0),
-                                    child: Container(
-                                      color: Colors.black,
-                                      child: Center(
-                                        child: CachedNetworkImage(
-                                          imageUrl: snapshot
-                                              .data[index].featured_image,
-                                          fit: BoxFit.fill,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.14,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.5,
-                                          placeholder: (context, url) =>
-                                              Image.asset(
-                                            "assets/images/default.jpg",
+                  return ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(7),
+                        bottomLeft: Radius.circular(15),
+                        bottomRight: Radius.circular(7)),
+                    child: new Container(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              HorizontalTransition(
+                                  builder: (BuildContext context) =>
+                                      RestaurantDetailPage(
+                                        productid: snapshot.data[index].id,
+                                      )));
+                        },
+                        child: Card(
+                          elevation: 5,
+                          child: Column(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment
+                                .start,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 5.0, left: 5.0, right: 2.0),
+                                child: Stack(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 2.0, right: 8.0),
+                                      child: Container(
+                                        color: Colors.black,
+                                        child: Center(
+                                          child: CachedNetworkImage(
+                                            imageUrl: snapshot.data[index]
+                                                .featured_image,
                                             fit: BoxFit.cover,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.14,
+                                            height:
+                                            MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height *
+                                                0.110,
+                                            width:
+                                            MediaQuery
+                                                .of(context)
+                                                .size
+                                                .width *
+                                                0.5,
+                                            placeholder:
+                                                (context, url) =>
+                                                Image.asset(
+                                                  "assets/images/default.jpg",
+                                                  fit: BoxFit.cover,
+                                                  height:
+                                                  MediaQuery
+                                                      .of(context)
+                                                      .size
+                                                      .height *
+                                                      0.110,
+                                                ),
+                                            errorWidget:
+                                                (context, url,
+                                                error) =>
+                                                Icon(Icons.error),
                                           ),
-                                          errorWidget:
-                                              (context, url, error) =>
-                                                  Icon(Icons.error),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Container(
-                                    height:
-                                        MediaQuery.of(context).size.height *
-                                            .150,
-                                    alignment: Alignment.bottomRight,
-                                    child: ClipOval(
-                                      child: getRating(snapshot.data[index]
-                                          .user_rating.aggregate_rating
-                                          .toString()),
+                                    Container(
+                                      height: MediaQuery
+                                          .of(context)
+                                          .size
+                                          .height *
+                                          .115,
+                                      alignment: Alignment
+                                          .bottomRight,
+                                      child: ClipOval(
+                                        child: getRating(
+                                            snapshot.data[index]
+                                                .user_rating
+                                                .aggregate_rating
+                                                .toString()),
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 2.0, right: 2.0),
-                              child: Text(
-                                snapshot.data[index].name,
-                                textAlign: TextAlign.center,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: FONT_TEXT_EXTRA,
-                                    color: TEXT_PRIMARY_COLOR),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 2.0, left: 10.0, right: 10.0),
-                              child: Container(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.75,
-                                child: Text(
-                                  snapshot.data[index].cuisines,
-                                  textAlign: TextAlign.center,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 2,
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w300,
-                                      fontFamily: FONT_TEXT_SECONDARY,
-                                      color: TEXT_SECONDARY_COLOR),
+                                  ],
                                 ),
                               ),
-                            )
-                          ],
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2.0,
+                                    right: 2.0),
+                                child: Text(
+                                  snapshot.data[index].name,
+                                  textAlign: TextAlign.center,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                      fontFamily: FONT_TEXT_EXTRA,
+                                      color: TEXT_PRIMARY_COLOR),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 2.0,
+                                    left: 10.0,
+                                    right: 10.0),
+                                child: Container(
+                                  width: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width * 0.75,
+                                  child: Text(
+                                    snapshot.data[index].cuisines,
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w300,
+                                        fontFamily: FONT_TEXT_SECONDARY,
+                                        color: TEXT_SECONDARY_COLOR),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    );
+                    ),
+                  );
                 });
           } else {
             return GridView.builder(
