@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:bhukkd/Constants/app_constant.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +10,12 @@ import 'package:photo_view/photo_view_gallery.dart';
 Widget buildMenu(AsyncSnapshot snapShot, BuildContext context, double c_width) {
   return ListView.builder(
     shrinkWrap: true,
+    cacheExtent: 3,
     scrollDirection: Axis.horizontal,
-    itemCount: 3,
+    itemCount: snapShot.data.length >= 3 ? 3 : snapShot.data.length,
     itemBuilder: (BuildContext context, int index) {
       int _index = index;
+      print("ghggghg " + snapShot.data[index].toString());
       return GestureDetector(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
@@ -96,23 +97,9 @@ Widget buildMenu(AsyncSnapshot snapShot, BuildContext context, double c_width) {
           child: Stack(
             children: <Widget>[
               Container(
-                child: CachedNetworkImage(
-                  imageUrl: snapShot.data[index],
+                child: Image.network(
+                  snapShot.data[index],
                   fit: BoxFit.fill,
-                  placeholder: (context, url) =>
-                      Center(
-                        child: Container(
-                          width: 120,
-                          height: 100,
-                          child: Center(
-                            child: new FlareActor(
-                              "assets/animations/loading_Untitled.flr",
-                              animation: "Untitled",
-                              fit: BoxFit.fitHeight,
-                            ),
-                          ),
-                        ),
-                      ),
                 ),
               ),
               Container(
@@ -133,7 +120,7 @@ Widget buildMenu(AsyncSnapshot snapShot, BuildContext context, double c_width) {
                       children: <Widget>[
                         Container(
                           child: Text(
-                            " +" + snapShot.data.length.toString(),
+                            " +" + (snapShot.data.length - 3).toString(),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontFamily: FONT_TEXT_EXTRA,
@@ -151,25 +138,11 @@ Widget buildMenu(AsyncSnapshot snapShot, BuildContext context, double c_width) {
           padding: const EdgeInsets.only(left: 5.0, right: 5.0),
           child: Container(
             color: SECONDARY_COLOR_1,
-            child: CachedNetworkImage(
-              imageUrl: snapShot.data[index],
+            child: Image.network(
+              snapShot.data[index],
               fit: BoxFit.fill,
               width: 120,
               height: 100,
-              placeholder: (context, url) =>
-                  Center(
-                    child: Container(
-                      width: 120,
-                      height: 100,
-                      child: Center(
-                        child: new FlareActor(
-                          "assets/animations/loading_Untitled.flr",
-                          animation: "Untitled",
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                    ),
-                  ),
             ),
           ),
         ),
