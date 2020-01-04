@@ -11,7 +11,6 @@ import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
 import 'package:bhukkd/Pages/Search/SearchRestaurant.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/HorizontalScroll.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
@@ -71,8 +70,8 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                 });
           } else if (snapshot.data != null) {
             return GridView.builder(
-                itemCount: snapshot.data.length >= 10 ? 10 : snapshot.data
-                    .length,
+                itemCount:
+                snapshot.data.length >= 10 ? 10 : snapshot.data.length,
                 cacheExtent: 10,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -113,12 +112,17 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                                       child: Container(
                                         color: Colors.black,
                                         child: Center(
-                                          child: CachedNetworkImage(
-                                            imageUrl: snapshot.data[index]
-                                                .featured_image,
+                                          child: Image.network(
+                                            snapshot.data[index].featured_image,
                                             fit: BoxFit.cover,
-                                            placeholder: (context, url) =>
-                                                Image.asset(
+                                            loadingBuilder:
+                                                (BuildContext context,
+                                                Widget child,
+                                                ImageChunkEvent
+                                                loadingProgress) {
+                                              if (loadingProgress == null)
+                                                return child;
+                                              return Image.asset(
                                                 "assets/images/default.jpg",
                                                 fit: BoxFit.cover,
                                                 height: MediaQuery
@@ -126,7 +130,8 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                                                     .size
                                                     .height *
                                                     0.110,
-                                                ),
+                                              );
+                                            },
                                             height: MediaQuery
                                                 .of(context)
                                                 .size

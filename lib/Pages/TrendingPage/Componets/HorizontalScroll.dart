@@ -66,7 +66,6 @@ class HorizontalScrollState extends State<HorizontalScroll> {
             );
           } else if (snapshot.data != null) {
             return ListView.builder(
-                cacheExtent: 10,
                 scrollDirection: Axis.horizontal,
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {

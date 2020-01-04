@@ -50,7 +50,6 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
               if (snapshot.data == "error") {
                 return Container(
                   child: ListView.builder(
-                      cacheExtent: 10,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemCount: 20,
