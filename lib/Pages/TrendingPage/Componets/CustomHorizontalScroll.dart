@@ -73,7 +73,6 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                 return ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  reverse: false,
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(

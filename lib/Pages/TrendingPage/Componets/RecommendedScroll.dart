@@ -11,7 +11,6 @@ import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
 import 'package:bhukkd/Pages/Search/SearchRestaurant.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/HorizontalScroll.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
@@ -71,13 +70,12 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                 });
           } else if (snapshot.data != null) {
             return GridView.builder(
+                itemCount: snapshot.data.length,
+                cacheExtent: 20,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: snapshot.data.length,
                 gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: 1.2,
-                    crossAxisCount: 2),
-                cacheExtent: 20,
+                    childAspectRatio: 1.2, crossAxisCount: 2),
                 itemBuilder: (BuildContext context, int index) {
                   return ClipRRect(
                     borderRadius: BorderRadius.only(
@@ -99,10 +97,8 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                         child: Card(
                           elevation: 5,
                           child: Column(
-                            crossAxisAlignment:
-                            CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment
-                                .start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(
@@ -115,56 +111,53 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                                       child: Container(
                                         color: Colors.black,
                                         child: Center(
-                                          child: CachedNetworkImage(
-                                            imageUrl: snapshot.data[index]
-                                                .featured_image,
+                                          child: Image.network(
+                                            snapshot.data[index].featured_image,
                                             fit: BoxFit.cover,
-                                            height:
-                                            MediaQuery
+                                            loadingBuilder:
+                                                (BuildContext context,
+                                                Widget child,
+                                                ImageChunkEvent
+                                                loadingProgress) {
+                                              if (loadingProgress == null)
+                                                return child;
+                                              return Image.asset(
+                                                "assets/images/default.jpg",
+                                                fit: BoxFit.cover,
+                                                height: MediaQuery
+                                                    .of(context)
+                                                    .size
+                                                    .height *
+                                                    0.110,
+                                              );
+                                            },
+                                            filterQuality: FilterQuality.low,
+                                            height: MediaQuery
                                                 .of(context)
                                                 .size
                                                 .height *
                                                 0.110,
-                                            width:
-                                            MediaQuery
+                                            width: MediaQuery
                                                 .of(context)
                                                 .size
                                                 .width *
                                                 0.5,
-                                            placeholder:
-                                                (context, url) =>
-                                                Image.asset(
-                                                  "assets/images/default.jpg",
-                                                  fit: BoxFit.cover,
-                                                  height:
-                                                  MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height *
-                                                      0.110,
-                                                ),
-                                            errorWidget:
-                                                (context, url,
-                                                error) =>
-                                                Icon(Icons.error),
                                           ),
                                         ),
                                       ),
                                     ),
                                     Container(
-                                      height: MediaQuery
+                                      height:
+                                      MediaQuery
                                           .of(context)
                                           .size
                                           .height *
                                           .115,
-                                      alignment: Alignment
-                                          .bottomRight,
+                                      alignment: Alignment.bottomRight,
                                       child: ClipOval(
-                                        child: getRating(
-                                            snapshot.data[index]
-                                                .user_rating
-                                                .aggregate_rating
-                                                .toString()),
+                                        child: getRating(snapshot.data[index]
+                                            .user_rating.aggregate_rating
+                                            .toString()),
                                       ),
                                     ),
                                   ],
@@ -172,8 +165,7 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 2.0,
-                                    right: 2.0),
+                                    left: 2.0, right: 2.0),
                                 child: Text(
                                   snapshot.data[index].name,
                                   textAlign: TextAlign.center,
@@ -188,11 +180,10 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 2.0,
-                                    left: 10.0,
-                                    right: 10.0),
+                                    top: 2.0, left: 10.0, right: 10.0),
                                 child: Container(
-                                  width: MediaQuery
+                                  width:
+                                  MediaQuery
                                       .of(context)
                                       .size
                                       .width * 0.75,
@@ -269,8 +260,6 @@ class RecommendedScrollState extends State<RecommendedScroll> {
   }
 }
 
-ListView listBuilder;
-
 Future fetchRestByCollectionID(
     int id, String q, String sorting, int start) async {
   try {
@@ -319,11 +308,9 @@ Future fetchRestByCollectionID(
         copydata = List.from(searchByCategory.restaurants);
         List<dynamic> addRest = [];
         if (copydata.length == 20) {
-          for(int i=0; i<copydata.length;i++){
-            if(copydata[i].featured_image.toString() == "") {
-            }
-            else{
-               addRest.add(copydata[i]);
+          for (int i = 0; i < copydata.length; i++) {
+            if (copydata[i].featured_image.toString() == "") {} else {
+              addRest.add(copydata[i]);
             }
           }
           return addRest;

@@ -25,9 +25,6 @@ class TrendingPage extends StatefulWidget {
 
 class _TrendingPageState extends State<TrendingPage>
     with AutomaticKeepAliveClientMixin {
-
-
-
   @override
   bool get wantKeepAlive => true;
 
@@ -135,8 +132,8 @@ class _TrendingPageState extends State<TrendingPage>
                       ),
                       Container(height: 170, child: HorizontalScroll()),
                       Container(
-                        padding:
-                        EdgeInsets.only(left: 18.0, top: 10.0, bottom: 25.0),
+                        padding: EdgeInsets.only(
+                            left: 18.0, top: 10.0, bottom: 25.0),
                         child: new Text(
                           "Top Restraunts - - - - - - - - - - - - - - - - - - - - - - - - - -",
                           textAlign: TextAlign.start,
@@ -162,8 +159,7 @@ class _TrendingPageState extends State<TrendingPage>
                         ),
                       ),
                       Container(
-                        padding:
-                        EdgeInsets.only(left: 18.0, top: 10.0),
+                        padding: EdgeInsets.only(left: 18.0, top: 10.0),
                         child: Row(
                           children: <Widget>[
                             Text(
@@ -181,8 +177,11 @@ class _TrendingPageState extends State<TrendingPage>
                               ),
                             ),
                             Text(
-                              "(" + prefix0.DateFormat('EEEE').format(
-                                  DateTime.now()).toString() + " Special)",
+                              "(" +
+                                  prefix0.DateFormat('EEEE')
+                                      .format(DateTime.now())
+                                      .toString() +
+                                  " Special)",
                               textAlign: TextAlign.start,
                               maxLines: 1,
                               overflow: TextOverflow.clip,
@@ -302,13 +301,10 @@ class _TrendingPageState extends State<TrendingPage>
     );
   }
 
-
-
   @override
   void dispose() {
     super.dispose();
   }
-
 
   @override
   void initState() {
