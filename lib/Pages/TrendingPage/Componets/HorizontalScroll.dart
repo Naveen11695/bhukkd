@@ -66,6 +66,7 @@ class HorizontalScrollState extends State<HorizontalScroll> {
             );
           } else if (snapshot.data != null) {
             return ListView.builder(
+                cacheExtent: 10,
                 scrollDirection: Axis.horizontal,
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
@@ -92,10 +93,8 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                         child: Card(
                           elevation: 5,
                           child: Column(
-                            crossAxisAlignment:
-                            CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment
-                                .start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
                               Padding(
                                 padding: const EdgeInsets.only(
@@ -109,55 +108,48 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                         color: Colors.black,
                                         child: Center(
                                           child: CachedNetworkImage(
-                                            imageUrl: snapshot.data[index]
-                                                .featured_image,
+                                            imageUrl: snapshot
+                                                .data[index].featured_image,
                                             fit: BoxFit.cover,
-                                            height:
-                                            MediaQuery
+                                            height: MediaQuery
                                                 .of(context)
                                                 .size
                                                 .height *
                                                 0.110,
-                                            width:
-                                            MediaQuery
+                                            width: MediaQuery
                                                 .of(context)
                                                 .size
                                                 .width *
                                                 0.5,
-                                            placeholder:
-                                                (context, url) =>
+                                            placeholder: (context, url) =>
                                                 Image.asset(
                                                   "assets/images/default.jpg",
                                                   fit: BoxFit.cover,
-                                                  height:
-                                                  MediaQuery
+                                                  height: MediaQuery
                                                       .of(context)
                                                       .size
                                                       .height *
                                                       0.110,
                                                 ),
                                             errorWidget:
-                                                (context, url,
-                                                error) =>
+                                                (context, url, error) =>
                                                 Icon(Icons.error),
                                           ),
                                         ),
                                       ),
                                     ),
                                     Container(
-                                      height: MediaQuery
+                                      height:
+                                      MediaQuery
                                           .of(context)
                                           .size
                                           .height *
                                           .115,
-                                      alignment: Alignment
-                                          .bottomRight,
+                                      alignment: Alignment.bottomRight,
                                       child: ClipOval(
-                                        child: getRating(
-                                            snapshot.data[index]
-                                                .user_rating
-                                                .aggregate_rating
-                                                .toString()),
+                                        child: getRating(snapshot.data[index]
+                                            .user_rating.aggregate_rating
+                                            .toString()),
                                       ),
                                     ),
                                   ],
@@ -165,8 +157,7 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 2.0,
-                                    right: 2.0),
+                                    left: 2.0, right: 2.0),
                                 child: Text(
                                   snapshot.data[index].name,
                                   textAlign: TextAlign.center,
@@ -181,11 +172,10 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 2.0,
-                                    left: 10.0,
-                                    right: 10.0),
+                                    top: 2.0, left: 10.0, right: 10.0),
                                 child: Container(
-                                  width: MediaQuery
+                                  width:
+                                  MediaQuery
                                       .of(context)
                                       .size
                                       .width * 0.75,
