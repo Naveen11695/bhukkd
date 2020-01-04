@@ -90,7 +90,7 @@ Widget buildMenu(AsyncSnapshot snapShot, BuildContext context, double c_width) {
                     ),
                   )));
         },
-        child: index == 2
+        child: index == 2 && snapShot.data.length != 3
             ? Padding(
           padding: const EdgeInsets.only(left: 5.0, right: 5.0),
           child: Stack(
