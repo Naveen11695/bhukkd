@@ -15,7 +15,6 @@ Widget buildMenu(AsyncSnapshot snapShot, BuildContext context, double c_width) {
     itemCount: snapShot.data.length >= 3 ? 3 : snapShot.data.length,
     itemBuilder: (BuildContext context, int index) {
       int _index = index;
-      print("ghggghg " + snapShot.data[index].toString());
       return GestureDetector(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
