@@ -7,7 +7,6 @@ import 'package:bhukkd/Components/CustomTransition.dart';
 import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/HorizontalScroll.dart';
-import 'package:bhukkd/Pages/TrendingPage/TrendingPage.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
 import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -33,8 +32,6 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
   void initState() {
     super.initState();
   }
-
-  TrendingPage trendingPage;
 
   @override
   Widget build(BuildContext context) {
@@ -111,8 +108,9 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                                         .height * .125,
                                     alignment: Alignment.bottomRight,
                                     child: ClipOval(
-                                      child: getRating(snapshot.data[index]
-                                          .user_rating.aggregate_rating
+                                      child: getRating(snapshot
+                                          .data[index].user_rating
+                                          .aggregate_rating
                                           .toString()),
                                     ),
                                   )
@@ -172,14 +170,14 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 8.0),
                                     child: getStarWidgets(
-                                      snapshot.data[index].user_rating
+                                      snapshot
+                                          .data[index].user_rating
                                           .aggregate_rating,
                                     ),
                                   ),
                                   new SizedBox(height: 8),
                                   new Row(
-                                    mainAxisAlignment: MainAxisAlignment
-                                        .start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: <Widget>[],
                                   )
                                 ],
@@ -200,8 +198,7 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                     );
                   },
                 );
-              }
-              else{
+              } else {
                 return Container(
                   child: ListView.builder(
                       cacheExtent: 10,

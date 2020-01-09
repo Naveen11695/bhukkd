@@ -19,9 +19,7 @@ import 'package:http/http.dart' as http;
 
 class HorizontalScroll extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return HorizontalScrollState();
-  }
+  HorizontalScrollState createState() => HorizontalScrollState();
 }
 
 final _fetchRestByGeoCodeData = new AsyncMemoizer();
@@ -41,7 +39,6 @@ class HorizontalScrollState extends State<HorizontalScroll> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: fetchRestByGeoCodeData(),
-      // ignore: missing_return
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data == "error") {
@@ -198,6 +195,28 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                     ),
                   );
                 });
+          }
+          else {
+            return Container(
+              child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                        color: Colors.grey.shade100,
+                        // height: 100,
+                        width: 180,
+                        child: new Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: new FlareActor(
+                            "assets/animations/near_by_rest_loading.flr",
+                            animation: "loading",
+                            fit: BoxFit.cover,
+                          ),
+                        ));
+                  }),
+            );
           }
         } else {
           return Container(

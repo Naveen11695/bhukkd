@@ -11,6 +11,7 @@ import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
 import 'package:bhukkd/Pages/Search/SearchRestaurant.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/HorizontalScroll.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,22 @@ Future fetchRestByCollectionIDAsync() => _callit.runOnce(() {
       return fetchRestByCollectionID(1, "", "desc", start);
     });
 
+
+class BodyWidget extends StatelessWidget {
+  final Color color;
+
+  BodyWidget(this.color);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100.0,
+      color: color,
+      alignment: Alignment.center,
+
+    );
+  }
+}
 class RecommendedScrollState extends State<RecommendedScroll> {
   @override
   void initState() {
@@ -71,8 +88,8 @@ class RecommendedScrollState extends State<RecommendedScroll> {
           } else if (snapshot.data != null) {
             return GridView.builder(
                 itemCount:
-                snapshot.data.length >= 10 ? 10 : snapshot.data.length,
-                cacheExtent: 10,
+                snapshot.data.length >= 8 ? 8 : snapshot.data.length,
+                cacheExtent: 8,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
@@ -112,26 +129,25 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                                       child: Container(
                                         color: Colors.black,
                                         child: Center(
-                                          child: Image.network(
-                                            snapshot.data[index].featured_image,
+                                          child: CachedNetworkImage(
+                                            imageUrl: snapshot.data[index]
+                                                .featured_image,
                                             fit: BoxFit.cover,
-                                            loadingBuilder:
-                                                (BuildContext context,
-                                                Widget child,
-                                                ImageChunkEvent
-                                                loadingProgress) {
-                                              if (loadingProgress == null)
-                                                return child;
-                                              return Image.asset(
-                                                "assets/images/default.jpg",
-                                                fit: BoxFit.cover,
-                                                height: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height *
-                                                    0.110,
-                                              );
-                                            },
+                                            placeholder: (context, url) =>
+                                            new Image.asset(
+                                              "assets/images/default.jpg",
+                                              fit: BoxFit.cover,
+                                              height: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height *
+                                                  0.110,
+                                              width: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .width *
+                                                  0.5,
+                                            ),
                                             height: MediaQuery
                                                 .of(context)
                                                 .size
