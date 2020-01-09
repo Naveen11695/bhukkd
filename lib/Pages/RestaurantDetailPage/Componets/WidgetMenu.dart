@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:bhukkd/Constants/app_constant.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -96,9 +97,12 @@ Widget buildMenu(AsyncSnapshot snapShot, BuildContext context, double c_width) {
           child: Stack(
             children: <Widget>[
               Container(
-                child: Image.network(
+                child: ExtendedImage.network(
                   snapShot.data[index],
                   fit: BoxFit.fill,
+                  filterQuality: FilterQuality.low,
+                  timeLimit: Duration(days: 1),
+                  cache: true,
                 ),
               ),
               Container(
@@ -137,11 +141,14 @@ Widget buildMenu(AsyncSnapshot snapShot, BuildContext context, double c_width) {
           padding: const EdgeInsets.only(left: 5.0, right: 5.0),
           child: Container(
             color: SECONDARY_COLOR_1,
-            child: Image.network(
+            child: ExtendedImage.network(
               snapShot.data[index],
               fit: BoxFit.fill,
               width: 120,
               height: 100,
+              filterQuality: FilterQuality.low,
+              timeLimit: Duration(days: 1),
+              cache: true,
             ),
           ),
         ),

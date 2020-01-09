@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:bhukkd/Constants/app_constant.dart';
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,14 +19,13 @@ Widget buildSlider(BuildContext context, AsyncSnapshot snapshot) {
           child: Swiper(
             autoplay: true,
             itemBuilder: (BuildContext context, int index) {
-              return CachedNetworkImage(
-                imageUrl: snapshot.data[index],
+              return ExtendedImage.network(
+                snapshot.data[index],
                 fit: BoxFit.fill,
                 height: MediaQuery.of(context).size.height * 0.5,
-                placeholder: (context, url) => Container(
-                  color: SECONDARY_COLOR_1,
-                ),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                filterQuality: FilterQuality.low,
+                timeLimit: Duration(days: 1),
+                cache: true,
               );
             },
             itemCount: (snapshot.data.length > 10) ? 10 : snapshot.data.length,

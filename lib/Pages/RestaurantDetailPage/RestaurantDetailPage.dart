@@ -39,7 +39,6 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
   var coverImage;
   var restruantInfo;
 
-
   get resDetailPageCache => _resDetailPageCache.fetch(() {
     return fetchRestaurant(widget.productid.toString());
   });
@@ -97,7 +96,6 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
   Widget getWidget() {
     return WillPopScope(
       onWillPop: () {
-        print("back button pressed");
         Navigator.pop(context, false);
         return Future.value(false);
       },
@@ -136,8 +134,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 50, vertical: 10),
-                                child: Text(
-                                    "Sorry no information available.",
+                                child: Text("Sorry no information available.",
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 15,
@@ -150,7 +147,6 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                             ],
                           ),
                         ),
-
                         InkWell(
                             onTap: () {
                               setState(() {
@@ -162,8 +158,8 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                             child: Icon(
                               FontAwesomeIcons.arrowCircleLeft,
                               color: SECONDARY_COLOR_1,
-                              size: 40,)
-                        ),
+                              size: 40,
+                            )),
                       ],
                     ),
                   );
@@ -197,8 +193,8 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                         } else if (_snapShot.data != null) {
                                           return Container(
                                             color: SECONDARY_COLOR_1,
-                                            child: buildSlider(
-                                                context, _snapShot),
+                                            child:
+                                            buildSlider(context, _snapShot),
                                           );
                                         } else {
                                           return buildSliderWaiting();
@@ -249,14 +245,12 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
 
                                               FutureBuilder(
                                                   future: _resMenu,
-                                                  builder:
-                                                      (BuildContext context,
-                                                      AsyncSnapshot
-                                                      snapShot) {
+                                                  builder: (BuildContext
+                                                  context,
+                                                      AsyncSnapshot snapShot) {
                                                     if (snapShot
                                                         .connectionState ==
-                                                        ConnectionState
-                                                            .done) {
+                                                        ConnectionState.done) {
                                                       if (snapShot.data !=
                                                           null) {
                                                         if (snapShot.data
@@ -269,14 +263,14 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                                 context,
                                                                 c_width),
                                                           );
-                                                        }
-                                                        else {
+                                                        } else {
                                                           return Container();
                                                         }
                                                       } else {
                                                         return Container(
                                                           height: 150,
-                                                          child: buildMenuWaiting(
+                                                          child:
+                                                          buildMenuWaiting(
                                                               c_width),
                                                         );
                                                       }
@@ -303,11 +297,10 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                               //----------------------------------------------------Address----------------------------->
 
                                               Padding(
-                                                padding: const EdgeInsets
-                                                    .only(
+                                                padding: const EdgeInsets.only(
                                                     top: 8.0, bottom: 8.0),
-                                                child:
-                                                titleBar("Details", c_width),
+                                                child: titleBar(
+                                                    "Details", c_width),
                                               ),
 
                                               buildAddress(
@@ -322,27 +315,26 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                               //----------------------------------------------------ReView----------------------------->
 
                                               Padding(
-                                                padding: const EdgeInsets
-                                                    .only(
+                                                padding: const EdgeInsets.only(
                                                     top: 8.0),
-                                                child:
-                                                titleBar("Reviews", c_width),
+                                                child: titleBar(
+                                                    "Reviews", c_width),
                                               ),
 
                                               Padding(
-                                                padding: const EdgeInsets
-                                                    .only(bottom: 50.0),
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 50.0),
                                                 child: FutureBuilder(
                                                     future: resComments,
-                                                    builder: (
-                                                        BuildContext context,
-                                                        AsyncSnapshot snapShot) {
+                                                    builder:
+                                                        (BuildContext context,
+                                                        AsyncSnapshot
+                                                        snapShot) {
                                                       if (snapShot
                                                           .connectionState ==
                                                           ConnectionState
                                                               .done) {
-                                                        if (snapShot
-                                                            .hasData) {
+                                                        if (snapShot.hasData) {
                                                           return buildReviews(
                                                               snapShot,
                                                               c_width);
@@ -411,8 +403,8 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                     ),
                                     Text(
                                       '₹ ' +
-                                          _securityPerPerson(snapshot
-                                              .data.restruant_Avg_cost_for_two)
+                                          _securityPerPerson(snapshot.data
+                                              .restruant_Avg_cost_for_two)
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,
@@ -428,15 +420,14 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 8.0, horizontal: 16.0),
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          10.0)),
+                                      borderRadius:
+                                      BorderRadius.circular(10.0)),
                                   onPressed: () {
                                     if (coverImage != null) {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (BuildContext context) =>
-                                                  BookingMain(
-                                                      coverImage,
+                                                  BookingMain(coverImage,
                                                       restruantInfo)));
                                     } else {
                                       print("no");

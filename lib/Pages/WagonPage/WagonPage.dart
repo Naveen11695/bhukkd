@@ -105,7 +105,8 @@ class _WagonPageState extends State<WagonPage> {
                                                                 fontFamily:
                                                                 FONT_TEXT_EXTRA,
                                                                 fontWeight:
-                                                                FontWeight.bold,
+                                                                FontWeight
+                                                                    .bold,
                                                                 color:
                                                                 TEXT_PRIMARY_COLOR,
                                                                 fontStyle:
@@ -312,7 +313,6 @@ class _WagonPageState extends State<WagonPage> {
   }
 
   String _sort = "desc";
-
 
   _getUserBooking() async {
     var snapShort = [];

@@ -11,8 +11,8 @@ import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
 import 'package:bhukkd/Pages/Search/SearchRestaurant.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/HorizontalScroll.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -32,7 +32,6 @@ Future fetchRestByCollectionIDAsync() => _callit.runOnce(() {
       return fetchRestByCollectionID(1, "", "desc", start);
     });
 
-
 class BodyWidget extends StatelessWidget {
   final Color color;
 
@@ -44,10 +43,10 @@ class BodyWidget extends StatelessWidget {
       height: 100.0,
       color: color,
       alignment: Alignment.center,
-
     );
   }
 }
+
 class RecommendedScrollState extends State<RecommendedScroll> {
   @override
   void initState() {
@@ -88,7 +87,7 @@ class RecommendedScrollState extends State<RecommendedScroll> {
           } else if (snapshot.data != null) {
             return GridView.builder(
                 itemCount:
-                snapshot.data.length >= 8 ? 8 : snapshot.data.length,
+                snapshot.data.length >= 20 ? 20 : snapshot.data.length,
                 cacheExtent: 8,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -129,25 +128,10 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                                       child: Container(
                                         color: Colors.black,
                                         child: Center(
-                                          child: CachedNetworkImage(
-                                            imageUrl: snapshot.data[index]
-                                                .featured_image,
+                                          child: ExtendedImage.network(
+                                            snapshot.data[index].thumb,
                                             fit: BoxFit.cover,
-                                            placeholder: (context, url) =>
-                                            new Image.asset(
-                                              "assets/images/default.jpg",
-                                              fit: BoxFit.cover,
-                                              height: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height *
-                                                  0.110,
-                                              width: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .width *
-                                                  0.5,
-                                            ),
+                                            filterQuality: FilterQuality.low,
                                             height: MediaQuery
                                                 .of(context)
                                                 .size
@@ -158,6 +142,8 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                                                 .size
                                                 .width *
                                                 0.5,
+                                            timeLimit: Duration(days: 1),
+                                            cache: true,
                                           ),
                                         ),
                                       ),

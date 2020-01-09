@@ -11,8 +11,8 @@ import 'package:bhukkd/Services/HttpRequest.dart';
 import 'package:bhukkd/Services/SharedPreference.dart';
 import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
 import 'package:bhukkd/models/Locations/Locations.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -44,9 +44,10 @@ class HorizontalScrollState extends State<HorizontalScroll> {
           if (snapshot.data == "error") {
             return Container(
               child: ListView.builder(
+                  addRepaintBoundaries: false,
                   shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 20,
+                  addAutomaticKeepAlives: true,
+                  itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                         color: Colors.grey.shade100,
@@ -103,10 +104,10 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                       child: Container(
                                         color: Colors.black,
                                         child: Center(
-                                          child: CachedNetworkImage(
-                                            imageUrl: snapshot
-                                                .data[index].featured_image,
+                                          child: ExtendedImage.network(
+                                            snapshot.data[index].thumb,
                                             fit: BoxFit.cover,
+                                            filterQuality: FilterQuality.low,
                                             height: MediaQuery
                                                 .of(context)
                                                 .size
@@ -117,19 +118,8 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                                 .size
                                                 .width *
                                                 0.5,
-                                            placeholder: (context, url) =>
-                                                Image.asset(
-                                                  "assets/images/default.jpg",
-                                                  fit: BoxFit.cover,
-                                                  height: MediaQuery
-                                                      .of(context)
-                                                      .size
-                                                      .height *
-                                                      0.110,
-                                                ),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                Icon(Icons.error),
+                                            timeLimit: Duration(days: 1),
+                                            cache: true,
                                           ),
                                         ),
                                       ),
@@ -195,8 +185,7 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                     ),
                   );
                 });
-          }
-          else {
+          } else {
             return Container(
               child: ListView.builder(
                   shrinkWrap: true,

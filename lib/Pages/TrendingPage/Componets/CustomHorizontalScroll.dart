@@ -9,10 +9,11 @@ import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/HorizontalScroll.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
 import 'package:bhukkd/models/GeoCodeInfo/NearByRestaurants/NearByRestaurants.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 
 class CustomHorizontalScroll extends StatefulWidget {
@@ -47,9 +48,11 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
               if (snapshot.data == "error") {
                 return Container(
                   child: ListView.builder(
+                      primary: true,
+                      addRepaintBoundaries: false,
                       shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 20,
+                      addAutomaticKeepAlives: true,
+                      itemCount: snapshot.data.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
                             color: Colors.grey.shade100,
@@ -86,18 +89,14 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                               Stack(
                                 children: <Widget>[
                                   ClipOval(
-                                    child: CachedNetworkImage(
-                                      imageUrl: snapshot.data[index].thumb,
+                                    child: ExtendedImage.network(
+                                      snapshot.data[index].thumb,
                                       fit: BoxFit.cover,
+                                      filterQuality: FilterQuality.low,
                                       width: 100,
                                       height: 105,
-                                      placeholder: (context, url) =>
-                                      new Image.asset(
-                                        "assets/images/default.jpg",
-                                        fit: BoxFit.cover,
-                                        width: 100,
-                                        height: 105,
-                                      ),
+                                      timeLimit: Duration(days: 1),
+                                      cache: true,
                                     ),
                                   ),
                                   Container(
@@ -120,14 +119,15 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                                 width: 20,
                               ),
                               new Container(
-                                height: 70,
+                                height: 60,
                                 width: 1,
                                 color: TEXT_SECONDARY_COLOR,
                               ),
                               new SizedBox(width: 20),
                               new Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Container(
                                     width: c_width,
@@ -143,7 +143,7 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        top: 5.0, bottom: 5.0),
+                                        top: 2.0, bottom: 2.0),
                                     child: Container(
                                       width: c_width * 0.75,
                                       child: new Text(
@@ -176,10 +176,6 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                                     ),
                                   ),
                                   new SizedBox(height: 8),
-                                  new Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[],
-                                  )
                                 ],
                               )
                             ],

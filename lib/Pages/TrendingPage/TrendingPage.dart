@@ -112,7 +112,7 @@ class _TrendingPageState extends State<TrendingPage>
                             child: Container(
                               alignment: AlignmentDirectional.topStart,
                               padding: EdgeInsets.only(
-                                  top: 5.0, left: 18.0, bottom: 25.0),
+                                  top: 5.0, left: 18.0, bottom: 20.0),
                               child: new Text(
                                 "Near By Restaurants - - - - - - - - - - - - - - - - - - - -",
                                 textAlign: TextAlign.start,
@@ -130,7 +130,7 @@ class _TrendingPageState extends State<TrendingPage>
                           ),
                         ],
                       ),
-                      Container(height: 170, child: HorizontalScroll()),
+                      Container(height: 165, child: HorizontalScroll()),
                       Container(
                         padding: EdgeInsets.only(
                             left: 18.0, top: 10.0, bottom: 25.0),
@@ -152,14 +152,14 @@ class _TrendingPageState extends State<TrendingPage>
                         height: MediaQuery
                             .of(context)
                             .size
-                            .height * 0.15,
+                            .height * 0.17,
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
                           child: CustomHorizontalScroll(),
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: 18.0, top: 10.0),
+                        padding: EdgeInsets.only(left: 18.0, top: 5.0),
                         child: Row(
                           children: <Widget>[
                             Text(
@@ -216,7 +216,7 @@ class _TrendingPageState extends State<TrendingPage>
                       ),
                       Container(
                         child: Padding(
-                          padding: EdgeInsets.fromLTRB(5, 5, 0, 2),
+                          padding: EdgeInsets.fromLTRB(5, 0, 0, 2),
                           child: RecommendedScroll(),
                         ),
                       ),

@@ -97,8 +97,9 @@ class CategoriesPageState extends State<CategoriesPage> {
               ),
             ),
             SliverGrid(
-                gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
                 delegate:
                 SliverChildBuilderDelegate((BuildContext context, int index) {
                   return Padding(
@@ -320,15 +321,12 @@ class CategoriesPageState extends State<CategoriesPage> {
           copydata = List.from(searchByCategory.restaurants);
           List<dynamic> addRest = [];
           if (copydata.length == 20) {
-            for(int i=0; i<copydata.length;i++){
-              if(copydata[i].featured_image.toString() == "") {
-              }
-              else{
+            for (int i = 0; i < copydata.length; i++) {
+              if (copydata[i].featured_image.toString() == "") {} else {
                 addRest.add(copydata[i]);
               }
             }
-          }
-          else {
+          } else {
             _status = "finished";
             Toast.show("Sorry! no more results", context,
                 duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
