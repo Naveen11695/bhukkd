@@ -66,6 +66,7 @@ class RecommendedScrollState extends State<RecommendedScroll> {
             return GridView.builder(
                 shrinkWrap: true,
                 addRepaintBoundaries: true,
+                padding: EdgeInsets.fromLTRB(5, 15, 5, 5),
                 itemCount: 10,
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
@@ -90,6 +91,7 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                 snapshot.data.length >= 20 ? 20 : snapshot.data.length,
                 cacheExtent: 8,
                 shrinkWrap: true,
+                padding: EdgeInsets.fromLTRB(5, 15, 5, 10),
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: 1.2, crossAxisCount: 2),
@@ -213,6 +215,7 @@ class RecommendedScrollState extends State<RecommendedScroll> {
             return GridView.builder(
                 shrinkWrap: true,
                 addRepaintBoundaries: true,
+                padding: EdgeInsets.fromLTRB(5, 15, 5, 5),
                 itemCount: 10,
                 physics: NeverScrollableScrollPhysics(),
                 gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
@@ -237,6 +240,7 @@ class RecommendedScrollState extends State<RecommendedScroll> {
           return GridView.builder(
               shrinkWrap: true,
               addRepaintBoundaries: true,
+              padding: EdgeInsets.fromLTRB(5, 15, 5, 5),
               itemCount: 10,
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(

@@ -48,10 +48,7 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
               if (snapshot.data == "error") {
                 return Container(
                   child: ListView.builder(
-                      primary: true,
-                      addRepaintBoundaries: false,
                       shrinkWrap: true,
-                      addAutomaticKeepAlives: true,
                       itemCount: snapshot.data.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
@@ -70,7 +67,10 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
                 );
               } else if (snapshot.hasData) {
                 return ListView.builder(
+                  controller: ScrollController(keepScrollOffset: false),
+                  key: ObjectKey(snapshot.data[0]),
                   shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -197,7 +197,6 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
               } else {
                 return Container(
                   child: ListView.builder(
-                      cacheExtent: 10,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemCount: 20,

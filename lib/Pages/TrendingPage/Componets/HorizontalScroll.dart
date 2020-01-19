@@ -64,7 +64,11 @@ class HorizontalScrollState extends State<HorizontalScroll> {
             );
           } else if (snapshot.data != null) {
             return ListView.builder(
+                shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
+                physics: BouncingScrollPhysics(),
+                controller: ScrollController(keepScrollOffset: false),
+                key: ObjectKey(snapshot.data[0]),
                 itemCount: snapshot.data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ClipRRect(
