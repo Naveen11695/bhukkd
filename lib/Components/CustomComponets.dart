@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:bhukkd/Constants/app_constant.dart';
 import 'package:flutter/material.dart';
@@ -102,12 +103,21 @@ TextStyle Raleway = TextStyle(
 );
 
 Widget login_background(Size size) {
+  double _sigmaX = 2.0; // from 0-10
+  double _sigmaY = 2.0; // from 0-10
+  double _opacity = 0.2; // from 0-1.0
   return Container(
-    child: Image.asset(
-      'assets/images/2.png',
-      width: size.width,
-      height: size.height,
-      fit: BoxFit.fill,
+    decoration: BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage('assets/images/2.png'),
+        fit: BoxFit.fill,
+      ),
+    ),
+    child: BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: _sigmaX, sigmaY: _sigmaY),
+      child: Container(
+        color: Colors.black.withOpacity(_opacity),
+      ),
     ),
   );
 }

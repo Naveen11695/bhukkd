@@ -84,7 +84,6 @@ class _AccountState extends State<Account> {
         ? _birthColor = Colors.grey
         : _birthColor = Colors.green;
     return Container(
-      height: double.infinity,
       width: MediaQuery.of(context).size.width,
       child: ListView(
         children: <Widget>[

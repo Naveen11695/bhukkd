@@ -49,7 +49,7 @@ class ListData extends StatelessWidget {
                       fontFamily: FONT_TEXT_EXTRA),
                 ),
                 new Padding(
-                  padding: new EdgeInsets.only(top: 5.0),
+                  padding: new EdgeInsets.only(top: 5.0, bottom: 10.0),
                   child: new Text(
                     subtitle,
                     style: new TextStyle(

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bhukkd/Auth/Home/Components/Animation/styles.dart';
 import 'package:bhukkd/Auth/Home/Components/Calender.dart';
 import 'package:bhukkd/Auth/Home/Components/HomeTopView.dart';
@@ -28,7 +30,6 @@ Animation<Alignment> buttonSwingAnimation;
 Animation<EdgeInsets> listSlidePosition;
 Animation<Color> fadeScreenAnimation;
 var animateStatus = 0;
-Size screenSize;
 String month = new DateFormat.MMMM().format(
   new DateTime.now(),
 );
@@ -40,10 +41,9 @@ class WelcomePage extends StatefulWidget {
   final GoToLoginListener goTOLoginListener;
   final screenKey;
 
-  WelcomePage(
-      {@required AnimationController controller,
-      @required this.goTOLoginListener,
-      this.screenKey})
+  WelcomePage({@required AnimationController controller,
+    @required this.goTOLoginListener,
+    this.screenKey})
       : welcomeEnterAnimation = new WelcomeEnterAnimation(controller);
 
   @override
@@ -149,8 +149,7 @@ class _WelcomePageState extends State<WelcomePage>
     return _auth.currentUser().then((val) {
       if (val == null) {
         return false;
-      }
-      else {
+      } else {
         GetterSetterUserDetails.emailId = val.email.toString();
         return true;
       }
@@ -166,26 +165,28 @@ class _WelcomePageState extends State<WelcomePage>
         child: Container(
           color: SECONDARY_COLOR,
           child: Stack(children: <Widget>[
-            Column(
-              children: <Widget>[
-                new ImageBackground(
-                  backgroundImage: backgroundImage,
-                  containerGrowAnimation: containerGrowAnimation,
-                  profileImage: profileImage,
-                  email: GetterSetterUserDetails.emailId,
-                ),
-                Card(
-                    elevation: 20,
-                    child: new Calender(
-                        margin: listSlidePosition.value * 0)),
-              ],
+            Padding(
+              padding: const EdgeInsets.only(top: 170, left: 2.0, right: 2.0),
+              child: Card(
+                  color: SECONDARY_COLOR,
+                  elevation: 20,
+                  child: new Calender(margin: listSlidePosition.value * 0)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: new ImageBackground(
+                backgroundImage: backgroundImage,
+                containerGrowAnimation: containerGrowAnimation,
+                profileImage: profileImage,
+                email: GetterSetterUserDetails.emailId,
+              ),
             ),
             Padding(
               padding: new EdgeInsets.only(
                   top: MediaQuery
                       .of(context)
                       .size
-                      .height * .37,
+                      .height * .35,
                   left: 10,
                   right: 10),
               child: Card(
@@ -211,26 +212,30 @@ class _WelcomePageState extends State<WelcomePage>
                     child: Container(
                       color: SECONDARY_COLOR,
                       child: Stack(children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            new ImageBackground(
-                              backgroundImage: backgroundImage,
-                              containerGrowAnimation: containerGrowAnimation,
-                              profileImage: profileImage,
-                              email: GetterSetterUserDetails.emailId,
-                            ),
-                            Card(
-                                elevation: 20,
-                                child: new Calender(
-                                    margin: listSlidePosition.value * 0)),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 170, left: 2.0, right: 2.0),
+                          child: Card(
+                              color: SECONDARY_COLOR,
+                              elevation: 20,
+                              child: new Calender(
+                                  margin: listSlidePosition.value * 0)),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: new ImageBackground(
+                            backgroundImage: backgroundImage,
+                            containerGrowAnimation: containerGrowAnimation,
+                            profileImage: profileImage,
+                            email: GetterSetterUserDetails.emailId,
+                          ),
                         ),
                         Padding(
                           padding: new EdgeInsets.only(
                               top: MediaQuery
                                   .of(context)
                                   .size
-                                  .height * .37,
+                                  .height * .35,
                               left: 10,
                               right: 10),
                           child: Card(
@@ -273,15 +278,15 @@ class _WelcomePageState extends State<WelcomePage>
           -widget.welcomeEnterAnimation.translation.value * size.height, 0.0),
       child: TrapozoidTopBar(
           child: Container(
-        height: size.height * 0.7,
-        color: Colors.deepOrange,
-        child: Stack(
-          children: <Widget>[
-            _buildBackgroundImage(),
-            _buildTextHeader(size, textTheme),
-          ],
-        ),
-      )),
+            height: size.height * 0.7,
+            color: Colors.deepOrange,
+            child: Stack(
+              children: <Widget>[
+                _buildBackgroundImage(),
+                _buildTextHeader(size, textTheme),
+              ],
+            ),
+          )),
     );
   }
 
@@ -328,14 +333,22 @@ class _WelcomePageState extends State<WelcomePage>
   }
 
   Widget _buildBackgroundImage() {
+    double _sigmaX = 2.0; // from 0-10
+    double _sigmaY = 2.0; // from 0-10
+    double _opacity = 0.4; // from 0-1.0
     return Container(
-      decoration: new BoxDecoration(
-          shape: BoxShape.rectangle,
-          image: DecorationImage(
-              image: new AssetImage(IMAGE_WELCOME_PATH),
-              fit: BoxFit.cover,
-              colorFilter:
-                  ColorFilter.mode(Colors.black45, BlendMode.multiply))),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(IMAGE_LOGIN_PATH),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: _sigmaX, sigmaY: _sigmaY),
+        child: Container(
+          color: Colors.black.withOpacity(_opacity),
+        ),
+      ),
     );
   }
 

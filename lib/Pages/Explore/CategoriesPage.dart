@@ -9,8 +9,8 @@ import 'package:bhukkd/Pages/RestaurantDetailPage/RestaurantDetailPage.dart';
 import 'package:bhukkd/Pages/Search/SearchRestaurant.dart';
 import 'package:bhukkd/Pages/TrendingPage/Componets/HorizontalScroll.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -127,8 +127,8 @@ class CategoriesPageState extends State<CategoriesPage> {
                                     .of(context)
                                     .size
                                     .width,
-                                child: rests[index].featured_image == null ||
-                                    rests[index].featured_image == ""
+                                child: rests[index].thumb == null ||
+                                    rests[index].thumb == ""
                                     ? Image.asset(
                                   "assets/images/default.jpg",
                                   fit: BoxFit.cover,
@@ -143,10 +143,10 @@ class CategoriesPageState extends State<CategoriesPage> {
                                     Container(
                                       color: Colors.black,
                                       child: Center(
-                                        child: CachedNetworkImage(
-                                          imageUrl:
-                                          rests[index].featured_image,
+                                        child: ExtendedImage.network(
+                                          rests[index].thumb,
                                           fit: BoxFit.cover,
+                                          filterQuality: FilterQuality.low,
                                           height: MediaQuery
                                               .of(context)
                                               .size
@@ -157,19 +157,8 @@ class CategoriesPageState extends State<CategoriesPage> {
                                               .size
                                               .width *
                                               0.5,
-                                          placeholder: (context, url) =>
-                                              Image.asset(
-                                                "assets/images/default.jpg",
-                                                fit: BoxFit.cover,
-                                                height: MediaQuery
-                                                    .of(context)
-                                                    .size
-                                                    .height *
-                                                    0.14,
-                                              ),
-                                          errorWidget:
-                                              (context, url, error) =>
-                                              Icon(Icons.error),
+                                          timeLimit: Duration(days: 1),
+                                          cache: true,
                                         ),
                                       ),
                                     ),

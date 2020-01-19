@@ -174,15 +174,13 @@ class SplashScreenState extends State<SplashScreen>
                     snapshot.data.subAdministrativeArea != null ||
                     snapshot.data.locality != null ||
                     snapshot.data.postalCode != null) {
-                  if(snapshot.data.subLocality.toString() != "") {
+                  if (snapshot.data.subLocality.toString() != "") {
                     GetterSetterAppConstant.locality =
                     snapshot.data.subLocality.toString().contains("Sector")
                         ? snapshot.data.locality
                         : snapshot.data.subLocality;
-                  }
-                  else{
-                    GetterSetterAppConstant.locality =
-                        snapshot.data.locality;
+                  } else {
+                    GetterSetterAppConstant.locality = snapshot.data.locality;
                   }
 
                   GetterSetterAppConstant.address = snapshot.data.name +
@@ -248,15 +246,16 @@ _getDataFromFireStore() async {
   if (_auth.currentUser() != null) {
     _auth.currentUser().then((val) {
       if (val != null) {
-        var fireStore = Firestore.instance;
-        DocumentReference snapshot =
-        fireStore.collection('UsersData').document(val.email);
         try {
-          snapshot.get().then((dataSnapshot) {
-            if (dataSnapshot.exists) {
-              _setData(dataSnapshot);
-            }
-          });
+          var fireStore = Firestore.instance;
+          DocumentReference snapshot =
+          fireStore.collection('UsersData').document(val.email);
+          if (snapshot != null)
+            snapshot.get().then((dataSnapshot) {
+              if (dataSnapshot.exists) {
+                _setData(dataSnapshot);
+              }
+            });
         } catch (e) {
           print("Error <Main>: " + e.toString());
         }

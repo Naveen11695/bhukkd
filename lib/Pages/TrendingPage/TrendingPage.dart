@@ -25,8 +25,6 @@ class TrendingPage extends StatefulWidget {
 }
 
 class _TrendingPageState extends State<TrendingPage> {
-
-
   Widget build(BuildContext context) {
     return Scaffold(
       body: RefreshIndicator(

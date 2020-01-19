@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterUserDetails.dart';
 import 'package:bhukkd/Auth/Login/Pages/otpPage.dart';
 import 'package:bhukkd/Auth/Login/components/Animation/login_animation.dart';
@@ -23,10 +25,9 @@ class LoginPage extends StatefulWidget {
   final String screenKey;
 
   @override
-  LoginPage(
-      {@required AnimationController controller,
-      @required this.goToWelcomeListener,
-      this.screenKey})
+  LoginPage({@required AnimationController controller,
+    @required this.goToWelcomeListener,
+    this.screenKey})
       : enterAnimation = new LoginEnterAnimation(controller);
 
   @override
@@ -49,10 +50,11 @@ class _LoginPageState extends State<LoginPage> {
     return Stack(
       children: <Widget>[
         _trapoziodView(size, textTheme),
-        _buttonContainer(size, textTheme),
         Padding(
           padding: const EdgeInsets.only(top: 40.0, left: 10.0),
           child: Container(
+            height: 50,
+            width: 50,
             child: new IconButton(
                 icon: new Icon(
                   FontAwesomeIcons.arrowLeft,
@@ -68,6 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                 }),
           ),
         ),
+        _buttonContainer(size, textTheme),
       ],
     );
   }
@@ -78,16 +81,16 @@ class _LoginPageState extends State<LoginPage> {
           0.0, -widget.enterAnimation.Ytranslation.value * size.height, 0.0),
       child: TrapozoidTopBar(
           child: Container(
-        height: size.height * 0.68,
-        color: Colors.white,
-        child: Stack(
-          children: <Widget>[
-            _buildBackgroundImage(size),
-            _buildTextHeader(size, textTheme),
-            _buildForm(size, textTheme)
-          ],
-        ),
-      )),
+            height: size.height * 0.70,
+            color: Colors.red,
+            child: Stack(
+              children: <Widget>[
+                _buildBackgroundImage(size),
+                _buildTextHeader(size, textTheme),
+                _buildForm(size, textTheme)
+              ],
+            ),
+          )),
     );
   }
 
@@ -141,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   final TextEditingController _confirmpasswordController =
-      TextEditingController();
+  TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -176,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                 enableInteractiveSelection: false,
                 controller: _confirmpasswordController,
                 validator: (val) => (val.isEmpty ||
-                        val.compareTo(_passwordController.text) != 0)
+                    val.compareTo(_passwordController.text) != 0)
                     ? 'The Password must be same.'
                     : null,
                 decoration: InputDecoration(
@@ -229,22 +232,22 @@ class _LoginPageState extends State<LoginPage> {
         switch (e.code) {
           case "ERROR_USER_NOT_FOUND":
             handleError =
-                "Email Id doesn't exist. Please check the email address.";
+            "Email Id doesn't exist. Please check the email address.";
             break;
           case "ERROR_WRONG_PASSWORD":
             handleError =
-                "Password incorrect. Please check the password again.";
+            "Password incorrect. Please check the password again.";
             break;
           case "ERROR_INVALID_EMAIL":
             handleError = "The E-mail Address must be a valid email address.";
             break;
           case "ERROR_EMAIL_ALREADY_IN_USE":
             handleError =
-                "The email address is already in use by another account.";
+            "The email address is already in use by another account.";
             break;
           case "ERROR_NETWORK_REQUEST_FAILED":
             handleError =
-                "A network timeout. Please connect to more stable network.";
+            "A network timeout. Please connect to more stable network.";
         }
         snackBar = SnackBar(content: Text(handleError));
         Scaffold.of(context).showSnackBar(snackBar);
@@ -339,11 +342,11 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buttonContainer(Size size, TextTheme textTheme) {
     return Padding(
       padding: EdgeInsets.only(
-        top: size.height * 0.70,
+        top: size.height * 0.68,
       ),
       child: Container(
         width: double.infinity,
-        child: Column(
+        child: ListView(
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -520,7 +523,7 @@ class _LoginPageState extends State<LoginPage> {
           if (val != null) {
             var fireStore = Firestore.instance;
             DocumentReference snapshot =
-                fireStore.collection('UsersData').document(val.email);
+            fireStore.collection('UsersData').document(val.email);
             snapshot.get().then((dataSnapshot) {
               if (dataSnapshot.exists) {
                 _setData(dataSnapshot);
@@ -572,7 +575,7 @@ class _LoginPageState extends State<LoginPage> {
     String _userID;
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
+    await googleUser.authentication;
     final AuthCredential credential = GoogleAuthProvider.getCredential(
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
@@ -611,16 +614,20 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildBackgroundImage(Size size) {
-    return Padding(
-      padding: EdgeInsets.only(top: size.height * 0.0),
-      child: Container(
-        decoration: new BoxDecoration(
-          shape: BoxShape.rectangle,
-          image: DecorationImage(
-              image: new AssetImage(IMAGE_LOGIN_PATH),
-              fit: BoxFit.fill,
-              colorFilter:
-                  ColorFilter.mode(Colors.black45, BlendMode.multiply)),
+    double _sigmaX = 2.0; // from 0-10
+    double _sigmaY = 2.0; // from 0-10
+    double _opacity = 0.4; // from 0-1.0
+    return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(IMAGE_LOGIN_PATH),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: _sigmaX, sigmaY: _sigmaY),
+        child: Container(
+          color: Colors.black.withOpacity(_opacity),
         ),
       ),
     );
@@ -631,14 +638,14 @@ class _LoginPageState extends State<LoginPage> {
       transform: Matrix4.translationValues(
           -widget.enterAnimation.Xtranslation.value * size.width, 0.0, 0.0),
       child: Padding(
-        padding: EdgeInsets.only(top: size.height * 0.15, left: 20, right: 20),
+        padding: EdgeInsets.only(top: size.height * 0.12, left: 20, right: 20),
         child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
               color: SECONDARY_COLOR_2,
               borderRadius: BorderRadius.all(Radius.circular(50.0))),
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(15.0),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(

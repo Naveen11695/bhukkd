@@ -10,10 +10,8 @@ Widget buildSplashScreenWaiting(Size size, double c_height) {
     body: Stack(
       fit: StackFit.passthrough,
       children: <Widget>[
-        Positioned(
-          top: 0,
-          child: login_background(size),
-        ),
+        login_background(size),
+
         Container(
           color: Colors.black45,
         ),
