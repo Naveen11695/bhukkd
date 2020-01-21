@@ -40,7 +40,7 @@ Firebase cloud-storage is used as the database. and the data is originally from 
 <a href="https://imgur.com/4oKQUQm.jpg"><img src="https://imgur.com/4oKQUQm.jpg" width="100"></a>
 <a href="https://imgur.com/jjsRiEg.jpg"><img src="https://imgur.com/jjsRiEg.jpg" width="100"></a>
 <a href="https://imgur.com/gQvAl9r.jpg"><img src="https://imgur.com/gQvAl9r.jpg" width="100"></a>
-<a href="https://imgur.com/7fCcHMP.jpg"><img src="https://imgur.com/7fCcHMP.jpg" width="100"></a>
+<a href="https://imgur.com/yBMvPe3.jpg"><img src="https://imgur.com/yBMvPe3.jpg" width="100"></a>
 </p>
 
 ## Support:
