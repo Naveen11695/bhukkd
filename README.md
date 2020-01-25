@@ -28,19 +28,19 @@ Firebase cloud-storage is used as the database. and the data is originally from 
   <a href="https://imgur.com/Mw28Pwg.jpg"><img src="https://imgur.com/Mw28Pwg.jpg" width="50"></a>
 <p><b>Appicon</b></p>
 
-<a href="https://imgur.com/cWxq960.jpg"><img src="https://imgur.com/cWxq960.jpg" width="100"></a>
-<a href="https://imgur.com/WJRrqvy.jpg"><img src="https://imgur.com/WJRrqvy.jpg" width="100"></a>
-<a href="https://imgur.com/ycKclUZ.jpg"><img src="https://imgur.com/ycKclUZ.jpg" width="100"></a>
-<a href="https://imgur.com/rZE7Ubs.jpg"><img src="https://imgur.com/rZE7Ubs.jpg" width="100"></a>
-<a href="https://imgur.com/1McLdae.jpg"><img src="https://imgur.com/1McLdae.jpg" width="100"></a>
-<a href="https://imgur.com/U3lRLIl.jpg"><img src="https://imgur.com/U3lRLIl.jpg" width="100"></a>
-<a href="https://imgur.com/6CKSOAT.jpg"><img src="https://imgur.com/6CKSOAT.jpg" width="100"></a>
-<a href="https://imgur.com/aMTWTF4.jpg"><img src="https://imgur.com/aMTWTF4.jpg" width="100"></a>
-<a href="https://imgur.com/8VCvgQR.jpg"><img src="https://imgur.com/8VCvgQR.jpg" width="100"></a>
-<a href="https://imgur.com/4oKQUQm.jpg"><img src="https://imgur.com/4oKQUQm.jpg" width="100"></a>
-<a href="https://imgur.com/jjsRiEg.jpg"><img src="https://imgur.com/jjsRiEg.jpg" width="100"></a>
-<a href="https://imgur.com/gQvAl9r.jpg"><img src="https://imgur.com/gQvAl9r.jpg" width="100"></a>
-<a href="https://imgur.com/yBMvPe3.jpg"><img src="https://imgur.com/yBMvPe3.jpg" width="100"></a>
+<a href="https://imgur.com/cWxq960.jpg"><img src="https://imgur.com/cWxq960.jpg" width="120"></a>
+<a href="https://imgur.com/WJRrqvy.jpg"><img src="https://imgur.com/WJRrqvy.jpg" width="120"></a>
+<a href="https://imgur.com/ycKclUZ.jpg"><img src="https://imgur.com/ycKclUZ.jpg" width="120"></a>
+<a href="https://imgur.com/rZE7Ubs.jpg"><img src="https://imgur.com/rZE7Ubs.jpg" width="120"></a>
+<a href="https://imgur.com/1McLdae.jpg"><img src="https://imgur.com/1McLdae.jpg" width="120"></a>
+<a href="https://imgur.com/U3lRLIl.jpg"><img src="https://imgur.com/U3lRLIl.jpg" width="120"></a>
+<a href="https://imgur.com/6CKSOAT.jpg"><img src="https://imgur.com/6CKSOAT.jpg" width="120"></a>
+<a href="https://imgur.com/aMTWTF4.jpg"><img src="https://imgur.com/aMTWTF4.jpg" width="120"></a>
+<a href="https://imgur.com/8VCvgQR.jpg"><img src="https://imgur.com/8VCvgQR.jpg" width="120"></a>
+<a href="https://imgur.com/4oKQUQm.jpg"><img src="https://imgur.com/4oKQUQm.jpg" width="120"></a>
+<a href="https://imgur.com/jjsRiEg.jpg"><img src="https://imgur.com/jjsRiEg.jpg" width="120"></a>
+<a href="https://imgur.com/gQvAl9r.jpg"><img src="https://imgur.com/gQvAl9r.jpg" width="120"></a>
+<a href="https://imgur.com/yBMvPe3.jpg"><img src="https://imgur.com/yBMvPe3.jpg" width="120"></a>
 </p>
 
 ## Support:
