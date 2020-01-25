@@ -22,7 +22,7 @@ String map_api_key;
 void getMapKey() async {
   Iterable<dynamic> key =
       (await parseJsonFromAssets('assets/api/config.json')).values;
-  map_api_key = key.elementAt(3);
+  map_api_key = key.elementAt(1);
 }
 
 Future<Map<String, dynamic>> parseJsonFromAssets(String assetsPath) async {
