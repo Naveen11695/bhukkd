@@ -2,7 +2,7 @@
 > A spicy hot place to find food that lets you book a table in nearby restaurants.
 
 ## Application detail
-This application is developed on **flutter v1.12.13+hotfix.5** for android and ios platform. You can get details about all the restaurants near your location. Moreover this application is modeled for booking the tables in the restaurants.
+This application is developed on **flutter v1.12.13+hotfix.5** for the android and ios platforms. You can get details about all the restaurants near your location. Moreover, this application is modeled for booking the tables in the restaurants.
 
 ## Database
 Firebase cloud-storage is used as the database. and the data is originally from Zomato API.
