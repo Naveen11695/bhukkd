@@ -48,8 +48,11 @@ class _CustomHorizontalScrollState extends State<CustomHorizontalScroll> {
               if (snapshot.data == "error") {
                 return Container(
                   child: ListView.builder(
+                      controller: ScrollController(keepScrollOffset: false),
+                      key: ObjectKey(snapshot.data[0]),
                       shrinkWrap: true,
-                      itemCount: snapshot.data.length,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 20,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
                             color: Colors.grey.shade100,
@@ -292,6 +295,9 @@ Future getTopRestaurants() async {
         bestRest.add(res);
       }
     }
+
+    if (bestRest.toString() == '[]')
+      return "error";
 
     return bestRest;
   } catch (e) {

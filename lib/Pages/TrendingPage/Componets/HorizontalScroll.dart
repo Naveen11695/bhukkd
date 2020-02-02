@@ -44,13 +44,15 @@ class HorizontalScrollState extends State<HorizontalScroll> {
           if (snapshot.data == "error") {
             return Container(
               child: ListView.builder(
-                  addRepaintBoundaries: false,
+                  controller: ScrollController(keepScrollOffset: false),
+                  key: ObjectKey(snapshot.data[0]),
                   shrinkWrap: true,
-                  addAutomaticKeepAlives: true,
-                  itemCount: snapshot.data.length,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 10,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
                         color: Colors.grey.shade100,
+                        // height: 100,
                         width: 180,
                         child: new Padding(
                           padding: EdgeInsets.only(top: 10),
@@ -366,6 +368,9 @@ Future getNearByRestaurants() async {
         return a.name.compareTo(b.name);
       });
     }
+    if (bestRest.toString() == '[]')
+      return "error";
+
     return bestRest;
   } catch (e) {
     print("<NearByRestaurants> Problem");
