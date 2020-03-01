@@ -1,3 +1,4 @@
+
 name: bhukkd
 description: A spicy hot place to find food that lets you book a table in nearby restaurants.
 
@@ -83,10 +84,10 @@ flutter:
           weight: 700
     - family: Montserrat
       fonts:
-        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf   
+        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
     - family: Pacifico
       fonts:
-        - asset: assets/fonts/Pacifico/Pacifico-Regular.ttf   
+        - asset: assets/fonts/Pacifico/Pacifico-Regular.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -94,49 +95,49 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  - assets/animations/near_by_rest_loading.flr
-  - assets/animations/restaurant_details.flr
-  - assets/animations/searching.flr
-  - assets/animations/comment_loading_content_loading.flr
-  - assets/animations/warning.flr
-  - assets/animations/search_location.flr
-  - assets/animations/Loading animation.flr
-  - assets/animations/loading_Untitled.flr
-  - assets/animations/dotLoader.flr
-  - assets/animations/loading_2.flr
-  - assets/animations/no_connection.flr
-  - assets/animations/top_restaurant_loading.flr
-  - assets/api/config.json
-  - assets/images/default.jpg
-  - assets/images/no_data.gif
-  - assets/images/default-avatar.jpg
-  - assets/images/icons/user.png
-  - assets/images/icons/bookings.png
-  - assets/images/icons/help.png
-  - assets/images/icons/payment_option.png
-  - assets/images/icons/privacy.png
-  - assets/images/icons/delivery.png
-  - assets/images/icons/dine_out.png
-  - assets/images/icons/night_life.png
-  - assets/images/icons/catching_up.png
-  - assets/images/icons/takeaway.png
-  - assets/images/icons/cafe.png
-  - assets/images/icons/daily_menu.png
-  - assets/images/icons/breakfast.png
-  - assets/images/icons/lunch.png
-  - assets/images/icons/dinner.png
-  - assets/images/icons/pubs_bars.png
-  - assets/images/icons/friendly_delivery.png
-  - assets/images/icons/default_userImage.png
-  - assets/images/icons/chair_red.png
-  - assets/images/icons/chair_green.png
-  - assets/images/icons/chair_gray.png
-  - assets/images/icons/club_lounges.png
-  - assets/images/not_found.gif
-  - assets/images/
+    - assets/animations/near_by_rest_loading.flr
+    - assets/animations/restaurant_details.flr
+    - assets/animations/searching.flr
+    - assets/animations/comment_loading_content_loading.flr
+    - assets/animations/warning.flr
+    - assets/animations/search_location.flr
+    - assets/animations/Loading animation.flr
+    - assets/animations/loading_Untitled.flr
+    - assets/animations/dotLoader.flr
+    - assets/animations/loading_2.flr
+    - assets/animations/no_connection.flr
+    - assets/animations/top_restaurant_loading.flr
+    - assets/api/config.json
+    - assets/images/default.jpg
+    - assets/images/no_data.gif
+    - assets/images/default-avatar.jpg
+    - assets/images/icons/user.png
+    - assets/images/icons/bookings.png
+    - assets/images/icons/help.png
+    - assets/images/icons/payment_option.png
+    - assets/images/icons/privacy.png
+    - assets/images/icons/delivery.png
+    - assets/images/icons/dine_out.png
+    - assets/images/icons/night_life.png
+    - assets/images/icons/catching_up.png
+    - assets/images/icons/takeaway.png
+    - assets/images/icons/cafe.png
+    - assets/images/icons/daily_menu.png
+    - assets/images/icons/breakfast.png
+    - assets/images/icons/lunch.png
+    - assets/images/icons/dinner.png
+    - assets/images/icons/pubs_bars.png
+    - assets/images/icons/friendly_delivery.png
+    - assets/images/icons/default_userImage.png
+    - assets/images/icons/chair_red.png
+    - assets/images/icons/chair_green.png
+    - assets/images/icons/chair_gray.png
+    - assets/images/icons/club_lounges.png
+    - assets/images/not_found.gif
+    - assets/images/
 
 
-  
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
 

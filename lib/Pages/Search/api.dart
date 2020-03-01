@@ -7,45 +7,30 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 
 
-//  static Future<List<NearByRestaurants>> getRepositoriesWithSearchQuery(String query) async {
-//
-//    String _url = "https://developers.zomato.com/api/v2.1/search?q=$query";
-//    Iterable<dynamic> key =
-//        (await parseJsonFromAssets('assets/api/config.json')).values;
-//    final jsonResponse = await http
-//        .get(Uri.encodeFull(_url), headers: {"user-key": key.elementAt(0)});
-//
-//    if (jsonResponse.statusCode == 200) {
-//      parseSearchRestraunts(jsonResponse.body).then((searchResult){
-//        searchRestraunts = searchResult;
-//      });
-//      return searchRestraunts.restaurants;
-//    }
-//   else{
-//     return null;
-//    }
-//  }
 
 getRepositoriesWithSearchQuery(String query) async {
   try {
     SearchRestraunts searchRestraunts;
-    var fireStore = Firestore.instance;
-    DocumentReference snapshot =
-    fireStore.collection('SearchRestaurants').document(
-        query);
-    await snapshot.get().then((dataSnapshot) async {
-      if (dataSnapshot.exists && DateTime
-          .now()
-          .day != 1) {
-        final response = dataSnapshot.data["source"];
-        await parseSearchRestraunts(response).then((searchResult) async {
-          searchRestraunts = searchResult;
-        });
-      }
-      else {
+//    var fireStore = Firestore.instance;
+//    DocumentReference snapshot =
+//    fireStore.collection('SearchRestaurants').document(
+//        query);
+//    await snapshot.get().then((dataSnapshot) async {
+
+// Calling from firebase disabled
+
+//      if (dataSnapshot.exists && DateTime
+//          .now()
+//          .day != 2) {
+//        final response = dataSnapshot.data["source"];
+//        await parseSearchRestraunts(response).then((searchResult) async {
+//          searchRestraunts = searchResult;
+//        });
+//      }
+//      else {
         searchRestraunts = await requestApi(query, searchRestraunts);
-      }
-      });
+//      }
+//      });
       return searchRestraunts.restaurants;
   } catch (e) {
     print("<SearchRestaurants> Problem " + e.toString());

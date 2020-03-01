@@ -471,18 +471,18 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                 } else {
                   return Container(
                     child: FlareActor(
-                      "assets/animations/restaurant_details.flr",
-                      animation: "image_loading",
-                      fit: BoxFit.fill,
+                      "assets/animations/loading_Untitled.flr",
+                      animation: "Untitled",
+                      fit: BoxFit.contain,
                     ),
                   );
                 }
               } else {
                 return Container(
                   child: FlareActor(
-                    "assets/animations/restaurant_details.flr",
-                    animation: "image_loading",
-                    fit: BoxFit.fill,
+                    "assets/animations/loading_Untitled.flr",
+                    animation: "Untitled",
+                    fit: BoxFit.contain,
                   ),
                 );
               }

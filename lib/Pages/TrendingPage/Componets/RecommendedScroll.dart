@@ -88,8 +88,8 @@ class RecommendedScrollState extends State<RecommendedScroll> {
           } else if (snapshot.data != null) {
             return GridView.builder(
                 itemCount:
-                snapshot.data.length >= 20 ? 20 : snapshot.data.length,
-                cacheExtent: 8,
+                snapshot.data.length,
+                cacheExtent: 10,
                 shrinkWrap: true,
                 padding: EdgeInsets.fromLTRB(5, 15, 5, 10),
                 physics: NeverScrollableScrollPhysics(),
