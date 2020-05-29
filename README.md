@@ -23,7 +23,7 @@ Firebase cloud-storage is used as the database. and the data is originally from 
 7. Run the command using "flutter run" to install and run the application on your phone.
   
 
-## ScreenShorts:
+## ScreenShots:
 <p float="left">
   <a href="https://imgur.com/Mw28Pwg.jpg"><img src="https://imgur.com/Mw28Pwg.jpg" width="50"></a>
 <p><b>Appicon</b></p>
