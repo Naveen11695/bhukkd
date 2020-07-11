@@ -207,10 +207,10 @@ class _LoginPageState extends State<LoginPage> {
     try {
       print("Email: " + _emailController.text.trim());
       print("password: " + _passwordController.text.trim());
-      final FirebaseUser user = await _auth.createUserWithEmailAndPassword(
+      final FirebaseUser user = (await _auth.createUserWithEmailAndPassword(
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
-      );
+      )) as FirebaseUser;
       if (user != null) {
         setState(() {
           _success = true;
@@ -444,10 +444,10 @@ class _LoginPageState extends State<LoginPage> {
   Future _signInWithEmailAndPassword() async {
     formKey.currentState.save();
     try {
-      final FirebaseUser user = await _auth.signInWithEmailAndPassword(
+      final FirebaseUser user = (await _auth.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
-      );
+      )) as FirebaseUser;
       if (user != null) {
         setState(() {
           _success = true;
@@ -580,18 +580,18 @@ class _LoginPageState extends State<LoginPage> {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    final FirebaseUser user = await _auth.signInWithCredential(credential);
-    assert(user.email != null);
-    assert(user.displayName != null);
-    assert(!user.isAnonymous);
-    assert(await user.getIdToken() != null);
+    final AuthResult user = (await _auth.signInWithCredential(credential));
+    assert(user.user.email != null);
+    assert(user.user.displayName != null);
+    assert(!user.user.isAnonymous);
+    assert(await user.user.getIdToken() != null);
 
     final FirebaseUser currentUser = await _auth.currentUser();
-    assert(user.uid == currentUser.uid);
+    assert(user.user.uid == currentUser.uid);
 
     if (user != null) {
       _success = true;
-      _userID = user.uid;
+      _userID = user.user.uid;
       print("signIn Successfull");
       if (this.mounted) {
         setState(() {

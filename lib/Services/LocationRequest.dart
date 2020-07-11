@@ -7,10 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 Position position;
 
 Future getCurrentPosition() async {
-  ServiceStatus serviceStatus = await PermissionHandler().checkServiceStatus(
-      PermissionGroup.location);
-  bool enabled = (serviceStatus == ServiceStatus.enabled);
-  if (!enabled) {
+  var status = await Permission.location.status;
+  if (status.isDenied) {
     return null;
   }
   Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);

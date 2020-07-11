@@ -298,8 +298,10 @@ Future getLocationName() async {
     _getDataFromFireStore();
     latitude = position.latitude;
     longitude = position.longitude;
+
     List<Placemark> placemark =
     await Geolocator().placemarkFromCoordinates(latitude, longitude);
+
     return placemark[0];
   } catch (e) {
     return "<Error: Connection Not Found>";

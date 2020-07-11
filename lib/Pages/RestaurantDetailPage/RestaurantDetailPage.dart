@@ -12,6 +12,7 @@ import 'package:bhukkd/Pages/RestaurantDetailPage/Componets/WidgetMenu.dart';
 import 'package:bhukkd/Pages/RestaurantDetailPage/Componets/WidgetReview.dart';
 import 'package:bhukkd/Pages/RestaurantDetailPage/Componets/WidgetSubDetails.dart';
 import 'package:bhukkd/Services/HttpRequest.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -39,21 +40,12 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
   var coverImage;
   var restruantInfo;
 
+  var textExpendValue = 1.0;
+
   get resDetailPageCache => _resDetailPageCache.fetch(() {
     return fetchRestaurant(widget.productid.toString());
   });
 
-  final resPhotosCache = new AsyncCache(const Duration(days: 30));
-
-  get _resPhotosCache => resPhotosCache.fetch(() {
-        return fetchPhotos(restruant_Photo_url);
-      });
-
-  final resMenu = new AsyncCache(const Duration(days: 30));
-
-  get _resMenu => resMenu.fetch(() {
-        return fetchMenu(Menu);
-      });
 
   final _resComments = new AsyncCache(const Duration(hours: 1));
 
@@ -179,32 +171,62 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                               expandedHeight: 300.0,
                               primary: true,
                               pinned: true,
-                              flexibleSpace: FlexibleSpaceBar(
-                                centerTitle: false,
-                                background: FutureBuilder(
-                                    future: _resPhotosCache,
-                                    builder: (BuildContext context,
-                                        AsyncSnapshot _snapShot) {
-                                      if (_snapShot.connectionState ==
-                                          ConnectionState.done) {
-                                        if (_snapShot.connectionState ==
-                                            ConnectionState.waiting) {
-                                          return buildSliderWaiting();
-                                        } else if (_snapShot.data != null) {
-                                          return Container(
-                                            color: SECONDARY_COLOR_1,
-                                            child:
-                                            buildSlider(context, _snapShot),
-                                          );
-                                        } else {
-                                          return buildSliderWaiting();
-                                        }
-                                      } else {
-                                        return buildSliderWaiting();
-                                      }
-                                    }),
-                                collapseMode: CollapseMode.parallax,
+                              title: new Text(
+                                snapshot.data.restruant_Name,
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: new TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: FONT_TEXT_EXTRA,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 0.5,
+                                  wordSpacing: 0.2,
+                                  shadows: [
+                                    Shadow(
+                                      // bottomLeft
+                                        offset: Offset(1.5, 1.5),
+                                        color: Colors.white,
+                                        blurRadius: 20),
+                                    Shadow(
+                                      // bottomRight
+                                        offset: Offset(1.5, 1.5),
+                                        color: Colors.black54,
+                                        blurRadius: 5),
+                                    Shadow(
+                                      // topRight
+                                        offset: Offset(1.5, 1.5),
+                                        color: Colors.black54,
+                                        blurRadius: 5),
+                                    Shadow(
+                                      // topLeft
+                                        offset: Offset(1.5, 1.5),
+                                        color: Colors.black54,
+                                        blurRadius: 5),
+                                  ],
+                                ),
                               ),
+                              flexibleSpace: FlexibleSpaceBar(
+                                titlePadding: EdgeInsets.zero,
+                                centerTitle: true,
+                                background: ExtendedImage.network(
+                                  snapshot.data.restruant_Thumb,
+                                  fit: BoxFit.cover,
+                                  filterQuality: FilterQuality.low,
+                                  height: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .height *
+                                      0.110,
+                                  width: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width *
+                                      0.5,
+                                  timeLimit: Duration(days: 1),
+                                  cache: true,
+                                ),
+                            ),
                             ),
                             SliverList(
                               delegate: SliverChildBuilderDelegate(
@@ -243,54 +265,54 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
 
                                               //----------------------------------------------------Menu----------------------------->
 
-                                              FutureBuilder(
-                                                  future: _resMenu,
-                                                  builder: (BuildContext
-                                                  context,
-                                                      AsyncSnapshot snapShot) {
-                                                    if (snapShot
-                                                        .connectionState ==
-                                                        ConnectionState.done) {
-                                                      if (snapShot.data !=
-                                                          null) {
-                                                        if (snapShot.data
-                                                            .toString() !=
-                                                            "[]") {
-                                                          return Container(
-                                                            height: 150,
-                                                            child: buildMenu(
-                                                                snapShot,
-                                                                context,
-                                                                c_width),
-                                                          );
-                                                        } else {
-                                                          return Container();
-                                                        }
-                                                      } else {
-                                                        return Container(
-                                                          height: 150,
-                                                          child:
-                                                          buildMenuWaiting(
-                                                              c_width),
-                                                        );
-                                                      }
-                                                    } else if (snapShot
-                                                        .connectionState ==
-                                                        ConnectionState
-                                                            .waiting) {
-                                                      return Container(
-                                                        height: 150,
-                                                        child: buildMenuWaiting(
-                                                            c_width),
-                                                      );
-                                                    } else {
-                                                      return Container(
-                                                        height: 150,
-                                                        child: buildMenuWaiting(
-                                                            c_width),
-                                                      );
-                                                    }
-                                                  }),
+//                                              FutureBuilder(
+//                                                  future: _resMenu,
+//                                                  builder: (BuildContext
+//                                                  context,
+//                                                      AsyncSnapshot snapShot) {
+//                                                    if (snapShot
+//                                                        .connectionState ==
+//                                                        ConnectionState.done) {
+//                                                      if (snapShot.data !=
+//                                                          null) {
+//                                                        if (snapShot.data
+//                                                            .toString() !=
+//                                                            "[]") {
+//                                                          return Container(
+//                                                            height: 150,
+//                                                            child: buildMenu(
+//                                                                snapShot,
+//                                                                context,
+//                                                                c_width),
+//                                                          );
+//                                                        } else {
+//                                                          return Container();
+//                                                        }
+//                                                      } else {
+//                                                        return Container(
+//                                                          height: 150,
+//                                                          child:
+//                                                          buildMenuWaiting(
+//                                                              c_width),
+//                                                        );
+//                                                      }
+//                                                    } else if (snapShot
+//                                                        .connectionState ==
+//                                                        ConnectionState
+//                                                            .waiting) {
+//                                                      return Container(
+//                                                        height: 150,
+//                                                        child: buildMenuWaiting(
+//                                                            c_width),
+//                                                      );
+//                                                    } else {
+//                                                      return Container(
+//                                                        height: 150,
+//                                                        child: buildMenuWaiting(
+//                                                            c_width),
+//                                                      );
+//                                                    }
+//                                                  }),
 
                                               //----------------------------------------------------Menu-----------------------------<
 

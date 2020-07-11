@@ -266,7 +266,7 @@ class _otpState extends State<otp> {
             otp5.text +
             otp6.text,
       );
-      final FirebaseUser user = await _auth.signInWithCredential(credential);
+      final FirebaseUser user = (await _auth.signInWithCredential(credential)) as FirebaseUser;
       final FirebaseUser currentUser = await _auth.currentUser();
       assert(user.uid == currentUser.uid);
       setState(() {

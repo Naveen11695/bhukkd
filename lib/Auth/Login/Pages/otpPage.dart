@@ -17,6 +17,7 @@ final scaffoldKey = GlobalKey<ScaffoldState>();
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 enum ConfirmAction { CANCEL, ACCEPT }
+
 String verificationId;
 final TextEditingController phoneController = TextEditingController();
 
@@ -182,7 +183,7 @@ class _otpPageState extends State<otpPage> {
               child: const Text('ACCEPT'),
               onPressed: () async {
                 Navigator.of(context).pop(ConfirmAction.ACCEPT);
-                 verifyPhoneNumber();
+                verifyPhoneNumber();
               },
             )
           ],
@@ -190,12 +191,13 @@ class _otpPageState extends State<otpPage> {
       },
     );
   }
+
   void verifyPhoneNumber() async {
     try {
-      final PhoneVerificationCompleted verificationCompleted =
+      final Function(FirebaseUser user) verificationCompleted =
           (FirebaseUser user) {
         print('signInWithPhoneNumber auto succeeded: $user');
-        Navigator.push(
+        return Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => otp()),
         );
@@ -222,13 +224,17 @@ class _otpPageState extends State<otpPage> {
         verificationId = verificationId;
       };
 
+      var user = FirebaseAuth.instance.currentUser();
+
+      user.then((val) async =>
       await _auth.verifyPhoneNumber(
           phoneNumber: "+91" + phoneController.text,
           timeout: const Duration(seconds: 5),
-          verificationCompleted: verificationCompleted,
+          verificationCompleted: verificationCompleted(val),
           verificationFailed: verificationFailed,
           codeSent: codeSent,
-          codeAutoRetrievalTimeout: codeAutoRetrievalTimeout);
+          codeAutoRetrievalTimeout: codeAutoRetrievalTimeout)
+      );
     } catch (e) {
       print(e.message);
     }

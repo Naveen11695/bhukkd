@@ -105,8 +105,7 @@ Widget buildReviews(AsyncSnapshot snapShot, double c_width) {
                       padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                       child: Row(
                         children: <Widget>[
-                          Card(
-                            elevation: 5,
+                          Container(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -130,8 +129,7 @@ Widget buildReviews(AsyncSnapshot snapShot, double c_width) {
                               ),
                             ),
                           ),
-                          Card(
-                            elevation: 5,
+                          Container(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -153,8 +151,7 @@ Widget buildReviews(AsyncSnapshot snapShot, double c_width) {
                               ),
                             ),
                           ),
-                          Card(
-                            elevation: 5,
+                          Container(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
@@ -209,24 +206,8 @@ Widget buildReviews(AsyncSnapshot snapShot, double c_width) {
 }
 
 Widget buildRatingWaiting(double c_width) {
-  return ListView.separated(
-    shrinkWrap: true,
-    physics: NeverScrollableScrollPhysics(),
-    itemCount: 3,
-    separatorBuilder: (BuildContext context, int index) {
-      return Divider(
-        color: Colors.black54,
-      );
-    },
-    itemBuilder: (BuildContext context, int index) {
-      return Card(
-        elevation: 5,
-        child: Container(
-          color: SECONDARY_COLOR_1,
-          height: 200,
-          width: double.infinity,
-        ),
-      );
-    },
+  return Container(
+    height: 10,
+    width: 10,
   );
 }
