@@ -41,9 +41,10 @@ class WelcomePage extends StatefulWidget {
   final GoToLoginListener goTOLoginListener;
   final screenKey;
 
-  WelcomePage({@required AnimationController controller,
-    @required this.goTOLoginListener,
-    this.screenKey})
+  WelcomePage(
+      {@required AnimationController controller,
+      @required this.goTOLoginListener,
+      this.screenKey})
       : welcomeEnterAnimation = new WelcomeEnterAnimation(controller);
 
   @override
@@ -183,10 +184,7 @@ class _WelcomePageState extends State<WelcomePage>
             ),
             Padding(
               padding: new EdgeInsets.only(
-                  top: MediaQuery
-                      .of(context)
-                      .size
-                      .height * .35,
+                  top: MediaQuery.of(context).size.height * .35,
                   left: 10,
                   right: 10),
               child: Card(
@@ -232,10 +230,7 @@ class _WelcomePageState extends State<WelcomePage>
                         ),
                         Padding(
                           padding: new EdgeInsets.only(
-                              top: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height * .35,
+                              top: MediaQuery.of(context).size.height * .35,
                               left: 10,
                               right: 10),
                           child: Card(
@@ -278,15 +273,15 @@ class _WelcomePageState extends State<WelcomePage>
           -widget.welcomeEnterAnimation.translation.value * size.height, 0.0),
       child: TrapozoidTopBar(
           child: Container(
-            height: size.height * 0.7,
-            color: Colors.deepOrange,
-            child: Stack(
-              children: <Widget>[
-                _buildBackgroundImage(),
-                _buildTextHeader(size, textTheme),
-              ],
-            ),
-          )),
+        height: size.height * 0.7,
+        color: Colors.deepOrange,
+        child: Stack(
+          children: <Widget>[
+            _buildBackgroundImage(),
+            _buildTextHeader(size, textTheme),
+          ],
+        ),
+      )),
     );
   }
 
@@ -370,10 +365,7 @@ class _WelcomePageState extends State<WelcomePage>
       children: <Widget>[
         SizedBox(
           width: 100,
-          height: MediaQuery
-              .of(context)
-              .size
-              .height / 30,
+          height: MediaQuery.of(context).size.height / 30,
         ),
         ListViewContent(
           listSlideAnimation: listSlideAnimation,
@@ -384,7 +376,7 @@ class _WelcomePageState extends State<WelcomePage>
           padding: const EdgeInsets.all(20.0),
           child: semi_circlar_button(
             'Sign out',
-                () async {
+            () async {
               buttonLoading = buttonSignin;
               final FirebaseUser user = await _auth.currentUser();
               if (user == null) {

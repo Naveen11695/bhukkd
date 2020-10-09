@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterAppConstant.dart';
 import 'package:bhukkd/Auth/Home/GetterSetter/GetterSetterUserDetails.dart';
 import 'package:bhukkd/Components/CustomComponets.dart';
@@ -78,14 +80,22 @@ class _AccountState extends State<Account> {
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
+  final _controller = ScrollController();
+
   Widget _buildForm() {
     Color _birthColor;
     _date == DateTime(1980, 2, 20)
         ? _birthColor = Colors.grey
         : _birthColor = Colors.green;
+
+    Timer(
+      Duration(milliseconds: 1),
+          () => _controller.jumpTo(_controller.position.minScrollExtent),
+    );
     return Container(
       width: MediaQuery.of(context).size.width,
       child: ListView(
+        controller: _controller,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(8.0),

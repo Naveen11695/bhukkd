@@ -89,7 +89,7 @@ class RecommendedScrollState extends State<RecommendedScroll> {
             return GridView.builder(
                 itemCount:
                 snapshot.data.length,
-                cacheExtent: 10,
+//                cacheExtent: 10,
                 shrinkWrap: true,
                 padding: EdgeInsets.fromLTRB(5, 15, 5, 10),
                 physics: NeverScrollableScrollPhysics(),
@@ -138,7 +138,7 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                                                 .of(context)
                                                 .size
                                                 .height *
-                                                0.110,
+                                                0.100,
                                             width: MediaQuery
                                                 .of(context)
                                                 .size
@@ -156,7 +156,7 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                                           .of(context)
                                           .size
                                           .height *
-                                          .115,
+                                          .105,
                                       alignment: Alignment.bottomRight,
                                       child: ClipOval(
                                         child: getRating(snapshot.data[index]
@@ -184,7 +184,7 @@ class RecommendedScrollState extends State<RecommendedScroll> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 2.0, left: 10.0, right: 10.0),
+                                    top: 1.0, left: 10.0, right: 10.0),
                                 child: Container(
                                   width:
                                   MediaQuery

@@ -140,7 +140,7 @@ class _ExplorePage extends State<ExplorePage> {
                                                           style: TextStyle(
                                                               color: Colors
                                                                   .white,
-                                                              fontSize: 40,
+                                                              fontSize: 30,
                                                               fontFamily: "Pacifico"),
                                                         ),
                                                       ),

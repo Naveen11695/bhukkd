@@ -16,6 +16,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class BookingMain extends StatefulWidget {
@@ -421,81 +422,81 @@ class _BookingMainState extends State<BookingMain> {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  _n.toString(),
-                                  style: _textStyle(
-                                      30, TEXT_PRIMARY_COLOR, "Pacifico"),
-                                ),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.only(top: 10.0),
-                                  child: Text(
-                                    " X ",
-                                    style: _textStyle(30,
-                                        TEXT_PRIMARY_COLOR, "Pacifico"),
-                                  ),
-                                ),
-                                Text(
-                                  '₹ ' + _securityPerPerson().toString(),
-                                  style: _textStyle(
-                                      30, TEXT_PRIMARY_COLOR, "Pacifico"),
-                                ),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.only(top: 10.0),
-                                  child: Text(
-                                    " = ",
-                                    style: _textStyle(30,
-                                        TEXT_PRIMARY_COLOR, "Pacifico"),
-                                  ),
-                                ),
-                                Text(
-                                  '₹ ' +
-                                      ((_totalSecurity() < 999)
-                                          ? _totalSecurity().toString()
-                                          : formatter
-                                          .format(_totalSecurity())),
-                                  style: _textStyle(
-                                      30,
-                                      Color.fromRGBO(12 * _Crindex, 0, 0,
-                                          _Crindex * 1.0),
-                                      "Pacifico"),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: <Widget>[
-                                _messages("Already taken", "chair_red"),
-                                _messages("Selected", "chair_green"),
-                                _messages("UnReserved", "chair_gray"),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "* Average cost per person: " +
-                                    ((widget.restruantInfo
-                                        .restruant_Avg_cost_for_two /
-                                        2))
-                                        .toString(),
-                                overflow: TextOverflow.ellipsis,
-                                textAlign: TextAlign.center,
-                                maxLines: 2,
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                _n.toString(),
                                 style: _textStyle(
                                     25, TEXT_PRIMARY_COLOR, "Pacifico"),
                               ),
+                              Padding(
+                                padding:
+                                const EdgeInsets.only(top: 10.0),
+                                child: Text(
+                                  " X ",
+                                  style: _textStyle(25,
+                                      TEXT_PRIMARY_COLOR, "Pacifico"),
+                                ),
+                              ),
+                              Text(
+                                '₹ ' + _securityPerPerson().toString(),
+                                style: _textStyle(
+                                    25, TEXT_PRIMARY_COLOR, "Pacifico"),
+                              ),
+                              Padding(
+                                padding:
+                                const EdgeInsets.only(top: 10.0),
+                                child: Text(
+                                  " = ",
+                                  style: _textStyle(25,
+                                      TEXT_PRIMARY_COLOR, "Pacifico"),
+                                ),
+                              ),
+                              Text(
+                                '₹ ' +
+                                    ((_totalSecurity() < 999)
+                                        ? _totalSecurity().toString()
+                                        : formatter
+                                        .format(_totalSecurity())),
+                                style: _textStyle(
+                                    30,
+                                    Color.fromRGBO(12 * _Crindex, 0, 0,
+                                        _Crindex * 1.0),
+                                    "Pacifico"),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              _messages("Already taken", "chair_red"),
+                              _messages("Selected", "chair_green"),
+                              _messages("UnReserved", "chair_gray"),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "* Average cost per person: " +
+                                  ((widget.restruantInfo
+                                      .restruant_Avg_cost_for_two /
+                                      2))
+                                      .toString(),
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                              style: _textStyle(
+                                  20, TEXT_PRIMARY_COLOR, "Pacifico"),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
@@ -571,21 +572,29 @@ class _BookingMainState extends State<BookingMain> {
 
   _messages(String text, String image) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Container(
-          height: 45,
-          width: 45,
-          child: Image.asset(
-            "assets/images/icons/" + image + ".png",
-            fit: BoxFit.scaleDown,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: <Widget>[
+              Container(
+                height: 45,
+                width: 45,
+                child: Image.asset(
+                  "assets/images/icons/" + image + ".png",
+                  fit: BoxFit.scaleDown,
+                ),
+              ),
+              Text(
+                text,
+                textAlign: TextAlign.center,
+                style: _textStyle(10, Colors.black45, FONT_TEXT_PRIMARY),
+              ),
+            ],
           ),
         ),
-        Text(
-          text,
-          textAlign: TextAlign.center,
-          style: _textStyle(12, Colors.black45, FONT_TEXT_PRIMARY),
-        ),
+
       ],
     );
   }
@@ -639,13 +648,13 @@ class _BookingMainState extends State<BookingMain> {
                                 child: Text(
                                   _formatDate(),
                                   style: _textStyle(
-                                      25, TEXT_PRIMARY_COLOR, "Pacifico"),
+                                      20, TEXT_PRIMARY_COLOR, "Pacifico"),
                                 ),
                               ),
                             ),
                           )),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15.0),
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
                         child: Text(
                           "* Booking Avaliable for next 7 days only.",
                           overflow: TextOverflow.ellipsis,
@@ -704,7 +713,7 @@ class _BookingMainState extends State<BookingMain> {
                               child: new Text(
                                 "9:45 AM",
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 15,
                                     color: Colors.white,
                                     fontFamily: "Montserrat-Bold"),
                               ),
@@ -724,7 +733,7 @@ class _BookingMainState extends State<BookingMain> {
                               child: new Text(
                                 "10:00 AM",
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 15,
                                     color: Colors.white,
                                     fontFamily: "Montserrat-Bold"),
                               ),
@@ -744,7 +753,7 @@ class _BookingMainState extends State<BookingMain> {
                               child: new Text(
                                 "11:00 AM",
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 15,
                                     color: Colors.white,
                                     fontFamily: "Montserrat-Bold"),
                               ),
@@ -770,7 +779,7 @@ class _BookingMainState extends State<BookingMain> {
                             child: new Text(
                               "12:00 PM",
                               style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 15,
                                   color: Colors.white,
                                   fontFamily: "Montserrat-Bold"),
                             ),
@@ -790,7 +799,7 @@ class _BookingMainState extends State<BookingMain> {
                             child: new Text(
                               "2:45 PM",
                               style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 15,
                                   color: Colors.white,
                                   fontFamily: "Montserrat-Bold"),
                             ),
@@ -810,7 +819,7 @@ class _BookingMainState extends State<BookingMain> {
                             child: new Text(
                               "4:00 PM",
                               style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 15,
                                   color: Colors.white,
                                   fontFamily: "Montserrat-Bold"),
                             ),
@@ -835,7 +844,7 @@ class _BookingMainState extends State<BookingMain> {
                             child: new Text(
                               "6:00 PM",
                               style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 15,
                                   color: Colors.white,
                                   fontFamily: "Montserrat-Bold"),
                             ),
@@ -855,7 +864,7 @@ class _BookingMainState extends State<BookingMain> {
                             child: new Text(
                               "8:00 PM",
                               style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 15,
                                   color: Colors.white,
                                   fontFamily: "Montserrat-Bold"),
                             ),
@@ -875,7 +884,7 @@ class _BookingMainState extends State<BookingMain> {
                             child: new Text(
                               "11:00 PM",
                               style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 15,
                                   color: Colors.white,
                                   fontFamily: "Montserrat-Bold"),
                             ),

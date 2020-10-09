@@ -141,7 +141,7 @@ class _SearchState extends State<SearchList> {
                                                             style: TextStyle(
                                                                 color: Colors
                                                                     .white,
-                                                                fontSize: 40,
+                                                                fontSize: 30,
                                                                 fontFamily:
                                                                 "Pacifico"),
                                                           ),

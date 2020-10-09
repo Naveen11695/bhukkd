@@ -56,17 +56,18 @@ class _ImageBackground extends State<ImageBackground> {
     );
   }
 
+  /// todo: to be updated
   _setAvtaaar() async {
-    var response;
-    var fireStore = Firestore.instance;
-    DocumentReference snapshot =
-    fireStore.collection('UsersData').document(email);
-    await snapshot.get().then((dataSnapshot) {
-      if (dataSnapshot.exists) {
-        response = dataSnapshot.data['Avataaar_index'].toString();
-      }
-    });
-    return response;
+//    var response;
+//    var fireStore = Firestore.instance;
+//    DocumentReference snapshot =
+//    fireStore.collection('UsersData').document(email);
+//    await snapshot.get().then((dataSnapshot) {
+//      if (dataSnapshot.exists) {
+//        response = dataSnapshot.data['Avataaar_index'].toString();
+//      }
+//    });
+//    return response;
   }
 
   @override
@@ -80,12 +81,12 @@ class _ImageBackground extends State<ImageBackground> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               InkWell(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) => _buildDialog(context),
-                  );
-                },
+//                onTap: () {
+//                  showDialog(
+//                    context: context,
+//                    builder: (BuildContext context) => _buildDialog(context),
+//                  );
+//                },
                 splashColor: Colors.white24,
                 highlightColor: Colors.white10,
                 child: Container(

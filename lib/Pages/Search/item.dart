@@ -47,13 +47,13 @@ class RestaurantData extends StatelessWidget {
                                   imageUrl: repo.thumb,
                                   fit: BoxFit.cover,
                                   width: 100,
-                                  height: 105,
+                                  height: 100,
                                   placeholder: (context, url) =>
                                   new Image.asset(
                                     "assets/images/default.jpg",
                                     fit: BoxFit.cover,
                                     width: 100,
-                                    height: 105,
+                                    height: 100,
                                   ),
                                 ),
                               ),
@@ -62,7 +62,7 @@ class RestaurantData extends StatelessWidget {
                                 MediaQuery
                                     .of(context)
                                     .size
-                                    .height * .125,
+                                    .height * .105,
                                 alignment: Alignment.bottomRight,
                                 child: ClipOval(
                                   child: getRating(

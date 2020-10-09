@@ -43,7 +43,7 @@ class ListData extends StatelessWidget {
                 new Text(
                   title,
                   style:
-                  new TextStyle(fontSize: 20.0,
+                  new TextStyle(fontSize: 17.0,
                       fontWeight: FontWeight.bold,
                       color: TEXT_PRIMARY_COLOR,
                       fontFamily: FONT_TEXT_EXTRA),
@@ -54,7 +54,7 @@ class ListData extends StatelessWidget {
                     subtitle,
                     style: new TextStyle(
                       color: TEXT_SECONDARY_COLOR,
-                      fontSize: 14.0,
+                      fontSize: 12.0,
                       wordSpacing: 0.5,
                       letterSpacing: 0.5,
                       fontWeight: FontWeight.w400,

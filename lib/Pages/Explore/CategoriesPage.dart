@@ -81,12 +81,12 @@ class CategoriesPageState extends State<CategoriesPage> {
               pinned: true,
               backgroundColor: SECONDARY_COLOR_1,
               floating: true,
-              expandedHeight: 200,
+              expandedHeight: 220,
               centerTitle: true,
               title: Text(
                 widget.name,
                 style: TextStyle(
-                    fontSize: 35, fontFamily: "Pacifico", color: Colors.white),
+                    fontSize: 30, fontFamily: "Pacifico", color: Colors.white),
               ),
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.asset(
@@ -151,7 +151,7 @@ class CategoriesPageState extends State<CategoriesPage> {
                                               .of(context)
                                               .size
                                               .height *
-                                              0.14,
+                                              0.120,
                                           width: MediaQuery
                                               .of(context)
                                               .size
@@ -168,7 +168,7 @@ class CategoriesPageState extends State<CategoriesPage> {
                                           .of(context)
                                           .size
                                           .height *
-                                          .140,
+                                          .125,
                                       alignment: Alignment.bottomRight,
                                       child: ClipOval(
                                         child: getRating(rests[index]
@@ -192,16 +192,19 @@ class CategoriesPageState extends State<CategoriesPage> {
                                   fontFamily: FONT_TEXT_EXTRA,
                                   color: TEXT_PRIMARY_COLOR),
                             ),
-                            Text(
-                              rests[index].cuisines,
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w300,
-                                  fontFamily: FONT_TEXT_SECONDARY,
-                                  color: TEXT_SECONDARY_COLOR),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 2.0, right: 2.0),
+                              child: Text(
+                                rests[index].cuisines,
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w300,
+                                    fontFamily: FONT_TEXT_SECONDARY,
+                                    color: TEXT_SECONDARY_COLOR),
+                              ),
                             )
                           ],
                         ),
@@ -217,12 +220,12 @@ class CategoriesPageState extends State<CategoriesPage> {
               pinned: true,
               backgroundColor: SECONDARY_COLOR_1,
               floating: true,
-              expandedHeight: 200,
+              expandedHeight: 220,
               centerTitle: true,
               title: Text(
                 widget.name,
                 style: TextStyle(
-                    fontSize: 35, fontFamily: "Pacifico", color: Colors.white),
+                    fontSize: 30, fontFamily: "Pacifico", color: Colors.white),
               ),
               flexibleSpace: FlexibleSpaceBar(
                 background: Image.asset(

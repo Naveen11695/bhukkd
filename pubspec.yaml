@@ -36,7 +36,7 @@ dependencies:
   cached_network_image: ^2.0.0
   async: any
   photo_view: ^0.4.2
-  avataaar_image: ^1.0.2
+  avataaar_image: ^1.0.8
   flutter_datetime_picker: ^1.2.5
   time_slot_picker: ^0.0.1
   flutter_map: ^0.8.2

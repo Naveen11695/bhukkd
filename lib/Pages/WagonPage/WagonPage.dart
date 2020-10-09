@@ -60,13 +60,13 @@ class _WagonPageState extends State<WagonPage> {
                                             backgroundColor: SECONDARY_COLOR_1,
                                             title: Padding(
                                               padding:
-                                              const EdgeInsets.symmetric(
-                                                  vertical: 8.0),
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 8.0),
                                               child: Text(
                                                 "Bookings history",
                                                 style: TextStyle(
                                                     fontFamily:
-                                                    FONT_TEXT_PRIMARY,
+                                                        FONT_TEXT_PRIMARY,
                                                     fontSize: 30,
                                                     fontWeight: FontWeight.bold,
                                                     wordSpacing: 2.0,
@@ -77,18 +77,17 @@ class _WagonPageState extends State<WagonPage> {
                                           ),
                                           SliverList(
                                             delegate:
-                                            SliverChildBuilderDelegate(
-                                                  (BuildContext context,
+                                                SliverChildBuilderDelegate(
+                                              (BuildContext context,
                                                   int index) {
                                                 if (snapshot.data.length ==
                                                     index) {
                                                   return Container(
                                                     height:
-                                                    MediaQuery
-                                                        .of(context)
-                                                        .size
-                                                        .height *
-                                                        .15,
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            .25,
                                                   );
                                                 } else
                                                   return Column(
@@ -99,88 +98,86 @@ class _WagonPageState extends State<WagonPage> {
                                                         title: ListTile(
                                                           title: Text(
                                                             snapshot.data[index]
-                                                            ['_resName'],
+                                                                ['_resName'],
                                                             style: new TextStyle(
                                                                 fontSize: 20.0,
                                                                 fontFamily:
-                                                                FONT_TEXT_EXTRA,
+                                                                    FONT_TEXT_EXTRA,
                                                                 fontWeight:
-                                                                FontWeight
-                                                                    .bold,
+                                                                    FontWeight
+                                                                        .bold,
                                                                 color:
-                                                                TEXT_PRIMARY_COLOR,
+                                                                    TEXT_PRIMARY_COLOR,
                                                                 fontStyle:
-                                                                FontStyle
-                                                                    .normal),
+                                                                    FontStyle
+                                                                        .normal),
                                                           ),
                                                           leading: ClipOval(
                                                             child:
-                                                            CachedNetworkImage(
+                                                                CachedNetworkImage(
                                                               imageUrl: snapshot
-                                                                  .data[
-                                                              index][
-                                                              '_resImageUrl'],
+                                                                          .data[
+                                                                      index][
+                                                                  '_resImageUrl'],
                                                               fit: BoxFit.fill,
                                                             ),
                                                           ),
                                                           trailing: Text(
                                                             snapshot.data[index]
-                                                            [
-                                                            '_timeSlot']
+                                                                    [
+                                                                    '_timeSlot']
                                                                 .toString(),
                                                             style: new TextStyle(
-                                                                fontSize: 15.0,
+                                                                fontSize: 12.0,
                                                                 fontFamily:
-                                                                FONT_TEXT_PRIMARY,
+                                                                    FONT_TEXT_PRIMARY,
                                                                 fontWeight:
-                                                                FontWeight
-                                                                    .w300,
+                                                                    FontWeight
+                                                                        .w300,
                                                                 fontStyle:
-                                                                FontStyle
-                                                                    .italic),
+                                                                    FontStyle
+                                                                        .italic),
                                                           ),
                                                           subtitle: Padding(
                                                             padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                top: 8.0,
-                                                                bottom:
-                                                                8.0),
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    top: 8.0,
+                                                                    bottom:
+                                                                        8.0),
                                                             child: Text(
-                                                              _formatDate(
-                                                                  DateTime
-                                                                      .parse(
-                                                                      snapshot
-                                                                          .data[
-                                                                      index]
+                                                              _formatDate(DateTime
+                                                                  .parse(snapshot
+                                                                              .data[
+                                                                          index]
                                                                       [
                                                                       "_timeStamp"])),
                                                               textAlign:
-                                                              TextAlign
-                                                                  .start,
+                                                                  TextAlign
+                                                                      .start,
                                                               style: TextStyle(
                                                                   fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
+                                                                      FontWeight
+                                                                          .w400,
                                                                   fontFamily:
-                                                                  FONT_TEXT_SECONDARY,
+                                                                      FONT_TEXT_SECONDARY,
                                                                   color:
-                                                                  TEXT_SECONDARY_COLOR,
+                                                                      TEXT_SECONDARY_COLOR,
                                                                   fontSize:
-                                                                  16.0),
+                                                                      13.0),
                                                             ),
                                                           ),
                                                         ),
                                                         children:
-                                                        _buildExpandableContent(
-                                                            snapshot.data[
-                                                            index]),
+                                                            _buildExpandableContent(
+                                                                snapshot.data[
+                                                                    index]),
                                                       ),
                                                     ],
                                                   );
                                               },
                                               childCount:
-                                              snapshot.data.length + 1,
+                                                  snapshot.data.length + 1,
                                             ),
                                           ),
                                         ],
@@ -194,7 +191,7 @@ class _WagonPageState extends State<WagonPage> {
                                       alignment: Alignment.bottomRight,
                                       child: Row(
                                         mainAxisAlignment:
-                                        MainAxisAlignment.end,
+                                            MainAxisAlignment.end,
                                         children: <Widget>[
                                           ClipOval(
                                             child: Material(
@@ -358,9 +355,9 @@ class _WagonPageState extends State<WagonPage> {
                   (snapShort["_status"].toString().compareTo("canceled") == 0)
                       ? Colors.red
                       : !(_islessThanNow(
-                      snapShort["_bookingDate"], snapShort["_status"]))
-                      ? Colors.green
-                      : SECONDARY_COLOR_1,
+                              snapShort["_bookingDate"], snapShort["_status"]))
+                          ? Colors.green
+                          : SECONDARY_COLOR_1,
             ),
             trailing: new Text(
               "For " + snapShort["_noOfTables"].toString() + " people.",
@@ -407,16 +404,13 @@ class _WagonPageState extends State<WagonPage> {
                   splashColor: Colors.white24,
                   highlightColor: Colors.white10,
                   child: Container(
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.30,
+                    width: MediaQuery.of(context).size.width * 0.35,
                     child: Center(
                       child: Text(
                         "View The Details",
                         textAlign: TextAlign.center,
                         style: new TextStyle(
-                            fontSize: 15.0,
+                            fontSize: 14.0,
                             fontFamily: FONT_TEXT_PRIMARY,
                             fontWeight: FontWeight.w400,
                             letterSpacing: 0.8,
@@ -433,11 +427,11 @@ class _WagonPageState extends State<WagonPage> {
                         children: <Widget>[
                           Padding(
                             padding:
-                            const EdgeInsets.only(left: 8.0, right: 8.0),
+                                const EdgeInsets.only(left: 8.0, right: 8.0),
                             child: Text(
                               " | ",
                               style: new TextStyle(
-                                  fontSize: 15.0,
+                                  fontSize: 14.0,
                                   fontFamily: FONT_TEXT_PRIMARY,
                                   fontWeight: FontWeight.w400,
                                   letterSpacing: 0.8,
@@ -457,16 +451,13 @@ class _WagonPageState extends State<WagonPage> {
                             splashColor: Colors.white24,
                             highlightColor: Colors.white10,
                             child: Container(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width * 0.30,
+                              width: MediaQuery.of(context).size.width * 0.35,
                               child: Center(
                                 child: Text(
                                   "Cancel The Bookings",
                                   textAlign: TextAlign.center,
                                   style: new TextStyle(
-                                      fontSize: 15.0,
+                                      fontSize: 14.0,
                                       fontFamily: FONT_TEXT_PRIMARY,
                                       fontWeight: FontWeight.w400,
                                       letterSpacing: 0.8,
@@ -554,7 +545,7 @@ class _WagonPageState extends State<WagonPage> {
     try {
       var fireStore = Firestore.instance;
       DocumentReference documentReference =
-      fireStore.collection('BookingDetails').document(bookId);
+          fireStore.collection('BookingDetails').document(bookId);
       documentReference.get().then((dataSnapshot) {
         if (dataSnapshot.exists) {
           documentReference
@@ -616,9 +607,9 @@ class _WagonPageState extends State<WagonPage> {
                   snapshot["_status"].toString().toUpperCase(),
                   style: TextStyle(
                       color: (snapshot["_status"]
-                          .toString()
-                          .compareTo("canceled") ==
-                          0)
+                                  .toString()
+                                  .compareTo("canceled") ==
+                              0)
                           ? Colors.red
                           : Colors.green),
                 ),

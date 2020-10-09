@@ -43,9 +43,8 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
   var textExpendValue = 1.0;
 
   get resDetailPageCache => _resDetailPageCache.fetch(() {
-    return fetchRestaurant(widget.productid.toString());
-  });
-
+        return fetchRestaurant(widget.productid.toString());
+      });
 
   final _resComments = new AsyncCache(const Duration(hours: 1));
 
@@ -184,22 +183,22 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                   wordSpacing: 0.2,
                                   shadows: [
                                     Shadow(
-                                      // bottomLeft
+                                        // bottomLeft
                                         offset: Offset(1.5, 1.5),
                                         color: Colors.white,
                                         blurRadius: 20),
                                     Shadow(
-                                      // bottomRight
+                                        // bottomRight
                                         offset: Offset(1.5, 1.5),
                                         color: Colors.black54,
                                         blurRadius: 5),
                                     Shadow(
-                                      // topRight
+                                        // topRight
                                         offset: Offset(1.5, 1.5),
                                         color: Colors.black54,
                                         blurRadius: 5),
                                     Shadow(
-                                      // topLeft
+                                        // topLeft
                                         offset: Offset(1.5, 1.5),
                                         color: Colors.black54,
                                         blurRadius: 5),
@@ -213,24 +212,18 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                   snapshot.data.restruant_Thumb,
                                   fit: BoxFit.cover,
                                   filterQuality: FilterQuality.low,
-                                  height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height *
+                                  height: MediaQuery.of(context).size.height *
                                       0.110,
-                                  width: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .width *
-                                      0.5,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
                                   timeLimit: Duration(days: 1),
                                   cache: true,
                                 ),
-                            ),
+                              ),
                             ),
                             SliverList(
                               delegate: SliverChildBuilderDelegate(
-                                    (BuildContext context, int index) {
+                                (BuildContext context, int index) {
                                   return Stack(
                                     children: <Widget>[
                                       Container(
@@ -242,19 +235,18 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                         ),
                                         child: Padding(
                                           padding: EdgeInsets.only(
-                                              top: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height *
+                                              top: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
                                                   0.01,
                                               left: 10.0,
                                               right: 10.0,
                                               bottom: 50.0),
                                           child: Column(
                                             mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                                MainAxisAlignment.start,
                                             crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                                CrossAxisAlignment.start,
                                             children: <Widget>[
                                               //----------------------------------------------------SubDetails----------------------------->
 
@@ -350,10 +342,10 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                     future: resComments,
                                                     builder:
                                                         (BuildContext context,
-                                                        AsyncSnapshot
-                                                        snapShot) {
+                                                            AsyncSnapshot
+                                                                snapShot) {
                                                       if (snapShot
-                                                          .connectionState ==
+                                                              .connectionState ==
                                                           ConnectionState
                                                               .done) {
                                                         if (snapShot.hasData) {
@@ -365,7 +357,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                                               c_width);
                                                         }
                                                       } else if (snapShot
-                                                          .connectionState ==
+                                                              .connectionState ==
                                                           ConnectionState
                                                               .waiting) {
                                                         return buildRatingWaiting(
@@ -393,10 +385,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                         Align(
                           alignment: FractionalOffset.bottomCenter,
                           child: Container(
-                            height: MediaQuery
-                                .of(context)
-                                .size
-                                .height * .08,
+                            height: MediaQuery.of(context).size.height * .08,
                             alignment: Alignment.center,
                             padding: EdgeInsets.only(
                                 top: 10.0,
@@ -426,7 +415,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                     Text(
                                       '₹ ' +
                                           _securityPerPerson(snapshot.data
-                                              .restruant_Avg_cost_for_two)
+                                                  .restruant_Avg_cost_for_two)
                                               .toString(),
                                       style: TextStyle(
                                           color: Colors.white,
@@ -443,7 +432,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                       vertical: 8.0, horizontal: 16.0),
                                   shape: RoundedRectangleBorder(
                                       borderRadius:
-                                      BorderRadius.circular(10.0)),
+                                          BorderRadius.circular(10.0)),
                                   onPressed: () {
                                     if (coverImage != null) {
                                       Navigator.of(context).push(
@@ -469,7 +458,8 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                       ),
                                       const SizedBox(width: 20.0),
                                       Container(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.only(
+                                            left: 3.0, bottom: 8.0, top: 8.0, right: 3.0),
                                         child: Icon(
                                           Icons.arrow_forward_ios,
                                           color: Colors.orange,
@@ -478,7 +468,7 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
                                         decoration: BoxDecoration(
                                             color: Colors.white,
                                             borderRadius:
-                                            BorderRadius.circular(10.0)),
+                                                BorderRadius.circular(10.0)),
                                       ),
                                     ],
                                   ),

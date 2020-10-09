@@ -118,7 +118,7 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                                 .of(context)
                                                 .size
                                                 .height *
-                                                0.110,
+                                                0.100,
                                             width: MediaQuery
                                                 .of(context)
                                                 .size
@@ -136,7 +136,7 @@ class HorizontalScrollState extends State<HorizontalScroll> {
                                           .of(context)
                                           .size
                                           .height *
-                                          .115,
+                                          .105,
                                       alignment: Alignment.bottomRight,
                                       child: ClipOval(
                                         child: getRating(snapshot.data[index]
