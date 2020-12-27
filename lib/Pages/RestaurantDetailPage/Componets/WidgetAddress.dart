@@ -3,6 +3,7 @@ import 'package:bhukkd/Services/HttpRequest.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:proj4dart/proj4dart.dart' as proj4;
 
 Widget buildAddress(
     AsyncSnapshot snapshot, BuildContext context, double c_width) {
@@ -45,23 +46,19 @@ Widget buildAddress(
               width: double.infinity,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: FlutterMap(
+                child: new FlutterMap(
                   options: new MapOptions(
                     center: new LatLng(
                         double.parse(snapshot.data.restruant_Location.latitude),
                         double.parse(
                             snapshot.data.restruant_Location.longitude)),
-                    zoom: 13.0,
+                    zoom: 15,
                   ),
                   layers: [
                     new TileLayerOptions(
-                      urlTemplate: "https://api.tiles.mapbox.com/v4/"
-                          "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
-                      additionalOptions: {
-                        'accessToken': map_api_key,
-                        'id': 'mapbox.streets',
-                      },
-                    ),
+                        urlTemplate:
+                            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                        subdomains: ['a', 'b', 'c']),
                     new MarkerLayerOptions(
                       markers: [
                         new Marker(

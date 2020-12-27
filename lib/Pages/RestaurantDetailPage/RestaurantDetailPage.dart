@@ -53,7 +53,6 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
       });
 
   AnimationController _controller;
-  Animation<double> _heightFactorAnimation;
   final double collapsedHeightFactor = 0.37;
   final double expendedHeightFactor = 0.842;
 
@@ -61,9 +60,6 @@ class RestaurantDetailPageState extends State<RestaurantDetailPage>
     super.initState();
     _controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
-    _heightFactorAnimation =
-        Tween<double>(begin: collapsedHeightFactor, end: expendedHeightFactor)
-            .animate(_controller);
   }
 
   int i = 0;

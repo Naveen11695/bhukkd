@@ -529,11 +529,15 @@ class _WagonPageState extends State<WagonPage> {
                 }
               });
             },
-            gradient: LinearGradient(colors: [
-              Color.fromRGBO(116, 116, 191, 1.0),
-              Color.fromRGBO(52, 138, 199, 1.0)
-            ]),
-          )
+            gradient: LinearGradient(
+              colors: [
+                Color.fromRGBO(116, 116, 191, 1.0),
+                Color.fromRGBO(52, 138, 199, 1.0)
+              ].toList(),
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
         ],
       ).show();
     } catch (e) {

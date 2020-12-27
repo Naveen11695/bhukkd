@@ -58,6 +58,7 @@ class SplashScreenState extends State<SplashScreen>
     return new Timer(duration, navigateTo);
   }
 
+
   void navigateTo() async {
     Navigator.pushReplacement(
         context,
@@ -104,8 +105,8 @@ class SplashScreenState extends State<SplashScreen>
 
   @override
   void dispose() {
-    super.dispose();
     controller.dispose();
+    super.dispose();
   }
 
   @override
